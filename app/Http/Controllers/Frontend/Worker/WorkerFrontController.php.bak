@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Http\Controllers\Frontend\Worker;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomWorkerRequest;
+use App\Models\Admin;
+use App\Models\AgeRange;
+use App\Models\Biography;
+use App\Models\City;
+use App\Models\Job;
+use App\Models\LanguageTitle;
+use App\Models\Nationalitie;
+use App\Models\Order;
+use App\Models\Religion;
+use App\Models\SocialType;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class WorkerFrontController extends Controller
+{
+
+
+    public function showAllWorkers(Request $request)
+    {
+        $cvs = Biography::where('status','new')
+            ->where('order_type','normal')
+            ->FilterByAge($request->age)
+            ->FilterByJob($request->job)
+            ->FilterByNationality($request->nationality)
+            ->with('recruitment_office','nationalitie','language_title',
+                'religion','job','social_type','admin','images','skills')
+            ->latest()
+            ->paginate(3);
+        $current_page = $cvs->currentPage() ;
+        $last_page =  $cvs->lastPage();
+
+        if ($request->ajax()) {
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page')
+                ->with(['cvs' => $cvs])->render();
+            return response()->json([
+                'success' => true,
+                'html' => $returnHTML,
+                'current_page' => $current_page,
+                'last_page' => $last_page,
+            ]);
+        }
+
+
+        $ages = AgeRange::get();
+        $jobs = Job::get();
+        $nationalities = Nationalitie::get();
+
+        return view('frontend.pages.all-workers.all-workers',[
+            'ages'=>$ages,
+            'jobs'=>$jobs,
+            'nationalities'=>$nationalities,
+            'cvs'=>$cvs,
+            'current_page' => $current_page,
+            'last_page' => $last_page,
+        ]);
+    }//end fun
+
+
+
+    public function completeTheRecruitmentRequest($id , Request $request)
+    {
+        $cv = Biography::findOrFail($id);
+        if ($cv->status != 'new') {
+            return response([],400);
+        }
+
+        $order_data = [
+		'biography_id'=> $cv->id,
+            'user_id'=>auth()->user()->id,
+            'status'=>"under_work",
+            "admin_id"=>$request->customerSupport,
+            'order_date'=>now()
+        ];
+         Biography::where('id',$id)->update($order_data);
+         Order::create($order_data);
+        return response([],200);
+    }//end fun
+
+
+    public function show_worker_details($id)
+    {
+        $cv = Biography::with('recruitment_office','nationalitie','language_title',
+            'religion','job','social_type','admin','images','skills')
+            ->where('id',$id)
+            ->firstOrFail();
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(3)->get();
+        $returnHTML = view("frontend.pages.all-workers.worker.worker_details")
+            ->with(['cv'=>$cv,'admins'=>$admins])
+            ->render();
+        return response()->json(array('success' => true, 'html'=>$returnHTML));
+    }//end fun
+
+
+
+    public function custom_worker_request_view()
+    {
+        $nationalities = Nationalitie::get();
+        $jobs = Job::get();
+        $ages = AgeRange::get();
+        $social_types = SocialType::get();
+        $religions = Religion::get();
+        $languages = LanguageTitle::get();
+        $cities = City::get();
+
+        return view('frontend.pages.recruitment-request.recruitment-request',[
+            'nationalities'=>$nationalities,
+            'jobs'=>$jobs,
+            'ages'=>$ages,
+            'social_types'=>$social_types,
+            'religions'=>$religions,
+            'languages'=>$languages,
+            'cities'=>$cities,
+        ]);
+    }
+
+    public function makeCustomRecruitmentRequest(CustomWorkerRequest $request)
+    {
+
+        $user = User::create([
+            'name'=>$request->name,
+            'phone'=>$request->phone,
+            'city_id'=>$request->city_id,
+            'type'=>'employer',
+        ]);
+
+        Biography::create([
+            'user_id'=>$user->id,
+            'status'=>"under_work",
+            'order_type'=>"special",
+            'tfeez_number'=>$request->tfeez_number,
+            'nationalitie_id'=>$request->nationalitie_id,
+            'job_id'=>$request->job_id,
+            'order_of_age_id'=>$request->order_of_age_id,
+            'social_type_id'=>$request->social_type_id,
+            'religion_id'=>$request->religion_id,
+            'language_title_id'=>$request->language_title_id,
+            'type_of_experience'=>$request->type_of_experience,
+            'special_requirement'=>$request->special_requirement,
+            'order_date'=>now(),
+        ]);
+
+        return response()->json([],200);
+    }//end fun
+
+}//end class

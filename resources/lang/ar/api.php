@@ -1,0 +1,18 @@
+<?php return array (
+  'All items' => 'جميع العناصر',
+  'not found' => 'غير موجود',
+  'The code is wrong' => 'الرمز خاطئ',
+  'store disactive' => 'المخزن غير متاح',
+  'status not found' => 'الحالة غير متاحة حاليا',
+  'khedmaty' => 'خدمتي',
+  'services' => 'Services',
+  'service' => 'Service',
+  'nationalities' => 'Nationalities',
+  'nationality' => 'Nationality',
+  'questions' => 'Questions',
+  'question' => 'Question',
+  'about_us' => 'About us',
+  'sliders' => 'Sliders',
+  'slider' => 'Slider',
+  'return_request' => 'Return request',
+);

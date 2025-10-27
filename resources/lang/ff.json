@@ -1,0 +1,218 @@
+{
+    "responseText": {
+        "data": {
+            "list": [
+                {
+                    "id": 147,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_SHULI AKTER KALI - 10-modified.jpeg_1672044999.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A05121555",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 37,
+                    "salary": 1000
+                },
+                {
+                    "id": 144,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_NAZMA KHATUN - 7-modified.jpeg_1672045070.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A05346323",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 34,
+                    "salary": 1000
+                },
+                {
+                    "id": 143,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_RAJIA BEGUM - 6-modified.jpeg_1672045095.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A05442517",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 34,
+                    "salary": 1000
+                },
+                {
+                    "id": 142,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_FATEMA BEGUM - 5-modified.jpeg_1672045114.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A05623348",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 34,
+                    "salary": 1000
+                },
+                {
+                    "id": 141,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_SABINA YASMIN - 4-modified.jpeg_1672045134.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A04474298",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 35,
+                    "salary": 1000
+                },
+                {
+                    "id": 140,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_MONZILA KHATUN - 3-modified.jpeg_1672044117.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A05743669",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 38,
+                    "salary": 1000
+                },
+                {
+                    "id": 139,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_RAHIMA AKTER - 2-modified.jpeg_1672045165.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A04595086",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 34,
+                    "salary": 1000
+                },
+                {
+                    "id": 138,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_RUMA AKTER - 1-modified.jpeg_1672045185.jpeg",
+                    "nationality": "بنجلاديش",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوج ولديه اطفال",
+                    "passport_number": "A05038773",
+                    "nationalitie_price": 14700,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 30,
+                    "salary": 1000
+                },
+                {
+                    "id": 134,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_CV - 4.jpeg_1670488563.jpeg",
+                    "nationality": "كينيا",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوجه",
+                    "passport_number": "AK0461317",
+                    "nationalitie_price": 11785,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 38,
+                    "salary": 900
+                },
+                {
+                    "id": 133,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_CV - 3.jpeg_1670488503.jpeg",
+                    "nationality": "كينيا",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "متزوجه",
+                    "passport_number": "PENDING",
+                    "nationalitie_price": 11785,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 36,
+                    "salary": 900
+                },
+                {
+                    "id": 132,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_CV - 2.jpeg_1670488439.jpeg",
+                    "nationality": "كينيا",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "اعزب",
+                    "passport_number": "AK1141946",
+                    "nationalitie_price": 11785,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 22,
+                    "salary": 900
+                },
+                {
+                    "id": 131,
+                    "images": "https://rawafdalamal.com/storage/uploads/biographies/jpeg_CV - 1.jpeg_1670488374.jpeg",
+                    "nationality": "كينيا",
+                    "occupation": "عاملة منزلية",
+                    "religion": "غير محدد",
+                    "social_type": "اعزب",
+                    "passport_number": "BK169025",
+                    "nationalitie_price": 11785,
+                    "high_degree": "لم يسبق العمل",
+                    "age": 25,
+                    "salary": 900
+                }
+            ]
+        },
+        "links": {
+            "first": "https://rawafdalamal.com/api/home/workers?page=1",
+            "last": "https://rawafdalamal.com/api/home/workers?page=2",
+            "prev": null,
+            "next": "https://rawafdalamal.com/api/home/workers?page=2"
+        },
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 2,
+            "links": [
+                {
+                    "url": null,
+                    "label": "&laquo; السابق",
+                    "active": false
+                },
+                {
+                    "url": "https://rawafdalamal.com/api/home/workers?page=1",
+                    "label": "1",
+                    "active": true
+                },
+                {
+                    "url": "https://rawafdalamal.com/api/home/workers?page=2",
+                    "label": "2",
+                    "active": false
+                },
+                {
+                    "url": "https://rawafdalamal.com/api/home/workers?page=2",
+                    "label": "التالي &raquo;",
+                    "active": false
+                }
+            ],
+            "path": "https://rawafdalamal.com/api/home/workers",
+            "per_page": 12,
+            "to": 12,
+            "total": 20
+        },
+        "success": true,
+        "status": 200
+    },
+    "responseHeader": {
+        "date": "Wed, 17 May 2023 07:31:13 GMT",
+        "access-control-allow-origin": "*",
+        "server": "Apache",
+        "keep-alive": "timeout=5, max=100",
+        "transfer-encoding": "chunked",
+        "upgrade": "h2,h2c",
+        "x-ratelimit-limit": "60",
+        "vary": "Accept-Encoding",
+        "connection": "Upgrade, Keep-Alive",
+        "content-type": "application/json",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-remaining": "57"
+    },
+    "responseCode": 200
+}
