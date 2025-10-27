@@ -393,7 +393,7 @@ if(!branch || !isCookieValid('branch')){
   }
 } else {
 
-    if(!branch && cookieBranch){
+    if (branch !== cookieBranch) {
     localStorage.setItem('branch', cookieBranch);
   }
 }

@@ -118,7 +118,7 @@
             document.getElementById('cityModal').style.pointerEvents = 'auto';
         } else {
 
-            if (!branch && cookieBranch) {
+            if (branch !== cookieBranch) {
                 localStorage.setItem('branch', cookieBranch);
             }
         }
