@@ -389,8 +389,8 @@ const cookieBranch = getCookie('branch');
 if(!branch || !isCookieValid('branch')){
   if(window.location.pathname !== '/'){
     localStorage.setItem('redirectAfterBranch', window.location.pathname);
+    window.location.href = '/';
   }
-  window.location.href = '/';
 } else {
 
     if(!branch && cookieBranch){
