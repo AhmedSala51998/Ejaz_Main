@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'service' => 'maxmind_database',
+    'service' => 'ipdata',
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ return [
 
         'ipdata' => [
             'class' => \Torann\GeoIP\Services\IPData::class,
-            'key' => env('IPDATA_API_KEY'),
+            'key' => '098d6ffae05c9bc11e150e315b72c25cd88c7bb74083c697c59b4753',
             'secure' => true,
         ],
 
