@@ -100,12 +100,27 @@
         chooseCity('yanbu');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    /*document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch') || getCookie('branch');
         if (!branch) {
             document.getElementById('cityModal').style.display = 'flex';
             document.body.style.pointerEvents = 'none';
             document.getElementById('cityModal').style.pointerEvents = 'auto';
+        }
+    });*/
+    document.addEventListener('DOMContentLoaded', () => {
+        const branch = localStorage.getItem('branch');
+        const cookieBranch = getCookie('branch');
+
+        if (!branch || !isCookieValid('branch')) {
+            document.getElementById('cityModal').style.display = 'flex';
+            document.body.style.pointerEvents = 'none';
+            document.getElementById('cityModal').style.pointerEvents = 'auto';
+        } else {
+
+            if (!branch && cookieBranch) {
+                localStorage.setItem('branch', cookieBranch);
+            }
         }
     });
 

@@ -378,10 +378,24 @@ function fallbackLocation(){
 }
 
 // --- حفظ الصفحة المطلوبة قبل التحويل ---
-const branch = localStorage.getItem('branch') || getCookie('branch');
+/*const branch = localStorage.getItem('branch') || getCookie('branch');
 if(!branch && window.location.pathname !== '/'){
   localStorage.setItem('redirectAfterBranch', window.location.pathname);
   window.location.href = '/';
+}*/
+const branch = localStorage.getItem('branch');
+const cookieBranch = getCookie('branch');
+
+if(!branch || !isCookieValid('branch')){
+  if(window.location.pathname !== '/'){
+    localStorage.setItem('redirectAfterBranch', window.location.pathname);
+  }
+  window.location.href = '/';
+} else {
+
+    if(!branch && cookieBranch){
+    localStorage.setItem('branch', cookieBranch);
+  }
 }
 </script>
 </body>
