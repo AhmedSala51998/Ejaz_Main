@@ -38,7 +38,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
     // --- Helpers ---
-    // --- Helpers ---
     function setCookie(name, value) {
         const expires = new Date('2090-12-31T23:59:59Z').toUTCString();
         document.cookie = `${name}=${value}; path=/; expires=${expires}`;
@@ -62,7 +61,6 @@
         });
     }
 
-    // --- تحديد الموقع ---
     function detectLocation() {
         const btn = document.querySelector('.location');
         const icon = btn.querySelector('i');
@@ -74,57 +72,17 @@
         loader.className = 'loader-circle';
         btn.appendChild(loader);
 
-        if (!navigator.geolocation) {
-            console.warn("Geolocation not supported");
-            // ترسل request بدون lat/lng → السيرفر سيستخدم geoip
-            sendCoords(null, null, btn, loader, icon, text);
-            return;
-        }
-
-        const options = {
-            enableHighAccuracy: false, // لتجنب مشاكل iPhone
-            timeout: 20000,
-            maximumAge: 0
-        };
-
-        let retried = false;
-
-        function success(pos) {
-            const { latitude, longitude } = pos.coords;
-            sendCoords(latitude, longitude, btn, loader, icon, text);
-        }
-
-        function error(err) {
-            console.warn("Geo error:", err);
-            if (!retried) {
-                retried = true;
-                console.log("Retrying geolocation...");
-                setTimeout(() => {
-                    navigator.geolocation.getCurrentPosition(success, fallback, options);
-                }, 2000);
-            } else {
-                fallback();
-            }
-        }
-
-        function fallback() {
-            // لا توجد إحداثيات → سيرفر سيستخدم geoip
-            sendCoords(null, null, btn, loader, icon, text);
-        }
-
-        setTimeout(() => {
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        }, 300);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                pos => sendCoords(pos.coords.latitude, pos.coords.longitude, btn, loader, icon, text),
+                err => fallbackLocation(btn, loader, icon, text),
+                { enableHighAccuracy: true, timeout: 15000 }
+            );
+        } else fallbackLocation(btn, loader, icon, text);
     }
 
-    // --- إرسال الإحداثيات أو تركها فارغة للسيرفر ---
     function sendCoords(lat, lng, btn, loader, icon, text) {
-        const payload = {};
-        if (lat && lng) {
-            payload.lat = lat;
-            payload.lng = lng;
-        }
-        axios.post('{{ route("detect.location.ajax") }}', payload, {
+        axios.post('{{ route("detect.location.ajax") }}', { lat, lng }, {
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
         }).then(res => {
             const closestCity = res.data.closestCity;
@@ -132,20 +90,16 @@
             setCookie('branch', closestCity);
             document.getElementById('cityModal').style.display = 'none';
             location.reload();
-        }).catch(() => {
-            fallbackLocation(btn, loader, icon, text);
-        });
+        }).catch(() => fallbackLocation(btn, loader, icon, text));
     }
 
-    // --- fallback default للواجهة ---
     function fallbackLocation(btn, loader, icon, text) {
         if (loader) loader.remove();
         icon.style.display = 'block';
         text.textContent = 'استكشف موقعي';
-        chooseCity('yanbu'); // fallback نهائي للواجهة
+        chooseCity('yanbu');
     }
 
-    // --- فتح المودال إذا لم يختار المستخدم مدينة ---
     document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch') || getCookie('branch');
         if (!branch) {
