@@ -493,7 +493,7 @@
             from { transform: translateY(40px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
             }
-      .loader-circle {
+      /*.loader-circle {
         border: 4px solid rgba(255, 136, 0, 0.2);
         border-top: 4px solid #ff8800;
         border-radius: 50%;
@@ -505,7 +505,7 @@
 
         @keyframes spin {
         to { transform: rotate(360deg); }
-        }
+        }*/
 
         /* شبكة الكروت الافتراضية */
         .cards {
