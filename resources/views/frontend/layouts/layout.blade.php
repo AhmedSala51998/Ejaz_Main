@@ -61,7 +61,7 @@
         });
     }
 
-    /*function detectLocation() {
+    function detectLocation() {
         const btn = document.querySelector('.location');
         const icon = btn.querySelector('i');
         const text = btn.querySelector('span');
@@ -79,68 +79,7 @@
                 { enableHighAccuracy: true, timeout: 15000 }
             );
         } else fallbackLocation(btn, loader, icon, text);
-    }*/
-
-function logMessage(msg) {
-    const box = document.getElementById('log-box');
-    const time = new Date().toLocaleTimeString();
-    box.textContent += `[${time}] ${msg}\n`;
-}
-
-function detectLocation() {
-    const btn = document.querySelector('.location');
-    const icon = btn.querySelector('i');
-    const text = btn.querySelector('span');
-
-    logMessage('📍 detectLocation() called');
-
-    if (!btn) {
-        logMessage('❌ لم يتم العثور على العنصر .location');
-        return;
     }
-
-    icon.style.display = 'none';
-    text.textContent = 'جارٍ تحديد موقعك...';
-
-    const loader = document.createElement('div');
-    loader.className = 'loader-circle';
-    btn.appendChild(loader);
-
-    if (!navigator.geolocation) {
-        logMessage('❌ المتصفح لا يدعم geolocation');
-        fallbackLocation(btn, loader, icon, text);
-        return;
-    }
-
-    logMessage('✅ المتصفح يدعم geolocation — جاري طلب الموقع...');
-
-    navigator.geolocation.getCurrentPosition(
-        pos => {
-            logMessage('✅ تم الحصول على الموقع بنجاح:');
-            logMessage('Latitude: ' + pos.coords.latitude);
-            logMessage('Longitude: ' + pos.coords.longitude);
-            logMessage('Accuracy: ' + pos.coords.accuracy);
-
-            sendCoords(
-                pos.coords.latitude,
-                pos.coords.longitude,
-                btn,
-                loader,
-                icon,
-                text
-            );
-        },
-        err => {
-            logMessage('❌ حدث خطأ أثناء تحديد الموقع:');
-            logMessage('Code: ' + err.code);
-            logMessage('Message: ' + err.message);
-
-            fallbackLocation(btn, loader, icon, text);
-        },
-        { enableHighAccuracy: true, timeout: 15000 }
-    );
-}
-
 
     function sendCoords(lat, lng, btn, loader, icon, text) {
         axios.post('{{ route("detect.location.ajax") }}', { lat, lng }, {
@@ -644,7 +583,6 @@ function detectLocation() {
         </div>
     </div>
     </div>
-    <div id="log-box" style="direction:ltr; text-align:left; background:#111; color:#0f0; font-size:13px; padding:10px; border-radius:8px; margin-top:10px; white-space:pre-wrap;"></div>
 
 
 </content>
