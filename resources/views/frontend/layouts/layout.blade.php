@@ -81,15 +81,21 @@
         } else fallbackLocation(btn, loader, icon, text);
     }*/
 
-    function detectLocation() {
+function logMessage(msg) {
+    const box = document.getElementById('log-box');
+    const time = new Date().toLocaleTimeString();
+    box.textContent += `[${time}] ${msg}\n`;
+}
+
+function detectLocation() {
     const btn = document.querySelector('.location');
     const icon = btn.querySelector('i');
     const text = btn.querySelector('span');
 
-    console.log('📍 detectLocation() called');
+    logMessage('📍 detectLocation() called');
 
     if (!btn) {
-        console.error('❌ لم يتم العثور على العنصر .location');
+        logMessage('❌ لم يتم العثور على العنصر .location');
         return;
     }
 
@@ -100,21 +106,20 @@
     loader.className = 'loader-circle';
     btn.appendChild(loader);
 
-    // طباعة حالة وجود geolocation
     if (!navigator.geolocation) {
-        console.error('❌ المتصفح لا يدعم navigator.geolocation');
+        logMessage('❌ المتصفح لا يدعم geolocation');
         fallbackLocation(btn, loader, icon, text);
         return;
     }
 
-    console.log('✅ المتصفح يدعم geolocation — جاري طلب الموقع...');
+    logMessage('✅ المتصفح يدعم geolocation — جاري طلب الموقع...');
 
     navigator.geolocation.getCurrentPosition(
         pos => {
-            console.log('✅ تم الحصول على الموقع بنجاح:');
-            console.log('Latitude:', pos.coords.latitude);
-            console.log('Longitude:', pos.coords.longitude);
-            console.log('Accuracy:', pos.coords.accuracy);
+            logMessage('✅ تم الحصول على الموقع بنجاح:');
+            logMessage('Latitude: ' + pos.coords.latitude);
+            logMessage('Longitude: ' + pos.coords.longitude);
+            logMessage('Accuracy: ' + pos.coords.accuracy);
 
             sendCoords(
                 pos.coords.latitude,
@@ -126,14 +131,10 @@
             );
         },
         err => {
-            console.error('❌ حدث خطأ أثناء تحديد الموقع:');
-            console.error('Code:', err.code);
-            console.error('Message:', err.message);
+            logMessage('❌ حدث خطأ أثناء تحديد الموقع:');
+            logMessage('Code: ' + err.code);
+            logMessage('Message: ' + err.message);
 
-            // أكواد الأخطاء المحتملة:
-            // 1 = المستخدم رفض الإذن
-            // 2 = الموقع غير متاح
-            // 3 = العملية انتهت بالمهلة (timeout)
             fallbackLocation(btn, loader, icon, text);
         },
         { enableHighAccuracy: true, timeout: 15000 }
@@ -643,6 +644,7 @@
         </div>
     </div>
     </div>
+    <div id="log-box" style="direction:ltr; text-align:left; background:#111; color:#0f0; font-size:13px; padding:10px; border-radius:8px; margin-top:10px; white-space:pre-wrap;"></div>
 
 
 </content>
