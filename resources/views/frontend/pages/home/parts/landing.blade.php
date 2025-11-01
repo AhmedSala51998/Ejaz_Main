@@ -290,6 +290,52 @@ h1{
 }
 
 
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+@media(max-width:768px){
+  .cards { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 140, 0, 0.18);
+  color: #ff6a00;
+  border-radius: 25px;
+  padding: 35px 25px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: all 0.4s ease;
+  box-shadow: 0 6px 15px rgba(255, 106, 0, 0.15);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.card:hover { transform: translateY(-6px) scale(1.04); box-shadow:0 10px 25px rgba(255,106,0,0.3); }
+
+.loader-inside {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+  margin-top: 10px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
 </style>
 </head>
 <body>
@@ -298,7 +344,7 @@ h1{
   مرحبًا بك في <span>إيجاز للاستقدام</span><br>
   <small>اختر مدينتك لعرض العمالة الأقرب إليك</small>
 </h1>
-<div class="cards">
+<!--<div class="cards">
   <div class="card jeddah" onclick="chooseCity('jeddah')"><i class="fas fa-city"></i> جدة</div>
   <div class="card yanbu" onclick="chooseCity('yanbu')"><i class="fas fa-water"></i> ينبع</div>
   <div class="card riyadh" onclick="chooseCity('riyadh')"><i class="fas fa-building"></i> الرياض</div>
@@ -308,6 +354,12 @@ h1{
     <div class="loader-inside"></div>
     <div class="loading-text">جاري تحديد موقعك...</div>
   </div>
+</div>-->
+
+<div class="cards">
+  <div class="card jeddah" onclick="chooseCity('jeddah')"><i class="fas fa-city"></i> جدة</div>
+  <div class="card yanbu" onclick="chooseCity('yanbu')"><i class="fas fa-water"></i> ينبع</div>
+  <div class="card riyadh" onclick="chooseCity('riyadh')"><i class="fas fa-building"></i> الرياض</div>
 </div>
 
 <script>
@@ -322,7 +374,7 @@ function getCookie(name){
 }
 
 // --- اختيار المدينة ---
-function chooseCity(branch){
+/*function chooseCity(branch){
   axios.post('{{ route('detect.location.ajax') }}', {branch}, {
     headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'}
   }).then(res=>{
@@ -338,6 +390,44 @@ function chooseCity(branch){
     localStorage.removeItem('redirectAfterBranch');
     window.location.href = redirectPath;
   });
+}*/
+function chooseCity(branch){
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(c => c.style.pointerEvents = 'none');
+
+  const card = event.currentTarget || document.querySelector(`.${branch}`);
+  const oldHTML = card.innerHTML;
+
+  card.innerHTML = `
+    <div class="loader-inside" style="display:block; border-top-color:${getColor(branch)};"></div>
+    <div class="loading-text" style="display:block; color:${getColor(branch)};">جاري التحميل...</div>
+  `;
+  card.style.opacity = "0.9";
+
+  axios.post('{{ route('detect.location.ajax') }}', {branch}, {
+    headers: {'X-CSRF-TOKEN':'{{ csrf_token() }}'}
+  }).then(res=>{
+    localStorage.setItem('branch', branch);
+    setCookie('branch', branch);
+    const redirectPath = localStorage.getItem('redirectAfterBranch') || '/';
+    localStorage.removeItem('redirectAfterBranch');
+    window.location.href = redirectPath;
+  }).catch(err=>{
+    localStorage.setItem('branch', branch);
+    setCookie('branch', branch);
+    const redirectPath = localStorage.getItem('redirectAfterBranch') || '/';
+    localStorage.removeItem('redirectAfterBranch');
+    window.location.href = redirectPath;
+  });
+}
+
+function getColor(branch){
+  switch(branch){
+    case 'jeddah': return '#1e90ff';
+    case 'yanbu': return '#32cd32';
+    case 'riyadh': return '#ff4500';
+    default: return '#ff9800';
+  }
 }
 
 // --- استكشاف الموقع ---
