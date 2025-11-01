@@ -37,10 +37,9 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-    // --- Helpers ---
     function setCookie(name, value) {
         const expires = new Date('2090-12-31T23:59:59Z').toUTCString();
-        document.cookie = `${name}=${value}; path=/; expires=${expires}`;
+        document.cookie = `${name}=${value}; path=/; expires=${expires}; SameSite=None; Secure`;
     }
 
     function getCookie(name) {
@@ -48,16 +47,20 @@
         return v[2] || null;
     }
 
-    // --- اختيار المدينة ---
     function chooseCity(branch) {
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
+        try {
+            localStorage.setItem('branch', branch);
+            setCookie('branch', branch);
+        } catch(e) {
+            console.error('Storage error', e);
+        }
+
         document.getElementById('cityModal').style.display = 'none';
 
         axios.post('{{ route("detect.location.ajax") }}', { branch }, {
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
         }).finally(() => {
-            location.reload();
+            setTimeout(() => location.reload(), 300);
         });
     }
 
@@ -68,17 +71,19 @@
 
         icon.style.display = 'none';
         text.textContent = 'جارٍ تحديد موقعك...';
+
         const loader = document.createElement('div');
         loader.className = 'loader-circle';
         btn.appendChild(loader);
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                pos => sendCoords(pos.coords.latitude, pos.coords.longitude, btn, loader, icon, text),
-                err => fallbackLocation(btn, loader, icon, text),
-                { enableHighAccuracy: true, timeout: 15000 }
-            );
-        } else fallbackLocation(btn, loader, icon, text);
+        if (!navigator.geolocation) return fallbackLocation(btn, loader, icon, text);
+
+        // لازم الاستدعاء ييجي بعد تفاعل المستخدم (click)
+        navigator.geolocation.getCurrentPosition(
+            pos => sendCoords(pos.coords.latitude, pos.coords.longitude, btn, loader, icon, text),
+            err => fallbackLocation(btn, loader, icon, text),
+            { enableHighAccuracy: true, timeout: 15000 }
+        );
     }
 
     function sendCoords(lat, lng, btn, loader, icon, text) {
@@ -89,7 +94,7 @@
             localStorage.setItem('branch', closestCity);
             setCookie('branch', closestCity);
             document.getElementById('cityModal').style.display = 'none';
-            location.reload();
+            setTimeout(() => location.reload(), 300);
         }).catch(() => fallbackLocation(btn, loader, icon, text));
     }
 
@@ -100,6 +105,19 @@
         chooseCity('yanbu');
     }
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const branch = localStorage.getItem('branch');
+        const cookieBranch = getCookie('branch');
+
+        if (!branch || !cookieBranch) {
+            document.getElementById('cityModal').style.display = 'flex';
+            document.body.style.pointerEvents = 'none';
+            document.getElementById('cityModal').style.pointerEvents = 'auto';
+        } else if (branch !== cookieBranch) {
+            localStorage.setItem('branch', cookieBranch);
+        }
+    });
+
     /*document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch') || getCookie('branch');
         if (!branch) {
@@ -108,7 +126,7 @@
             document.getElementById('cityModal').style.pointerEvents = 'auto';
         }
     });*/
-    document.addEventListener('DOMContentLoaded', () => {
+    /*document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch');
         const cookieBranch = getCookie('branch');
 
@@ -122,7 +140,7 @@
                 localStorage.setItem('branch', cookieBranch);
             }
         }
-    });
+    });*/
 
         document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch') || getCookie('branch');
