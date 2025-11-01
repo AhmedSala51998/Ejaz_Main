@@ -118,12 +118,9 @@ class HomeFrontController extends Controller
 
             $minutesUntil2090 = (int)((strtotime('2090-12-31 23:59:59') - time()) / 60);
 
-            /*return response()->json([
+            return response()->json([
                 'closestCity' => $branch
-            ])->cookie('branch', $branch, $minutesUntil2090);*/
-            return response()->json(['closestCity' => $branch])
-                ->cookie('branch', $branch, $minutesUntil2090, '/', null, true, true, false, 'None');
-
+            ])->cookie('branch', $branch, $minutesUntil2090);
 
 
         } catch (\Exception $e) {
