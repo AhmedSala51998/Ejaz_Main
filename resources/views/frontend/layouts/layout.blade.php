@@ -49,7 +49,7 @@
     }
 
     // --- اختيار المدينة ---
-    /*function chooseCity(branch) {
+    function chooseCity(branch) {
         localStorage.setItem('branch', branch);
         setCookie('branch', branch);
         document.getElementById('cityModal').style.display = 'none';
@@ -59,38 +59,7 @@
         }).finally(() => {
             location.reload();
         });
-    }*/
-    function chooseCity(element, branch) {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(c => c.style.pointerEvents = 'none');
-
-        const oldHTML = element.innerHTML;
-
-        element.innerHTML = '';
-
-        const loader = document.createElement('div');
-        loader.className = 'loader-circle';
-        element.appendChild(loader);
-
-        element.style.opacity = '0.8';
-
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
-
-        axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        })
-        .then(res => {
-            console.log('✅ تم اختيار المدينة:', branch);
-        })
-        .catch(err => {
-            console.error('❌ خطأ أثناء إرسال الطلب:', err);
-        })
-        .finally(() => {
-            document.getElementById('cityModal').style.display = 'none';
-            location.reload();
-        });
-        }
+    }
 
     function detectLocation() {
         const btn = document.querySelector('.location');
@@ -532,20 +501,6 @@
             }
         }
 
-        .loader-circle {
-            border: 4px solid rgba(255, 136, 0, 0.2);
-            border-top: 4px solid #ff8800;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-            }
-
-            @keyframes spin {
-            to { transform: rotate(360deg); }
-            }
-
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -597,7 +552,7 @@
             </div>
         </div>
     </div>
-    <!--<div id="cityModal" style="display:none;">
+    <div id="cityModal" style="display:none;">
     <div class="city-modal-content">
         <h2>
         مرحبًا بك في <span>إيجاز للاستقدام</span><br>
@@ -627,34 +582,7 @@
         </div>
         </div>
     </div>
-    </div>-->
-
-    <div id="cityModal" style="display:none;">
-        <div class="city-modal-content">
-            <h2>
-            مرحبًا بك في <span>إيجاز للاستقدام</span><br>
-            اختر مدينتك لعرض العمالة الأقرب إليك
-            <i class="fas fa-arrow-down arrow-icon"></i>
-            </h2>
-
-            <div class="cards">
-            <div class="card" onclick="chooseCity(this, 'jeddah')">
-                <i class="fas fa-city"></i>
-                <span>جدة</span>
-            </div>
-
-            <div class="card" onclick="chooseCity(this, 'yanbu')">
-                <i class="fas fa-water"></i>
-                <span>ينبع</span>
-            </div>
-
-            <div class="card" onclick="chooseCity(this, 'riyadh')">
-                <i class="fas fa-building"></i>
-                <span>الرياض</span>
-            </div>
-            </div>
-        </div>
-        </div>
+    </div>
 
 
 </content>
