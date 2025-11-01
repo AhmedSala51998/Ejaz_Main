@@ -61,7 +61,7 @@
         });
     }
 
-    function detectLocation() {
+    /*function detectLocation() {
         const btn = document.querySelector('.location');
         const icon = btn.querySelector('i');
         const text = btn.querySelector('span');
@@ -79,7 +79,67 @@
                 { enableHighAccuracy: true, timeout: 15000 }
             );
         } else fallbackLocation(btn, loader, icon, text);
+    }*/
+
+    function detectLocation() {
+    const btn = document.querySelector('.location');
+    const icon = btn.querySelector('i');
+    const text = btn.querySelector('span');
+
+    console.log('📍 detectLocation() called');
+
+    if (!btn) {
+        console.error('❌ لم يتم العثور على العنصر .location');
+        return;
     }
+
+    icon.style.display = 'none';
+    text.textContent = 'جارٍ تحديد موقعك...';
+
+    const loader = document.createElement('div');
+    loader.className = 'loader-circle';
+    btn.appendChild(loader);
+
+    // طباعة حالة وجود geolocation
+    if (!navigator.geolocation) {
+        console.error('❌ المتصفح لا يدعم navigator.geolocation');
+        fallbackLocation(btn, loader, icon, text);
+        return;
+    }
+
+    console.log('✅ المتصفح يدعم geolocation — جاري طلب الموقع...');
+
+    navigator.geolocation.getCurrentPosition(
+        pos => {
+            console.log('✅ تم الحصول على الموقع بنجاح:');
+            console.log('Latitude:', pos.coords.latitude);
+            console.log('Longitude:', pos.coords.longitude);
+            console.log('Accuracy:', pos.coords.accuracy);
+
+            sendCoords(
+                pos.coords.latitude,
+                pos.coords.longitude,
+                btn,
+                loader,
+                icon,
+                text
+            );
+        },
+        err => {
+            console.error('❌ حدث خطأ أثناء تحديد الموقع:');
+            console.error('Code:', err.code);
+            console.error('Message:', err.message);
+
+            // أكواد الأخطاء المحتملة:
+            // 1 = المستخدم رفض الإذن
+            // 2 = الموقع غير متاح
+            // 3 = العملية انتهت بالمهلة (timeout)
+            fallbackLocation(btn, loader, icon, text);
+        },
+        { enableHighAccuracy: true, timeout: 15000 }
+    );
+}
+
 
     function sendCoords(lat, lng, btn, loader, icon, text) {
         axios.post('{{ route("detect.location.ajax") }}', { lat, lng }, {
