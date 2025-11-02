@@ -280,7 +280,26 @@ class WorkerFrontController extends Controller
             'religion','job','social_type','admin','images','skills')
             ->where('id',$id)
             ->firstOrFail();
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->where('branch','=',$branch)->take(12)->get();
+        /*$admins = \App\Models\Admin::where('admin_type','!=',0)->where(function($q) use ($branch) {
+                    $q->where('branch', $branch)
+                    ->orWhere('branch', 'all_branches');
+                })->take(12)->get();*/
+            $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+            ->where(function($q) use ($branch) {
+                $q->where('branch', $branch)
+                ->orWhere('branch', 'all_branches')
+                ->orWhere(function($q2) use ($branch) {
+                    if ($branch === 'riyadh') {
+                        $q2->whereIn('branch', ['r_y', 'j_r']);
+                    } elseif ($branch === 'jeddah') {
+                        $q2->whereIn('branch', ['y_j', 'j_r']);
+                    } elseif ($branch === 'yanbu') {
+                        $q2->whereIn('branch', ['r_y', 'y_j']);
+                    }
+                });
+            })
+            ->take(12)
+            ->get();
         $returnHTML = view("frontend.pages.all-workers.worker.worker_details")
             ->with(['cv'=>$cv,'admins'=>$admins])
             ->render();
@@ -346,7 +365,26 @@ class WorkerFrontController extends Controller
             'religion','job','social_type','admin','images','skills')
             ->where('id',$id)
             ->firstOrFail();
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->where('branch','=',$branch)->take(12)->get();
+        /*$admins = \App\Models\Admin::where('admin_type','!=',0)->where(function($q) use ($branch) {
+                    $q->where('branch', $branch)
+                    ->orWhere('branch', 'all_branches');
+                })->take(12)->get();*/
+            $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+            ->where(function($q) use ($branch) {
+                $q->where('branch', $branch)
+                ->orWhere('branch', 'all_branches')
+                ->orWhere(function($q2) use ($branch) {
+                    if ($branch === 'riyadh') {
+                        $q2->whereIn('branch', ['r_y', 'j_r']);
+                    } elseif ($branch === 'jeddah') {
+                        $q2->whereIn('branch', ['y_j', 'j_r']);
+                    } elseif ($branch === 'yanbu') {
+                        $q2->whereIn('branch', ['r_y', 'y_j']);
+                    }
+                });
+            })
+            ->take(12)
+            ->get();
        return view("frontend.pages.all-workers.worker.worker_details",compact('cv','admins'));
 
     }

@@ -84,9 +84,13 @@
             <div class="form-group">
                 <label for="branch">الفرع</label>
                 <select data-validation="required" name="branch" id="branch" class="form-control">
+                    <option value="all_branches">كل الفروع</option>
                     <option value="riyadh">الرياض</option>
                     <option value="jeddah">جدة</option>
                     <option value="yanbu">ينبع</option>
+                    <option value="r_y">الرياض وينبع</option>
+                    <option value="y_j">ينبع وجدة</option>
+                    <option value="j_r">جدة والرياض</option>
                 </select>
             </div>
         </div>

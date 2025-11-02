@@ -44,14 +44,22 @@ class AdminAdminController extends Controller
             return DataTables::of($admins)
                 ->addColumn('branch', function ($admin) {
                     $map = [
-                        'riyadh' => 'riyadh',
-                        'jeddah' => 'jeddah',
-                        'yanbu'  => 'yanbu',
+                        'riyadh' => 'الرياض',
+                        'jeddah' => 'جدة',
+                        'yanbu'  => 'ينبع',
+                        'all_branches'  => 'كل الفروع',
+                        'r_y'          => 'الرياض وينبع',
+                        'y_j'          => 'ينبع وجدة',
+                        'j_r'          => 'جدة والرياض',
                     ];
                     $colors = [
-                        'riyadh' => 'primary',
-                        'jeddah' => 'success',
-                        'yanbu'  => 'warning',
+                        'riyadh'       => 'info',
+                        'jeddah'       => 'success',
+                        'yanbu'        => 'warning',
+                        'all_branches' => 'dark',
+                        'r_y'          => 'primary',
+                        'y_j'          => 'secondary',
+                        'j_r'          => 'danger',
                     ];
 
                     $key = $admin->branch;

@@ -79,9 +79,13 @@
             <div class="form-group">
                 <label for="branch">الفرع</label>
                 <select data-validation="required" name="branch" id="branch" class="form-control">
+                    <option value="all_branches" {{ $admin->branch == "all" ? "selected" : "" }}>كل الفروع</option>
                     <option value="jeddah" {{ $admin->branch == "jeddah" ? "selected" : "" }}>جدة</option>
                     <option value="yanbu" {{ $admin->branch == "yanbu" ? "selected" : "" }}>ينبع</option>
                     <option value="riyadh" {{ $admin->branch == "riyadh" ? "selected" : "" }}>الرياض</option>
+                    <option value="r_y" {{ $admin->branch == "r_y" ? "selected" : "" }}>الرياض وينبع</option>
+                    <option value="y_j" {{ $admin->branch == "y_j" ? "selected" : "" }}>ينبع وجدة</option>
+                    <option value="j_r" {{ $admin->branch == "j_r" ? "selected" : "" }}>جدة والرياض</option>
                 </select>
             </div>
         </div>
