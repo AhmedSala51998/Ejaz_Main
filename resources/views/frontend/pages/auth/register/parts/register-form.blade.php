@@ -91,7 +91,7 @@
 
                         <p class="text-center mt-4">
                             {{ __('frontend.you already have account ?') }}
-                            <a href="{{ route('auth.login') }}">{{ __('frontend.Login') }}</a>
+                            <a href="{{ route('auth.login', $id) }}">{{ __('frontend.Login') }}</a>
                         </p>
                     </div>
                 </div>

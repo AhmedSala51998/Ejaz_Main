@@ -9,13 +9,13 @@ class LoginFrontController extends Controller
 {
 
 
-    public function login_view()
+    public function login_view($id='')
     {
         if (auth()->check()) {
             toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
-        return view('frontend.pages.auth.login.login');
+        return view('frontend.pages.auth.login.login',compact('id'));
     }//end fun
 
 
@@ -34,6 +34,9 @@ class LoginFrontController extends Controller
             if ($user->is_blocked == "blocked") {
                 auth()->logout();
                 return response(['message'=>__('frontend.your account had blocked , please sent to support')],400);
+            }
+            if ($request->id!=''){
+                return response()->json(['message'=>'data'],415);
             }
             return response(['message'=>'data'],200);
         }

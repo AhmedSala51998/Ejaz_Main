@@ -50,7 +50,7 @@ Route::group(
     Route::post('checkPhoneToSendOtp',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'check_phone_to_send_otp'])->name('checkPhoneToSendOtp');
     Route::post('registerAction',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'register_action'])->name('register_action');
 
-    Route::get('login',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_view'])
+    Route::get('login/{id?}',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_view'])
         ->name('auth.login');
 
     Route::post('loginAction',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_action'])

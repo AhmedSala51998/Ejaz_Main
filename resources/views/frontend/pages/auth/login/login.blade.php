@@ -427,6 +427,7 @@
                     <div class="auth-card">
                     <img src="{{asset('frontend')}}/img/login.svg" alt="Login" class="auth-img">
                     <form method="POST" action="{{route('auth.login_action')}}" id="Form" class="mt-4">
+                        <input type="hidden" name="id" value="{{$id}}">
                         <div class="mb-3">
                             <label class="form-label"><i class="fas fa-phone me-2"></i>رقم الجوال</label>
                             <div class="input-group">
@@ -547,6 +548,16 @@
                             timer: 3000
                         })
                     }//end if
+                    if (data.status === 415) {
+                        @if(!empty($id))
+                            var url = "{{ route('frontend.show.worker', ['id' => $id]) }}";
+                            location.replace(url);
+                        @else
+                            // لو $id مش موجود، ممكن تحول المستخدم للـ branch page فقط أو صفحة افتراضية
+                            var url = "{{ url('/worker') }}"; // أو أي صفحة مناسبة
+                            location.replace(url);
+                        @endif
+                    }
 
                 },//end error method
 
