@@ -728,6 +728,34 @@ class AdminBiographiesController extends Controller
         $biography=   Biography::find($id)->update($data);
         $biography=   Biography::find($id);
 
+        /************** */
+        if ($biography->recruitment_office_id != $request->recruitment_office_id) {
+            $oldOfficeId = $biography->recruitment_office_id;
+            $newOfficeId = $request->recruitment_office_id;
+
+            $oldOfficeAllHidden = Biography::where('recruitment_office_id', $oldOfficeId)
+                ->where('is_hide', 1)
+                ->count();
+
+            $oldOfficeTotal = Biography::where('recruitment_office_id', $oldOfficeId)->count();
+
+            $oldOfficeHidden = ($oldOfficeTotal > 0 && $oldOfficeAllHidden == $oldOfficeTotal);
+
+            $newOfficeAllHidden = Biography::where('recruitment_office_id', $newOfficeId)
+                ->where('is_hide', 1)
+                ->count();
+
+            $newOfficeTotal = Biography::where('recruitment_office_id', $newOfficeId)->count();
+
+            $newOfficeHidden = ($newOfficeTotal > 0 && $newOfficeAllHidden == $newOfficeTotal);
+
+            if ($oldOfficeHidden != $newOfficeHidden) {
+                $biography->is_hide = $newOfficeHidden ? 1 : 0;
+                $biography->save();
+            }
+        }
+        /************* */
+
         if($biography->new_image!=null){
             if (file_exists(public_path().'/'.$biography->new_image)){
                 unlink(public_path().'/'.$biography->new_image);
