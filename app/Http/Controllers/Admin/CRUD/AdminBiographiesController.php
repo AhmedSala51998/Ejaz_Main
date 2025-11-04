@@ -733,24 +733,21 @@ class AdminBiographiesController extends Controller
             $oldOfficeId = $biography->recruitment_office_id;
             $newOfficeId = $request->recruitment_office_id;
 
-            $oldOfficeAllHidden = Biography::where('recruitment_office_id', $oldOfficeId)
+            $oldOfficeTotal = \App\Models\Biography::where('recruitment_office_id', $oldOfficeId)->count();
+            $oldOfficeHiddenCount = \App\Models\Biography::where('recruitment_office_id', $oldOfficeId)
                 ->where('is_hide', 1)
                 ->count();
+            $oldOfficeAllHidden = ($oldOfficeTotal > 0 && $oldOfficeTotal == $oldOfficeHiddenCount);
 
-            $oldOfficeTotal = Biography::where('recruitment_office_id', $oldOfficeId)->count();
+            $newOfficeHasVisible = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)
+                ->where('is_hide', 0)
+                ->exists();
 
-            $oldOfficeHidden = ($oldOfficeTotal > 0 && $oldOfficeAllHidden == $oldOfficeTotal);
-
-            $newOfficeAllHidden = Biography::where('recruitment_office_id', $newOfficeId)
-                ->where('is_hide', 1)
-                ->count();
-
-            $newOfficeTotal = Biography::where('recruitment_office_id', $newOfficeId)->count();
-
-            $newOfficeHidden = ($newOfficeTotal > 0 && $newOfficeAllHidden == $newOfficeTotal);
-
-            if ($oldOfficeHidden != $newOfficeHidden) {
-                $biography->is_hide = $newOfficeHidden ? 1 : 0;
+            if ($oldOfficeAllHidden && $newOfficeHasVisible) {
+                $biography->is_hide = 0;
+                $biography->save();
+            } elseif (!$oldOfficeAllHidden && !$newOfficeHasVisible) {
+                $biography->is_hide = 1;
                 $biography->save();
             }
         }
