@@ -211,7 +211,7 @@ class WorkerFrontController extends Controller
         }
 
         // فلتر الخبرة العملية فقط في حالة الاستقدام
-        if (!request()->routeIs('transferService') && !request()->routeIs('rental')) {
+        if (!request()->routeIs('transferService') && !request()->routeIs('services-single')) {
             if ($request->type_of_experience !== null) {
                 $query->where('type_of_experience', $request->type_of_experience);
             }
