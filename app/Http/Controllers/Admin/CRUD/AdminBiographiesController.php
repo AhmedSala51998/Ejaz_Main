@@ -733,37 +733,40 @@ class AdminBiographiesController extends Controller
 
         $oldOfficeId = $biography->recruitment_office_id;
 
-        if($request->cv_file) {
-            $data["cv_file"] = $this->uploadFiles('biographies',$request->file('cv_file'),null);
+        if ($request->cv_file) {
+            $data["cv_file"] = $this->uploadFiles('biographies', $request->file('cv_file'), null);
         }
         $data["is_cv_out"] = ($request->is_cv_out == 'on') ? 1 : 0;
 
         $biography->update($data);
 
         $biography = Biography::find($id);
-
         $newOfficeId = $biography->recruitment_office_id;
 
         if ($oldOfficeId != $newOfficeId) {
+
             $oldOfficeTotal = \App\Models\Biography::where('recruitment_office_id', $oldOfficeId)->count();
             $oldOfficeHiddenCount = \App\Models\Biography::where('recruitment_office_id', $oldOfficeId)
                 ->where('is_hide', 1)
                 ->count();
-            $oldOfficeAllHidden = ($oldOfficeTotal > 0 && $oldOfficeTotal == $oldOfficeHiddenCount);
+            $oldOfficeAllHidden = ($oldOfficeTotal > 0 && $oldOfficeHiddenCount == $oldOfficeTotal);
 
-            $newOfficeHasVisible = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)
+            $newOfficeTotal = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)->count();
+            $newOfficeVisibleCount = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)
                 ->where('is_hide', 0)
-                ->exists();
+                ->count();
+            $newOfficeAllVisible = ($newOfficeTotal > 0 && $newOfficeVisibleCount == $newOfficeTotal);
 
-            if ($oldOfficeAllHidden && $newOfficeHasVisible) {
+            if ($oldOfficeAllHidden && $newOfficeAllVisible) {
                 $biography->is_hide = 0;
                 $biography->save();
-            } elseif (!$oldOfficeAllHidden && !$newOfficeHasVisible) {
+            }
+            elseif (!$oldOfficeAllHidden && !$newOfficeAllVisible) {
                 $biography->is_hide = 1;
                 $biography->save();
             }
         }
-        /************* */
+        /**********/
 
         if($biography->new_image!=null){
             if (file_exists(public_path().'/'.$biography->new_image)){
