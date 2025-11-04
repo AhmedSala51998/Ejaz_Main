@@ -752,10 +752,34 @@ class AdminBiographiesController extends Controller
             $oldOfficeAllHidden = ($oldOfficeTotal > 0 && $oldOfficeHiddenCount == $oldOfficeTotal);
 
             $newOfficeTotal = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)->count();
-            $newOfficeVisibleCount = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)
-                ->where('is_hide', 0)
-                ->count();
-            $newOfficeAllVisible = ($newOfficeTotal > 0 && $newOfficeVisibleCount == $newOfficeTotal);
+            if ($oldOfficeId != $newOfficeId) {
+                $oldOfficeTotal = \App\Models\Biography::where('recruitment_office_id', $oldOfficeId)->count();
+                $oldOfficeHiddenCount = \App\Models\Biography::where('recruitment_office_id', $oldOfficeId)
+                    ->where('is_hide', 1)
+                    ->count();
+                $oldOfficeAllHidden = ($oldOfficeTotal > 0 && $oldOfficeHiddenCount == $oldOfficeTotal);
+
+                // نحسب المكتب الجديد بدون السيرة الحالية
+                $newOfficeTotal = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)
+                    ->where('id', '!=', $biography->id)
+                    ->count();
+                $newOfficeVisibleCount = \App\Models\Biography::where('recruitment_office_id', $newOfficeId)
+                    ->where('is_hide', 0)
+                    ->where('id', '!=', $biography->id)
+                    ->count();
+
+                $newOfficeAllVisible = ($newOfficeTotal > 0 && $newOfficeVisibleCount == $newOfficeTotal);
+
+                if ($oldOfficeAllHidden && $newOfficeAllVisible) {
+                    // المكتب القديم كله مخفي والجديد كله ظاهر
+                    $biography->is_hide = 0;
+                    $biography->save();
+                } elseif (!$oldOfficeAllHidden && !$newOfficeAllVisible) {
+                    // المكتب القديم مش كله مخفي والجديد كله مخفي
+                    $biography->is_hide = 1;
+                    $biography->save();
+                }
+            }
 
             if ($oldOfficeAllHidden && $newOfficeAllVisible) {
                 $biography->is_hide = 0;
