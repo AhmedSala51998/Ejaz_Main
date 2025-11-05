@@ -325,7 +325,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">اختر المسوق</label>
+                <label class="form-label">اختر مندوب خدمة العملاء</label>
                 <select class="form-select select2" id="marketer" name="marketer" style="width:100%;"></select>
             </div>
 
