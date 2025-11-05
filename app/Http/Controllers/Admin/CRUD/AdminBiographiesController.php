@@ -201,7 +201,7 @@ class AdminBiographiesController extends Controller
                                     class='btn btn-primary reserve-btn'
                                     title='حجز العاملة'
                                     data-id='{$row->id}'>
-                                <i class='fa fa-calendar-check'></i>
+                                <i class='fas fa-user-check'></i>
                             </button>
                         ";
                     }
