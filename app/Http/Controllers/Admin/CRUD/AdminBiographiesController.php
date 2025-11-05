@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Models\Language;
 use Illuminate\Support\Str;
-use App\Services\SMS\MesgatSMS;
+use TaqnyatSms;
 
 class AdminBiographiesController extends Controller
 {
 
-    use Upload_Files , MesgatSMS;
+    use Upload_Files;
     // use CheckPermission;
 
 
@@ -282,6 +282,25 @@ class AdminBiographiesController extends Controller
             'id' => $i->id,
             'text' => $i->name . ' - ' . $i->phone
         ]);
+    }
+    private function sendSMS($phone,$msg)
+    {
+        $bearer = '2a17275dc72bdb4bd16a93eaf6f6530e';
+        $taqnyt = new TaqnyatSms($bearer);
+
+        $body = 'message Content';
+        $recipients = ['966********'];
+        $sender = 'Ejazrec';
+        $smsId = '25489';
+
+        $phone= $phone;
+
+        $message =$taqnyt->sendMsg($msg, $phone, $sender, $smsId);
+
+        $result = $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
+
+        return $result;
+
     }
     public function reserveWorker(Request $request)
     {
