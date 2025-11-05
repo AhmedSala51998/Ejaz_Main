@@ -329,7 +329,9 @@
                 <select class="form-select select2" id="marketer" name="marketer" style="width:100%;"></select>
             </div>
 
-            <button type="submit" class="btn btn-success w-100">تأكيد الحجز</button>
+            <button type="submit" class="btn w-100" style="background-color: #ff6600; color: #fff; border: none;">
+            تأكيد الحجز
+            </button>
             </form>
         </div>
         </div>
