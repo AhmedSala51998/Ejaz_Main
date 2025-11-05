@@ -269,7 +269,7 @@
                                        style=" width: 50% !important;height: 50% !important;"></i>
                                 </a>-->
                                 <!-- زر الإجراءات الجماعية -->
-                               
+
 
 
                             </th>
@@ -296,6 +296,36 @@
                 </div>
             </div>
         </div> <!-- end col -->
+    </div>
+
+
+    <!-- حجز العاملة -->
+    <div class="modal fade" id="reserveModal" tabindex="-1" aria-labelledby="reserveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="reserveModalLabel">حجز العاملة</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        </div>
+        <div class="modal-body">
+            <form id="reserveForm">
+            <input type="hidden" name="cv_id" id="cv_id">
+
+            <div class="mb-3">
+                <label class="form-label">اختر العميل</label>
+                <select class="form-select select2" id="customer" name="customer" style="width:100%;"></select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">اختر المسوق</label>
+                <select class="form-select select2" id="marketer" name="marketer" style="width:100%;"></select>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">تأكيد الحجز</button>
+            </form>
+        </div>
+        </div>
+    </div>
     </div>
 
 
@@ -364,7 +394,7 @@
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "type", orderable: false, searchable: true},
                 {"data": "religion", orderable: false, searchable: true},        // ✅ جديد
-                
+
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
             ],
@@ -659,6 +689,54 @@
                             toastr.error("حدث خطأ ما أثناء تنفيذ العملية");
                         }
                     });
+                }
+            });
+        });
+
+
+        $(document).on('click', '.reserve-btn', function() {
+            let cv_id = $(this).data('id');
+            $('#cv_id').val(cv_id);
+            $('#reserveModal').modal('show');
+        });
+
+        $('.select2').select2({
+            ajax: {
+                url: '{{ route("ajax.searchUsers") }}', // نعملها تحت
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return { q: params.term, type: $(this).attr('id') };
+                },
+                processResults: function (data) {
+                    return { results: data };
+                },
+                cache: true
+            },
+            placeholder: 'ابحث بالاسم أو الجوال',
+            minimumInputLength: 1
+        });
+
+        // إرسال الطلب
+        $('#reserveForm').on('submit', function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: '{{ route("biographies.reserveWorker") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    cv_id: $('#cv_id').val(),
+                    customer_id: $('#customer').val(),
+                    marketer_id: $('#marketer').val()
+                },
+                success: function (res) {
+                    toastr.success('تم حجز العاملة بنجاح');
+                    $('#reserveModal').modal('hide');
+                    $('#dataTable').DataTable().ajax.reload();
+                },
+                error: function (err) {
+                    toastr.error('حدث خطأ أثناء الحجز');
                 }
             });
         });

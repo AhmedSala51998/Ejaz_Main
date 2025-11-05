@@ -190,6 +190,9 @@ Route::group(['prefix' => 'admin'], function () {
             Route::delete('biographies/delete/bulk', 'AdminBiographiesController@delete_all')
                 ->name('biographies.delete.bulk');
 
+            Route::get('ajax/search-users', 'AdminBiographiesController@searchUsers')->name('ajax.searchUsers');
+            Route::post('biographies/reserve-worker', 'AdminBiographiesController@reserveWorker')->name('biographies.reserveWorker');
+
             // -------------------------------------
             Route::resource('biographies-special', 'AdminBiographiesSpecialController');
             Route::delete('biographies-special/delete/bulk', 'AdminBiographiesSpecialController@delete_all')

@@ -20,11 +20,12 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Models\Language;
 use Illuminate\Support\Str;
+use App\Services\SMS\MesgatSMS;
 
 class AdminBiographiesController extends Controller
 {
 
-    use Upload_Files;
+    use Upload_Files , MesgatSMS;
     // use CheckPermission;
 
 
@@ -193,7 +194,16 @@ class AdminBiographiesController extends Controller
                     if (!checkPermission(21))
                         $delete = 'hidden';
                     $actions = '';
-
+                    if ($row->status == 'new') {
+                        $actions .= "
+                            <button type='button'
+                                    class='btn btn-info btn-sm reserve-btn'
+                                    title='حجز العاملة'
+                                    data-id='{$row->id}'>
+                                <i class='fa fa-calendar-check'></i>
+                            </button>
+                        ";
+                    }
                     // زر الحظر / إلغاء الحظر
                     $blockButton = '';
                     if ($row->is_blocked) {
@@ -240,6 +250,93 @@ class AdminBiographiesController extends Controller
                 ->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
         }
         return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date' , 'religions', 'religion_id' , 'social_statuses', 'social_status_id'));
+    }
+    public function searchUsers(Request $request)
+    {
+        $q = $request->get('q', '');
+        $type = $request->get('type', 'customer');
+
+        //if ($type == 'customer') {
+            $users = \App\Models\User::where(function($query) use ($q) {
+                    $query->where('name', 'like', "%$q%")
+                        ->orWhere('phone', 'like', "%$q%");
+                })
+                ->select('id', 'name', 'phone')
+                ->limit(10)->get();
+
+            return $users->map(fn($u) => [
+                'id' => $u->id,
+                'text' => $u->name . ' - ' . $u->phone
+            ]);
+        //}
+
+        // marketers
+        $admins = \App\Models\Admin::where('admin_type','!=', 0)
+            ->where(function($query) use ($q) {
+                $query->where('name', 'like', "%$q%")
+                    ->orWhere('phone', 'like', "%$q%");
+            })
+            ->select('id', 'name', 'phone')
+            ->limit(10)->get();
+
+        return $admins->map(fn($a) => [
+            'id' => $a->id,
+            'text' => $a->name . ' - ' . $a->phone
+        ]);
+    }
+    public function reserveWorker(Request $request)
+    {
+        $request->validate([
+            'cv_id' => 'required|exists:biographies,id',
+            'customer_id' => 'required|exists:users,id',
+            'marketer_id' => 'required|exists:admins,id',
+        ]);
+
+        $cv = Biography::find($request->cv_id);
+
+        if ($cv->status != 'new') {
+            return response(['message' => 'لا يمكن الحجز، السيرة ليست متاحة'], 400);
+        }
+
+        // 🔹 بيانات الحجز
+        $orderData = [
+            'user_id'   => $request->customer_id,
+            'status'    => 'under_work',
+            'admin_id'  => $request->marketer_id,
+            'order_date'=> now(),
+        ];
+
+        // 🔹 تحديث حالة السيرة
+        Biography::where('id', $cv->id)->update(['status' => 'under_work']);
+
+        // 🔹 إنشاء الطلب
+        $orderData['biography_id'] = $cv->id;
+        $orderData['order_code']   = 'NK' . $cv->id . time();
+
+        $order = Order::create($orderData);
+
+        // ✅ إرسال الرسائل SMS
+
+        // 1. رسالة إلى العميل
+        $user = \App\Models\User::find($request->customer_id);
+        if (!empty($user->phone)) {
+            $this->sendSMS($user->phone, 'لقد قمت بطلب استقدام جديد.');
+        }
+
+        // 2. رسالة إلى المسوق
+        $admin = \App\Models\Admin::find($request->marketer_id);
+        if ($admin && !empty($admin->phone)) {
+            $msg = "عزيزي الموظف " . $admin->name .
+                "\nقام العميل: " . $user->name .
+                "\nبرقم الجوال: " . $user->phone .
+                "\nبحجز السيرة الذاتية التالية: " . $cv->name;
+            $this->sendSMS($admin->phone, $msg);
+        }
+
+        return response([
+            'order_code' => $order->order_code,
+            'message' => 'تم حجز العاملة وإرسال الإشعارات بنجاح'
+        ], 200);
     }
     public function biographiesBlock(Request $request)
     {
