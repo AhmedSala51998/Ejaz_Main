@@ -254,34 +254,33 @@ class AdminBiographiesController extends Controller
     public function searchUsers(Request $request)
     {
         $q = $request->get('q', '');
-        $type = $request->get('type', 'customer');
+        $all = $request->boolean('all', false);
+        $table = $request->get('table', 'users'); // users أو admins
 
-        //if ($type == 'customer') {
-            $users = \App\Models\User::where(function($query) use ($q) {
-                    $query->where('name', 'like', "%$q%")
-                        ->orWhere('phone', 'like', "%$q%");
-                })
-                ->select('id', 'name', 'phone')
-                ->limit(10)->get();
+        if ($table === 'users') {
+            // العملاء
+            $query = \App\Models\User::query();
+        } else {
+            // المسوقين فقط (admins != 0)
+            $query = \App\Models\Admin::where('admin_type', '!=', 0);
+        }
 
-            return $users->map(fn($u) => [
-                'id' => $u->id,
-                'text' => $u->name . ' - ' . $u->phone
-            ]);
-        //}
+        if (!$all && !empty($q)) {
+            // لو فيه بحث، فلتر بالاسم أو الجوال
+            $query->where(function($q2) use ($q) {
+                $q2->where('name', 'like', "%$q%")
+                ->orWhere('phone', 'like', "%$q%");
+            });
+        }
 
-        // marketers
-        $admins = \App\Models\Admin::where('admin_type','!=', 0)
-            ->where(function($query) use ($q) {
-                $query->where('name', 'like', "%$q%")
-                    ->orWhere('phone', 'like', "%$q%");
-            })
-            ->select('id', 'name', 'phone')
-            ->limit(10)->get();
+        $items = $query->select('id', 'name', 'phone')
+                    ->orderBy('name')
+                    ->limit(100)
+                    ->get();
 
-        return $admins->map(fn($a) => [
-            'id' => $a->id,
-            'text' => $a->name . ' - ' . $a->phone
+        return $items->map(fn($i) => [
+            'id' => $i->id,
+            'text' => $i->name . ' - ' . $i->phone
         ]);
     }
     public function reserveWorker(Request $request)

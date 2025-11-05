@@ -708,26 +708,39 @@
             $('#reserveModal').modal('show');
         });
 
-        $('.select2').select2({
-            dropdownParent: $('#reserveModal'), // ✅ ده اللي بيخلي القائمة تظهر جوه المودال
-            ajax: {
-                url: '{{ route("ajax.searchUsers") }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return { q: params.term, type: $(this).attr('id') };
-                },
-                processResults: function (data) {
-                    return { results: data };
-                },
-                cache: true
-            },
-            placeholder: 'ابحث بالاسم أو الجوال',
-            minimumInputLength: 1,
-            dir: "rtl" // ✅ الاتجاه يمين لواجهة عربية
+        // تحميل العملاء والمسوقين مرة واحدة
+        let loaded = false;
+        $('#reserveModal').on('shown.bs.modal', function () {
+            if (loaded) return;
+            loaded = true;
+
+            // تحميل كل العملاء
+            $.get('{{ route("ajax.searchUsers") }}', { all: 1, table: 'users' }, function (data) {
+                $('#customer').empty();
+                data.forEach(function (item) {
+                    let newOption = new Option(item.text, item.id, false, false);
+                    $('#customer').append(newOption);
+                });
+            });
+
+            // تحميل كل المسوقين (admins with admin_type != 0)
+            $.get('{{ route("ajax.searchUsers") }}', { all: 1, table: 'admins' }, function (data) {
+                $('#marketer').empty();
+                data.forEach(function (item) {
+                    let newOption = new Option(item.text, item.id, false, false);
+                    $('#marketer').append(newOption);
+                });
+            });
         });
 
-        // إرسال الطلب
+        // تفعيل select2 (بدون Ajax — البحث محلي)
+        $('.select2').select2({
+            dropdownParent: $('#reserveModal'),
+            dir: "rtl",
+            placeholder: 'اختر من القائمة أو اكتب للبحث'
+        });
+
+        // إرسال الحجز
         $('#reserveForm').on('submit', function(e){
             e.preventDefault();
 
