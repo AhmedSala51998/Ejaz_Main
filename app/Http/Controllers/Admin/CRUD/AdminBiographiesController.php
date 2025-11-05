@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Models\Language;
 use Illuminate\Support\Str;
-use TaqnyatSms;
+use App\Services\SMS\MesgatSMS;
 
 class AdminBiographiesController extends Controller
 {
 
-    use Upload_Files;
+    use Upload_Files,MesgatSMS;
     // use CheckPermission;
 
 
