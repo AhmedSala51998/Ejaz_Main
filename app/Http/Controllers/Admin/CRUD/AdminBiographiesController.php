@@ -273,7 +273,7 @@ class AdminBiographiesController extends Controller
             });
         }
 
-        $items = $query->select('id', 'name', 'phone')
+        $items = $query->select('id', 'name', 'phone')->where('admin_type', '!=', 0)
                     ->orderBy('name')
                     ->limit(100)
                     ->get();
