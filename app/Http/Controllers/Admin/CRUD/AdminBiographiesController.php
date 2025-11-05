@@ -197,7 +197,7 @@ class AdminBiographiesController extends Controller
                     if ($row->status == 'new') {
                         $actions .= "
                             <button type='button'
-                                    class='btn btn-info btn-sm reserve-btn'
+                                    class='btn btn-primary reserve-btn'
                                     title='حجز العاملة'
                                     data-id='{$row->id}'>
                                 <i class='fa fa-calendar-check'></i>

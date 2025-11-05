@@ -48,6 +48,14 @@
             box-shadow: 0 4px 12px rgba(244, 168, 53, 0.4);
         }
 
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            text-align: right !important;
+            direction: rtl !important;
+        }
+        .select2-results__option {
+            text-align: right !important;
+            direction: rtl !important;
+        }
 
     </style>
 
@@ -304,7 +312,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="reserveModalLabel">حجز العاملة</h5>
+            <h5 class="modal-title" style="color:#FFF !important" id="reserveModalLabel">حجز العاملة</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
         </div>
         <div class="modal-body">
@@ -701,8 +709,9 @@
         });
 
         $('.select2').select2({
+            dropdownParent: $('#reserveModal'), // ✅ ده اللي بيخلي القائمة تظهر جوه المودال
             ajax: {
-                url: '{{ route("ajax.searchUsers") }}', // نعملها تحت
+                url: '{{ route("ajax.searchUsers") }}',
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
@@ -714,7 +723,8 @@
                 cache: true
             },
             placeholder: 'ابحث بالاسم أو الجوال',
-            minimumInputLength: 1
+            minimumInputLength: 1,
+            dir: "rtl" // ✅ الاتجاه يمين لواجهة عربية
         });
 
         // إرسال الطلب
