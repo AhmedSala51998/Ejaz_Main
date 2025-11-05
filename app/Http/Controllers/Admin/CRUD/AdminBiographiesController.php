@@ -14,6 +14,7 @@ use App\Models\Religion;
 use App\Models\Biography;
 use App\Models\Skill;
 use App\Models\SocialType;
+use App\Models\Order;
 use ConvertApi\ConvertApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
