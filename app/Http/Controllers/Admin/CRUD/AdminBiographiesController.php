@@ -275,7 +275,6 @@ class AdminBiographiesController extends Controller
 
         $items = $query->select('id', 'name', 'phone')
                     ->orderBy('name')
-                    ->limit(100)
                     ->get();
 
         return $items->map(fn($i) => [
