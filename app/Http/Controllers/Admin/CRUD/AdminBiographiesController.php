@@ -305,14 +305,14 @@ class AdminBiographiesController extends Controller
             'order_date'=> now(),
         ];
 
-        // 🔹 تحديث حالة السيرة
-        Biography::where('id', $cv->id)->update(['status' => 'under_work']);
-
         // 🔹 إنشاء الطلب
         $orderData['biography_id'] = $cv->id;
         $orderData['order_code']   = 'NK' . $cv->id . time();
 
         $order = Order::create($orderData);
+
+        // 🔹 تحديث حالة السيرة
+        Biography::where('id', $cv->id)->update(['status' => 'under_work']);
 
         // ✅ إرسال الرسائل SMS
 
