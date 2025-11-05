@@ -304,7 +304,6 @@ class AdminBiographiesController extends Controller
     }
     public function reserveWorker(Request $request)
     {
-        \Log::info('Reserve request data:', $request->all());
         $this->validate($request, [
             'cv_id' => 'required|exists:biographies,id',
             'customer_id' => 'required|exists:users,id',
