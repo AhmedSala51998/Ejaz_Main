@@ -188,9 +188,9 @@ class HomeFrontController extends Controller
     public function index(Request $request)
     {
         $branch = $request->cookie('branch');
-        if(!$branch){
+        /*if(!$branch){
             return view('frontend.pages.home.parts.landing');
-        }else{
+        }else{*/
 
             $sliders = Slider::latest()->take(4)->get();
             $ourServices = OurService::take(5)->get();
@@ -237,7 +237,7 @@ class HomeFrontController extends Controller
                 'countries'=>$countries,
                 'admins'=>$admins
             ]);
-        }
+        //}
     }//end fun
 
 
