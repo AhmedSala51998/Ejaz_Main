@@ -195,7 +195,7 @@ class AdminBiographiesController extends Controller
                     if (!checkPermission(21))
                         $delete = 'hidden';
                     $actions = '';
-                    if ($row->status == 'new') {
+                    /*if ($row->status == 'new') {
                         $actions .= "
                             <button type='button'
                                     class='btn btn-primary reserve-btn'
@@ -204,7 +204,7 @@ class AdminBiographiesController extends Controller
                                 <i class='fas fa-user-check'></i>
                             </button>
                         ";
-                    }
+                    }*/
                     // زر الحظر / إلغاء الحظر
                     $blockButton = '';
                     if ($row->is_blocked) {
