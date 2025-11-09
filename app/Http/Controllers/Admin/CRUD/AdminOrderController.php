@@ -100,19 +100,7 @@ class AdminOrderController extends Controller
 
                 if($role_id == 7){
 
-                    if ($count > 0) {
-                        $dataTables = Order::query()->orderBy("id", "DESC");
-
-                    } else {
-                        if(checkPermission(56)){
-                            $dataTables = Order::query()->orderBy("id", "DESC");
-
-                        }else{
-                            $dataTables = Order::query()->where('admin_id', $admin->id)->orderBy("id", "DESC");
-
-                        }
-
-                    }
+                    $dataTables = Order::query()->orderBy("id", "DESC");
 
                 }else{
 
