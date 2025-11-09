@@ -52,6 +52,7 @@ class AdminOrderController extends Controller
 
         $admin=  \App\Models\Admin::find(admin()->id());
         $roles= $admin->roles;
+        $role_id = $roles->first()->id ?? null;
         $count=0;
         $passport_key = $request->passport_key;
         $nationality_id = $request->nationality_id;
@@ -97,15 +98,35 @@ class AdminOrderController extends Controller
 
             } else {
 
-                if ($count > 0) {
-                    $dataTables = Order::query()->where("admin_id",)->orderBy("id", "DESC");
+                if($role_id == 7){
 
-                } else {
-                    if(checkPermission(56)){
+                    if ($count > 0) {
                         $dataTables = Order::query()->orderBy("id", "DESC");
 
-                    }else{
-                        $dataTables = Order::query()->where('admin_id', $admin->id)->orderBy("id", "DESC");
+                    } else {
+                        if(checkPermission(56)){
+                            $dataTables = Order::query()->orderBy("id", "DESC");
+
+                        }else{
+                            $dataTables = Order::query()->where('admin_id', $admin->id)->orderBy("id", "DESC");
+
+                        }
+
+                    }
+
+                }else{
+
+                    if ($count > 0) {
+                        $dataTables = Order::query()->where("admin_id",)->orderBy("id", "DESC");
+
+                    } else {
+                        if(checkPermission(56)){
+                            $dataTables = Order::query()->orderBy("id", "DESC");
+
+                        }else{
+                            $dataTables = Order::query()->where('admin_id', $admin->id)->orderBy("id", "DESC");
+
+                        }
 
                     }
 
@@ -345,7 +366,7 @@ class AdminOrderController extends Controller
                     'type', 'user', 'admin', 'actions','contact_num'
                 ])->make(true);
         }
-        
+
         return view('admin.crud.order.admin', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','passport_key','selected_staff','date'));
     }
 
@@ -567,7 +588,7 @@ class AdminOrderController extends Controller
             // ✅ إرسال رسالة للعميل
         $clientPhone = $order->user->phone ?? null;
         $workerName = $order->biography->cv_name ?? 'العاملة';
-        
+
         if (!empty($clientPhone)) {
             $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
             $this->sendSMS($clientPhone, $msg);
