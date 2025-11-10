@@ -98,7 +98,7 @@ class AdminOrderController extends Controller
 
             } else {
 
-                if($role_id == 7){
+                if($role_id == 7 && $role_id == 9){
 
                     $dataTables = Order::query()->orderBy("id", "DESC");
 
