@@ -83,31 +83,19 @@ if (!function_exists('aurl')) {
 }
 
 if (!function_exists('get_file')) {
-    /**
-     * إرجاع رابط الصورة بشكل آمن
-     * @param string|null $file اسم الملف أو رابط كامل
-     * @return string رابط صالح للعرض
-     */
-    function get_file($file = null)
+
+    function get_file($file)
     {
-        // لو الرابط عبارة عن URL كامل
-        if ($file && filter_var($file, FILTER_VALIDATE_URL)) {
-            return $file;
+        // Storage::exists( $file )
+        if (filter_var($file, FILTER_VALIDATE_URL)) {
+            $file_path = $file;
+        } elseif ($file) {
+            $file_path = asset('storage/uploads') . '/' . $file;
+        } else {
+            $file_path=asset('dashboard/assets/images/companies/img-1.png');
         }
-
-        // لو الملف موجود في storage/app/public/uploads
-        if ($file && file_exists(storage_path('app/public/uploads/' . $file))) {
-            return asset('storage/uploads/' . $file);
-        }
-
-        // لو الملف موجود في public مباشرة
-        if ($file && file_exists(public_path($file))) {
-            return asset($file);
-        }
-
-        // القيمة الافتراضية لو مفيش ملف
-        return asset('dashboard/assets/images/companies/img-1.png');
-    }
+        return $file_path;
+    }//end
 }
 if (!function_exists('get_new_file')) {
 
