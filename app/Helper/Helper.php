@@ -3,11 +3,8 @@
 
 use Carbon\Carbon;
 use ConvertApi\ConvertApi;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic as Image;
 
-/*function worker_new_cv($id)
+function worker_new_cv($id)
 {
     try {
       //  ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
@@ -34,47 +31,6 @@ use Intervention\Image\ImageManagerStatic as Image;
 
     }
 
-}*/
-if (!function_exists('worker_new_cv')) {
-    function worker_new_cv($id)
-    {
-        try {
-            // ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
-
-            // $result = ConvertApi::convert('png', [
-            //     'File' => route('frontend.cvDesign', $id),
-            //     'WebHook' => route('frontend.cvDesign', $id),
-            // ], 'html');
-
-            if (isset($result->response['Files'][0]) && !empty($result->response['Files'][0])) {
-
-                // اسم الملف العشوائي
-                $fileName = Str::random(5) . '_' . time() . '.png';
-
-                // المسار النسبي داخل uploads
-                $relativePath = 'new_cvs/' . $fileName;
-
-                // المسار الفعلي
-                $destinationPath = public_path('storage/uploads/new_cvs');
-
-                // إنشاء المجلد لو مش موجود
-                if (!File::exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0777, true, true);
-                }
-
-                // حفظ الملف في نفس مسار النظام
-                $result->saveFiles($destinationPath . '/' . $fileName);
-
-                // نرجّع فقط المسار النسبي اللي بيتخزن في قاعدة البيانات
-                return $relativePath;
-
-            } else {
-                return null;
-            }
-        } catch (\Exception $e) {
-            return null;
-        }
-    }
 }
 if (!function_exists('setting')) {
     function setting()
@@ -83,7 +39,7 @@ if (!function_exists('setting')) {
     }
 }
 
-/*if (!function_exists('checkRouteIsHome')) {
+if (!function_exists('checkRouteIsHome')) {
     function checkRouteIsHome($id)
     {
         if (request()->routeIs('home')) {
@@ -92,33 +48,7 @@ if (!function_exists('setting')) {
             return  route('home').$id;
         }
     }
-}*/
-
-if (!function_exists('checkRouteIsHome')) {
-    function checkRouteIsHome($id)
-    {
-        // لو أنا في الـ landing (/) العادي
-        if (request()->routeIs('home')) {
-            return $id;
-        }
-
-        // لو أنا في صفحة فرع معين
-        if (request()->routeIs('branch.home')) {
-            $branch = request()->route('branch');
-            return $id; // لأننا بالفعل في نفس الفرع
-        }
-
-        // في أي صفحة تانية، رجّع لينك الفرع الحالي
-        $branch = request()->segment(1); // yanbu / riyadh / jeddah
-        if (in_array($branch, ['yanbu','riyadh','jeddah'])) {
-            return route('branch.home', ['branch' => $branch]) . $id;
-        }
-
-        // fallback → landing page
-        return route('home') . $id;
-    }
 }
-
 
 if (!function_exists('years_between_two_date')) {
     function years_between_two_date($first)
@@ -152,7 +82,7 @@ if (!function_exists('aurl')) {
     }
 }
 
-/*if (!function_exists('get_file')) {
+if (!function_exists('get_file')) {
 
     function get_file($file)
     {
@@ -181,38 +111,6 @@ if (!function_exists('get_new_file')) {
         }
         return $file_path;
     }//end
-}*/
-
-if (!function_exists('get_file')) {
-    /**
-     * عرض الملف أو صورة افتراضية
-     */
-    function get_file($file)
-    {
-        if (filter_var($file, FILTER_VALIDATE_URL)) {
-            return $file;
-        } elseif ($file && file_exists(public_path('storage/uploads/' . $file))) {
-            return asset('storage/uploads/' . $file);
-        } else {
-            return asset('dashboard/assets/images/companies/img-1.png');
-        }
-    }
-}
-
-if (!function_exists('get_new_file')) {
-    /**
-     * نسخة جديدة من get_file (نفس المنطق)
-     */
-    function get_new_file($file)
-    {
-        if (filter_var($file, FILTER_VALIDATE_URL)) {
-            return $file;
-        } elseif ($file && file_exists(public_path('storage/uploads/' . $file))) {
-            return asset('storage/uploads/' . $file);
-        } else {
-            return asset('dashboard/assets/images/companies/img-1.png');
-        }
-    }
 }
 
 if (!function_exists('permissionsList')) {
