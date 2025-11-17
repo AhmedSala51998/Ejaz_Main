@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Cache;
 
 use App\Http\Resources\WorkersCollection;
 
@@ -35,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
         Passport::routes();
-        view()->share('settings', Setting::first());
+        //view()->share('settings', Setting::first());
+        view()->share('settings', Cache::rememberForever('settings', function () {
+            return Setting::first();
+        }));
     }
 }
