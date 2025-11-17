@@ -8,7 +8,6 @@ use App\Models\Language;
 use App\Models\FrequentlyQuestion;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 
 class AdminFrequentlyQuestionsController extends Controller
@@ -105,7 +104,7 @@ class AdminFrequentlyQuestionsController extends Controller
         $data['desc'] = $desc;
       /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         FrequentlyQuestion::create($data);
-        Cache::forget('questions');
+        //Cache::forget('questions');
         return response()->json(1,200);
 
     }
@@ -172,7 +171,7 @@ class AdminFrequentlyQuestionsController extends Controller
             $data['title'] = $name;
             $data['desc'] = $desc;
             $slider->update($data);
-            Cache::forget('questions');
+            //Cache::forget('questions');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -187,12 +186,12 @@ class AdminFrequentlyQuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(FrequentlyQuestion::destroy($id),200);
-        $deleted = FrequentlyQuestion::destroy($id);
+        return response()->json(FrequentlyQuestion::destroy($id),200);
+        /*$deleted = FrequentlyQuestion::destroy($id);
 
         Cache::forget('questions');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -203,7 +202,7 @@ class AdminFrequentlyQuestionsController extends Controller
     public function delete_all(Request $request)
     {
         FrequentlyQuestion::destroy($request->id);
-        Cache::forget('questions');
+        //Cache::forget('questions');
         return response()->json(1,200);
     }
 

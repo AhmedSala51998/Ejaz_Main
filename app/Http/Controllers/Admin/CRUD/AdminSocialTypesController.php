@@ -8,7 +8,6 @@ use App\Models\Language;
 use App\Models\SocialType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 
 class AdminSocialTypesController extends Controller
@@ -103,7 +102,7 @@ class AdminSocialTypesController extends Controller
         $data['title'] = $name;
       /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         SocialType::create($data);
-        Cache::forget('social_types');
+        //Cache::forget('social_types');
         return response()->json(1,200);
 
     }
@@ -170,7 +169,7 @@ class AdminSocialTypesController extends Controller
             $data['title'] = $name;
           /*  $data['desc'] = $desc;*/
             $slider->update($data);
-            Cache::forget('social_types');
+            //Cache::forget('social_types');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -185,12 +184,12 @@ class AdminSocialTypesController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(SocialType::destroy($id),200);
-        $deleted = SocialType::destroy($id);
+        return response()->json(SocialType::destroy($id),200);
+        /*$deleted = SocialType::destroy($id);
 
         Cache::forget('social_types');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -201,7 +200,7 @@ class AdminSocialTypesController extends Controller
     public function delete_all(Request $request)
     {
         SocialType::destroy($request->id);
-        Cache::forget('social_types');
+        //Cache::forget('social_types');
         return response()->json(1,200);
     }
 
