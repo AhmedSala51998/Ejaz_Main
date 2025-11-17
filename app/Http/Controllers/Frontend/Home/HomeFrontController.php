@@ -12,6 +12,7 @@ use App\Models\Slider;
 use App\Models\Sponsor;
 use App\Models\Statistic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeFrontController extends Controller
 {
@@ -192,12 +193,19 @@ class HomeFrontController extends Controller
             return view('frontend.pages.home.parts.landing');
         }else{
 
-            $sliders = Slider::latest()->take(4)->get();
+            /*$sliders = Slider::latest()->take(4)->get();
             $ourServices = OurService::take(5)->get();
             $statistics = Statistic::latest()->take(4)->get();
             $sponsors = Sponsor::latest()->take(5)->get();
             $questions = FrequentlyQuestion::take(100)->get();
-            $countries=Nationalitie::latest()->get();
+            $countries=Nationalitie::latest()->get();*/
+
+            $sliders      = Cache::rememberForever('sliders', fn()=> Slider::latest()->take(4)->get());
+            $ourServices  = Cache::rememberForever('our_services', fn()=> OurService::take(5)->get());
+            $statistics   = Cache::rememberForever('statistics', fn()=> Statistic::latest()->take(4)->get());
+            $sponsors     = Cache::rememberForever('sponsors', fn()=> Sponsor::latest()->take(5)->get());
+            $questions    = Cache::rememberForever('questions', fn()=> FrequentlyQuestion::take(100)->get());
+            $countries    = Cache::rememberForever('countries', fn()=> Nationalitie::latest()->get());
             //$admins = \App\Models\Admin::where('admin_type','!=',0)->where('branch','=',$branch)->get();
             /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
                 ->where(function($q) use ($branch) {
@@ -206,7 +214,7 @@ class HomeFrontController extends Controller
                 })
                 ->get();*/
 
-            $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+            /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
             ->where(function($q) use ($branch) {
                 $q->where('branch', $branch)
                 ->orWhere('branch', 'all_branches')
@@ -220,13 +228,46 @@ class HomeFrontController extends Controller
                     }
                 });
             })
-            ->get();
+            ->get();*/
 
-            $cvs = Biography::where('status','new')
+            $admins = Cache::rememberForever("admins_{$branch}", function() use($branch){
+                return \App\Models\Admin::where('admin_type','!=',0)
+                    ->where(function($q) use ($branch){
+                        $q->where('branch', $branch)
+                        ->orWhere('branch', 'all_branches')
+                        ->orWhere(function($q2) use ($branch){
+                            $map = ['riyadh'=>['r_y','j_r'],'jeddah'=>['y_j','j_r'],'yanbu'=>['r_y','y_j']];
+                            if(isset($map[$branch])) $q2->whereIn('branch', $map[$branch]);
+                        });
+                    })->get();
+            });
+
+            /*$cvs = Biography::where('status','new')
                 ->where('order_type','normal')
                 ->with('recruitment_office','nationalitie','language_title',
                 'religion','job','social_type','admin','images','skills')
-                ->take(5)->get();
+                ->take(5)->get();*/
+
+
+            // CVs cached per branch
+            $cvs = Cache::rememberForever("cvs_{$branch}", function() {
+                return Biography::where('status','new')
+                    ->where('order_type','normal')
+                    ->with([
+                        'recruitment_office',
+                        'nationalitie',
+                        'language_title',
+                        'religion',
+                        'job',
+                        'social_type',
+                        'admin',
+                        'images',
+                        'skills'
+                    ])
+                    ->take(5)
+                    ->get();
+            });
+
             return view('frontend.pages.home.home',[
                 'sliders'=>$sliders,
                 'ourServices'=>$ourServices,
