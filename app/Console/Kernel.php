@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //$schedule->command('delete:order');
-        $schedule->command('cancel:orders')->everyMinute();
+        $schedule->command('cancel:orders')->everyMinute()->withoutOverlapping();
 
     }
 
