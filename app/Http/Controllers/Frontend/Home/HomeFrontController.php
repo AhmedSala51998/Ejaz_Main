@@ -230,7 +230,7 @@ class HomeFrontController extends Controller
             })
             ->get();*/
 
-            $admins = Cache::rememberForever("admins_{$branch}", function() use($branch){
+            $admins = Cache::rememberForever("admins", function() use($branch){
                 return \App\Models\Admin::where('admin_type','!=',0)
                     ->where(function($q) use ($branch){
                         $q->where('branch', $branch)
@@ -250,7 +250,7 @@ class HomeFrontController extends Controller
 
 
             // CVs cached per branch
-            $cvs = Cache::rememberForever("cvs_{$branch}", function() {
+            $cvs = Cache::rememberForever("cvs_all_workers", function() {
                 return Biography::where('status','new')
                     ->where('order_type','normal')
                     ->with([

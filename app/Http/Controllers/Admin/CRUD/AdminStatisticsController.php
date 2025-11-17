@@ -8,7 +8,7 @@ use App\Models\Language;
 use App\Models\Statistic;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-
+use Illuminate\Support\Facades\Cache;
 
 class AdminStatisticsController extends Controller
 {
@@ -105,6 +105,7 @@ class AdminStatisticsController extends Controller
         $data['title'] = $name;
         /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Statistic::create($data);
+        Cache::forget('statistics');
         return response()->json(1, 200);
 
     }
@@ -173,6 +174,7 @@ class AdminStatisticsController extends Controller
             $data['title'] = $name;
             /*  $data['desc'] = $desc;*/
             $slider->update($data);
+            Cache::forget('statistics');
             return response()->json(1, 200);
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(), 500);
@@ -187,7 +189,12 @@ class AdminStatisticsController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(Statistic::destroy($id), 200);
+        //return response()->json(Statistic::destroy($id), 200);
+        $deleted = Statistic::destroy($id);
+
+        Cache::forget('statistics');
+
+        return response()->json($deleted, 200);
     }
 
     /**
@@ -198,6 +205,7 @@ class AdminStatisticsController extends Controller
     public function delete_all(Request $request)
     {
         Statistic::destroy($request->id);
+        Cache::forget('statistics');
         return response()->json(1, 200);
     }
 

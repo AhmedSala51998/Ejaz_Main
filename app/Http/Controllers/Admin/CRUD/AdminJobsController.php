@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Cache;
 
 
 
@@ -101,6 +102,7 @@ class AdminJobsController extends Controller
         $data['title'] = $name;
       /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Job::create($data);
+        Cache::forget('jobs');
         return response()->json(1,200);
 
     }
@@ -167,6 +169,7 @@ class AdminJobsController extends Controller
             $data['title'] = $name;
           /*  $data['desc'] = $desc;*/
             $slider->update($data);
+            Cache::forget('jobs');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -181,7 +184,12 @@ class AdminJobsController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(Job::destroy($id),200);
+        //return response()->json(Job::destroy($id),200);
+        $deleted = Job::destroy($id);
+
+        Cache::forget('jobs');
+
+        return response()->json($deleted, 200);
     }
 
     /**
@@ -192,6 +200,7 @@ class AdminJobsController extends Controller
     public function delete_all(Request $request)
     {
         Job::destroy($request->id);
+        Cache::forget('jobs');
         return response()->json(1,200);
     }
 

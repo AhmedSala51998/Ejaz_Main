@@ -185,6 +185,9 @@ class ProfileFrontController extends Controller
     public function get_order_details($order_id)
     {
         $user = auth()->user();
+        if (!$user) {
+            return redirect()->route('auth.login');
+        }
        $order= Order::where([
            'user_id'=>$user->id,
        ])->whereHas('admin', function ($q) {

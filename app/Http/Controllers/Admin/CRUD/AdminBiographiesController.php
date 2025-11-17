@@ -22,6 +22,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\Language;
 use Illuminate\Support\Str;
 use App\Services\SMS\MesgatSMS;
+use Illuminate\Support\Facades\Cache;
 
 class AdminBiographiesController extends Controller
 {
@@ -701,6 +702,7 @@ class AdminBiographiesController extends Controller
         }
 
         DB::commit();
+        Cache::forget('cvs_all_workers');
 
 
         return response()->json([],200);
@@ -931,6 +933,7 @@ class AdminBiographiesController extends Controller
             }
         }
 //        DB::commit();
+        Cache::forget('cvs_all_workers');
 
         return response()->json([],200);
     }//end fun
@@ -943,7 +946,12 @@ class AdminBiographiesController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(Biography::destroy($id),200);
+        //return response()->json(Biography::destroy($id),200);
+        $deleted = Biography::destroy($id);
+
+        Cache::forget('cvs_all_workers');
+
+        return response()->json($deleted, 200);
     }
 
     /**
@@ -954,6 +962,7 @@ class AdminBiographiesController extends Controller
     public function delete_all(Request $request)
     {
         Biography::destroy($request->id);
+        Cache::forget('cvs_all_workers');
         return response()->json(1,200);
     }
 

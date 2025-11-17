@@ -8,7 +8,7 @@ use App\Models\Language;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-
+use Illuminate\Support\Facades\Cache;
 
 
 class AdminSlidersController extends Controller
@@ -106,6 +106,7 @@ class AdminSlidersController extends Controller
         $data['desc'] = $desc;
         $data ['image'] = $this->uploadFiles('sliders',$request->file('image'),null );
         Slider::create($data);
+        Cache::forget('sliders');
         return response()->json(1,200);
 
     }
@@ -172,6 +173,7 @@ class AdminSlidersController extends Controller
             $data['title'] = $name;
             $data['desc'] = $desc;
             $slider->update($data);
+            Cache::forget('sliders');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -186,7 +188,12 @@ class AdminSlidersController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(Slider::destroy($id),200);
+        //return response()->json(Slider::destroy($id),200);
+        $deleted = Slider::destroy($id);
+
+        Cache::forget('sliders');
+
+        return response()->json($deleted, 200);
     }
 
     /**
@@ -197,6 +204,7 @@ class AdminSlidersController extends Controller
     public function delete_all(Request $request)
     {
         Slider::destroy($request->id);
+        Cache::forget('sliders');
         return response()->json(1,200);
     }
 
