@@ -19,6 +19,7 @@ use App\Models\User;
 use App\Services\SMS\MesgatSMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class WorkerFrontController extends Controller
 {
@@ -242,7 +243,7 @@ class WorkerFrontController extends Controller
         ));
     }*/
 
-    public function showAllWorkers(Request $request, $id = null)
+    /*public function showAllWorkers(Request $request, $id = null)
     {
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
@@ -320,6 +321,85 @@ class WorkerFrontController extends Controller
 
         return view('frontend.pages.all-workers.all-workers', compact(
             'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types'
+        ));
+    }*/
+
+    public function showAllWorkers(Request $request, $id = null)
+    {
+        // إنشاء مفتاح cache ديناميكي حسب الفلاتر
+        $cacheKey = 'all_workers_' . md5(json_encode($request->all()) . '_' . ($id ?? 'all'));
+
+        // نستخدم cache forever أو TTL حسب رغبتك
+        $cvs = Cache::rememberForever($cacheKey, function() use ($request, $id) {
+
+            $query = Biography::where('status', 'new')
+                ->where('order_type', 'normal')
+                ->where('type', 'admission')
+                ->where('is_cv_out', 0)
+                ->where('is_blocked', 0)
+                ->where('is_hide', 0)
+                ->with([
+                    'recruitment_office',
+                    'nationalitie',
+                    'language_title',
+                    'religion',
+                    'job',
+                    'social_type',
+                    'admin',
+                    'images',
+                    'skills'
+                ]);
+
+            // فلترة حسب الدولة إن وجدت
+            if ($id) {
+                $country = Nationalitie::find($id);
+                if ($country) $query->where('nationalitie_id', $country->id);
+            } elseif ($request->nationality) {
+                $query->where('nationalitie_id', $request->nationality);
+            }
+
+            // باقي الفلاتر
+            if ($request->age) $query->FilterByAge($request->age);
+            if ($request->job) $query->FilterByJob($request->job);
+            if ($request->religion) $query->where('religion_id', $request->religion);
+            if ($request->social) $query->where('social_type_id', $request->social);
+
+            if (!request()->routeIs('transferService') && !request()->routeIs('services-single')) {
+                if ($request->type_of_experience !== null) {
+                    $query->where('type_of_experience', $request->type_of_experience);
+                }
+            }
+
+            // ترتيب بحيث الفلبينيات أولاً
+            $query->orderByRaw('CASE WHEN nationalitie_id = 7 THEN 0 ELSE 1 END')
+                ->latest();
+
+            return $query->paginate(9); // الباجينيشن
+        });
+
+        // Ajax response
+        if ($request->ajax()) {
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $returnHTML,
+                'current_page' => $cvs->currentPage(),
+                'last_page' => $cvs->lastPage(),
+            ]);
+        }
+
+        // البيانات المطلوبة للفلترة
+        $ages = Cache::rememberForever('ages', fn() => AgeRange::all());
+        $jobs = Cache::rememberForever('jobs', fn() => Job::all());
+        $religions = Cache::rememberForever('religions', fn() => Religion::all());
+        $social_types = Cache::rememberForever('social_types', fn() => SocialType::all());
+        $nationalities = Cache::rememberForever('nationalities', fn() =>
+            Nationalitie::orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')->get()
+        );
+
+        return view('frontend.pages.all-workers.all-workers', compact(
+            'ages','jobs','nationalities','cvs','religions','social_types'
         ));
     }
 
