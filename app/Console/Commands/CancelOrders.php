@@ -51,6 +51,14 @@ class CancelOrders extends Command
 
     public function handle()
     {
+        $count = Order::where('status', 'under_work')
+        ->where('created_at', '<=', now()->subHours(48))
+        ->count();
+
+        if ($count === 0) {
+            return 0;
+        }
+
         $ordersToCancel = Order::with(['user:id,phone','biography:id,cv_name'])
             ->where('status', 'under_work')
             ->where('created_at', '<=', now()->subHours(48))
