@@ -216,7 +216,7 @@ if (!function_exists('showSelectElement')) {
     }
 }
 
-/*if (!function_exists('uploadFile')) {
+if (!function_exists('uploadFile')) {
 
 
     function uploadFile($image, $path, $compress = null, $quality_ratio = 90)
@@ -294,92 +294,6 @@ function getFile($fileFullPath)
     }
 
     return asset(asset('/storage/uploads/noImage.gif'));
-}*/
-
-if (!function_exists('uploadFile')) {
-    /**
-     * رفع ملف داخل public/storage/uploads/{path}
-     */
-    function uploadFile($image, $path, $compress = null, $quality_ratio = 90)
-    {
-        // random اسم الملف
-        $fileName = getRandomStringRandomInt(10) . time();
-
-        // المسار داخل public/storage/uploads
-        $destinationPath = public_path('storage/uploads/' . $path);
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0777, true);
-        }
-
-        try {
-            if ($compress != null) {
-                $fileName .= '.webp';
-                $img = Image::make($image);
-                $img->encode('webp', $quality_ratio)->save($destinationPath . '/' . $fileName);
-            } else {
-                $fileName .= '.' . $image->getClientOriginalExtension();
-                $image->move($destinationPath, $fileName);
-            }
-
-            return $path . '/' . $fileName;
-        } catch (\Exception $e) {
-            $fileName .= '.' . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $fileName);
-
-            return $path . '/' . $fileName;
-        }
-    }
-}
-
-if (!function_exists('deleteFile')) {
-    /**
-     * حذف ملف من public/storage/uploads
-     */
-    function deleteFile($fileFullPath)
-    {
-        $deletePath = public_path('storage/uploads/' . $fileFullPath);
-        if (file_exists($deletePath)) {
-            return File::delete($deletePath);
-        }
-        return false;
-    }
-}
-
-if (!function_exists('showFile')) {
-    /**
-     * عرض رابط ملف
-     */
-    function showFile($fileFullPath)
-    {
-        return asset('storage/uploads/' . $fileFullPath);
-    }
-}
-
-if (!function_exists('imageOrNull')) {
-    /**
-     * إرجاع الصورة إن وُجدت وإلا null
-     */
-    function imageOrNull($fileFullPath)
-    {
-        if ($fileFullPath && file_exists(public_path('storage/uploads/' . $fileFullPath))) {
-            return asset('storage/uploads/' . $fileFullPath);
-        }
-        return "";
-    }
-}
-
-if (!function_exists('getFile')) {
-    /**
-     * نفس فكرة get_file لكن مع noImage.gif
-     */
-    function getFile($fileFullPath)
-    {
-        if ($fileFullPath && file_exists(public_path('storage/uploads/' . $fileFullPath))) {
-            return asset('storage/uploads/' . $fileFullPath);
-        }
-
-        return asset('storage/uploads/noImage.gif');
-    }
 }
 
 if (!function_exists('getAuthUser')) {
@@ -433,7 +347,7 @@ if (!function_exists('getMigrations')) {
 }
 
 
-/*if (!function_exists('getImgTag')) {
+if (!function_exists('getImgTag')) {
     function getImgTag($fileFullPath, $width = "150px", $height = "120px")
     {
         $image_path = get_file($fileFullPath);
@@ -445,20 +359,6 @@ if (!function_exists('getMigrations')) {
         return $image;
     }
 
-}*/
-
-if (!function_exists('getImgTag')) {
-    /**
-     * ترجيع tag للصورة مباشرة
-     */
-    function getImgTag($fileFullPath, $width = "150px", $height = "120px")
-    {
-        $image_path = get_file($fileFullPath);
-        $exists = file_exists(public_path('storage/uploads/' . $fileFullPath));
-
-        $src = $exists ? $image_path : getFile($fileFullPath);
-        return '<img src="' . $src . '" alt="image" style="height: ' . $height . '; width: ' . $width . ';" class="avatar rounded me-2">';
-    }
 }
 
 

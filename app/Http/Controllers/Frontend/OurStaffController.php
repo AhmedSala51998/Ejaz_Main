@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Nationalitie;
 use App\Models\OurService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class OurStaffController extends Controller
 {
@@ -17,7 +18,7 @@ class OurStaffController extends Controller
                     ->orWhere('branch', 'all_branches');
                 })->get();*/
 
-        $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+        /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
         ->where(function($q) use ($branch) {
             $q->where('branch', $branch)
             ->orWhere('branch', 'all_branches')
@@ -31,8 +32,8 @@ class OurStaffController extends Controller
                 }
             });
         })
-        ->get();
-        /*$admins = Cache::rememberForever("admins", function() use ($branch) {
+        ->get();*/
+        $admins = Cache::rememberForever("admins", function() use ($branch) {
             return \App\Models\Admin::where('admin_type', '!=', 0)
                 ->where(function($q) use ($branch) {
                     $q->where('branch', $branch)
@@ -47,7 +48,7 @@ class OurStaffController extends Controller
                         }
                     });
                 })->get();
-        });*/
+        });
 
         return view('frontend.pages.ourStaff.ourStaff',['admins'=>$admins]);
     }//end fun

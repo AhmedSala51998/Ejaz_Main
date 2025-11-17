@@ -19,6 +19,7 @@ use App\Models\User;
 use App\Services\SMS\MesgatSMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class WorkerFrontController extends Controller
 {
@@ -242,7 +243,7 @@ class WorkerFrontController extends Controller
         ));
     }*/
 
-    public function showAllWorkers(Request $request, $id = null)
+    /*public function showAllWorkers(Request $request, $id = null)
     {
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
@@ -321,9 +322,9 @@ class WorkerFrontController extends Controller
         return view('frontend.pages.all-workers.all-workers', compact(
             'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types'
         ));
-    }
+    }*/
 
-    /*public function showAllWorkers(Request $request, $id = null)
+    public function showAllWorkers(Request $request, $id = null)
     {
         // إنشاء مفتاح cache ديناميكي حسب الفلاتر
         $cacheKey = 'cvs_all_workers';
@@ -400,7 +401,7 @@ class WorkerFrontController extends Controller
         return view('frontend.pages.all-workers.all-workers', compact(
             'ages','jobs','nationalities','cvs','religions','social_types'
         ));
-    }*/
+    }
 
 
 
@@ -444,7 +445,7 @@ class WorkerFrontController extends Controller
                     $q->where('branch', $branch)
                     ->orWhere('branch', 'all_branches');
                 })->take(12)->get();*/
-            $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+            /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
             ->where(function($q) use ($branch) {
                 $q->where('branch', $branch)
                 ->orWhere('branch', 'all_branches')
@@ -459,8 +460,8 @@ class WorkerFrontController extends Controller
                 });
             })
             ->take(12)
-            ->get();
-        /*$admins = Cache::rememberForever("admins", function() use ($branch) {
+            ->get();*/
+        $admins = Cache::rememberForever("admins", function() use ($branch) {
             return \App\Models\Admin::where('admin_type', '!=', 0)
                 ->where(function($q) use ($branch) {
                     $q->where('branch', $branch)
@@ -477,7 +478,7 @@ class WorkerFrontController extends Controller
                 })
                 ->take(12)
                 ->get();
-        });*/
+        });
         $returnHTML = view("frontend.pages.all-workers.worker.worker_details")
             ->with(['cv'=>$cv,'admins'=>$admins])
             ->render();
@@ -488,21 +489,21 @@ class WorkerFrontController extends Controller
 
     public function custom_worker_request_view()
     {
-        $nationalities = Nationalitie::get();
+        /*$nationalities = Nationalitie::get();
         $jobs = Job::get();
         $ages = AgeRange::get();
         $social_types = SocialType::get();
         $religions = Religion::get();
         $languages = LanguageTitle::get();
-        $cities = City::get();
+        $cities = City::get();*/
 
-        /*$nationalities = Cache::rememberForever('countries', fn() => Nationalitie::get());
+        $nationalities = Cache::rememberForever('countries', fn() => Nationalitie::get());
         $jobs = Cache::rememberForever('jobs', fn() => Job::get());
         $ages = Cache::rememberForever('ages', fn() => AgeRange::get());
         $social_types = Cache::rememberForever('social_types', fn() => SocialType::get());
         $religions = Cache::rememberForever('religions', fn() => Religion::get());
         $languages = Cache::rememberForever('languages', fn() => LanguageTitle::get());
-        $cities = Cache::rememberForever('cities', fn() => City::get());*/
+        $cities = Cache::rememberForever('cities', fn() => City::get());
 
         return view('frontend.pages.recruitment-request.recruitment-request',[
             'nationalities'=>$nationalities,
@@ -555,7 +556,7 @@ class WorkerFrontController extends Controller
                     $q->where('branch', $branch)
                     ->orWhere('branch', 'all_branches');
                 })->take(12)->get();*/
-            $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+            /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
             ->where(function($q) use ($branch) {
                 $q->where('branch', $branch)
                 ->orWhere('branch', 'all_branches')
@@ -570,8 +571,8 @@ class WorkerFrontController extends Controller
                 });
             })
             ->take(12)
-            ->get();
-        /*$admins = Cache::rememberForever("admins", function() use ($branch) {
+            ->get();*/
+        $admins = Cache::rememberForever("admins", function() use ($branch) {
             return \App\Models\Admin::where('admin_type', '!=', 0)
                 ->where(function($q) use ($branch) {
                     $q->where('branch', $branch)
@@ -588,7 +589,7 @@ class WorkerFrontController extends Controller
                 })
                 ->take(12)
                 ->get();
-        });*/
+        });
        return view("frontend.pages.all-workers.worker.worker_details",compact('cv','admins'));
 
     }

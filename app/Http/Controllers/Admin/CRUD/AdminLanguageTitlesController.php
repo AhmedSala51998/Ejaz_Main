@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Models\LanguageTitle;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Cache;
 
 
 class AdminLanguageTitlesController extends Controller
@@ -100,7 +101,7 @@ class AdminLanguageTitlesController extends Controller
         $data['title'] = $name;
       /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         LanguageTitle::create($data);
-        //Cache::forget('languages');
+        Cache::forget('languages');
         return response()->json(1,200);
 
     }
@@ -167,7 +168,7 @@ class AdminLanguageTitlesController extends Controller
             $data['title'] = $name;
           /*  $data['desc'] = $desc;*/
             $slider->update($data);
-            //Cache::forget('languages');
+            Cache::forget('languages');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -182,12 +183,12 @@ class AdminLanguageTitlesController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(LanguageTitle::destroy($id),200);
-        /*$deleted = LanguageTitle::destroy($id);
+        //return response()->json(LanguageTitle::destroy($id),200);
+        $deleted = LanguageTitle::destroy($id);
 
         Cache::forget('languages');
 
-        return response()->json($deleted, 200);*/
+        return response()->json($deleted, 200);
     }
 
     /**
@@ -198,7 +199,7 @@ class AdminLanguageTitlesController extends Controller
     public function delete_all(Request $request)
     {
         LanguageTitle::destroy($request->id);
-        //Cache::forget('languages');
+        Cache::forget('languages');
         return response()->json(1,200);
     }
 

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Cache;
 
 
 class AdminAdminController extends Controller
@@ -140,7 +141,7 @@ class AdminAdminController extends Controller
         $data ['image'] = $this->uploadFiles('admins', $request->file('image'), null);
 
       $admin= Admin::create($data);
-      //Cache::forget('admins');
+      Cache::forget('admins');
 
         if($request->has('roles')){
             AdminRole::where('admin_id',$admin->id)->delete();
@@ -224,7 +225,7 @@ class AdminAdminController extends Controller
                 $data ['image'] = $this->uploadFiles('admins', $request->file('image'), $admin->image);
 
             $admin->update($data);
-            //Cache::forget('admins');
+            Cache::forget('admins');
 
 
             if($request->has('roles')){
@@ -260,12 +261,12 @@ class AdminAdminController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(Admin::destroy($id), 200);
-        /*$deleted = Admin::destroy($id);
+        //return response()->json(Admin::destroy($id), 200);
+        $deleted = Admin::destroy($id);
 
         Cache::forget('admins');
 
-        return response()->json($deleted, 200);*/
+        return response()->json($deleted, 200);
     }
 
     /**
@@ -276,7 +277,7 @@ class AdminAdminController extends Controller
     public function delete_all(Request $request)
     {
         Admin::destroy($request->id);
-        //Cache::forget('admins');
+        Cache::forget('admins');
         return response()->json(1, 200);
     }
 
