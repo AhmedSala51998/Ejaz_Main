@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 
 class AdminSponsorsController extends Controller
@@ -91,7 +90,7 @@ class AdminSponsorsController extends Controller
         $data['title'] = $name;*/
         $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );
         Sponsor::create($data);
-        Cache::forget('sponsors');
+        //Cache::forget('sponsors');
         return response()->json(1,200);
 
     }
@@ -158,7 +157,7 @@ class AdminSponsorsController extends Controller
             $data['title'] = $name;
             $data['desc'] = $desc;*/
             $obj->update($data);
-            Cache::forget('sponsors');
+            //Cache::forget('sponsors');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -173,12 +172,12 @@ class AdminSponsorsController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(Sponsor::destroy($id),200);
-        $deleted = Sponsor::destroy($id);
+        return response()->json(Sponsor::destroy($id),200);
+        /*$deleted = Sponsor::destroy($id);
 
         Cache::forget('sponsors');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -189,7 +188,7 @@ class AdminSponsorsController extends Controller
     public function delete_all(Request $request)
     {
         Sponsor::destroy($request->id);
-        Cache::forget('sponsors');
+        //Cache::forget('sponsors');
         return response()->json(1,200);
     }
 

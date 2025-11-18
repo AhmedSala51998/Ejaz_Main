@@ -8,7 +8,6 @@ use App\Models\Language;
 use App\Models\AgeRange;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 
 
@@ -101,7 +100,7 @@ class AdminAgeRangesController extends Controller
         $data['title'] = $name;*/
       /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         AgeRange::create($data);
-        Cache::forget('ages');
+        //Cache::forget('ages');
         return response()->json(1,200);
 
     }
@@ -170,7 +169,7 @@ class AdminAgeRangesController extends Controller
             $data['title'] = $name;
             $data['desc'] = $desc;*/
             $obj->update($data);
-            Cache::forget('ages');
+            //Cache::forget('ages');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -185,12 +184,12 @@ class AdminAgeRangesController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(AgeRange::destroy($id),200);
-        $deleted = AgeRange::destroy($id);
+        return response()->json(AgeRange::destroy($id),200);
+        /*$deleted = AgeRange::destroy($id);
 
         Cache::forget('ages');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -201,7 +200,7 @@ class AdminAgeRangesController extends Controller
     public function delete_all(Request $request)
     {
         AgeRange::destroy($request->id);
-        Cache::forget('ages');
+        //Cache::forget('ages');
         return response()->json(1,200);
     }
 

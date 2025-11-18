@@ -8,7 +8,6 @@ use App\Models\Language;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 class AdminCitiesController extends Controller
 {
@@ -101,7 +100,7 @@ class AdminCitiesController extends Controller
         $data['title'] = $name;
       /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         City::create($data);
-        Cache::forget('cities');
+        //Cache::forget('cities');
         return response()->json(1,200);
 
     }
@@ -168,7 +167,7 @@ class AdminCitiesController extends Controller
             $data['title'] = $name;
           /*  $data['desc'] = $desc;*/
             $slider->update($data);
-            Cache::forget('cities');
+            //Cache::forget('cities');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -183,12 +182,12 @@ class AdminCitiesController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(City::destroy($id),200);
-        $deleted = City::destroy($id);
+        return response()->json(City::destroy($id),200);
+        /*$deleted = City::destroy($id);
 
         Cache::forget('cities');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -199,7 +198,7 @@ class AdminCitiesController extends Controller
     public function delete_all(Request $request)
     {
         City::destroy($request->id);
-        Cache::forget('cities');
+        //Cache::forget('cities');
         return response()->json(1,200);
     }
 

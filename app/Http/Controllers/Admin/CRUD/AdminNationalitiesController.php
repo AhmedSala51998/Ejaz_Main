@@ -8,7 +8,6 @@ use App\Models\Language;
 use App\Models\Nationalitie;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 
 class AdminNationalitiesController extends Controller
@@ -118,7 +117,7 @@ class AdminNationalitiesController extends Controller
 
         /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Nationalitie::create($data);
-        Cache::forget('countries');
+        //Cache::forget('countries');
         return response()->json(1,200);
 
     }
@@ -192,7 +191,7 @@ class AdminNationalitiesController extends Controller
             $data['price'] = $request->price;
             $data['price_service'] = $request->price_service;
             $slider->update($data);
-            Cache::forget('countries');
+            //Cache::forget('countries');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -207,12 +206,12 @@ class AdminNationalitiesController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(Nationalitie::destroy($id),200);
-        $deleted = Nationalitie::destroy($id);
+        return response()->json(Nationalitie::destroy($id),200);
+        /*$deleted = Nationalitie::destroy($id);
 
         Cache::forget('countries');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -223,7 +222,7 @@ class AdminNationalitiesController extends Controller
     public function delete_all(Request $request)
     {
         Nationalitie::destroy($request->id);
-        Cache::forget('countries');
+        //Cache::forget('countries');
         return response()->json(1,200);
     }
 

@@ -7,7 +7,6 @@ use App\Http\Traits\Upload_Files;
 use App\Models\Language;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class AdminSettingController extends Controller
 {
@@ -106,7 +105,7 @@ class AdminSettingController extends Controller
              $data =$this->updateFamily($setting,$request);
         }
         Setting::updateOrCreate(['id' => 1], $data);
-        Cache::forget('settings');
+        //Cache::forget('settings');
         $settings = Setting::first();
         return response()->json(['settings' => $settings, 'logo' => get_file($settings->header_logo)], 200);
     }//end fun

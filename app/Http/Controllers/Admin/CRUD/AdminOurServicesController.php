@@ -8,7 +8,6 @@ use App\Models\Language;
 use App\Models\OurService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Cache;
 
 
 
@@ -108,7 +107,7 @@ class AdminOurServicesController extends Controller
         $data['desc'] = $desc;
         $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );
         OurService::create($data);
-        Cache::forget('our_services');
+        //Cache::forget('our_services');
         return response()->json(1,200);
 
     }
@@ -175,7 +174,7 @@ class AdminOurServicesController extends Controller
             $data['title'] = $name;
             $data['desc'] = $desc;
             $slider->update($data);
-            Cache::forget('our_services');
+            //Cache::forget('our_services');
             return response()->json(1,200);
         }catch (\Exception $exception){
             return response()->json($exception->getMessage(),500);
@@ -190,12 +189,12 @@ class AdminOurServicesController extends Controller
      */
     public function destroy($id)
     {
-        //return response()->json(OurService::destroy($id),200);
-        $deleted = OurService::destroy($id);
+        return response()->json(OurService::destroy($id),200);
+        /*$deleted = OurService::destroy($id);
 
         Cache::forget('our_services');
 
-        return response()->json($deleted, 200);
+        return response()->json($deleted, 200);*/
     }
 
     /**
@@ -206,7 +205,7 @@ class AdminOurServicesController extends Controller
     public function delete_all(Request $request)
     {
         OurService::destroy($request->id);
-        Cache::forget('our_services');
+        //Cache::forget('our_services');
         return response()->json(1,200);
     }
 
