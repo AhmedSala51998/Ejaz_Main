@@ -45,7 +45,7 @@
         position: absolute;
         display: none;
         padding: 6px 12px;
-        background: rgba(0, 0, 0, 0.75); 
+        background: rgba(0, 0, 0, 0.75);
         color: white;
         border-radius: 6px;
         font-family: sans-serif;
@@ -466,7 +466,7 @@ function getCentroidFromMultiPolygon(polygons) {
 const emphasizedCountries = {
   231: { id: 231, iso: 'et', name: 'اثيوبيا', price: '3999', revealed: false },
   800: { id: 800, iso: 'ug', name: 'اوغندا', price: '4999', revealed: false },
-  50:  { id: 50, iso: 'bd', name: 'بنجلاديش', price: '6999', revealed: false },
+  50:  { id: 50, iso: 'bd', name: 'بنجلاديش', price: '6199', revealed: false },
   608: { id: 608, iso: 'ph', name: 'الفلبين', price: '13999', revealed: false },
   404: { id: 404, iso: 'ke', name: 'كينيا', price: '5999', revealed: false },
   356: { id: 356, iso: 'in', name: 'الهند', price: '2999', revealed: false },
@@ -592,7 +592,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
         }
 
       });
-      
+
       function revealNextCountry() {
         const ids = Object.keys(emphasizedCountries).map(Number).filter(id => id !== saudiInfo.id);
 
@@ -673,7 +673,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
         }, 2000);
       }, 1000);
     }
-    
+
   });
 
 function drawFlagSphere(iso, text) {
