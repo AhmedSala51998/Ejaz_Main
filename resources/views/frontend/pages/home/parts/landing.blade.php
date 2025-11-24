@@ -476,6 +476,11 @@ if(!branch && window.location.pathname !== '/'){
 const branch = localStorage.getItem('branch');
 const cookieBranch = getCookie('branch');
 
+function isCookieValid(name) {
+  const value = getCookie(name);
+  return value !== null && value !== '';
+}
+
 if(!branch || !isCookieValid('branch')){
   if(window.location.pathname !== '/'){
     localStorage.setItem('redirectAfterBranch', window.location.pathname);
