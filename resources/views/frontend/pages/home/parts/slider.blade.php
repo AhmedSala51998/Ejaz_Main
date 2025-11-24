@@ -434,7 +434,19 @@ canvas {
 
 
 
-
+@php
+$countryMap = [
+    231 => ['iso' => 'et', 'revealed' => false],
+    800 => ['iso' => 'ug', 'revealed' => false],
+    50  => ['iso' => 'bd', 'revealed' => false],
+    608 => ['iso' => 'ph', 'revealed' => false],
+    404 => ['iso' => 'ke', 'revealed' => false],
+    356 => ['iso' => 'in', 'revealed' => false],
+    144 => ['iso' => 'lk', 'revealed' => false],
+    108 => ['iso' => 'bi', 'revealed' => false],
+    682 => ['iso' => 'sa', 'revealed' => true],
+];
+@endphp
 
 
 @endif
@@ -464,15 +476,15 @@ function getCentroidFromMultiPolygon(polygons) {
 }
 
 const emphasizedCountries = {
-  231: { id: 231, iso: 'et', name: 'اثيوبيا', price: '3999', revealed: false },
-  800: { id: 800, iso: 'ug', name: 'اوغندا', price: '4999', revealed: false },
-  50:  { id: 50, iso: 'bd', name: 'بنجلاديش', price: '6199', revealed: false },
-  608: { id: 608, iso: 'ph', name: 'الفلبين', price: '13999', revealed: false },
-  404: { id: 404, iso: 'ke', name: 'كينيا', price: '5999', revealed: false },
-  356: { id: 356, iso: 'in', name: 'الهند', price: '2999', revealed: false },
-  144: { id: 144, iso: 'lk', name: 'سريلانكا', price: '14199', revealed: false },
-  108: { id: 108, iso: 'bi', name: 'بروندي', price: '4999', revealed: false },
-  682: { id: 682, iso: 'sa', name: 'المملكة العربية السعودية', price: null, revealed: true }
+@foreach($countryMap as $fixedId => $info)
+    {{ $fixedId }}: {
+        id: {{ $fixedId }},
+        iso: "{{ $info['iso'] }}",
+        name: "{{ $countries->firstWhere('id', $fixedId)->country_name ?? '' }}",
+        price: {{ $fixedId == 682 ? 'null' : '"' . ($countries->firstWhere('id', $fixedId)->price ?? '') . '"' }},
+        revealed: {{ $info['revealed'] ? 'true' : 'false' }}
+    },
+@endforeach
 };
 
 const saudiInfo = emphasizedCountries[682];
