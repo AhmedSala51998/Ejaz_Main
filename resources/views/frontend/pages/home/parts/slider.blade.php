@@ -495,6 +495,7 @@ const emphasizedCountries = {};
     };
 @endforeach
 
+
 const saudiInfo = emphasizedCountries[682];
 let countryLabels = {};
 let backgroundSphere = null;
