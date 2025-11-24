@@ -476,17 +476,22 @@ function getCentroidFromMultiPolygon(polygons) {
   return [totalX / totalPoints, totalY / totalPoints];
 }
 
-const emphasizedCountries = {
+const emphasizedCountries = {};
 @foreach($countryMap as $fixedId => $info)
-    {{ $fixedId }}: {
+    @php
+        $country = $countries->firstWhere('id', $fixedId);
+        $name = $country->country_name ?? '';
+        $price = $fixedId == 682 ? 'null' : ($country->price ?? '""');
+    @endphp
+    emphasizedCountries[{{ $fixedId }}] = {
         id: {{ $fixedId }},
         iso: "{{ $info['iso'] }}",
-        name: "{{ $countries->firstWhere('id', $fixedId)->country_name ?? '' }}",
-        price: {{ $fixedId == 682 ? 'null' : '"' . ($countries->firstWhere('id', $fixedId)->price ?? '') . '"' }},
+        name: "{{ $name }}",
+        price: {{ $price }},
         revealed: {{ $info['revealed'] ? 'true' : 'false' }}
-    },
+    };
 @endforeach
-};
+console.log(emphasizedCountries); // للتأكد
 
 const saudiInfo = emphasizedCountries[682];
 let countryLabels = {};
