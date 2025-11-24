@@ -438,6 +438,21 @@ canvas {
 
 
 @endif
+
+@php
+$countryMap = [
+    231 => ['iso' => 'et', 'revealed' => false, 'name' => 'اثيوبيا'],
+    800 => ['iso' => 'ug', 'revealed' => false, 'name' => 'اوغندا'],
+    50  => ['iso' => 'bd', 'revealed' => false, 'name' => 'بنجلاديش'],
+    608 => ['iso' => 'ph', 'revealed' => false, 'name' => 'الفلبين'],
+    404 => ['iso' => 'ke', 'revealed' => false, 'name' => 'كينيا'],
+    356 => ['iso' => 'in', 'revealed' => false, 'name' => 'الهند'],
+    144 => ['iso' => 'lk', 'revealed' => false, 'name' => 'سريلانكا'],
+    108 => ['iso' => 'bi', 'revealed' => false, 'name' => 'بروندي'],
+    682 => ['iso' => 'sa', 'revealed' => true, 'name' => 'المملكة العربية السعودية'],
+];
+@endphp
+
 <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl"></script>
 <script src="https://unpkg.com/topojson@3"></script>
@@ -463,27 +478,14 @@ function getCentroidFromMultiPolygon(polygons) {
   return [totalX / totalPoints, totalY / totalPoints];
 }
 
-@php
-$countryMap = [
-    231 => ['iso' => 'et', 'revealed' => false],
-    800 => ['iso' => 'ug', 'revealed' => false],
-    50  => ['iso' => 'bd', 'revealed' => false],
-    608 => ['iso' => 'ph', 'revealed' => false],
-    404 => ['iso' => 'ke', 'revealed' => false],
-    356 => ['iso' => 'in', 'revealed' => false],
-    144 => ['iso' => 'lk', 'revealed' => false],
-    108 => ['iso' => 'bi', 'revealed' => false],
-    682 => ['iso' => 'sa', 'revealed' => true],
-];
-@endphp
-
 const emphasizedCountries = {};
 @foreach($countryMap as $fixedId => $info)
     @php
-        $country = $countries->firstWhere('id', $fixedId);
-        $name = $country->country_name ?? '';
+        $country = $countries->firstWhere('country_name', $info['name']);
+        $name = $country->country_name ?? $info['name'];
         $price = $fixedId == 682 ? 'null' : ($country->price ?? '""');
     @endphp
+
     emphasizedCountries[{{ $fixedId }}] = {
         id: {{ $fixedId }},
         iso: "{{ $info['iso'] }}",
@@ -492,7 +494,6 @@ const emphasizedCountries = {};
         revealed: {{ $info['revealed'] ? 'true' : 'false' }}
     };
 @endforeach
-console.log(emphasizedCountries);
 
 const saudiInfo = emphasizedCountries[682];
 let countryLabels = {};
