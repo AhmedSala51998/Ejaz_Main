@@ -55,13 +55,6 @@
                             <span key="t-dashboards">   السير الذاتية المحظورة </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{route('nationalities.index')}}" class="waves-effect">
-                            <i class="bx bx-globe"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards"> دول الاستقدام  </span>
-                        </a>
-                    </li>
                 @endif
                 @if(checkPermission(22))
                     <li>
