@@ -434,6 +434,10 @@ canvas {
 
 
 
+
+
+
+@endif
 @php
 $countryMap = [
     231 => ['iso' => 'et', 'revealed' => false],
@@ -447,9 +451,6 @@ $countryMap = [
     682 => ['iso' => 'sa', 'revealed' => true],
 ];
 @endphp
-
-
-@endif
 <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl"></script>
 <script src="https://unpkg.com/topojson@3"></script>
