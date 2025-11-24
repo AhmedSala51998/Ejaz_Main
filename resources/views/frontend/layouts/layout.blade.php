@@ -139,15 +139,11 @@
             document.getElementById('cityModal').style.pointerEvents = 'auto';
         }
     });*/
-    function isCookieValid(name) {
-    const value = getCookie(name);
-    return value !== null && value !== '';
-    }
     document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch');
         const cookieBranch = getCookie('branch');
 
-        if (!branch || !isCookieValid('branch')) {
+        if (!branch) {
             document.getElementById('cityModal').style.display = 'flex';
             document.body.style.pointerEvents = 'none';
             document.getElementById('cityModal').style.pointerEvents = 'auto';
