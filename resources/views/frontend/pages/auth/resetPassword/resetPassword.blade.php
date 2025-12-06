@@ -514,7 +514,7 @@
                     $('#submit_button').attr('disabled',false)
                     $('#submit_button').html(`<p>{{__('frontend.change Password')}}</p><span></span>`)
                     if (data.cv_id) {
-                        var url = "{{ route('frontend.show.worker', ['id' => ':id']) }}";
+                        var url = "{{ route('auth.login', ['id' => ':id']) }}";
                         url = url.replace(':id', data.cv_id);
                         location.replace(url);
                     } else {
