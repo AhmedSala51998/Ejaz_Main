@@ -10,7 +10,7 @@
 
 
 @section('content')
-<section class="account" style="min-height: 70vh; display: flex; align-items: center; justify-content: center;">
+<section class="account" style="min-height: 50vh; display: flex; align-items: center; justify-content: center;">
     <div class="container">
         <div class="formCard row" style="position: relative;">
             <div class="circleBlur"></div>
