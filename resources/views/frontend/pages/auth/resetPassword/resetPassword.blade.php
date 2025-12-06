@@ -419,13 +419,14 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="auth-card">
                         <img src="{{asset('frontend')}}/img/Reset.svg" alt="Reset">
-                        <form method="post" id="Form" action="{{route('auth.reset_password_action')}}">
+                        <form method="post" id="Form" action="{{route('auth.reset_password_action')}}" oninput='repeatPassword.setCustomValidity(repeatPassword.value !== password.value ? "تأكيد كلمة المرور غير مطابق" : "")'>
+                            <input type="hidden" name="cv_id" value="{{ $cv_id ?? '' }}">
                             @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
                             <div class="mb-3 position-relative">
                                 <label for="password" class="form-label"><i class="fas fa-key me-2"></i>{{__('frontend.newPassword')}}</label>
                                 <div class="password-wrapper">
-                                <input name="password" data-validation="required,length" data-validation-length="min6" type="password" class="form-control" id="password" placeholder="*****">
+                                <input name="password"  required minlength="6" title="كلمة المرور يجب ألا تقل عن 6 أحرف" data-validation="required,length" data-validation-length="min6" type="password" class="form-control" id="password" placeholder="*****">
                                 <span class="toggle-password" onclick="togglePassword()">
                                     <i class="fas fa-eye" id="eyeIcon"></i>
                                 </span>
@@ -434,7 +435,7 @@
                             <div class="mb-3 position-relative">
                                 <label for="repetPassword" class="form-label"><i class="fas fa-key me-2"></i>{{__('frontend.ConfirmNewPassword')}}</label>
                                 <div class="password-wrapper">
-                                <input name="confirm_password" data-validation="required,repeatPassword" type="password" class="form-control" id="repetPassword" placeholder="*****">
+                                <input name="confirm_password"  required minlength="6" title="يجب أن يكون مطابقًا لكلمة المرور" data-validation="required,repeatPassword" type="password" class="form-control" id="repeatPassword" placeholder="*****">
                                 <span class="toggle-password" onclick="togglePassword1()">
                                   <i class="fas fa-eye" id="eyeIcon"></i>
                                 </span>
@@ -512,7 +513,13 @@
                     })
                     $('#submit_button').attr('disabled',false)
                     $('#submit_button').html(`<p>{{__('frontend.change Password')}}</p><span></span>`)
-                    location.replace("{{route('auth.login')}}")
+                    if (data.cv_id) {
+                        var url = "{{ route('frontend.show.worker', ['id' => ':id']) }}";
+                        url = url.replace(':id', data.cv_id);
+                        location.replace(url);
+                    } else {
+                        location.replace("{{ route('auth.login') }}");
+                    }
                 }, 2000);
             },
             error: function (data) {

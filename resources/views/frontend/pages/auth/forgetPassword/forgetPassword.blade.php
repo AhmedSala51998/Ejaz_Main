@@ -424,6 +424,7 @@
                             <h6 class="text-center mb-4">{{__('frontend.Phone Number')}}</h6>
 
                             <form id="forget_password" method="post" action="{{route('auth.forget_password_action')}}">
+                                <input type="hidden" name="id" value="{{$id}}">
                                 @csrf
                                 <div class="mb-3">
                                     <div class="input-group">

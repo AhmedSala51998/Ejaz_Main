@@ -459,14 +459,14 @@
                             <input class="form-check-input" type="checkbox" id="remember">
                             <label class="form-check-label" for="remember">تذكرني</label>
                         </div>
-                        <a href="{{route('auth.forget_password_view')}}" class="text-muted">نسيت كلمة المرور؟</a>
+                        <a href="{{route('auth.forget_password_view' , $id)}}" class="text-muted">نسيت كلمة المرور؟</a>
                         </div>
 
                         <button type="submit" id="submit_button" class="btn-submit w-100">
                         دخول <i class="fa-solid fa-arrow-left ms-2"></i>
                         </button>
 
-                        <p class="text-center mt-4">لا تملك حساب؟ <a href="{{route('register')}}">سجل الآن</a></p>
+                        <p class="text-center mt-4">لا تملك حساب؟ <a href="{{ route('register', $id) }}">سجل الآن</a></p>
                     </form>
                     </div>
                 </div>

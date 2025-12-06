@@ -14,13 +14,13 @@ class ForgetPasswordFrontController extends Controller
 
     use MesgatSMS;
 
-    public function forget_password_view()
+    public function forget_password_view($id='')
     {
         if (auth()->check()) {
             toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
-        return view('frontend.pages.auth.forgetPassword.forgetPassword');
+        return view('frontend.pages.auth.forgetPassword.forgetPassword',compact('id'));
     }//end fun
 
 
@@ -31,9 +31,10 @@ class ForgetPasswordFrontController extends Controller
         if (!$user) {
             return response()->json([],400);
         }
+        $cv_id = $request->id ?? null;
         $user = $this->make_token_for_confirm_phone($user);
         //send reset password
-        $this->sent_link_of_reset_password($user);
+        $this->sent_link_of_reset_password($user , $cv_id);
         return response()->json(["user"=>$user],200);
     }
 
@@ -57,13 +58,17 @@ class ForgetPasswordFrontController extends Controller
     }
 
 
-    private function sent_link_of_reset_password($user)
+    private function sent_link_of_reset_password($user, $cv_id = null)
     {
         $bearer = '2a17275dc72bdb4bd16a93eaf6f6530e';
         $taqnyt = new TaqnyatSms($bearer);
 
 
         $url = route('auth.reset_password_view')."?token=".$user->token;
+
+        if ($cv_id) {
+            $url .= "&cv_id=" . $cv_id;
+        }
 
         $msg = "يمكنك إعادة تعيين كلمة المرور من خلال هذا الرابط : $url ";
 

@@ -58,7 +58,7 @@ Route::group(
 
 
 
-    Route::get('forget-password',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_view'])->name('auth.forget_password_view');
+    Route::get('forget-password/{id?}',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_view'])->name('auth.forget_password_view');
     Route::post('forget-password-action',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_action'])->name('auth.forget_password_action');
     Route::get('forget-email-sent-successfully',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_email_successfully_sent'])->name('auth.forget-email-sent-successfully');
 
