@@ -325,10 +325,10 @@ class AdminBiographiesController extends Controller
         // 2. رسالة إلى المسوق
         $admin = \App\Models\Admin::find($request->marketer_id);
         if ($admin && !empty($admin->phone)) {
-            $msg = "عزيزي الموظف " . $admin->name .
-                "\nقام العميل: " . $user->name .
-                "\nبرقم الجوال: " . $user->phone .
-                "\nبحجز السيرة الذاتية التالية: " . $cv->name;
+            $msg = "مرحبًا الموظف " . $admin->name . ",\n" .
+                "لقد قمت بحجز السيرة الذاتية للعاملة " . $cv->name .
+                " للعميل " . $user->name . " بنجاح.\n" .
+                "رقم جوال العميل: " . $user->phone . ".";
             $this->sendSMS($admin->phone, $msg);
         }
 
