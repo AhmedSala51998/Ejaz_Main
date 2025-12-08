@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    {{__('frontend.Application for the recruitment of domestic workers')}}
+    تتبع الطلب
 @endsection
 
 @section('styles')
@@ -218,7 +218,7 @@ $(document).on('submit','form#CompleteRegister',function(e) {
             }, 2000);
         },
         error: function (data) {
-            
+
             if (data.status === 500) {
                 cuteToast({ type: "error", message: "يجب تسجيل الدخول لاستخدام هذة الخدمة", timer: 3000 });
             }

@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    خدمة العملاء
+    من نحن
 @endsection
 
 @section('styles')
