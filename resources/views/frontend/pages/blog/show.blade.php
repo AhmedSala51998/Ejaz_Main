@@ -66,6 +66,43 @@ body {
     padding: 6px 14px;
     border-radius: 12px;
 }
+@media (max-width: 768px) {
+
+    .banner {
+        padding: 35px 15px;
+        border-radius: 0 0 28px 28px;
+        box-shadow: 0 6px 16px rgba(244, 168, 53, 0.25);
+    }
+
+    .banner::before {
+        width: 180px;
+        height: 180px;
+        top: -60px;
+        left: -60px;
+    }
+
+    .banner h1 {
+        font-size: 1.6rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
+
+    .banner ul {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .banner ul li a {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+    .banner ul li a.active {
+        background: #f4a835;
+        color: #fff;
+    }
+}
 :root {
     --orange: #D89835;
     --orange-dark: #c8812a;
