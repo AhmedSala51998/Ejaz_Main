@@ -120,7 +120,7 @@ body {
 /* Image */
 .blog-image {
     height: 200px;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
 }
 
