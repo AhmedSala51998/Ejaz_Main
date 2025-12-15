@@ -110,6 +110,8 @@ body {
     box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     transition: all 0.4s ease;
     position: relative;
+    transform: translateY(-8px);
+    box-shadow: 0 18px 38px rgba(216,152,53,0.45);
 }
 
 .blog-card:hover {
@@ -119,7 +121,7 @@ body {
 
 /* Image */
 .blog-image {
-    height: 350px;
+    height: 300px;
     overflow: hidden;
     position: relative;
     border-radius: 22px 22px 0 0;
