@@ -84,7 +84,7 @@ body {
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 3 أعمدة فقط */
+    grid-template-columns: repeat(3, 1fr); /* 3 أعمدة فقط */
     gap: 30px;
 }
 
@@ -110,8 +110,6 @@ body {
     box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     transition: all 0.4s ease;
     position: relative;
-    transform: translateY(-8px);
-    box-shadow: 0 18px 38px rgba(216,152,53,0.45);
 }
 
 .blog-card:hover {
@@ -121,7 +119,7 @@ body {
 
 /* Image */
 .blog-image {
-    height: 300px;
+    height: 200px;
     overflow: hidden;
     position: relative;
     border-radius: 22px 22px 0 0;
