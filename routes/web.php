@@ -56,6 +56,8 @@ Route::group(
     Route::post('loginAction',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_action'])
         ->name('auth.login_action');
 
+    Route::get('/blog', [\App\Http\Controllers\Frontend\Blog\BlogController::class,'index'])->name('blog.index');
+    Route::get('/blog/{slug}', [\App\Http\Controllers\Frontend\Blog\BlogController::class,'show'])->name('blog.show');
 
 
     Route::get('forget-password/{id?}',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_view'])->name('auth.forget_password_view');

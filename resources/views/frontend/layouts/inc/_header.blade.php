@@ -482,6 +482,7 @@ body.sticky-header-active {
                     <li><a class="navLink {{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries')}}"> دول الاستقدام </a></li>
                     <li><a class="navLink {{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff')}}"> خدمة العملاء </a></li>
                     <li><a class="navLink {{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view')}}"> تتبع طلبك</a></li>
+                    <li><a class="navLink {{ Request::routeIs('blog.index') ? 'active' : '' }}" href="{{route('blog.index')}}"> المدونة </a></li>
                     <li><a class="navLink {{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}"> تواصل معنا</a></li>
 
                     @auth()
@@ -537,6 +538,7 @@ body.sticky-header-active {
         <li><a class="{{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
         <li><a class="{{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
         <li><a class="{{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view')}}">تتبع الطلب</a></li>
+        <li><a class="{{ Request::routeIs('blog.index') ? 'active' : '' }}" href="{{route('blog.index')}}">المدونة</a></li>
         <li><a class="{{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}">تواصل معنا</a></li>
         @auth()
             <li class="dropdownWrapper d-block d-lg-none">
@@ -590,7 +592,7 @@ body.sticky-header-active {
             });
         }
 
-        
+
     });
 
     document.addEventListener("DOMContentLoaded", function () {
