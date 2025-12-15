@@ -169,6 +169,15 @@ body {
     margin-bottom: 18px;
 }
 
+.blog-content h3 {
+    color: #212121 !important;
+}
+
+.blog-content p {
+    color: #555 !important;
+}
+
+
 /* Meta */
 .blog-meta {
     font-size: 0.8rem;
