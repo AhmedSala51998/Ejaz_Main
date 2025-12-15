@@ -105,7 +105,7 @@ body {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 22px;
-    overflow: hidden;
+    overflow: visible !important;
     backdrop-filter: blur(12px);
     transition: all 0.4s ease;
     position: relative;
