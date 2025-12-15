@@ -179,9 +179,6 @@ body {
                     <div class="blog-meta">
                         <i class="fa fa-calendar"></i>
                         {{ $blog->created_at->format('d M Y') }}
-                        &nbsp; | &nbsp;
-                        <i class="fa fa-eye"></i>
-                        {{ $blog->views }} مشاهدة
                     </div>
 
                     <div class="blog-cover">
