@@ -105,8 +105,9 @@ body {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 22px;
-    overflow: visible !important;
+    overflow: visible;
     backdrop-filter: blur(12px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     transition: all 0.4s ease;
     position: relative;
 }
@@ -119,7 +120,7 @@ body {
 /* Image */
 .blog-image {
     height: 200px;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
 }
 
