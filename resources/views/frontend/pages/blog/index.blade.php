@@ -122,7 +122,7 @@ body {
     height: 200px;
     overflow: hidden;
     position: relative;
-    border-radius: 22px 0 22px 0;
+    border-radius: 0 22px 22px 0;
 }
 
 .blog-image img {
