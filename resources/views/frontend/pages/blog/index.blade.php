@@ -129,6 +129,7 @@ body {
     width: 100%;
     height: 100%;
     transition: transform .6s ease;
+    transform: scale(1);
 }
 
 .blog-card:hover .blog-image img {
