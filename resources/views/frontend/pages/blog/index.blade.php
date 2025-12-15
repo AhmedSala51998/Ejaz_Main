@@ -119,10 +119,10 @@ body {
 
 /* Image */
 .blog-image {
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     position: relative;
-    border-radius: 0 22px 22px 0;
+    border-radius: 0 22px 0 22px;
 }
 
 .blog-image img {
