@@ -244,7 +244,7 @@ body {
 
                         <div class="blog-meta">
                             <i class="fa fa-calendar"></i>
-                            {{ $blog->created_at->format('d M Y') }}
+                            {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
                         </div>
 
                         <h3>{{ $blog->title }}</h3>
