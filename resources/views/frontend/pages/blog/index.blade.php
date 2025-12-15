@@ -82,6 +82,24 @@ body {
     gap: 30px;
 }
 
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 أعمدة فقط */
+    gap: 30px;
+}
+
+@media (max-width: 992px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr); /* عمودين للشاشات المتوسطة */
+    }
+}
+
+@media (max-width: 576px) {
+    .blog-grid {
+        grid-template-columns: 1fr; /* عمود واحد للموبايل */
+    }
+}
+
 /* Blog Card */
 .blog-card {
     background: var(--card-bg);
