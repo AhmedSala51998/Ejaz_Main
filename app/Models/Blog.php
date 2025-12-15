@@ -15,10 +15,4 @@ class Blog extends Model
 
     protected $guarded = [];
 
-    public $translatable = [
-        'title',
-        'excerpt',
-        'content'
-    ];
-
 }
