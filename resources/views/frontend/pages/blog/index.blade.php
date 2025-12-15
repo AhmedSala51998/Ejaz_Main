@@ -16,7 +16,7 @@ body {
     padding: 60px 20px;
     text-align: center;
     border-radius: 0 0 50px 50px;
-    box-shadow: 0 12px 32px rgba(244, 168, 53, 0.25);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     color: #333;
     position: relative;
     overflow: hidden;
@@ -107,7 +107,7 @@ body {
     border-radius: 22px;
     overflow: hidden;
     backdrop-filter: blur(12px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    box-shadow: 0 12px 32px rgba(244, 168, 53, 0.25);
     transition: all 0.4s ease;
     position: relative;
 }
