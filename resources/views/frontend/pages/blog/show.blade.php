@@ -219,7 +219,7 @@ body {
                     </div>
 
                     <div class="blog-cover">
-                        <img src="{{ asset($blog->image) }}"
+                        <img src="{{ asset($blog->image ?? 'frontend/img/blogs/2.png') }}"
                              alt="{{ $blog->title }}">
                     </div>
 

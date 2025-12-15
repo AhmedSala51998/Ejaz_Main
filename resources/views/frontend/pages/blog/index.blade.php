@@ -84,7 +84,7 @@ body {
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 أعمدة فقط */
+    grid-template-columns: repeat(2, 1fr); /* 3 أعمدة فقط */
     gap: 30px;
 }
 
@@ -232,7 +232,7 @@ body {
                 <div class="blog-card">
 
                     <div class="blog-image">
-                        <img src="{{ asset($blog->image ?? 'frontend/img/blog.png') }}"
+                        <img src="{{ asset($blog->image ?? 'frontend/img/blogs/2.png') }}"
                             alt="{{ $blog->title }}">
 
                         <span class="blog-badge">
