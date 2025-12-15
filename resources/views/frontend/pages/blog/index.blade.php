@@ -129,7 +129,7 @@ body {
     width: 100%;
     height: 100%;
     transition: transform .6s ease;
-    border-radius: 22px 22px 0 0;
+    border-radius: 30px 30px 0 0;
 }
 
 .blog-card:hover .blog-image img {
