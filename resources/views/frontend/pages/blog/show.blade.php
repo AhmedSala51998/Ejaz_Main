@@ -189,6 +189,134 @@ body {
 .back-btn:hover {
     background: var(--orange-dark);
 }
+
+
+/* Layout */
+.blog-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 40px;
+}
+
+/* Main Article */
+.blog-main {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+/* Hero */
+.blog-hero {
+    position: relative;
+    height: 420px;
+}
+
+.blog-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.1));
+    color: #fff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.hero-overlay h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.hero-meta {
+    font-size: .9rem;
+    opacity: .9;
+    margin-top: 10px;
+}
+
+.hero-badge {
+    background: var(--orange);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: .8rem;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+/* Body */
+.blog-body {
+    padding: 40px;
+    font-size: 1.05rem;
+    line-height: 2.1;
+    color: #333;
+}
+
+.blog-body h2,
+.blog-body h3 {
+    color: var(--orange);
+    margin-top: 35px;
+    font-weight: 700;
+}
+
+/* Sidebar */
+.blog-sidebar {
+    position: sticky;
+    top: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.side-box {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.side-box h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.side-btn {
+    display: block;
+    background: var(--orange);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.side-btn:hover {
+    background: var(--orange-dark);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .blog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-sidebar {
+        position: static;
+    }
+
+    .blog-hero {
+        height: 300px;
+    }
+}
+
 </style>
 @endsection
 
@@ -211,30 +339,53 @@ body {
 
             <div class="col-lg-9">
 
-                <article class="blog-article">
+                <div class="blog-layout">
 
-                    <div class="blog-meta">
-                        <i class="fa fa-calendar"></i>
-                        {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
-                    </div>
+                <!-- Article -->
+                <article class="blog-main">
 
-                    <div class="blog-cover">
+                    <!-- Hero -->
+                    <div class="blog-hero">
                         <img src="{{ asset($blog->second_image ?? 'frontend/img/blogs/1_b.png') }}"
-                             alt="{{ $blog->title }}">
+                            alt="{{ $blog->title }}">
+
+                        <div class="hero-overlay">
+                            <span class="hero-badge">الاستقدام</span>
+                            <h1>{{ $blog->title }}</h1>
+                            <div class="hero-meta">
+                                <i class="fa fa-calendar"></i>
+                                {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="blog-content">
+                    <!-- Content -->
+                    <div class="blog-body">
                         {!! $blog->content !!}
                     </div>
 
-                    <div class="mt-4">
-                        <a href="{{ route('blog.index') }}" class="back-btn">
-                            <i class="fa fa-arrow-right"></i>
-                            الرجوع للمدونة
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="blog-sidebar">
+
+                    <div class="side-box">
+                        <h4>تاريخ النشر</h4>
+                        <p>
+                            {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
+                        </p>
+                    </div>
+
+                    <div class="side-box">
+                        <h4>تنقّل</h4>
+                        <a href="{{ route('blog.index') }}" class="side-btn">
+                            ← الرجوع للمدونة
                         </a>
                     </div>
 
-                </article>
+                </aside>
+
+            </div>
 
             </div>
 
