@@ -316,44 +316,6 @@ body {
         height: 300px;
     }
 }
-.blog-hero {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Blur layers */
-.blur-layer {
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.03); /* شفاف جدًا */
-    transition: transform 0.9s cubic-bezier(.4,0,.2,1);
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* Start positions */
-.blur-left {
-    left: 0;
-    transform: translateX(-100%);
-}
-
-.blur-right {
-    right: 0;
-    transform: translateX(100%);
-}
-
-/* Hover effect */
-.blog-hero:hover .blur-left {
-    transform: translateX(100%);
-}
-
-.blog-hero:hover .blur-right {
-    transform: translateX(-100%);
-}
 
 </style>
 @endsection
@@ -386,9 +348,6 @@ body {
                     <div class="blog-hero">
                         <img src="{{ asset($blog->second_image ?? 'frontend/img/blogs/1_b.png') }}"
                             alt="{{ $blog->title }}">
-
-                        <div class="blur-layer blur-left"></div>
-                        <div class="blur-layer blur-right"></div>
 
                         <div class="hero-overlay">
                             <span class="hero-badge">الاستقدام</span>
