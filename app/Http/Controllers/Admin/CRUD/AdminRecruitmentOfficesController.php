@@ -35,7 +35,7 @@ if (!checkPermission(14))
             $dataTables = RecruitmentOffice::query()->latest();
 
             return DataTables::of($dataTables)
-              
+
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d',strtotime($row->created_at));
                 })
@@ -106,19 +106,21 @@ if (!checkPermission(14))
                     $toggleIcon = $hasVisibleCVs ? 'fa-eye-slash' : 'fa-eye';
                     $toggleStatus = $hasVisibleCVs ? 1 : 0;
 
-                    return "
-                        <button " . $edit . " class='btn btn-info editButton' id='" . $row->id . "'>
-                            <i class='fa fa-edit'></i>
-                        </button>
-                        <button " . $delete . " class='btn btn-danger delete' id='" . $row->id . "'>
-                            <i class='fa fa-trash'></i>
-                        </button>
-                        <button class='btn {$toggleClass} toggle-hide-btn' 
-                                data-id='{$row->id}' 
-                                data-status='{$toggleStatus}'>
-                            <i class='fa {$toggleIcon}'></i> {$toggleText}
-                        </button>
-                    ";
+                    if (checkPermission(47)){
+                        return "
+                            <button " . $edit . " class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </button>
+                            <button " . $delete . " class='btn btn-danger delete' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </button>
+                            <button class='btn {$toggleClass} toggle-hide-btn'
+                                    data-id='{$row->id}'
+                                    data-status='{$toggleStatus}'>
+                                <i class='fa {$toggleIcon}'></i> {$toggleText}
+                            </button>
+                        ";
+                    }
                 })
                 ->rawColumns(['actions', 'delete_all', 'title'])
                 ->make(true);
@@ -144,7 +146,7 @@ if (!checkPermission(14))
             'new_status' => $newStatus,
             'message' => $newStatus ? 'تم إخفاء السير الذاتية بنجاح' : 'تم إظهار السير الذاتية بنجاح'
         ]);
-        
+
     }
 
 

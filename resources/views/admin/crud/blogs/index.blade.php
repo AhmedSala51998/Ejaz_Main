@@ -48,11 +48,6 @@
                             <th>
                                 <input id="checkAll" type='checkbox' class='check-all form-check-input'
                                     data-tablesaw-checkall>
-
-                                <a id="bulk_delete" href="#" style="display: none;" class=" text-danger p-2">
-                                    <i class="mdi mdi-trash-can-outline me-1  "
-                                        style=" width: 50% !important;height: 50% !important;"></i>
-                                </a>
                             </th>
                             <th>الصورة</th>
                             <th>الصورة الثانية</th>
