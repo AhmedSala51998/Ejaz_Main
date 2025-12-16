@@ -7,7 +7,7 @@
 @section('styles')
 <style>
 body {
-    background-color: #f8f8f8;
+    background-color: #FFF;
     font-family: 'Tajawal', sans-serif;
 }
 

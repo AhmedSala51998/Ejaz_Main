@@ -7,7 +7,7 @@
 @section('styles')
 <style>
 body {
-    background-color: #f8f8f8;
+    background-color: #FFF;
     font-family: 'Tajawal', sans-serif;
 }
 
@@ -84,19 +84,19 @@ body {
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 أعمدة فقط */
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
 @media (max-width: 992px) {
     .blog-grid {
-        grid-template-columns: repeat(2, 1fr); /* عمودين للشاشات المتوسطة */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 576px) {
     .blog-grid {
-        grid-template-columns: 1fr; /* عمود واحد للموبايل */
+        grid-template-columns: 1fr;
     }
 }
 
