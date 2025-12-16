@@ -66,6 +66,7 @@
 @section('js')
 <script src="{{ asset('dashboard/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('dashboard/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 let table = $('#Datatable').DataTable({
@@ -112,12 +113,26 @@ $(document).on('click','.delete',function(){
     let id = $(this).attr('id')
     let url = "{{ route('blogs.destroy',':id') }}".replace(':id',id)
 
-    $.ajax({
-        url:url,
-        type:'DELETE',
-        data:{_token:'{{ csrf_token() }}'},
-        success:function(){
-            table.draw()
+    Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: "لن تستطيع التراجع عن الحذف!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'نعم، احذف!',
+        cancelButtonText: 'إلغاء'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url:url,
+                type:'DELETE',
+                data:{_token:'{{ csrf_token() }}'},
+                success:function(){
+                    table.draw()
+                    Swal.fire('تم الحذف!', 'تم حذف المقال بنجاح.', 'success')
+                }
+            })
         }
     })
 });

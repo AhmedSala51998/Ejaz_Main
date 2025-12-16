@@ -19,13 +19,11 @@ class AdminBlogsController extends Controller
             $blogs = Blog::latest();
 
             return DataTables::of($blogs)
-                ->editColumn('image', function ($row) {
-                    return '<img src="'.asset($row->image).'" style="width:70px;height:70px;object-fit:cover"
-                        onclick="window.open(this.src)">';
+               ->editColumn('image', function ($row) {
+                    return '<img src="'.asset($row->image).'" style="width:70px;height:70px;object-fit:contain;" onclick="window.open(this.src)">';
                 })
                 ->editColumn('second_image', function ($row) {
-                    return '<img src="'.asset($row->second_image).'" style="width:70px;height:70px;object-fit:cover"
-                        onclick="window.open(this.src)">';
+                    return '<img src="'.asset($row->second_image).'" style="width:70px;height:70px;object-fit:contain;" onclick="window.open(this.src)">';
                 })
                 ->editColumn('status', function ($row) {
                     return $row->status ? '<span class="badge bg-success">نشط</span>' :
