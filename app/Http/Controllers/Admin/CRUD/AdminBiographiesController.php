@@ -207,10 +207,12 @@ class AdminBiographiesController extends Controller
                     }*/
                     // زر الحظر / إلغاء الحظر
                     $blockButton = '';
-                    if ($row->is_blocked) {
-                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-block" data-status="0"><i class="fa fa-unlock"></i> إلغاء الحظر</a>';
-                    } else {
-                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-danger toggle-block" data-status="1"><i class="fa fa-ban"></i> حظر</a>';
+                    if (checkPermission(46)) {
+                        if ($row->is_blocked) {
+                            $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-block" data-status="0"><i class="fa fa-unlock"></i> إلغاء الحظر</a>';
+                        } else {
+                            $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-danger toggle-block" data-status="1"><i class="fa fa-ban"></i> حظر</a>';
+                        }
                     }
 
                     if($row->status=="pending"){
@@ -340,7 +342,7 @@ class AdminBiographiesController extends Controller
     public function biographiesBlock(Request $request)
     {
 
-        if(!checkPermission(18))
+        if(!checkPermission(45))
             return view('admin.permission');
 
         $admin=  \App\Models\Admin::find(admin()->id());
@@ -496,10 +498,12 @@ class AdminBiographiesController extends Controller
 
                     // زر الحظر / إلغاء الحظر
                     $blockButton = '';
-                    if ($row->is_blocked) {
-                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-block" data-status="0"><i class="fa fa-unlock"></i> إلغاء الحظر</a>';
-                    } else {
-                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-danger toggle-block" data-status="1"><i class="fa fa-ban"></i> حظر</a>';
+                    if (checkPermission(46)) {
+                        if ($row->is_blocked) {
+                            $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-block" data-status="0"><i class="fa fa-unlock"></i> إلغاء الحظر</a>';
+                        } else {
+                            $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-danger toggle-block" data-status="1"><i class="fa fa-ban"></i> حظر</a>';
+                        }
                     }
 
                     if($row->status=="pending"){

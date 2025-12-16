@@ -48,11 +48,22 @@
                             <span key="t-dashboards">   السير الذاتية </span>
                         </a>
                     </li>
+                @endif
+                @if(checkPermission(45))
                     <li>
                         <a href="{{route('biographies.blocked')}}" class="waves-effect">
                             <i class="bx bxs-error-alt"></i>
                             <span class="badge rounded-pill bg-info float-end"></span>
                             <span key="t-dashboards">   السير الذاتية المحظورة </span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(44))
+                    <li>
+                        <a href="{{ route('blogs.index') }}" class="waves-effect">
+                            <i class="bx bxs-book-content"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">المدونة</span>
                         </a>
                     </li>
                 @endif

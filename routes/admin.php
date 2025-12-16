@@ -136,6 +136,11 @@ Route::group(['prefix' => 'admin'], function () {
             Route::delete('nationalities/delete/bulk', 'AdminNationalitiesController@delete_all')
                 ->name('nationalities.delete.bulk');
 
+            //المدونة
+            Route::resource('blogs', 'AdminBlogsController');
+            Route::delete('blogs/delete/bulk', 'AdminBlogsController@delete_all')
+                ->name('blogs.delete.bulk');
+
 
             // مكاتب الاستقدام
             Route::resource('recruitment-offices', 'AdminRecruitmentOfficesController');

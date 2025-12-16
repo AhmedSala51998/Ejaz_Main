@@ -20,7 +20,12 @@ class BlogController extends Controller
     public function show($slug)
     {
         $blog = Blog::where('slug',$slug)->firstOrFail();
-        $blog->increment('views');
+        $sessionKey = 'blog_viewed_'.$blog->id;
+
+        if (!session()->has($sessionKey)) {
+            $blog->increment('views');
+            session()->put($sessionKey, true);
+        }
 
         return view('frontend.pages.blog.show', compact('blog'));
     }
