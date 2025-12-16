@@ -106,14 +106,20 @@ if (!checkPermission(14))
                     $toggleIcon = $hasVisibleCVs ? 'fa-eye-slash' : 'fa-eye';
                     $toggleStatus = $hasVisibleCVs ? 1 : 0;
 
-                    if (checkPermission(47)){
-                        return "
-                            <button " . $edit . " class='btn btn-info editButton' id='" . $row->id . "'>
-                                <i class='fa fa-edit'></i>
-                            </button>
-                            <button " . $delete . " class='btn btn-danger delete' id='" . $row->id . "'>
-                                <i class='fa fa-trash'></i>
-                            </button>
+                    $actions = '';
+
+                    $actions .= "
+                        <button " . $edit . " class='btn btn-info editButton' id='" . $row->id . "'>
+                            <i class='fa fa-edit'></i>
+                        </button>
+                        <button " . $delete . " class='btn btn-danger delete' id='" . $row->id . "'>
+                            <i class='fa fa-trash'></i>
+                        </button>
+                    ";
+
+                    // إضافة برمشن للزر الخاص بالتفعيل/إخفاء
+                    if (checkPermission(47)) { // مثلا رقم 48 هو صلاحية التحكم في التفعيل/إخفاء
+                        $actions .= "
                             <button class='btn {$toggleClass} toggle-hide-btn'
                                     data-id='{$row->id}'
                                     data-status='{$toggleStatus}'>
@@ -121,6 +127,8 @@ if (!checkPermission(14))
                             </button>
                         ";
                     }
+
+                    return $actions;
                 })
                 ->rawColumns(['actions', 'delete_all', 'title'])
                 ->make(true);
