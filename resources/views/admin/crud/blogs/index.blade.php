@@ -3,6 +3,20 @@
 @section('styles')
 <link href="{{ asset('dashboard/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 <link href="{{ asset('dashboard/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet">
+<style>
+    .dropify-font-upload:before,
+    .dropify-wrapper .dropify-message span.file-icon:before {
+        content: "\f382";
+        font-weight: 100;
+        color: #000;
+        font-size: 26px;
+    }
+
+    .dropify-wrapper .dropify-message p {
+        text-align: center;
+        font-size: 15px;
+    }
+</style>
 @endsection
 
 @section('page-title')
@@ -10,7 +24,6 @@
 @endsection
 
 @section('content')
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -22,12 +35,25 @@
                             <i class="mdi mdi-plus"></i> أضف مقال
                         </button>
                     </div>
+                    <div class="col-sm-8 text-end">
+                        <button id="bulk_delete" class="btn btn-danger" style="display:none;">
+                            <i class="mdi mdi-trash-can-outline"></i> حذف المحدد
+                        </button>
+                    </div>
                 </div>
 
                 <table id="Datatable" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>
+                                <input id="checkAll" type='checkbox' class='check-all form-check-input'
+                                    data-tablesaw-checkall>
+
+                                <a id="bulk_delete" href="#" style="display: none;" class=" text-danger p-2">
+                                    <i class="mdi mdi-trash-can-outline me-1  "
+                                        style=" width: 50% !important;height: 50% !important;"></i>
+                                </a>
+                            </th>
                             <th>الصورة</th>
                             <th>الصورة الثانية</th>
                             <th>العنوان</th>
@@ -60,12 +86,13 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('js')
 <script src="{{ asset('dashboard/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('dashboard/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('dashboard/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('dashboard/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
@@ -99,7 +126,6 @@ $(document).on('click','#addButton',function(){
 $(document).on('click','.editButton',function(){
     let id = $(this).attr('id')
     let url = "{{ route('blogs.edit',':id') }}".replace(':id',id)
-
     $.get(url,function(res){
         $('#form-for-addOrDelete').html(res.html)
         $('#exampleModalLabel').text('تعديل مقال')
@@ -108,18 +134,15 @@ $(document).on('click','.editButton',function(){
     })
 });
 
-/* DELETE */
+/* DELETE Single */
 $(document).on('click','.delete',function(){
     let id = $(this).attr('id')
     let url = "{{ route('blogs.destroy',':id') }}".replace(':id',id)
-
     Swal.fire({
         title: 'هل أنت متأكد؟',
         text: "لن تستطيع التراجع عن الحذف!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: 'نعم، احذف!',
         cancelButtonText: 'إلغاء'
     }).then((result) => {
@@ -142,7 +165,6 @@ $(document).on('submit','#Form',function(e){
     e.preventDefault()
     let formData = new FormData(this)
     let action = $(this).attr('action')
-
     $.ajax({
         url:action,
         type:'POST',
@@ -154,6 +176,50 @@ $(document).on('submit','#Form',function(e){
             table.draw()
         }
     })
-})
+});
+
+/* Checkbox logic */
+$(document).on('click','#checkAll',function(){
+    let checked = $(this).is(':checked');
+    $('.delete-all').prop('checked', checked);
+    if(checked) $("#bulk_delete").show();
+    else $("#bulk_delete").hide();
+});
+
+$(document).on('click','.delete-all',function(){
+    if($('.delete-all:checked').length>0) $("#bulk_delete").show();
+    else $("#bulk_delete").hide();
+});
+
+/* Bulk delete */
+$(document).on('click','#bulk_delete',function(e){
+    e.preventDefault();
+    let ids = [];
+    $('.delete-all:checked').each(function(){ ids.push($(this).attr('id')) });
+    if(ids.length){
+        Swal.fire({
+            title: "هل أنت متأكد من حذف هذه المقالات؟",
+            text: "لا يمكنك التراجع بعد ذلك!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "نعم، احذف!",
+            cancelButtonText: "إلغاء"
+        }).then((result)=>{
+            if(result.isConfirmed){
+                $.ajax({
+                    url:'{{ route("blogs.delete.bulk") }}',
+                    type:'DELETE',
+                    data:{id: ids, _token:'{{ csrf_token() }}'},
+                    success:function(){
+                        $("#checkAll").prop('checked',false);
+                        $("#bulk_delete").hide();
+                        table.draw();
+                        Swal.fire("تم الحذف!","تم حذف المقالات بنجاح.","success");
+                    }
+                })
+            }
+        })
+    }
+});
 </script>
 @endsection
