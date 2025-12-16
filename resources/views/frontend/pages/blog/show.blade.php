@@ -327,10 +327,12 @@ body {
     top: 0;
     width: 50%;
     height: 100%;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.08);
-    transition: transform 0.8s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.03); /* شفاف جدًا */
+    transition: transform 0.9s cubic-bezier(.4,0,.2,1);
     z-index: 2;
+    pointer-events: none;
 }
 
 /* Start positions */
