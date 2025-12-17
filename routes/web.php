@@ -109,11 +109,12 @@ Route::group(
             ->filter(function ($route) {
                 return in_array('GET', $route->methods())
                     && !str_starts_with($route->uri(), 'admin')
+                    && !str_starts_with($route->uri(), 'api')
                     && !str_contains($route->uri(), '{');
             })
-            ->map(function ($route) {
-                return url($route->uri());
-            });
+            ->map(fn ($route) => url($route->uri()))
+            ->unique()
+            ->values();
 
         return response()
             ->view('sitemaps.pages', compact('routes'))
