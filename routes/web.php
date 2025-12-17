@@ -127,8 +127,6 @@ Route::group(
             'invoice-download',
             'get-nationality-id',
             'custom-worker-request',
-            'sitemap',
-            'sitemap-pages',
             'recruitmentContract',
             'employmentArrival',
             'recruitmentPolicy',
@@ -136,6 +134,8 @@ Route::group(
             'forget-email-sent-successfully',
             'supports',
             'musaned',
+            'sitemap.xml',
+            'sitemap-pages.xml',
         ];
 
         $routes = collect(\Route::getRoutes())
@@ -173,7 +173,6 @@ Route::group(
             ->view('sitemaps.pages', compact('routes'))
             ->header('Content-Type', 'application/xml');
     });
-
 
     Route::get('/sitemap-blogs-{page}.xml', function ($page) {
 
