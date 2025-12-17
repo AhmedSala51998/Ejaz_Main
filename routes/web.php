@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Frontend\CvDesignController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 Route::group(
     [
@@ -89,6 +90,20 @@ Route::group(
 
     Route::post('makeCustomRecruitmentRequest',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'makeCustomRecruitmentRequest'])
         ->name('makeCustomRecruitmentRequest');
+
+
+    Route::get('/sitemap.xml', function () {
+
+        return Cache::remember('sitemap-main', 60 * 60 * 12, function () {
+
+            $blogs = \App\Models\Blog::select('slug', 'updated_at')->where('status', 1)->get();
+
+            return response()
+                ->view('sitemap', compact('blogs'))
+                ->header('Content-Type', 'application/xml');
+        });
+
+    });
 
 
 
