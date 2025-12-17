@@ -322,7 +322,7 @@ body {
     .blog-hero {
         position: relative;
         width: 100%;
-        padding-top: 26.25%;
+        max-height: 50vh;
         overflow: hidden;
     }
 
