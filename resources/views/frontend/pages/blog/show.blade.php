@@ -316,26 +316,6 @@ body {
         height: 300px;
     }
 }
-.blog-hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.blog-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.01);
-    opacity: 0;
-    transition: opacity .35s ease;
-    pointer-events: none;
-}
-
-.blog-hero:hover::after {
-    opacity: 1;
-}
 
 </style>
 @endsection
