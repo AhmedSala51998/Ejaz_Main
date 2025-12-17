@@ -105,12 +105,53 @@ Route::group(
 
     Route::get('/sitemap-pages.xml', function () {
 
+        $excludePrefixes = [
+            'admin',
+            'api',
+            '_debugbar',
+            '_ignition',
+            'sanctum',
+            'oauth',
+            'profile',
+            'logout',
+            'login',
+            'register',
+            'password',
+            'reset',
+            'loadMore',
+        ];
+
+        $excludeExact = [
+            'changeLangFront',
+            'convert-pdf-to-image',
+            'invoice-download',
+            'get-nationality-id',
+        ];
+
         $routes = collect(\Route::getRoutes())
-            ->filter(function ($route) {
-                return in_array('GET', $route->methods())
-                    && !str_starts_with($route->uri(), 'admin')
-                    && !str_starts_with($route->uri(), 'api')
-                    && !str_contains($route->uri(), '{');
+            ->filter(function ($route) use ($excludePrefixes, $excludeExact) {
+
+                if (!in_array('GET', $route->methods())) {
+                    return false;
+                }
+
+                $uri = $route->uri();
+
+                if (str_contains($uri, '{')) {
+                    return false;
+                }
+
+                foreach ($excludePrefixes as $prefix) {
+                    if (str_starts_with($uri, $prefix)) {
+                        return false;
+                    }
+                }
+
+                if (in_array($uri, $excludeExact)) {
+                    return false;
+                }
+
+                return true;
             })
             ->map(fn ($route) => url($route->uri()))
             ->unique()
