@@ -327,7 +327,7 @@ body {
     inset: 0;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.8);
     opacity: 0;
     transition: opacity .35s ease;
     pointer-events: none;
