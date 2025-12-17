@@ -68,11 +68,15 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label>محتوى المقال</label>
-                <textarea data-validation="required"
-                          rows="6"
-                          class="form-control"
-                          name="content"
-                          placeholder="محتوى المقال">{{ $blog->content }}</textarea>
+                <textarea
+                    data-validation="required"
+                    rows="6"
+                    class="form-control"
+                    name="content"
+                    id="editor"
+                    placeholder="محتوى المقال">
+                    {{ isset($blog) ? $blog->content : '' }}
+                </textarea>
             </div>
         </div>
 
@@ -81,6 +85,13 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('editor', {
+        language: 'ar',
+        height: 300
+    });
+</script>
 <script>
     $('.dropify').dropify();
 </script>
