@@ -102,6 +102,14 @@ body {
         background: #f4a835;
         color: #fff;
     }
+
+    .blog-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
 }
 :root {
     --orange: #D89835;
@@ -212,18 +220,10 @@ body {
     height: 420px;
 }
 
-/*.blog-hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}*/
-
 .blog-hero img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
+    object-fit: cover;
 }
 
 .hero-overlay {
