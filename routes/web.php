@@ -174,6 +174,7 @@ Route::group(
             ->header('Content-Type', 'application/xml');
     });
 
+
     Route::get('/sitemap-blogs-{page}.xml', function ($page) {
 
         $perFile = 1000;
