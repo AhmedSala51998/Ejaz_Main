@@ -126,6 +126,16 @@ Route::group(
             'convert-pdf-to-image',
             'invoice-download',
             'get-nationality-id',
+            'custom-worker-request',
+            'sitemap',
+            'sitemap-pages',
+            'recruitmentContract',
+            'employmentArrival',
+            'recruitmentPolicy',
+            'musanedInitiative',
+            'forget-email-sent-successfully',
+            'supports',
+            'musaned',
         ];
 
         $routes = collect(\Route::getRoutes())
@@ -156,6 +166,8 @@ Route::group(
             ->map(fn ($route) => url($route->uri()))
             ->unique()
             ->values();
+
+        $routes->push(url('all-workers'));
 
         return response()
             ->view('sitemaps.pages', compact('routes'))
