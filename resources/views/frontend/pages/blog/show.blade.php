@@ -316,6 +316,41 @@ body {
         height: 300px;
     }
 }
+.blog-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-hero::before,
+.blog-hero::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+}
+
+.blog-hero::before {
+    top: -40px;
+    left: -40px;
+    border-radius: 0 0 120px 0;
+}
+
+.blog-hero::after {
+    bottom: -40px;
+    right: -40px;
+    border-radius: 120px 0 0 0;
+}
+
+.blog-hero:hover::before,
+.blog-hero:hover::after {
+    opacity: 1;
+}
 
 </style>
 @endsection
