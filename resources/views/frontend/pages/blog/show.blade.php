@@ -102,14 +102,6 @@ body {
         background: #f4a835;
         color: #fff;
     }
-
-    .blog-hero img {
-        width: 100%;
-        height: 100%;
-        object-fit:contain;
-        display: block;
-        margin: 0 auto;
-    }
 }
 :root {
     --orange: #D89835;
@@ -323,6 +315,39 @@ body {
     .blog-hero {
         height: 300px;
     }
+}
+
+@media (max-width: 768px) {
+
+    .blog-hero {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        overflow: hidden;
+    }
+
+    .blog-hero img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,.1));
+        color: #fff;
+    }
+
 }
 
 </style>
