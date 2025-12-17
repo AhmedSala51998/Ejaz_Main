@@ -321,20 +321,59 @@ body {
     overflow: hidden;
 }
 
+/* طبقة البلور من الزوايا */
 .blog-hero::after {
     content: "";
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* قناع يطلع من الزوايا */
+    -webkit-mask-image: radial-gradient(
+        circle at top left,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.9) 20%,
+        rgba(0,0,0,0) 55%
+    ),
+    radial-gradient(
+        circle at top right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.9) 20%,
+        rgba(0,0,0,0) 55%
+    ),
+    radial-gradient(
+        circle at bottom left,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.9) 20%,
+        rgba(0,0,0,0) 55%
+    ),
+    radial-gradient(
+        circle at bottom right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.9) 20%,
+        rgba(0,0,0,0) 55%
+    );
+
+    -webkit-mask-composite: source-over;
+    mask-composite: intersect;
+
+    background: rgba(255,255,255,0.3);
     opacity: 0;
-    transition: opacity .35s ease;
+    transition: opacity .4s ease;
     pointer-events: none;
 }
 
+/* Hover */
 .blog-hero:hover::after {
     opacity: 1;
+}
+
+/* خلي المحتوى فوق */
+.blog-hero img,
+.blog-hero .hero-overlay {
+    position: relative;
+    z-index: 2;
 }
 
 </style>
