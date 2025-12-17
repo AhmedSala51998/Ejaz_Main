@@ -321,7 +321,6 @@ body {
     overflow: hidden;
 }
 
-/* طبقة البلور من الزوايا */
 .blog-hero::after {
     content: "";
     position: absolute;
@@ -363,13 +362,10 @@ body {
     transition: opacity .4s ease;
     pointer-events: none;
 }
-
-/* Hover */
 .blog-hero:hover::after {
     opacity: 1;
 }
 
-/* خلي المحتوى فوق */
 .blog-hero img,
 .blog-hero .hero-overlay {
     position: relative;
