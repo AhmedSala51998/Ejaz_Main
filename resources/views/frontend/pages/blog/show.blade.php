@@ -106,7 +106,7 @@ body {
     .blog-hero img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         display: block;
         margin: 0 auto;
     }
