@@ -94,19 +94,49 @@ Route::group(
 
     Route::get('/sitemap.xml', function () {
 
-        return Cache::remember('sitemap-main', 60 * 60 * 12, function () {
+        $blogsCount = \App\Models\Blog::where('status', 1)->count();
+        $perFile = 1000;
+        $totalFiles = ceil($blogsCount / $perFile);
 
-            $blogs = \App\Models\Blog::select('slug', 'updated_at')->where('status', 1)->get();
-
-            return response()
-                ->view('sitemap', compact('blogs'))
-                ->header('Content-Type', 'application/xml');
-        });
-
+        return response()
+            ->view('sitemaps.index', compact('totalFiles'))
+            ->header('Content-Type', 'application/xml');
     });
 
+    Route::get('/sitemap-pages.xml', function () {
 
+        $routes = collect(\Route::getRoutes())
+            ->filter(function ($route) {
+                return in_array('GET', $route->methods())
+                    && !str_starts_with($route->uri(), 'admin')
+                    && !str_contains($route->uri(), '{');
+            })
+            ->map(function ($route) {
+                return url($route->uri());
+            });
 
+        return response()
+            ->view('sitemaps.pages', compact('routes'))
+            ->header('Content-Type', 'application/xml');
+    });
+
+    Route::get('/sitemap-blogs-{page}.xml', function ($page) {
+
+        $perFile = 1000;
+
+        $blogs = \App\Models\Blog::where('status', 1)
+            ->select('slug', 'updated_at')
+            ->orderBy('id')
+            ->skip(($page - 1) * $perFile)
+            ->take($perFile)
+            ->get();
+
+        abort_if($blogs->isEmpty(), 404);
+
+        return response()
+            ->view('sitemaps.blogs', compact('blogs'))
+            ->header('Content-Type', 'application/xml');
+    });
 
     //profile
     Route::get('profile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'profile_view'])->name('auth.profile');

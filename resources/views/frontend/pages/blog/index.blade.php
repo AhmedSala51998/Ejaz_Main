@@ -233,7 +233,7 @@ body {
                 <div class="blog-card">
 
                     <div class="blog-image">
-                        <img src="{{ asset($blog->image ?? 'frontend/img/blogs/2.png') }}"
+                        <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
                             alt="{{ $blog->title }}">
 
                         <span class="blog-badge">

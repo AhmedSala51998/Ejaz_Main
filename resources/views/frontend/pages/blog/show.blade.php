@@ -379,7 +379,7 @@ body {
 
                     <!-- Hero -->
                     <div class="blog-hero">
-                        <img src="{{ asset($blog->second_image ?? 'frontend/img/blogs/1_b.png') }}"
+                        <img src="{{ asset($blog->second_image ?? 'frontend/img/blogs/default_b.png') }}"
                             alt="{{ $blog->title }}">
 
                         <div class="hero-overlay">
