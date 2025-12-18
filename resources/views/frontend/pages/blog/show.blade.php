@@ -351,6 +351,7 @@ body {
 }
 
 
+/**************/
 :root {
     --orange: #D89835;
     --orange-dark: #c8812a;
@@ -363,7 +364,7 @@ body {
 
 body {
     font-family: 'Tajawal', sans-serif;
-    background-color: #fdf6ed;
+    background-color: #FFF;
     color: var(--text-main);
 }
 
