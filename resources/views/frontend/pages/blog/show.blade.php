@@ -71,7 +71,7 @@ body {
 /* Hero Image */
 .blog-hero {
     position: relative;
-    height: 420px;
+    height: 450px;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 30px;
