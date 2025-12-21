@@ -878,6 +878,10 @@
 {{--    });--}}
 {{--</script>--}}
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/lang/ar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/security.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/date.js"></script>
+
 <div class="floating-container">
     <div class="floating-button"><i class="material-icons">headset_mic</i></div>
     <div class="element-container">
