@@ -453,36 +453,62 @@ import Globe from 'https://cdn.jsdelivr.net/npm/globe.gl@2.33.1/+esm';
 import * as topojson from 'https://cdn.jsdelivr.net/npm/topojson-client@3/+esm';
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3-geo@3/+esm';
 
-const emphasizedCountries = {
-  231: { iso: 'et', name: 'اثيوبيا', revealed: false },
-  800: { iso: 'ug', name: 'اوغندا', revealed: false },
-  50:  { iso: 'bd', name: 'بنجلاديش', revealed: false },
-  608: { iso: 'ph', name: 'الفلبين', revealed: false },
-  404: { iso: 'ke', name: 'كينيا', revealed: false },
-  356: { iso: 'in', name: 'الهند', revealed: false },
-  144: { iso: 'lk', name: 'سريلانكا', revealed: false },
-  108: { iso: 'bi', name: 'بروندي', revealed: false },
-  682: { iso: 'sa', name: 'المملكة العربية السعودية', revealed: true }
-};
+function getCentroidFromPolygon(coords) {
+  let x = 0, y = 0, len = coords.length;
+  for (let i = 0; i < len; i++) {
+    x += coords[i][0];
+    y += coords[i][1];
+  }
+  return [x / len, y / len];
+}
+
+function getCentroidFromMultiPolygon(polygons) {
+  let totalX = 0, totalY = 0, totalPoints = 0;
+  for (const polygon of polygons) {
+    const [x, y] = getCentroidFromPolygon(polygon[0]);
+    totalX += x;
+    totalY += y;
+    totalPoints++;
+  }
+  return [totalX / totalPoints, totalY / totalPoints];
+}
+
+const emphasizedCountries = {};
+@foreach($countryMap as $fixedId => $info)
+    @php
+        $country = $countries->firstWhere('country_name', $info['name']);
+        $name = $country->country_name ?? $info['name'];
+        $price = $fixedId == 682 ? 'null' : ($country->price ?? '""');
+    @endphp
+
+    emphasizedCountries[{{ $fixedId }}] = {
+        id: {{ $fixedId }},
+        iso: "{{ $info['iso'] }}",
+        name: "{{ $name }}",
+        price: {{ $price }},
+        revealed: {{ $info['revealed'] ? 'true' : 'false' }}
+    };
+@endforeach
+
 
 const saudiInfo = emphasizedCountries[682];
-let countriesGeoJson = [];
-let globeBackgroundMaterial = null;
-let backgroundSphere = null;
-let currentCountryId = null;
 let countryLabels = {};
-let countryDisplayIndex = 0;
-
+let backgroundSphere = null;
+let globeBackgroundMaterial = null;
+let currentCountryId = null;
+let firstLoadDone = false;
+let countriesGeoJson = [];
 const tooltip = document.getElementById('tooltip');
 const chat = document.getElementById('chat-message');
 const sound = document.getElementById('chat-sound');
+let countryDisplayIndex = 0;
 const displayDelay = 700;
 
 const globe = Globe()(document.getElementById('globe-container'))
   .globeImageUrl(null)
   .backgroundColor('white')
   .showAtmosphere(false)
-  .globeMaterial(new THREE.MeshBasicMaterial({ color: 0xD89835, transparent: true, opacity: 0.3 }))
+  .globeMaterial(new THREE.MeshBasicMaterial({ color: 0xD89835, transparent: true, opacity: 0.3 , shininess: 0 }))
   .pointAltitude(0.005)
   .pointRadius(0.08)
   .pointColor(() => '#3A60A5')
@@ -491,6 +517,22 @@ const globe = Globe()(document.getElementById('globe-container'))
 globe.controls().autoRotate = false;
 globe.controls().autoRotateSpeed = 0.1;
 globe.controls().enableZoom = false;
+
+
+document.addEventListener('mousemove', e => {
+  tooltip.style.left = `${e.pageX + 10}px`;
+  tooltip.style.top = `${e.pageY + 10}px`;
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('canvas')) {
+    if (backgroundSphere) {
+      globe.scene().remove(backgroundSphere);
+      backgroundSphere = null;
+      currentCountryId = null;
+    }
+  }
+});
 
 const dots = [];
 for (let lat = -85; lat <= 85; lat += 2.5) {
@@ -503,7 +545,10 @@ globe.pointsData(dots);
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
   .then(res => res.json())
   .then(worldData => {
-    countriesGeoJson = topojson.feature(worldData, worldData.objects.countries).features;
+    countriesGeoJson = topojson.feature(
+    worldData,
+    worldData.objects.countries
+    ).features;
     const loader = new THREE.TextureLoader();
 
     globe
@@ -522,15 +567,16 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
         if (f) {
           const id = parseInt(f.id);
           const info = emphasizedCountries[id];
-          tooltip.style.display = info && info.revealed ? 'block' : 'none';
-          tooltip.innerText = info?.price ? `${info.name} - ${info.price} ريال` : info?.name || '';
+          if (info && info.revealed) {
+            tooltip.innerText = info.price ? `${info.name} - سعر الاستقدام: ${info.price} ريال` : info.name;
+            tooltip.style.display = 'block';
+          } else tooltip.style.display = 'none';
         } else tooltip.style.display = 'none';
       })
       .onPolygonClick(f => {
-        if (!f) return;
         const id = parseInt(f.id);
         const info = emphasizedCountries[id];
-        if (!info?.revealed) return;
+        if (!info || !info.revealed) return;
 
         if (currentCountryId === id) {
           if (backgroundSphere) globe.scene().remove(backgroundSphere);
@@ -539,29 +585,117 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
           return;
         }
 
-        drawFlagSphere(info.iso, info.name);
+        drawFlagSphere(info.iso, info.price ? `${info.name} - ${info.price} ريال` : info.name);
         currentCountryId = id;
 
         if (id !== saudiInfo.id) {
-          const loaderEl = document.getElementById('globe-loader');
-          loaderEl.style.display = 'flex';
+          const loader = document.getElementById('globe-loader');
+          loader.style.display = 'flex';
+
           fetch(`/get-nationality-id?name=${encodeURIComponent(info.name)}`)
             .then(res => res.json())
             .then(data => {
-              loaderEl.style.display = 'none';
-              if (data?.id) window.location.href = `/all-workers/${data.id}`;
-              else alert("لم يتم العثور على الدولة");
+              if (data?.id) {
+                setTimeout(() => {
+                  window.location.href = `/all-workers/${data.id}`;
+                }, 800);
+              } else {
+                loader.style.display = 'none';
+                alert("لم يتم العثور على الدولة");
+              }
             })
-            .catch(() => { loaderEl.style.display = 'none'; alert("خطأ أثناء جلب الدولة"); });
+            .catch(() => {
+              loader.style.display = 'none';
+              alert("خطأ أثناء جلب الدولة");
+            });
         }
+
       });
 
-    revealNextCountry();
+      function revealNextCountry() {
+        const ids = Object.keys(emphasizedCountries).map(Number).filter(id => id !== saudiInfo.id);
+
+        if (countryDisplayIndex < ids.length) {
+          const cid = ids[countryDisplayIndex];
+          emphasizedCountries[cid].revealed = true;
+          globe.polygonsData(countriesGeoJson);
+
+          const geo = countriesGeoJson.find(c => parseInt(c.id) === cid);
+          const info = emphasizedCountries[cid];
+
+          if (geo && info) {
+            let lat, lng;
+            try {
+              const [lng_, lat_] = d3.geoCentroid(geo);
+              lng = lng_;
+              lat = lat_;
+            } catch (e) {
+              if (geo.bbox) {
+                lat = (geo.bbox[1] + geo.bbox[3]) / 2;
+                lng = (geo.bbox[0] + geo.bbox[2]) / 2;
+              } else {
+                const centroid = geo.geometry.coordinates.length === 1
+                  ? getCentroidFromPolygon(geo.geometry.coordinates[0])
+                  : getCentroidFromMultiPolygon(geo.geometry.coordinates);
+                lng = centroid[0];
+                lat = centroid[1];
+              }
+            }
+
+            const labelText = info.price ? `${info.name} - ${info.price} ريال` : info.name;
+
+            globe.pointOfView({ lat, lng, altitude: 1.7 }, 1600);
+
+            setTimeout(() => {
+              if (!countryLabels[cid]) {
+                const label = createCountryLabel(labelText, lat, lng);
+                globe.scene().add(label);
+                countryLabels[cid] = label;
+              } else {
+                globe.scene().add(countryLabels[cid]);
+              }
+
+              countryDisplayIndex++;
+              setTimeout(revealNextCountry, displayDelay);
+            }, 1700);
+
+          } else {
+            countryDisplayIndex++;
+            setTimeout(revealNextCountry, displayDelay);
+          }
+        }
+      }
+
+
+
+    if (saudiInfo && !firstLoadDone) {
+      firstLoadDone = true;
+      setTimeout(() => {
+        globe.pointOfView({ lat: 23.8859, lng: 45.0792, altitude: 1.7 }, 2000);
+        setTimeout(() => {
+          drawFlagSphere('sa', 'مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد');
+          showSaudiMessage();
+          setTimeout(() => {
+            if (backgroundSphere) globe.scene().remove(backgroundSphere);
+            globe.controls().autoRotate = false;
+            const centerLatLng = { lat: 7.5, lng: 82 };
+            globe.pointOfView(centerLatLng, 2000);
+            setTimeout(() => {
+              globe.controls().autoRotate = true;
+              globe.controls().autoRotateSpeed = 0.5;
+              revealNextCountry();
+            }, 2000);
+          }, 3000);
+        }, 2000);
+      }, 1000);
+    }
+
   });
 
 function drawFlagSphere(iso, text) {
   const canvas = document.createElement('canvas');
-  canvas.width = 1024; canvas.height = 512;
+  canvas.width = 1024;
+  canvas.height = 512;
   const ctx = canvas.getContext('2d');
 
   const img = new Image();
@@ -577,7 +711,7 @@ function drawFlagSphere(iso, text) {
     ctx.fillText(text, canvas.width / 2, canvas.height - 30);
 
     const tex = new THREE.CanvasTexture(canvas);
-    globeBackgroundMaterial = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.8 });
+    globeBackgroundMaterial = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
 
     if (backgroundSphere) globe.scene().remove(backgroundSphere);
     backgroundSphere = new THREE.Mesh(new THREE.SphereGeometry(globe.getGlobeRadius() * 1.01, 75, 75), globeBackgroundMaterial);
@@ -585,15 +719,108 @@ function drawFlagSphere(iso, text) {
   };
 }
 
-function revealNextCountry() {
-  const ids = Object.keys(emphasizedCountries).map(Number).filter(id => id !== saudiInfo.id);
-
-  if (countryDisplayIndex < ids.length) {
-    const cid = ids[countryDisplayIndex];
-    emphasizedCountries[cid].revealed = true;
-    globe.polygonsData(countriesGeoJson);
-    countryDisplayIndex++;
-    setTimeout(revealNextCountry, displayDelay);
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+    if (w < 2 * r) r = w / 2;
+    if (h < 2 * r) r = h / 2;
+    this.beginPath();
+    this.moveTo(x + r, y);
+    this.arcTo(x + w, y, x + w, y + h, r);
+    this.arcTo(x + w, y + h, x, y + h, r);
+    this.arcTo(x, y + h, x, y, r);
+    this.arcTo(x, y, x + w, y, r);
+    this.closePath();
+    return this;
   }
 }
+function createCountryLabel(text, lat, lng) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 3600;
+  canvas.height = 1400;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = 'rgba(244, 168, 53, 0.95)';
+  ctx.roundRect(0, 0, canvas.width, canvas.height, 100);
+  ctx.fill();
+
+  ctx.lineWidth = 15;
+  ctx.strokeStyle = '#ffffff';
+  ctx.roundRect(0, 0, canvas.width, canvas.height, 100);
+  ctx.stroke();
+
+  ctx.fillStyle = '#000000';
+  ctx.font = 'bold 420px Cairo, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.needsUpdate = true;
+
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+  const sprite = new THREE.Sprite(material);
+  sprite.scale.set(18, 9, 1);
+
+  const radius = globe.getGlobeRadius() * 1.13;
+
+  const phi = (90 - lat) * Math.PI / 180;
+  const theta = (lng+180) * Math.PI / 180;
+
+  let x = radius * Math.sin(phi) * Math.cos(theta);
+  let y = radius * Math.cos(phi);
+  let z = radius * Math.sin(phi) * Math.sin(theta);
+
+
+  const offsetDistance = 5;
+  const direction = new THREE.Vector3(x, y, z).normalize();
+  const pos = new THREE.Vector3(x, y, z).add(direction.multiplyScalar(offsetDistance));
+  sprite.position.copy(pos);
+
+  return sprite;
+}
+
+
+function showSaudiMessage() {
+  const coords = globe.getScreenCoords(23.8859, 45.0792);
+  if (!coords) return;
+
+  const bubble = document.getElementById('saudi-bubble');
+  const chat = document.getElementById('chat-message');
+  const sound = document.getElementById('chat-sound');
+
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    bubble.style.left = `${coords.x - 40}px`;
+    bubble.style.top = `${coords.y - 145}px`;
+
+    chat.style.left = `${coords.x - 80}px`;
+    chat.style.top = `${coords.y - 250}px`;
+  } else {
+    bubble.style.left = `${coords.x - 350}px`;
+    bubble.style.top = `${coords.y - 30}px`;
+
+    chat.style.left = `${coords.x - 370}px`;
+    chat.style.top = `${coords.y - 130}px`;
+  }
+
+  bubble.style.display = 'block';
+  bubble.style.animation = 'bubbleScalePulse 1.5s ease-in-out infinite';
+
+  chat.style.display = 'block';
+  chat.style.animation = 'fadeSlideIn 0.6s ease-out forwards';
+
+  sound.currentTime = 0;
+
+  setTimeout(() => {
+    chat.style.animation = 'fadeSlideOut 0.6s ease-in forwards';
+    bubble.style.opacity = '0';
+    setTimeout(() => {
+      chat.style.display = 'none';
+      bubble.style.display = 'none';
+    }, 600);
+  }, 3700);
+}
+
+
 </script>
