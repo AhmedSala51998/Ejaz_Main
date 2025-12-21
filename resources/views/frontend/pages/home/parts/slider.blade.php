@@ -449,7 +449,7 @@ $countryMap = [
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script type="module">
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import Globe from 'https://cdn.jsdelivr.net/npm/globe.gl@2.33.1/dist/globe.gl.module.js';
+import Globe from 'https://cdn.jsdelivr.net/npm/globe.gl@2.33.1/+esm';
 import * as topojson from 'https://unpkg.com/topojson-client@3';
 import * as d3 from 'https://unpkg.com/d3-geo@3';
 
