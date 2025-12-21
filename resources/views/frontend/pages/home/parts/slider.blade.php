@@ -55,7 +55,6 @@
         z-index: 9999;
     }
 
-    /* فقاعة شفافة دائرية فوق السعودية */
     #saudi-bubble {
       position: absolute;
       width: 50px;
@@ -68,10 +67,9 @@
         inset 0 0 30px rgba(244, 168, 53, 0.3);
       pointer-events: none;
       z-index: 10000;
-      overflow: visible; /* لازم عشان يظهر الموجات */
+      overflow: visible;
     }
 
-    /* الحلقات الدائرية (الموجات) */
     .ripple-ring {
       position: absolute;
       border: 2px solid rgba(244, 168, 53, 0.6);
@@ -96,11 +94,10 @@
       }
     }
 
-    /* سهم ذيل الفقاعة متجه لأسفل */
     #saudi-bubble::after {
       content: '';
       position: absolute;
-      top: -18px; /* تحت الفقاعة */
+      top: -18px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
@@ -111,7 +108,6 @@
       filter: drop-shadow(0 0 5px rgba(244, 168, 53, 0.4));
     }
 
-    /* حركة نبض الفقاعة */
     @keyframes bubbleScalePulse {
       0%, 100% {
         transform: scale(1);
@@ -127,7 +123,6 @@
       }
     }
 
-    /* ستايل رسالة الـ chat (خلفية برتقالية + ظل) */
     #chat-message {
       position: absolute;
       display: none;
@@ -148,7 +143,6 @@
       pointer-events: none;
     }
 
-    /* سهم الرسالة (الذي يشير للفقاعة) */
     /*#chat-message::after {
       content: '';
       position: absolute;
@@ -162,7 +156,6 @@
       filter: drop-shadow(0 3px 3px rgba(224, 123, 0, 0.3));
     }*/
 
-    /* أنيميشن الدخول والخروج للرسالة */
     @keyframes fadeSlideIn {
       from {
         opacity: 0;
@@ -214,9 +207,9 @@
     aspect-ratio: 1 / 1;
     height: auto;
     position: relative;
-    left: calc(50% + 7px);      /* زودنا 10px يمين عشان نزيحها من ناحية الشمال */
+    left: calc(50% + 7px);
     transform: translateX(-50%);
-    margin-top: -5px;             /* رفع الكرة شوي */
+    margin-top: -5px;
     margin-bottom: 10px;
     border-radius: 50%;
     overflow: hidden;
