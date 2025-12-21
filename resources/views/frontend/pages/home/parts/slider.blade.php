@@ -278,7 +278,6 @@ canvas {
                 <div id="saudi-bubble"></div>
                 <div id="tooltip"></div>
                 <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
-                <audio id="chat-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_b91f44f395.mp3" preload="auto"></audio>
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
@@ -349,7 +348,6 @@ canvas {
                     <div id="saudi-bubble"></div>
                     <div id="tooltip"></div>
                     <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
-                    <audio id="chat-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_b91f44f395.mp3" preload="auto"></audio>
                 </div>
                 <div class="col-md-5 order-md-1 p-1">
                     <!-- main slider -->
@@ -499,7 +497,6 @@ let firstLoadDone = false;
 let countriesGeoJson = [];
 const tooltip = document.getElementById('tooltip');
 const chat = document.getElementById('chat-message');
-const sound = document.getElementById('chat-sound');
 let countryDisplayIndex = 0;
 const displayDelay = 700;
 
@@ -785,7 +782,6 @@ function showSaudiMessage() {
 
   const bubble = document.getElementById('saudi-bubble');
   const chat = document.getElementById('chat-message');
-  const sound = document.getElementById('chat-sound');
 
   const isMobile = window.innerWidth <= 768;
 
@@ -809,7 +805,6 @@ function showSaudiMessage() {
   chat.style.display = 'block';
   chat.style.animation = 'fadeSlideIn 0.6s ease-out forwards';
 
-  sound.currentTime = 0;
 
   setTimeout(() => {
     chat.style.animation = 'fadeSlideOut 0.6s ease-in forwards';
