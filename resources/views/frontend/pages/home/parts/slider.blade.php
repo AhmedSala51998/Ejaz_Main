@@ -592,7 +592,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
 
         if (id !== saudiInfo.id) {
           const loader = document.getElementById('globe-loader');
-          loader.style.display = 'flex'; // ⬅️ إظهار اللودر
+          loader.style.display = 'flex';
 
           fetch(`/get-nationality-id?name=${encodeURIComponent(info.name)}`)
             .then(res => res.json())
@@ -600,7 +600,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
               if (data?.id) {
                 setTimeout(() => {
                   window.location.href = `/all-workers/${data.id}`;
-                }, 800); // ⏳ يعطي وقت صغير لرؤية اللودر
+                }, 800);
               } else {
                 loader.style.display = 'none';
                 alert("لم يتم العثور على الدولة");
@@ -646,10 +646,8 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
 
             const labelText = info.price ? `${info.name} - ${info.price} ريال` : info.name;
 
-            // تدوير الكرة أولاً إلى موقع الدولة
             globe.pointOfView({ lat, lng, altitude: 1.7 }, 1600);
 
-            // بعد التوجيه، أضف اللافتة
             setTimeout(() => {
               if (!countryLabels[cid]) {
                 const label = createCountryLabel(labelText, lat, lng);
@@ -660,11 +658,10 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
               }
 
               countryDisplayIndex++;
-              setTimeout(revealNextCountry, displayDelay); // عرض الدولة التالية بعد قليل
-            }, 1700); // بعد انتهاء دوران الكرة
+              setTimeout(revealNextCountry, displayDelay);
+            }, 1700);
 
           } else {
-            // في حال لم نجد معلومات الدولة
             countryDisplayIndex++;
             setTimeout(revealNextCountry, displayDelay);
           }
@@ -724,7 +721,6 @@ function drawFlagSphere(iso, text) {
   };
 }
 
-// إضافة دعم roundRect إذا غير موجود (لأنه مش مدعوم في كل المتصفحات)
 if (!CanvasRenderingContext2D.prototype.roundRect) {
   CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
     if (w < 2 * r) r = w / 2;
@@ -769,7 +765,6 @@ function createCountryLabel(text, lat, lng) {
 
   const radius = globe.getGlobeRadius() * 1.13;
 
-  // التحويل الصحيح للنظام الكروي حسب globe.gl
   const phi = (90 - lat) * Math.PI / 180;
   const theta = (lng+180) * Math.PI / 180;
 
@@ -778,7 +773,6 @@ function createCountryLabel(text, lat, lng) {
   let z = radius * Math.sin(phi) * Math.sin(theta);
 
 
-  // إزاحة اللافتة قليلاً للخارج لتكون ظاهرة فوق السطح
   const offsetDistance = 5;
   const direction = new THREE.Vector3(x, y, z).normalize();
   const pos = new THREE.Vector3(x, y, z).add(direction.multiplyScalar(offsetDistance));
@@ -799,35 +793,27 @@ function showSaudiMessage() {
   const isMobile = window.innerWidth <= 768;
 
   if (isMobile) {
-    // موضع الفقاعة في الموبايل
     bubble.style.left = `${coords.x - 40}px`;
     bubble.style.top = `${coords.y - 145}px`;
 
-    // موضع الرسالة في الموبايل
     chat.style.left = `${coords.x - 80}px`;
     chat.style.top = `${coords.y - 250}px`;
   } else {
-    // موضع الفقاعة في الديسكتوب
     bubble.style.left = `${coords.x - 350}px`;
     bubble.style.top = `${coords.y - 30}px`;
 
-    // موضع الرسالة في الديسكتوب
     chat.style.left = `${coords.x - 370}px`;
     chat.style.top = `${coords.y - 130}px`;
   }
 
-  // إظهار الفقاعة والرسالة
   bubble.style.display = 'block';
   bubble.style.animation = 'bubbleScalePulse 1.5s ease-in-out infinite';
 
   chat.style.display = 'block';
   chat.style.animation = 'fadeSlideIn 0.6s ease-out forwards';
 
-  // تشغيل الصوت
   sound.currentTime = 0;
-  sound.play();
 
-  // إخفاء بعد 3.7 ثانية
   setTimeout(() => {
     chat.style.animation = 'fadeSlideOut 0.6s ease-in forwards';
     bubble.style.opacity = '0';
