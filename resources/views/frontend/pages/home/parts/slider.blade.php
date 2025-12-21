@@ -448,10 +448,10 @@ $countryMap = [
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script type="module">
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import Globe from 'https://cdn.jsdelivr.net/npm/globe.gl@2.33.1/+esm';
-import * as topojson from 'https://unpkg.com/topojson-client@3';
-import * as d3 from 'https://unpkg.com/d3-geo@3';
+import * as topojson from 'https://cdn.jsdelivr.net/npm/topojson-client@3/+esm';
+import * as d3 from 'https://cdn.jsdelivr.net/npm/d3-geo@3/+esm';
 
 function getCentroidFromPolygon(coords) {
   let x = 0, y = 0, len = coords.length;
