@@ -1390,7 +1390,7 @@
     warn: function(msg, fallbackOnAlert) {
       if( 'console' in window ) {
         if( typeof window.console.warn === 'function' ) {
-          window.console.warn(msg);
+
         } else if( typeof window.console.log === 'function' ) {
           window.console.log(msg);
         }
@@ -2253,9 +2253,9 @@
 
         if(language.badAlphaNumericAndExtraAndSpaces && language.badAlphaNumericAndExtra) {
           if(hasSpaces) {
-            this.errorMessage = language.badAlphaNumericAndExtraAndSpaces + extra; 
+            this.errorMessage = language.badAlphaNumericAndExtraAndSpaces + extra;
           } else {
-            this.errorMessage = language.badAlphaNumericAndExtra + extra + language.badAlphaNumericExtra; 
+            this.errorMessage = language.badAlphaNumericAndExtra + extra + language.badAlphaNumericExtra;
           }
         } else {
           this.errorMessage = language.badAlphaNumeric + language.badAlphaNumericExtra + extra;
