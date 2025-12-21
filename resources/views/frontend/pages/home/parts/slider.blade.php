@@ -445,7 +445,8 @@ $countryMap = [
     682 => ['iso' => 'sa', 'revealed' => true, 'name' => 'المملكة العربية السعودية'],
 ];
 @endphp
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script type="module">
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import Globe from 'https://unpkg.com/globe.gl@2.33.1/dist/globe.gl.module.js';
