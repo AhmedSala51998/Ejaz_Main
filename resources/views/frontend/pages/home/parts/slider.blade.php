@@ -618,7 +618,7 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
         if (countryDisplayIndex < ids.length) {
           const cid = ids[countryDisplayIndex];
           emphasizedCountries[cid].revealed = true;
-          globe.polygonsData([countriesGeoJson]);
+          globe.polygonsData(countriesGeoJson);
 
           const geo = countriesGeoJson.find(c => parseInt(c.id) === cid);
           const info = emphasizedCountries[cid];
