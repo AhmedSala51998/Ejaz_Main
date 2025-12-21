@@ -443,13 +443,11 @@ $countryMap = [
     682 => ['iso' => 'sa', 'revealed' => true, 'name' => 'المملكة العربية السعودية'],
 ];
 @endphp
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script type="module">
-import Globe from 'https://cdn.jsdelivr.net/npm/globe.gl@2.33.1/+esm';
-import * as topojson from 'https://cdn.jsdelivr.net/npm/topojson-client@3/+esm';
-import * as d3 from 'https://cdn.jsdelivr.net/npm/d3-geo@3/+esm';
-
+<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson@3"></script>
+<script src="https://unpkg.com/d3-geo@3"></script>
+<script>
 function getCentroidFromPolygon(coords) {
   let x = 0, y = 0, len = coords.length;
   for (let i = 0; i < len; i++) {
@@ -470,23 +468,17 @@ function getCentroidFromMultiPolygon(polygons) {
   return [totalX / totalPoints, totalY / totalPoints];
 }
 
-const emphasizedCountries = {};
-@foreach($countryMap as $fixedId => $info)
-    @php
-        $country = $countries->firstWhere('country_name', $info['name']);
-        $name = $country->country_name ?? $info['name'];
-        $price = $fixedId == 682 ? 'null' : ($country->price ?? '""');
-    @endphp
-
-    emphasizedCountries[{{ $fixedId }}] = {
-        id: {{ $fixedId }},
-        iso: "{{ $info['iso'] }}",
-        name: "{{ $name }}",
-        price: {{ $price }},
-        revealed: {{ $info['revealed'] ? 'true' : 'false' }}
-    };
-@endforeach
-
+const emphasizedCountries = {
+  231: { id: 231, iso: 'et', name: 'اثيوبيا', price: '3999', revealed: false },
+  800: { id: 800, iso: 'ug', name: 'اوغندا', price: '4999', revealed: false },
+  50:  { id: 50, iso: 'bd', name: 'بنجلاديش', price: '6999', revealed: false },
+  608: { id: 608, iso: 'ph', name: 'الفلبين', price: '13999', revealed: false },
+  404: { id: 404, iso: 'ke', name: 'كينيا', price: '5999', revealed: false },
+  356: { id: 356, iso: 'in', name: 'الهند', price: '2999', revealed: false },
+  144: { id: 144, iso: 'lk', name: 'سريلانكا', price: '14199', revealed: false },
+  108: { id: 108, iso: 'bi', name: 'بروندي', price: '4999', revealed: false },
+  682: { id: 682, iso: 'sa', name: 'المملكة العربية السعودية', price: null, revealed: true }
+};
 
 const saudiInfo = emphasizedCountries[682];
 let countryLabels = {};
@@ -497,6 +489,7 @@ let firstLoadDone = false;
 let countriesGeoJson = [];
 const tooltip = document.getElementById('tooltip');
 const chat = document.getElementById('chat-message');
+const sound = document.getElementById('chat-sound');
 let countryDisplayIndex = 0;
 const displayDelay = 700;
 
@@ -504,7 +497,7 @@ const globe = Globe()(document.getElementById('globe-container'))
   .globeImageUrl(null)
   .backgroundColor('white')
   .showAtmosphere(false)
-  .globeMaterial(new THREE.MeshBasicMaterial({ color: 0xD89835, transparent: true, opacity: 0.3 , shininess: 0 }))
+  .globeMaterial(new THREE.MeshBasicMaterial({ color: 0xf4a835, transparent: true, opacity: 0.08 }))
   .pointAltitude(0.005)
   .pointRadius(0.08)
   .pointColor(() => '#3A60A5')
@@ -538,13 +531,10 @@ for (let lat = -85; lat <= 85; lat += 2.5) {
 }
 globe.pointsData(dots);
 
-fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+fetch('https://unpkg.com/world-atlas/countries-110m.json')
   .then(res => res.json())
   .then(worldData => {
-    countriesGeoJson = topojson.feature(
-    worldData,
-    worldData.objects.countries
-    ).features;
+    countriesGeoJson = window.topojson.feature(worldData, worldData.objects.countries).features;
     const loader = new THREE.TextureLoader();
 
     globe
@@ -614,7 +604,7 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
         if (countryDisplayIndex < ids.length) {
           const cid = ids[countryDisplayIndex];
           emphasizedCountries[cid].revealed = true;
-          globe.polygonsData(countriesGeoJson);
+          globe.polygonsData([...countriesGeoJson]);
 
           const geo = countriesGeoJson.find(c => parseInt(c.id) === cid);
           const info = emphasizedCountries[cid];
@@ -804,7 +794,6 @@ function showSaudiMessage() {
 
   chat.style.display = 'block';
   chat.style.animation = 'fadeSlideIn 0.6s ease-out forwards';
-
 
   setTimeout(() => {
     chat.style.animation = 'fadeSlideOut 0.6s ease-in forwards';
