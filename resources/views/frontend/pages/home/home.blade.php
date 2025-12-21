@@ -54,13 +54,11 @@ $(document).on('submit', 'form#Form', function (e) {
     let phoneValue = phoneInput.val().trim();
     let phoneRegex = /^(00966|966|\+966)?5[0-9]{8}$/;
 
-    // إزالة الأخطاء السابقة
     form.find('input, textarea').removeClass('is-invalid');
     form.find('.invalid-feedback').text('');
 
     let valid = true;
 
-    // تحقق من الحقول الفارغة والـ validity باستخدام checkValidity
     form.find('input[required], textarea[required]').each(function () {
         if (!this.checkValidity()) {
             $(this).addClass('is-invalid');
@@ -68,7 +66,6 @@ $(document).on('submit', 'form#Form', function (e) {
         }
     });
 
-    // تحقق خاص لرقم الجوال السعودي
     if (phoneValue) {
         if (!phoneRegex.test(phoneValue)) {
             phoneInput.addClass('is-invalid');
@@ -76,17 +73,15 @@ $(document).on('submit', 'form#Form', function (e) {
             valid = false;
         }
     } else {
-        // إذا الرقم فارغ
         phoneInput.addClass('is-invalid');
         phoneInput.next('.invalid-feedback').text("الرجاء إدخال رقم الجوال");
         valid = false;
     }
 
     if (!valid) {
-        return; // لا تكمل الإرسال إذا الفاليديشن فشل
+        return;
     }
 
-    // وضع اللودر + تعطيل الزر
     submitBtn.prop('disabled', true);
     submitBtn.html(`
         <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -214,7 +209,6 @@ $(document).on('submit', 'form#Form', function (e) {
 });
 
 
-// منع إدخال غير الأرقام
 function isNumber(evt) {
     evt = evt || window.event;
     let charCode = evt.which || evt.keyCode;

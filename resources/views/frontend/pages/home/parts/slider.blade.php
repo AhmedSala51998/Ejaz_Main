@@ -542,10 +542,13 @@ for (let lat = -85; lat <= 85; lat += 2.5) {
 }
 globe.pointsData(dots);
 
-fetch('https://unpkg.com/world-atlas/countries-110m.json')
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
   .then(res => res.json())
   .then(worldData => {
-    countriesGeoJson = window.topojson.feature(worldData, worldData.objects.countries).features;
+    countriesGeoJson = topojson.feature(
+    worldData,
+    worldData.objects.countries
+    ).features;
     const loader = new THREE.TextureLoader();
 
     globe
@@ -615,7 +618,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
         if (countryDisplayIndex < ids.length) {
           const cid = ids[countryDisplayIndex];
           emphasizedCountries[cid].revealed = true;
-          globe.polygonsData([...countriesGeoJson]);
+          globe.polygonsData([countriesGeoJson]);
 
           const geo = countriesGeoJson.find(c => parseInt(c.id) === cid);
           const info = emphasizedCountries[cid];
