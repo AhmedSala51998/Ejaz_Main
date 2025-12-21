@@ -451,8 +451,7 @@ import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import Globe from 'https://unpkg.com/globe.gl@2.33.1/dist/globe.gl.module.js';
 import * as topojson from 'https://unpkg.com/topojson-client@3';
 import * as d3 from 'https://unpkg.com/d3-geo@3';
-</script>
-<script>
+
 function getCentroidFromPolygon(coords) {
   let x = 0, y = 0, len = coords.length;
   for (let i = 0; i < len; i++) {
