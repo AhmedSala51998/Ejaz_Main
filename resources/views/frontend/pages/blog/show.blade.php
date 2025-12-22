@@ -94,6 +94,7 @@ body{
     border-radius:32px;
     overflow:hidden;
     box-shadow:var(--shadow);
+    margin-top: 50px
 }
 .article-hero img{
     width:100%;
@@ -138,7 +139,7 @@ body{
     background:#fff;
     border-radius:30px;
     padding:50px;
-    margin-top:40px;
+    margin-top:-80px;
     position:relative;
     box-shadow:var(--shadow);
 }
