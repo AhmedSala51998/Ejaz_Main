@@ -206,6 +206,9 @@ body {
 }
 
 /* Intro */
+.blog-intro{
+    margin-top:-30px
+}
 .blog-intro h2{
     font-size:2.4rem;
     font-weight:900;
