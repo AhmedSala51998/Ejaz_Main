@@ -138,7 +138,7 @@ body{
     background:#fff;
     border-radius:30px;
     padding:50px;
-    margin-top:-80px;
+    margin-top:40px;
     position:relative;
     box-shadow:var(--shadow);
 }
