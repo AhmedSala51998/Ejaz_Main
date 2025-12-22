@@ -244,9 +244,9 @@ $(document).on('click','#addButton',function(){
         $('#exampleModalLabel').text('إضافة مقال');
         $('#exampleModalCenter').modal('show');
 
-        setTimeout(function () {
+        $('#exampleModalCenter').on('shown.bs.modal', function () {
             initFormPlugins();
-        }, 300);
+        });
     });
 });
 
@@ -259,9 +259,9 @@ $(document).on('click','.editButton',function(){
         $('#exampleModalLabel').text('تعديل مقال');
         $('#exampleModalCenter').modal('show');
 
-        setTimeout(function () {
+        $('#exampleModalCenter').on('shown.bs.modal', function () {
             initFormPlugins();
-        }, 300);
+        });
     });
 });
 
