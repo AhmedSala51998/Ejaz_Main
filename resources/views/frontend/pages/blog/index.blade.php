@@ -229,7 +229,7 @@ body {
 
         <div class="blog-grid">
 
-            @foreach($blogs as $blog)
+            @forelse($blogs as $blog)
                 <div class="blog-card">
 
                     <div class="blog-image">
@@ -259,7 +259,25 @@ body {
 
                     </div>
                 </div>
-            @endforeach
+
+            @empty
+                {{-- مفيش مدونات --}}
+                <div class="col-12 text-center" style="grid-column: 1 / -1;">
+                    <img
+                        src="{{ asset('frontend/img/no_data.png') }}"
+                        alt="لا توجد مدونات"
+                        style="max-width: 420px; width: 100%; margin: 40px auto;"
+                    >
+
+                    <h3 style="color:#5F5F5F; margin-top:20px;">
+                        لا توجد مقالات متاحة حالياً
+                    </h3>
+
+                    <p style="color:#888;">
+                        سيتم إضافة مقالات قريبًا إن شاء الله
+                    </p>
+                </div>
+            @endforelse
 
         </div>
 
