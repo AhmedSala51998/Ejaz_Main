@@ -205,9 +205,6 @@ body {
     background: var(--orange-dark);
 }
 
-
-
-
 /* Intro */
 .blog-intro h2{
     font-size:2.4rem;
@@ -335,7 +332,6 @@ body {
     color:#777;
     margin-top:10px;
 }
-
 </style>
 @endsection
 
@@ -350,82 +346,78 @@ body {
 </div>
 
 <section class="customer-service-section py-5">
-    <div class="container">
+    <div class="">
 
-        <section class="blog-section py-5">
-            <div class="container">
+    <section class="blog-section py-5">
+        <div class="container">
 
-                {{-- Intro --}}
-                <div class="blog-intro mb-5">
-                    <h2>آخر مقالات الاستقدام</h2>
-                    <p>
-                        مقالات متخصصة تساعدك على فهم أنظمة وشروط الاستقدام في المملكة العربية السعودية
-                    </p>
-                </div>
+            {{-- Intro --}}
+            <div class="blog-intro mb-5">
+                <h2>آخر مقالات الاستقدام</h2>
+                <p>
+                    مقالات متخصصة تساعدك على فهم أنظمة وشروط الاستقدام في المملكة العربية السعودية
+                </p>
+            </div>
 
-                @if($blogs->count())
+            @if($blogs->count())
 
-                    {{-- Featured Editorial --}}
-                    @php $featured = $blogs->first(); @endphp
-                    <section class="editorial-feature">
-                        <a href="{{ route('blog.show', $featured->slug) }}">
-                            <img src="{{ asset($featured->image ?? 'frontend/img/blogs/default.png') }}"
-                                alt="{{ $featured->title }}">
-                            <div class="feature-overlay">
-                                <span>مقال مميز</span>
-                                <h2>{{ $featured->title }}</h2>
-                                <p>{{ $featured->excerpt }}</p>
-                            </div>
-                        </a>
+                {{-- Featured Editorial --}}
+                @php $featured = $blogs->first(); @endphp
+                <section class="editorial-feature">
+                    <a href="{{ route('blog.show', $featured->slug) }}">
+                        <img src="{{ asset($featured->image ?? 'frontend/img/blogs/default.png') }}"
+                            alt="{{ $featured->title }}">
+                        <div class="feature-overlay">
+                            <span>مقال مميز</span>
+                            <h2>{{ $featured->title }}</h2>
+                            <p>{{ $featured->excerpt }}</p>
+                        </div>
+                    </a>
+                </section>
+
+                {{-- Magazine Grid --}}
+                @if($blogs->count() > 1)
+                    <section class="magazine-grid">
+                        @foreach($blogs->skip(1) as $blog)
+                            <article class="mag-card">
+                                <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
+                                    alt="{{ $blog->title }}">
+
+                                <div class="mag-content">
+                                    <span>
+                                        <i class="fa fa-calendar"></i>
+                                        {{ $blog->created_at->translatedFormat('d F Y') }}
+                                    </span>
+
+                                    <h3>{{ $blog->title }}</h3>
+                                    <p>{{ $blog->excerpt }}</p>
+
+                                    <a href="{{ route('blog.show', $blog->slug) }}">
+                                        قراءة المقال →
+                                    </a>
+                                </div>
+                            </article>
+                        @endforeach
                     </section>
-
-                    {{-- Magazine Grid --}}
-                    @if($blogs->count() > 1)
-                        <section class="magazine-grid">
-                            @foreach($blogs->skip(1) as $blog)
-                                <article class="mag-card">
-                                    <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
-                                        alt="{{ $blog->title }}">
-
-                                    <div class="mag-content">
-                                        <span>
-                                            <i class="fa fa-calendar"></i>
-                                            {{ $blog->created_at->translatedFormat('d F Y') }}
-                                        </span>
-
-                                        <h3>{{ $blog->title }}</h3>
-                                        <p>{{ $blog->excerpt }}</p>
-
-                                        <a href="{{ route('blog.show', $blog->slug) }}">
-                                            قراءة المقال →
-                                        </a>
-                                    </div>
-                                </article>
-                            @endforeach
-                        </section>
-                    @endif
-
-                    <div class="mt-5">
-                        {{ $blogs->links() }}
-                    </div>
-
-                @else
-
-                    {{-- Empty State --}}
-                    <div class="empty-blog">
-                        <img src="{{ asset('frontend/img/no_data.png') }}" alt="لا توجد مقالات">
-                        <h3>لا توجد مقالات بعد</h3>
-                        <p>نعمل حالياً على تجهيز محتوى مفيد عن الاستقدام في السعودية</p>
-                    </div>
-
                 @endif
 
-            </div>
-        </section>
+                <div class="mt-5">
+                    {{ $blogs->links() }}
+                </div>
 
-        <div class="mt-4">
-            {{ $blogs->links() }}
+            @else
+
+                {{-- Empty State --}}
+                <div class="empty-blog">
+                    <img src="{{ asset('frontend/img/no_data.png') }}" alt="لا توجد مقالات">
+                    <h3>لا توجد مقالات بعد</h3>
+                    <p>نعمل حالياً على تجهيز محتوى مفيد عن الاستقدام في السعودية</p>
+                </div>
+
+            @endif
+
         </div>
+    </section>
 
     </div>
 </section>
