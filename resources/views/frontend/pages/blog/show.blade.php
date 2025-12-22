@@ -6,196 +6,170 @@
 
 @section('styles')
 <style>
-:root {
-    --orange: #D89835;
-    --orange-dark: #c8812a;
-    --gray-dark: #5F5F5F;
-    --text-main: #212121;
-    --card-bg: rgba(255,255,255,0.25);
-    --border-color: rgba(255,255,255,0.25);
-    --shadow-color: rgba(0,0,0,0.08);
-    --bg-light: #FFF;
+:root{
+    --orange:#D89835;
+    --orange-dark:#c8812a;
+    --text:#1f1f1f;
+    --muted:#666;
+    --bg:#fff;
+    --soft:#f9f9f9;
+    --shadow:0 25px 60px rgba(0,0,0,.08);
 }
 
-body {
-    font-family: 'Tajawal', sans-serif;
-    background: var(--bg-light);
-    color: var(--text-main);
-    margin: 0;
-    padding: 0;
+body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--bg);
+    color:var(--text);
 }
 
-/* Banner */
-.banner {
-    background: linear-gradient(135deg, #f4a835, #fff1db);
-    padding: 60px 20px;
-    text-align: center;
-    border-radius: 0 0 50px 50px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    color: #333;
-    position: relative;
-    overflow: hidden;
+/* ===== Layout ===== */
+.article-layout{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:50px;
+    margin-top:60px;
+}
+@media(max-width:992px){
+    .article-layout{grid-template-columns:1fr}
 }
 
-.banner::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    left: -100px;
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    z-index: 0;
+/* ===== HERO ===== */
+.article-hero{
+    position:relative;
+    height:460px;
+    border-radius:32px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+.article-hero img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.article-hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.15));
+}
+.hero-content{
+    position:absolute;
+    bottom:0;
+    padding:45px;
+    color:#fff;
+    z-index:2;
+}
+.hero-tag{
+    background:var(--orange);
+    padding:6px 20px;
+    border-radius:30px;
+    font-size:.85rem;
+    font-weight:800;
+    display:inline-block;
+    margin-bottom:15px;
+}
+.hero-content h1{
+    font-size:2.7rem;
+    font-weight:900;
+    line-height:1.4;
+    margin-bottom:12px;
+}
+.hero-meta{
+    font-size:.9rem;
+    opacity:.9;
 }
 
-.banner h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    z-index: 1;
-    position: relative;
+/* ===== Article Box ===== */
+.article-box{
+    background:#fff;
+    border-radius:30px;
+    padding:50px;
+    margin-top:-80px;
+    position:relative;
+    box-shadow:var(--shadow);
+}
+@media(max-width:768px){
+    .article-hero{height:260px}
+    .article-box{padding:25px;margin-top:-40px}
 }
 
-.banner ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    z-index: 1;
-    position: relative;
+/* ===== Content ===== */
+.article-content{
+    font-size:1.05rem;
+    line-height:2;
+    color:#444;
+}
+.article-content h2,
+.article-content h3{
+    margin-top:40px;
+    color:var(--orange);
+    font-weight:800;
+}
+.article-content ul{
+    padding-right:22px;
+}
+.article-content li{
+    margin-bottom:12px;
 }
 
-.banner ul li a {
-    color: #333;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.3s;
+/* ===== Sidebar ===== */
+.article-sidebar{
+    position:sticky;
+    top:120px;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+.side-card{
+    background:#fff;
+    border-radius:24px;
+    padding:28px;
+    box-shadow:var(--shadow);
+}
+.side-card h4{
+    font-weight:900;
+    margin-bottom:12px;
+}
+.side-btn{
+    display:block;
+    background:linear-gradient(135deg,var(--orange),#f3c26f);
+    color:#fff;
+    text-align:center;
+    padding:14px;
+    border-radius:40px;
+    font-weight:800;
+    text-decoration:none;
+}
+.side-btn:hover{
+    background:var(--orange-dark);
 }
 
-.banner ul li a.active,
-.banner ul li a:hover {
-    color: #fff;
-    background: #f4a835;
-    padding: 6px 14px;
-    border-radius: 12px;
+/* ===== Author ===== */
+.author-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
-@media (max-width: 768px) {
-
-    .banner {
-        padding: 35px 15px;
-        border-radius: 0 0 28px 28px;
-        box-shadow: 0 6px 16px rgba(244, 168, 53, 0.25);
-    }
-
-    .banner::before {
-        width: 180px;
-        height: 180px;
-        top: -60px;
-        left: -60px;
-    }
-
-    .banner h1 {
-        font-size: 1.6rem;
-        line-height: 1.4;
-        margin-bottom: 15px;
-    }
-
-    .banner ul {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .banner ul li a {
-        font-size: 0.85rem;
-        padding: 5px 10px;
-        border-radius: 10px;
-    }
-
-    .banner ul li a.active {
-        background: #f4a835;
-        color: #fff;
-    }
+.author-avatar{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:var(--orange);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:900;
 }
-
-/* Layout */
-.blog-layout {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 40px;
-    margin-top: 40px;
+.author-box span{
+    font-size:.85rem;
+    color:var(--muted);
 }
-
-.blog-main {
-    background: var(--card-bg);
-    border-radius: 25px;
-    padding: 30px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 15px 35px var(--shadow-color);
-}
-
-/* Hero Image */
-.blog-hero {
-    position: relative;
-    height: 400px;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 30px;
-}
-.blog-hero img { width: 100%; height: 100%; object-fit: cover; }
-.hero-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 30px;
-    color: #fff;
-}
-.hero-overlay h1 { font-size: 2.4rem; font-weight: 800; margin:0; }
-.hero-badge { background: var(--orange); padding: 6px 16px; border-radius: 50px; font-size: .85rem; margin-bottom: 10px; width: fit-content; }
-
-/* Blog Content */
-.blog-body {
-    font-size: 1.05rem;
-    line-height: 2;
-    color: var(--gray-dark);
-}
-.blog-body h2, .blog-body h3 { color: var(--orange); margin-top: 35px; font-weight: 700; }
-.blog-body ul { padding-right: 20px; }
-.blog-body ul li { margin-bottom: 10px; }
-
-/* Sidebar */
-.blog-sidebar {
-    position: sticky;
-    top: 120px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.side-box {
-    background: var(--card-bg);
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 10px 25px var(--shadow-color);
-    backdrop-filter: blur(12px);
-}
-.side-box h4 { margin-bottom: 10px; color: var(--text-main); }
-.side-btn {
-    display: block; background: var(--orange); color: #fff;
-    text-align: center; padding: 10px; border-radius: 50px;
-    text-decoration: none; font-weight: 600; transition: .3s;
-}
-.side-btn:hover { background: var(--orange-dark); }
-
-/* Responsive */
-@media (max-width: 992px){ .blog-layout { grid-template-columns: 1fr; } .blog-sidebar { position: static; } .blog-hero { height: 300px; } }
-@media (max-width: 768px){ .blog-hero { height: 180px; } }
-
 </style>
 @endsection
 
 @section('content')
-<!-- Banner -->
+{{-- Banner كما هو --}}
 <div class="banner">
     <h1>{{ $blog->title }}</h1>
     <ul>
@@ -205,36 +179,53 @@ body {
     </ul>
 </div>
 
-<section class="container py-5">
-    <div class="blog-layout">
+<section class="container pb-5">
 
-        <!-- Main Article -->
-        <article class="blog-main">
-            <div class="blog-hero">
-                <img src="{{ asset($blog->second_image ?? 'frontend/img/blogs/default_b.png') }}" alt="{{ $blog->title }}">
-                <div class="hero-overlay">
-                    <span class="hero-badge">الاستقدام</span>
-                    <h1>{{ $blog->title }}</h1>
-                    <div class="hero-meta">{{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}</div>
-                </div>
+    {{-- HERO --}}
+    <div class="article-hero">
+        <img src="{{ asset($blog->second_image ?? 'frontend/img/blogs/default_b.png') }}"
+             alt="{{ $blog->title }}">
+
+        <div class="hero-content">
+            <span class="hero-tag">الاستقدام</span>
+            <h1>{{ $blog->title }}</h1>
+            <div class="hero-meta">
+                {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
             </div>
+        </div>
+    </div>
 
-            <div class="blog-body">
+    <div class="article-layout">
+
+        {{-- MAIN ARTICLE --}}
+        <article class="article-box">
+            <div class="article-content">
                 {!! $blog->content !!}
             </div>
         </article>
 
-        <!-- Sidebar -->
-        <aside class="blog-sidebar">
-            <div class="side-box">
+        {{-- SIDEBAR --}}
+        <aside class="article-sidebar">
+
+            <div class="side-card author-box">
+                <div class="author-avatar">S</div>
+                <div>
+                    <strong>قسم الاستقدام</strong>
+                    <span>مقال إرشادي</span>
+                </div>
+            </div>
+
+            <div class="side-card">
                 <h4>تاريخ النشر</h4>
                 <p>{{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}</p>
             </div>
 
-            <div class="side-box">
-                <h4>تنقّل</h4>
-                <a href="{{ route('blog.index') }}" class="side-btn">← الرجوع للمدونة</a>
+            <div class="side-card">
+                <a href="{{ route('blog.index') }}" class="side-btn">
+                    ← الرجوع للمدونة
+                </a>
             </div>
+
         </aside>
 
     </div>
