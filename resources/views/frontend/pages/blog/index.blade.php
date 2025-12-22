@@ -261,7 +261,7 @@ body {
                 </div>
 
             @empty
-                {{-- مفيش مدونات --}}
+
                 <div class="col-12 text-center" style="grid-column: 1 / -1;">
                     <img
                         src="{{ asset('frontend/img/no_data.png') }}"
