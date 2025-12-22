@@ -345,8 +345,9 @@ body {
         <section class="blog-section py-5">
             <div class="container">
 
-                {{-- Featured Blog --}}
                 @if($blogs->count())
+
+                    {{-- Featured Blog --}}
                     @php $featured = $blogs->first(); @endphp
 
                     <div class="featured-blog mb-5">
@@ -367,38 +368,54 @@ body {
                             </div>
                         </div>
                     </div>
-                @endif
 
-                {{-- Blog Grid --}}
-                <div class="blog-grid">
-
-                    @foreach($blogs->skip(1) as $blog)
-                        <article class="blog-card">
-                            <div class="blog-image">
-                                <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}">
-                            </div>
-
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <i class="fa fa-calendar"></i>
-                                    {{ $blog->created_at->translatedFormat('d F Y') }}
+                    {{-- Blog Grid --}}
+                    <div class="blog-grid">
+                        @foreach($blogs->skip(1) as $blog)
+                            <article class="blog-card">
+                                <div class="blog-image">
+                                    <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}">
                                 </div>
 
-                                <h3>{{ $blog->title }}</h3>
-                                <p>{{ $blog->excerpt }}</p>
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <i class="fa fa-calendar"></i>
+                                        {{ $blog->created_at->translatedFormat('d F Y') }}
+                                    </div>
 
-                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                    قراءة المقال
-                                </a>
-                            </div>
-                        </article>
-                    @endforeach
+                                    <h3>{{ $blog->title }}</h3>
+                                    <p>{{ $blog->excerpt }}</p>
 
-                </div>
+                                    <a href="{{ route('blog.show', $blog->slug) }}">
+                                        قراءة المقال
+                                    </a>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
 
-                <div class="mt-5">
-                    {{ $blogs->links() }}
-                </div>
+                    <div class="mt-5">
+                        {{ $blogs->links() }}
+                    </div>
+
+                @else
+
+                    {{-- Empty State --}}
+                    <div class="text-center py-5">
+                        <img src="{{ asset('frontend/img/no_data.png') }}"
+                            alt="لا توجد مقالات"
+                            style="max-width:420px;width:100%;margin-bottom:25px">
+
+                        <h3 style="color:#444;font-weight:800">
+                            لا توجد مقالات حالياً
+                        </h3>
+
+                        <p style="color:#777;margin-top:10px">
+                            سيتم إضافة مقالات جديدة قريبًا إن شاء الله
+                        </p>
+                    </div>
+
+                @endif
 
             </div>
         </section>
