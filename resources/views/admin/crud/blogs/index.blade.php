@@ -223,6 +223,8 @@ function initDropify() {
 }
 
 function initCkEditor() {
+    if (!document.getElementById('editor')) return;
+
     if (CKEDITOR.instances.editor) {
         CKEDITOR.instances.editor.destroy(true);
     }
@@ -240,25 +242,32 @@ function initFormPlugins() {
     initCkEditor();
 }
 
-$(document).on('click', '#addButton', function(){
-    $.get("{{ route('blogs.create') }}", function(res){
+$(document).on('click', '#addButton', function () {
+    $.get("{{ route('blogs.create') }}", function (res) {
         $('#form-for-addOrDelete').html(res.html);
         $('#exampleModalLabel').text('إضافة مقال');
         $('#exampleModalCenter').modal('show');
 
-        initFormPlugins();
+        $('#exampleModalCenter').on('shown.bs.modal', function () {
+            initDropify();
+            initCkEditor();
+        });
     });
 });
 
-$(document).on('click', '.editButton', function(){
+$(document).on('click', '.editButton', function () {
     let id = $(this).attr('id');
     let url = "{{ route('blogs.edit',':id') }}".replace(':id', id);
-    $.get(url, function(res){
+
+    $.get(url, function (res) {
         $('#form-for-addOrDelete').html(res.html);
         $('#exampleModalLabel').text('تعديل مقال');
         $('#exampleModalCenter').modal('show');
 
-        initFormPlugins();
+        $('#exampleModalCenter').on('shown.bs.modal', function () {
+            initDropify();
+            initCkEditor();
+        });
     });
 });
 
