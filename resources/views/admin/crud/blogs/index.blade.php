@@ -89,7 +89,7 @@
 <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <script>
 let table = $('#Datatable').DataTable({
@@ -218,51 +218,54 @@ $(document).on('click','#bulk_delete',function(e){
     }
 });
 
-function initFormPlugins() {
-    // Dropify
+function initDropify() {
     $('.dropify').dropify();
-
-    // CKEditor
-    if ($('#editor').length) {
-
-        if (CKEDITOR.instances.editor) {
-            CKEDITOR.instances.editor.destroy(true);
-        }
-
-        CKEDITOR.replace('editor', {
-            language: 'ar',
-            height: 300,
-            removePlugins: 'elementspath',
-            resize_enabled: false
-        });
-    }
 }
 
-$(document).on('click','#addButton',function(){
-    $.get("{{ route('blogs.create') }}",function(res){
+function initCkEditor() {
+    if (CKEDITOR.instances.editor) {
+        CKEDITOR.instances.editor.destroy(true);
+    }
+
+    CKEDITOR.replace('editor', {
+        language: 'ar',
+        height: 300,
+        removePlugins: 'elementspath',
+        resize_enabled: false
+    });
+}
+
+function initFormPlugins() {
+    initDropify();
+    initCkEditor();
+}
+
+$(document).on('click', '#addButton', function(){
+    $.get("{{ route('blogs.create') }}", function(res){
         $('#form-for-addOrDelete').html(res.html);
         $('#exampleModalLabel').text('إضافة مقال');
         $('#exampleModalCenter').modal('show');
 
-        $('#exampleModalCenter').on('shown.bs.modal', function () {
-            initFormPlugins();
-        });
+        initFormPlugins();
     });
 });
 
-$(document).on('click','.editButton',function(){
+$(document).on('click', '.editButton', function(){
     let id = $(this).attr('id');
-    let url = "{{ route('blogs.edit',':id') }}".replace(':id',id);
-
-    $.get(url,function(res){
+    let url = "{{ route('blogs.edit',':id') }}".replace(':id', id);
+    $.get(url, function(res){
         $('#form-for-addOrDelete').html(res.html);
         $('#exampleModalLabel').text('تعديل مقال');
         $('#exampleModalCenter').modal('show');
 
-        $('#exampleModalCenter').on('shown.bs.modal', function () {
-            initFormPlugins();
-        });
+        initFormPlugins();
     });
+});
+
+$(document).ajaxComplete(function () {
+    if ($('#editor').length) {
+        initFormPlugins();
+    }
 });
 
 </script>
