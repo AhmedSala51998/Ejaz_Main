@@ -218,54 +218,51 @@ $(document).on('click','#bulk_delete',function(e){
     }
 });
 
-function initDropify() {
-    $('.dropify').dropify();
-}
-
-function initCkEditor() {
-    if (CKEDITOR.instances.editor) {
-        CKEDITOR.instances.editor.destroy(true);
-    }
-
-    CKEDITOR.replace('editor', {
-        language: 'ar',
-        height: 300,
-        removePlugins: 'elementspath',
-        resize_enabled: false
-    });
-}
-
 function initFormPlugins() {
-    initDropify();
-    initCkEditor();
+    // Dropify
+    $('.dropify').dropify();
+
+    // CKEditor
+    if ($('#editor').length) {
+
+        if (CKEDITOR.instances.editor) {
+            CKEDITOR.instances.editor.destroy(true);
+        }
+
+        CKEDITOR.replace('editor', {
+            language: 'ar',
+            height: 300,
+            removePlugins: 'elementspath',
+            resize_enabled: false
+        });
+    }
 }
 
-$(document).on('click', '#addButton', function(){
-    $.get("{{ route('blogs.create') }}", function(res){
+$(document).on('click','#addButton',function(){
+    $.get("{{ route('blogs.create') }}",function(res){
         $('#form-for-addOrDelete').html(res.html);
         $('#exampleModalLabel').text('إضافة مقال');
         $('#exampleModalCenter').modal('show');
 
-        initFormPlugins();
+        setTimeout(function () {
+            initFormPlugins();
+        }, 300);
     });
 });
 
-$(document).on('click', '.editButton', function(){
+$(document).on('click','.editButton',function(){
     let id = $(this).attr('id');
-    let url = "{{ route('blogs.edit',':id') }}".replace(':id', id);
-    $.get(url, function(res){
+    let url = "{{ route('blogs.edit',':id') }}".replace(':id',id);
+
+    $.get(url,function(res){
         $('#form-for-addOrDelete').html(res.html);
         $('#exampleModalLabel').text('تعديل مقال');
         $('#exampleModalCenter').modal('show');
 
-        initFormPlugins();
+        setTimeout(function () {
+            initFormPlugins();
+        }, 300);
     });
-});
-
-$(document).ajaxComplete(function () {
-    if ($('#editor').length) {
-        initFormPlugins();
-    }
 });
 
 </script>
