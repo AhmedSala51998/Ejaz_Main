@@ -204,6 +204,138 @@ body {
 .blog-content a:hover {
     background: var(--orange-dark);
 }
+
+
+
+
+/* Intro */
+.blog-intro h2{
+    font-size:2.4rem;
+    font-weight:900;
+    color:#1f1f1f;
+    margin-bottom:12px;
+    text-align:center;
+}
+.blog-intro p{
+    color:#666;
+    max-width:620px;
+    margin:0 auto;
+    line-height:1.9;
+    text-align:center;
+}
+
+/* Featured Editorial */
+.editorial-feature{
+    position:relative;
+    height:420px;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,.15);
+    margin-bottom:60px;
+}
+.editorial-feature img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.6s ease;
+}
+.editorial-feature:hover img{
+    transform:scale(1.05);
+}
+.feature-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.15));
+    color:#fff;
+    padding:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+}
+.feature-overlay span{
+    background:#D89835;
+    padding:6px 18px;
+    border-radius:30px;
+    font-size:.8rem;
+    font-weight:800;
+    width:max-content;
+    margin-bottom:15px;
+}
+.feature-overlay h2{
+    font-size:2.3rem;
+    font-weight:900;
+    margin-bottom:12px;
+}
+.feature-overlay p{
+    max-width:520px;
+    opacity:.95;
+}
+
+/* Magazine Grid */
+.magazine-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:40px;
+}
+.mag-card{
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    transition:.4s ease;
+}
+.mag-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 25px 50px rgba(216,152,53,.35);
+}
+.mag-card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+.mag-content{
+    padding:26px;
+}
+.mag-content span{
+    font-size:.8rem;
+    color:#999;
+}
+.mag-content h3{
+    font-size:1.35rem;
+    font-weight:800;
+    margin:12px 0;
+    line-height:1.6;
+}
+.mag-content p{
+    color:#555;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+.mag-content a{
+    font-weight:800;
+    color:#D89835;
+    text-decoration:none;
+}
+
+/* Empty State */
+.empty-blog{
+    text-align:center;
+    padding:80px 20px;
+}
+.empty-blog img{
+    max-width:420px;
+    margin-bottom:25px;
+}
+.empty-blog h3{
+    font-size:1.7rem;
+    font-weight:900;
+    color:#333;
+}
+.empty-blog p{
+    color:#777;
+    margin-top:10px;
+}
+
 </style>
 @endsection
 
@@ -220,66 +352,76 @@ body {
 <section class="customer-service-section py-5">
     <div class="container">
 
-        <div class="text-center mb-5">
-            <h1 class="section-title">مدونة الاستقدام في السعودية</h1>
-            <p class="section-subtitle">
-                كل ما يخص الاستقدام، الشروط، الأسعار، والدول المسموح بها
-            </p>
-        </div>
+        <section class="blog-section py-5">
+            <div class="container">
 
-        <div class="blog-grid">
-
-            @forelse($blogs as $blog)
-                <div class="blog-card">
-
-                    <div class="blog-image">
-                        <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
-                            alt="{{ $blog->title }}">
-
-                        <span class="blog-badge">
-                            الاستقدام
-                        </span>
-                    </div>
-
-                    <div class="blog-content">
-
-                        <div class="blog-meta">
-                            <i class="fa fa-calendar"></i>
-                            {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
-                        </div>
-
-                        <h3>{{ $blog->title }}</h3>
-
-                        <p>{{ $blog->excerpt }}</p>
-
-                        <a href="{{ route('blog.show', $blog->slug) }}">
-                            قراءة المقال
-                            <i class="fa fa-arrow-left"></i>
-                        </a>
-
-                    </div>
-                </div>
-
-            @empty
-
-                <div class="col-12 text-center" style="grid-column: 1 / -1;">
-                    <img
-                        src="{{ asset('frontend/img/no_data.png') }}"
-                        alt="لا توجد مدونات"
-                        style="max-width: 420px; width: 100%; margin: 40px auto;"
-                    >
-
-                    <h3 style="color:#5F5F5F; margin-top:20px;">
-                        لا توجد مقالات متاحة حالياً
-                    </h3>
-
-                    <p style="color:#888;">
-                        سيتم إضافة مقالات قريبًا إن شاء الله
+                {{-- Intro --}}
+                <div class="blog-intro mb-5">
+                    <h2>آخر مقالات الاستقدام</h2>
+                    <p>
+                        مقالات متخصصة تساعدك على فهم أنظمة وشروط الاستقدام في المملكة العربية السعودية
                     </p>
                 </div>
-            @endforelse
 
-        </div>
+                @if($blogs->count())
+
+                    {{-- Featured Editorial --}}
+                    @php $featured = $blogs->first(); @endphp
+                    <section class="editorial-feature">
+                        <a href="{{ route('blog.show', $featured->slug) }}">
+                            <img src="{{ asset($featured->image ?? 'frontend/img/blogs/default.png') }}"
+                                alt="{{ $featured->title }}">
+                            <div class="feature-overlay">
+                                <span>مقال مميز</span>
+                                <h2>{{ $featured->title }}</h2>
+                                <p>{{ $featured->excerpt }}</p>
+                            </div>
+                        </a>
+                    </section>
+
+                    {{-- Magazine Grid --}}
+                    @if($blogs->count() > 1)
+                        <section class="magazine-grid">
+                            @foreach($blogs->skip(1) as $blog)
+                                <article class="mag-card">
+                                    <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
+                                        alt="{{ $blog->title }}">
+
+                                    <div class="mag-content">
+                                        <span>
+                                            <i class="fa fa-calendar"></i>
+                                            {{ $blog->created_at->translatedFormat('d F Y') }}
+                                        </span>
+
+                                        <h3>{{ $blog->title }}</h3>
+                                        <p>{{ $blog->excerpt }}</p>
+
+                                        <a href="{{ route('blog.show', $blog->slug) }}">
+                                            قراءة المقال →
+                                        </a>
+                                    </div>
+                                </article>
+                            @endforeach
+                        </section>
+                    @endif
+
+                    <div class="mt-5">
+                        {{ $blogs->links() }}
+                    </div>
+
+                @else
+
+                    {{-- Empty State --}}
+                    <div class="empty-blog">
+                        <img src="{{ asset('frontend/img/no_data.png') }}" alt="لا توجد مقالات">
+                        <h3>لا توجد مقالات بعد</h3>
+                        <p>نعمل حالياً على تجهيز محتوى مفيد عن الاستقدام في السعودية</p>
+                    </div>
+
+                @endif
+
+            </div>
+        </section>
 
         <div class="mt-4">
             {{ $blogs->links() }}
