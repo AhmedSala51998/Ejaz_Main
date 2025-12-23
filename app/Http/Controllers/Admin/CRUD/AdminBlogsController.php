@@ -29,13 +29,13 @@ class AdminBlogsController extends Controller
                     return $row->status ? '<span class="badge bg-success">نشط</span>' :
                         '<span class="badge bg-danger">مخفي</span>';
                 })
-                ->addColumn('is_featured', function ($row) {
-                    return $row->is_featured
-                        ? '<span class="badge bg-warning">مميز</span>'
-                        : '-';
-                })
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d', strtotime($row->created_at));
+                })
+                ->addColumn('featured', function ($row) {
+                    return $row->is_featured
+                        ? '<span class="badge bg-warning">مميز</span>'
+                        : '<span class="badge bg-danger">غير مميز</span>';
                 })
                 ->addColumn('views', function ($row) {
                     return $row->views;
