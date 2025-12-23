@@ -41,7 +41,10 @@ class AdminBlogsController extends Controller
                     return $row->views;
                 })
                 ->addColumn('delete_all', function ($row) {
-                    return "<input type='checkbox' class='delete-all form-check-input' id='{$row->id}'>";
+                    return '<input type="checkbox"
+                            class="delete-all form-check-input"
+                            data-status="'.$row->status.'"
+                            value="'.$row->id.'">';
                 })
                 ->addColumn('actions', function ($row) {
                     return "
@@ -180,4 +183,24 @@ class AdminBlogsController extends Controller
         Blog::whereIn('id',$request->id)->delete();
         return response()->json(1,200);
     }
+
+    public function bulkToggle(Request $request)
+    {
+        $ids = $request->ids;
+        $action = $request->action;
+
+        if ($action === 'show') {
+            Blog::whereIn('id', $ids)->update(['status' => 1]);
+        } elseif ($action === 'hide') {
+            Blog::whereIn('id', $ids)->update(['status' => 0]);
+        } else {
+            // toggle
+            Blog::whereIn('id', $ids)->get()->each(function ($blog) {
+                $blog->update(['status' => !$blog->status]);
+            });
+        }
+
+        return response()->json(['success' => true]);
+    }
+
 }

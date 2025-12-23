@@ -124,6 +124,10 @@
                         </button>
                     </div>
                     <div class="col-sm-8 text-end">
+                        <button id="bulk_toggle" class="btn btn-warning" style="display:none;">
+                            <i class="mdi mdi-eye-off-outline"></i> تغيير الحالة
+                        </button>
+
                         <button id="bulk_delete" class="btn btn-danger" style="display:none;">
                             <i class="mdi mdi-trash-can-outline"></i> حذف المحدد
                         </button>
@@ -356,6 +360,78 @@ $(document).ajaxComplete(function () {
     if ($('#editor').length) {
         initFormPlugins();
     }
+});
+
+function updateBulkActions() {
+    let checked = $('.delete-all:checked');
+
+    if (checked.length === 0) {
+        $('#bulk_delete, #bulk_toggle').hide();
+        return;
+    }
+
+    $('#bulk_delete, #bulk_toggle').show();
+
+    let statuses = checked.map(function () {
+        return $(this).data('status');
+    }).get();
+
+    let allActive = statuses.every(s => s == 1);
+    let allInactive = statuses.every(s => s == 0);
+
+    if (allActive) {
+        $('#bulk_toggle')
+            .html('<i class="mdi mdi-eye-off-outline"></i> إخفاء المحدد')
+            .data('action', 'hide');
+    } else if (allInactive) {
+        $('#bulk_toggle')
+            .html('<i class="mdi mdi-eye-outline"></i> إظهار المحدد')
+            .data('action', 'show');
+    } else {
+        $('#bulk_toggle')
+            .html('<i class="mdi mdi-sync"></i> تبديل الحالة')
+            .data('action', 'toggle');
+    }
+}
+
+$(document).on('change', '#checkAll', function () {
+    $('.delete-all').prop('checked', this.checked);
+    updateBulkActions();
+});
+
+$(document).on('change', '.delete-all', function () {
+    updateBulkActions();
+});
+
+$(document).on('click', '#bulk_toggle', function () {
+    let ids = [];
+    $('.delete-all:checked').each(function () {
+        ids.push($(this).val());
+    });
+
+    let action = $(this).data('action');
+
+    Swal.fire({
+        title: 'تأكيد العملية',
+        text: 'هل أنت متأكد من تنفيذ العملية؟',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'نعم',
+        cancelButtonText: 'إلغاء'
+    }).then(result => {
+        if (result.isConfirmed) {
+            $.post("{{ route('blogs.bulk.toggle') }}", {
+                ids: ids,
+                action: action,
+                _token: '{{ csrf_token() }}'
+            }, function () {
+                table.draw(false);
+                $('#checkAll').prop('checked', false);
+                updateBulkActions();
+                Swal.fire('تم!', 'تم تحديث الحالة بنجاح', 'success');
+            });
+        }
+    });
 });
 
 </script>

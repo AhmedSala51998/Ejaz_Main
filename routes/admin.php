@@ -140,6 +140,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::resource('blogs', 'AdminBlogsController');
             Route::delete('blogs/delete/bulk', 'AdminBlogsController@delete_all')
                 ->name('blogs.delete.bulk');
+            Route::post('blogs/bulk-toggle', 'AdminBlogsController@bulkToggle')
+                  ->name('blogs.bulk.toggle');
 
 
             // مكاتب الاستقدام
