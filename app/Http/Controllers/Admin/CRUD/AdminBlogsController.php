@@ -49,7 +49,7 @@ class AdminBlogsController extends Controller
                         <button class='btn btn-danger delete' id='{$row->id}'><i class='fa fa-trash'></i></button>
                     ";
                 })
-                ->rawColumns(['image','second_image','status','actions','delete_all'])
+                ->rawColumns(['image','second_image','status','actions','featured','delete_all'])
                 ->make(true);
         }
 
