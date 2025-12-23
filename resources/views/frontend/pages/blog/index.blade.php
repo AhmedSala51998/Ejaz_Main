@@ -365,7 +365,8 @@ body {
             @if($blogs->count())
 
                 {{-- Featured Editorial --}}
-                @php $featured = $blogs->first(); @endphp
+                @php $featured = $blogs->where('is_featured', true)->first(); @endphp
+                @if($featured)
                 <section class="editorial-feature">
                     <a href="{{ route('blog.show', $featured->slug) }}">
                         <img src="{{ asset($featured->image ?? 'frontend/img/blogs/default.png') }}"
@@ -377,7 +378,7 @@ body {
                         </div>
                     </a>
                 </section>
-
+                @endif
                 {{-- Magazine Grid --}}
                 @if($blogs->count() > 1)
                     <section class="magazine-grid">

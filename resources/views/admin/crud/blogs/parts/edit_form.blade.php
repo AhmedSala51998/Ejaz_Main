@@ -4,7 +4,6 @@
 
     <div class="row">
 
-        {{-- الصورة الأساسية --}}
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label class="form-control-label">الصورة الأساسية</label>
@@ -16,7 +15,6 @@
             </div>
         </div>
 
-        {{-- الصورة الثانية --}}
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label class="form-control-label">الصورة الثانية</label>
@@ -28,7 +26,6 @@
             </div>
         </div>
 
-        {{-- العنوان --}}
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">
                 <label>عنوان المقال</label>
@@ -41,7 +38,17 @@
             </div>
         </div>
 
-        {{-- الحالة --}}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="form-group">
+                <label class="form-control-label d-block">مقال مميز</label>
+                <input type="checkbox"
+                    name="is_featured"
+                    value="1"
+                    {{ isset($blog) && $blog->is_featured ? 'checked' : '' }}>
+                <span class="ms-2">عرض هذا المقال كمقال مميز</span>
+            </div>
+        </div>
+
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">
                 <label>الحالة</label>
@@ -52,7 +59,6 @@
             </div>
         </div>
 
-        {{-- وصف مختصر --}}
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label>وصف مختصر</label>
@@ -64,7 +70,6 @@
             </div>
         </div>
 
-        {{-- المحتوى --}}
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label>محتوى المقال</label>

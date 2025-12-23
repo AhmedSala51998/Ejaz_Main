@@ -53,6 +53,7 @@
                             <th>الصورة الثانية</th>
                             <th>العنوان</th>
                             <th>الحالة</th>
+                            <th>التمييز</th>
                             <th>التاريخ</th>
                             <th>المشاهدات</th>
                             <th>التحكم</th>
@@ -102,6 +103,7 @@ let table = $('#Datatable').DataTable({
         {data:'second_image',orderable:false,searchable:false},
         {data:'title'},
         {data:'status'},
+        {data:'featured'},
         {data:'created_at'},
         {data:'views', name:'views'},
         {data:'actions',orderable:false,searchable:false},

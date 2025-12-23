@@ -29,6 +29,11 @@ class AdminBlogsController extends Controller
                     return $row->status ? '<span class="badge bg-success">نشط</span>' :
                         '<span class="badge bg-danger">مخفي</span>';
                 })
+                ->addColumn('featured', function ($row) {
+                    return $row->is_featured
+                        ? '<span class="badge bg-warning">مميز</span>'
+                        : '-';
+                })
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d', strtotime($row->created_at));
                 })
@@ -68,6 +73,10 @@ class AdminBlogsController extends Controller
             'second_image'  => 'required|image',
         ]);
 
+        if ($request->has('is_featured')) {
+            Blog::where('is_featured', 1)->update(['is_featured' => 0]);
+        }
+
         $imagePath = null;
         $secondImagePath = null;
 
@@ -91,6 +100,7 @@ class AdminBlogsController extends Controller
             'image'         => $imagePath,
             'second_image'  => $secondImagePath,
             'status'        => $request->status ?? 1,
+            'is_featured'  => $request->has('is_featured'),
         ]);
 
         return response()->json(1,200);
@@ -113,6 +123,12 @@ class AdminBlogsController extends Controller
             'title'   => 'required',
             'content' => 'required',
         ]);
+
+            if ($request->has('is_featured')) {
+                Blog::where('id', '!=', $blog->id)
+                    ->where('is_featured', 1)
+                    ->update(['is_featured' => 0]);
+            }
 
         if ($request->hasFile('image')) {
             if ($blog->image && file_exists(public_path($blog->image)))
@@ -138,6 +154,7 @@ class AdminBlogsController extends Controller
             'excerpt' => $request->excerpt,
             'content' => $request->content,
             'status'  => $request->status ?? 1,
+            'is_featured'  => $request->has('is_featured'),
         ]);
 
         return response()->json(1,200);
