@@ -363,9 +363,13 @@ body {
             </div>
 
             @if($blogs->count())
-
+                @php
+                    $featured = $blogs->where('is_featured', 1)->first();
+                    $normalBlogs = $featured
+                        ? $blogs->where('id', '!=', $featured->id)
+                        : $blogs;
+                @endphp
                 {{-- Featured Editorial --}}
-                @php $featured = $blogs->where('is_featured', true)->first(); @endphp
                 @if($featured)
                 <section class="editorial-feature">
                     <a href="{{ route('blog.show', $featured->slug) }}">
@@ -380,9 +384,9 @@ body {
                 </section>
                 @endif
                 {{-- Magazine Grid --}}
-                @if($blogs->count() > 1)
+                @if($normalBlogs->count())
                     <section class="magazine-grid">
-                        @foreach($blogs->skip(1) as $blog)
+                         @foreach($normalBlogs as $blog)
                             <article class="mag-card">
                                 <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
                                     alt="{{ $blog->title }}">
