@@ -33,6 +33,16 @@
             </div>
         </div>
 
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label>الحالة</label>
+                <select name="status" class="form-control">
+                    <option value="1">نشط</option>
+                    <option value="0">مخفي</option>
+                </select>
+            </div>
+        </div>
+
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label class="form-control-label d-block">مقال مميز</label>
@@ -41,16 +51,6 @@
                     value="1"
                     {{ isset($blog) && $blog->is_featured ? 'checked' : '' }}>
                 <span class="ms-2">عرض هذا المقال كمقال مميز</span>
-            </div>
-        </div>
-
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-            <div class="form-group">
-                <label>الحالة</label>
-                <select name="status" class="form-control">
-                    <option value="1">نشط</option>
-                    <option value="0">مخفي</option>
-                </select>
             </div>
         </div>
 
