@@ -44,13 +44,25 @@
         </div>
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="form-group">
-                <label class="form-control-label d-block">مقال مميز</label>
-                <input type="checkbox"
-                    name="is_featured"
-                    value="1"
-                    {{ isset($blog) && $blog->is_featured ? 'checked' : '' }}>
-                <span class="ms-2">عرض هذا المقال كمقال مميز</span>
+            <div class="featured-box">
+                <div class="featured-info">
+                    <div class="featured-icon">
+                        <i class="mdi mdi-star"></i>
+                    </div>
+
+                    <div>
+                        <h6>مقال مميز</h6>
+                        <p>سيتم عرض هذا المقال في أعلى الصفحة كمقال مميز</p>
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input type="checkbox"
+                        name="is_featured"
+                        value="1"
+                        {{ isset($blog) && $blog->is_featured ? 'checked' : '' }}>
+                    <span class="slider"></span>
+                </label>
             </div>
         </div>
 
