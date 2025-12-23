@@ -29,7 +29,7 @@ class AdminBlogsController extends Controller
                     return $row->status ? '<span class="badge bg-success">نشط</span>' :
                         '<span class="badge bg-danger">مخفي</span>';
                 })
-                ->addColumn('featured', function ($row) {
+                ->addColumn('is_featured', function ($row) {
                     return $row->is_featured
                         ? '<span class="badge bg-warning">مميز</span>'
                         : '-';
