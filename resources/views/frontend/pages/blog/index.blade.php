@@ -373,7 +373,7 @@ body {
                 @if($featured)
                 <section class="editorial-feature">
                     <a href="{{ route('blog.show', $featured->slug) }}">
-                        <img src="{{ asset($featured->image ?? 'frontend/img/blogs/default.png') }}"
+                        <img src="{{ asset($featured->featured_image ?? 'frontend/img/blogs/default_b.png') }}"
                             alt="{{ $featured->title }}">
                         <div class="feature-overlay">
                             <span>مقال مميز</span>

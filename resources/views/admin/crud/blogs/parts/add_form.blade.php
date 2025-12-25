@@ -66,6 +66,20 @@
             </div>
         </div>
 
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 featured-image-box"
+            style="display: {{ isset($blog) && $blog->is_featured ? 'block' : 'none' }};">
+            <div class="form-group">
+                <label class="form-control-label">صورة المقال المميز</label>
+                <input type="file"
+                    class="dropify"
+                    name="featured_image"
+                    @if(isset($blog) && $blog->featured_image)
+                        data-default-file="{{ asset($blog->featured_image) }}"
+                    @endif
+                    accept="image/png, image/jpeg, image/jpg">
+            </div>
+        </div>
+
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <label>وصف مختصر</label>

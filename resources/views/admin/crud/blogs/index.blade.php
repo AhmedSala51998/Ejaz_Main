@@ -143,6 +143,7 @@
                             </th>
                             <th>الصورة</th>
                             <th>الصورة الثانية</th>
+                            <th>الصورة المميزة</th>
                             <th>العنوان</th>
                             <th>الحالة</th>
                             <th>التاريخ</th>
@@ -193,6 +194,7 @@ let table = $('#Datatable').DataTable({
         {data:'delete_all',orderable:false,searchable:false},
         {data:'image',orderable:false,searchable:false},
         {data:'second_image',orderable:false,searchable:false},
+        {data:'featured_image',orderable:false,searchable:false},
         {data:'title'},
         {data:'status'},
         {data:'created_at'},
@@ -432,6 +434,16 @@ $(document).on('click', '#bulk_toggle', function () {
             });
         }
     });
+});
+
+$(document).on('change', 'input[name="is_featured"]', function () {
+    if ($(this).is(':checked')) {
+        $('.featured-image-box').slideDown();
+    } else {
+        $('.featured-image-box').slideUp();
+
+        $('.featured-image-box input[type="file"]').val('');
+    }
 });
 
 </script>
