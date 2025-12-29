@@ -749,7 +749,7 @@
             border-bottom: 2px solid #555;
             transform: rotate(45deg);
             transition: all 0.3s;
-            margin-top: 0;
+            margin-top: -2px;
         }
         .btn-filter {
             padding: 10px 20px;
@@ -768,7 +768,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top:-10px !important
+            margin-top:-20px !important
         }
 
     </style>
