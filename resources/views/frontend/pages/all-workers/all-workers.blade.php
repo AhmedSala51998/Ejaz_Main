@@ -745,29 +745,29 @@
             cursor: pointer;
         }
 
-    .horizontal-filter .form-select::after {
-        content: "\25BC";
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        pointer-events: none;
-        transition: transform 0.3s ease;
-    }
+        .horizontal-filter .form-select::after {
+            content: "\25BC";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
 
-    .horizontal-filter .form-select.open::after {
-        transform: translateY(-50%) rotate(180deg);
-    }
-    .horizontal-filter .form-select option {
-        padding: 10px;
-        font-size: 14px;
-        color: #333;
-        background-color: #fff;
-    }
+        .horizontal-filter .form-select.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .horizontal-filter .form-select option {
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+        }
 
-    .horizontal-filter .form-select option:hover {
-        background-color: #f0f0f0;
-    }
+        .horizontal-filter .form-select option:hover {
+            background-color: #f0f0f0;
+        }
 
     </style>
 
@@ -1432,10 +1432,12 @@ document.querySelectorAll('.horizontal-filter .form-select').forEach(select => {
     select.addEventListener('focus', () => {
         select.classList.add('open');
     });
+
     select.addEventListener('blur', () => {
         select.classList.remove('open');
     });
 });
+
 
 </script>
 
