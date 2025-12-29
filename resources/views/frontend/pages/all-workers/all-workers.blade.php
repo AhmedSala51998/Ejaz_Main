@@ -538,6 +538,53 @@
             margin-bottom: 10px;
         }
 
+
+
+
+
+
+        .horizontal-filter {
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.horizontal-filter .filter-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+    font-size: 14px;
+}
+
+.horizontal-filter .form-select {
+    border-radius: 12px;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.horizontal-filter .form-select:focus {
+    border-color: #f4a835;
+    box-shadow: 0 0 0 3px rgba(244,168,53,0.15);
+}
+
+.btn-confirm {
+    background: #f4a835;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 12px;
+}
+
+.btn-clear {
+    background: #3d3d3d;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 12px;
+}
+
+
     </style>
 
 @endsection
@@ -692,6 +739,99 @@
     </div>
 </div>
 
+{{-- Desktop Horizontal Filter --}}
+<div class="container-fluid d-none d-lg-block mb-4">
+    <form id="desktopFilterForm" class="horizontal-filter" method="get"
+          action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
+
+        <div class="row g-3 align-items-end">
+
+            {{-- Nationality --}}
+            <div class="col">
+                <label class="filter-label">الجنسية</label>
+                <select name="nationality" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($nationalities as $n)
+                        <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Job --}}
+            <div class="col">
+                <label class="filter-label">المهنة</label>
+                <select name="job" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($jobs as $j)
+                        <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Age --}}
+            <div class="col">
+                <label class="filter-label">العمر</label>
+                <select name="age" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($ages as $age)
+                        <option value="{{ $age->id }}">
+                            من {{ $age->from }} إلى {{ $age->to }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Religion --}}
+            <div class="col">
+                <label class="filter-label">الديانة</label>
+                <select name="religion" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($religions as $r)
+                        <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Social --}}
+            <div class="col">
+                <label class="filter-label">الحالة الاجتماعية</label>
+                <select name="social" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($social_types as $s)
+                        <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Experience --}}
+            @if(!isset($transfer) && !isset($rental))
+            <div class="col">
+                <label class="filter-label">الخبرة</label>
+                <select name="type_of_experience" class="form-select">
+                    <option value="">الكل</option>
+                    <option value="new">قادم جديد</option>
+                    <option value="with_experience">خبرة سابقة</option>
+                </select>
+            </div>
+            @endif
+
+            {{-- Buttons --}}
+            <div class="col-auto">
+                <button type="submit" class="btn btn-confirm px-4">
+                    تأكيد
+                </button>
+            </div>
+
+            <div class="col-auto">
+                <button type="button" class="btn btn-clear px-4" id="desktopReset">
+                    مسح
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
 <section class="workers-section">
     <div class="container-fluid">
 
@@ -703,7 +843,7 @@
         </div>
         <div class="row">
 
-            <div class="col-lg-3 d-none d-lg-block">
+            <!--<div class="col-lg-3 d-none d-lg-block">
                 <div class="side-bar">
                     <h4 style="margin-bottom:10px;border-bottom:1px solid #f4a835">{{__('frontend.advanced search')}}</h4>
                     <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}" method="get">
@@ -833,10 +973,10 @@
                     </form>
 
                 </div>
-            </div>
+            </div>-->
 
 
-            <div class="col-lg-9 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <div class="workers-list" id="hereWillDisplayAllWorker">
                     @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs])
                 </div>
@@ -884,12 +1024,12 @@
 
     function getFilters() {
         return {
-            age: $('input[name="age"]:checked').val() || '',
-            job: $('input[name="job"]:checked').val() || '',
-            nationality: $('input[name="nationality"]:checked').val() || '',
-            religion: $('input[name="religion"]:checked').val() || '',
-            social: $('input[name="social"]:checked').val() || '',
-            type_of_experience: $('input[name="type_of_experience"]:checked').val() || ''
+            age: $('input[name="age"]:checked, select[name="age"]').val() || '',
+            job: $('input[name="job"]:checked, select[name="job"]').val() || '',
+            nationality: $('input[name="nationality"]:checked, select[name="nationality"]').val() || '',
+            religion: $('input[name="religion"]:checked, select[name="religion"]').val() || '',
+            social: $('input[name="social"]:checked, select[name="social"]').val() || '',
+            type_of_experience: $('input[name="type_of_experience"]:checked, select[name="type_of_experience"]').val() || ''
         };
     }
 
@@ -1069,6 +1209,11 @@ document.addEventListener('DOMContentLoaded', function () {
         collapse.addEventListener('shown.bs.collapse', updateIcons);
         collapse.addEventListener('hidden.bs.collapse', updateIcons);
     });
+});
+
+$('#desktopReset').on('click', function () {
+    $('#desktopFilterForm select').val('');
+    $('.searchWorkerBtn').trigger('click');
 });
 </script>
 
