@@ -991,11 +991,11 @@
             @endif
 
             <!-- Buttons -->
-            <div class="col-auto custom-select-wrapper">
+            <div class="col-auto">
               <button type="submit" class="btn btn-confirm btn-filter">تأكيد</button>
             </div>
 
-            <div class="col-auto custom-select-wrapper">
+            <div class="col-auto">
               <button type="button" class="btn btn-clear btn-filter" id="desktopReset">مسح</button>
             </div>
 
