@@ -729,33 +729,16 @@
         .option:hover {
         background-color: #f3f3f3;
         }
-
-        .form-select {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-image: none !important;
+        select.form-select {
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23333' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px 8px;
+            padding-right: 35px;
+            transition: transform 0.3s;
         }
-        .col {
-        position: relative;
-        }
-
-        .col::after {
-        content: "";
-        position: absolute;
-        left: 14px; /* RTL */
-        top: 58%;
-        width: 8px;
-        height: 8px;
-        border-right: 2px solid #777;
-        border-bottom: 2px solid #777;
-        transform: rotate(45deg);
-        transition: all 0.3s ease;
-        pointer-events: none;
-        }
-        .col:has(select:focus)::after {
-        transform: rotate(-135deg);
-        border-color: #f4a835;
+        select.form-select:focus {
+            transform: rotate(180deg);
         }
 
     </style>
