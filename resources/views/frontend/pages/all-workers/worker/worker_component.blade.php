@@ -402,6 +402,7 @@
     object-position: top center;
     transition: transform 0.6s ease;
     border-radius: 22px;
+    transform: scale(1);
 }
 .cv-image-wrapper:hover img {
     transform: scale(1.06);
