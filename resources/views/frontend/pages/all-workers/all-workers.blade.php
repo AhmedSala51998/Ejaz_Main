@@ -730,22 +730,11 @@
         background-color: #f3f3f3;
         }
 
-        .horizontal-filter .form-select {
-            width: 100%;
-            padding: 10px 40px 10px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background-color: #fff;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            font-size: 14px;
-            font-weight: 500;
+        .select-wrapper {
             position: relative;
-            cursor: pointer;
         }
 
-        .horizontal-filter .form-select::after {
+        .select-wrapper::after {
             content: "\25BC";
             position: absolute;
             right: 15px;
@@ -755,17 +744,28 @@
             transition: transform 0.3s ease;
         }
 
-        .horizontal-filter .form-select.open::after {
+        .select-wrapper.open::after {
             transform: translateY(-50%) rotate(180deg);
         }
-        .horizontal-filter .form-select option {
+
+        .select-wrapper select {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            appearance: none;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .select-wrapper select option {
             padding: 10px;
             font-size: 14px;
             color: #333;
             background-color: #fff;
         }
 
-        .horizontal-filter .form-select option:hover {
+        .select-wrapper select option:hover {
             background-color: #f0f0f0;
         }
 
@@ -936,69 +936,81 @@
                     {{-- Nationality --}}
                     <div class="col">
                         <label class="filter-label">الجنسية</label>
-                        <select name="nationality" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach($nationalities as $n)
-                                <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
-                            @endforeach
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="nationality" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($nationalities as $n)
+                                    <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     {{-- Job --}}
                     <div class="col">
                         <label class="filter-label">المهنة</label>
-                        <select name="job" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach($jobs as $j)
-                                <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
-                            @endforeach
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="job" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($jobs as $j)
+                                    <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     {{-- Age --}}
                     <div class="col">
                         <label class="filter-label">العمر</label>
-                        <select name="age" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach($ages as $age)
-                                <option value="{{ $age->id }}">
-                                    من {{ $age->from }} إلى {{ $age->to }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="age" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($ages as $age)
+                                    <option value="{{ $age->id }}">
+                                        من {{ $age->from }} إلى {{ $age->to }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     {{-- Religion --}}
                     <div class="col">
                         <label class="filter-label">الديانة</label>
-                        <select name="religion" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach($religions as $r)
-                                <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
-                            @endforeach
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="religion" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($religions as $r)
+                                    <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     {{-- Social --}}
                     <div class="col">
                         <label class="filter-label">الحالة الاجتماعية</label>
-                        <select name="social" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach($social_types as $s)
-                                <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
-                            @endforeach
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="social" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($social_types as $s)
+                                    <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     {{-- Experience --}}
                     @if(!isset($transfer) && !isset($rental))
                     <div class="col">
                         <label class="filter-label">الخبرة</label>
-                        <select name="type_of_experience" class="form-select">
-                            <option value="">الكل</option>
-                            <option value="new">قادم جديد</option>
-                            <option value="with_experience">خبرة سابقة</option>
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="type_of_experience" class="form-select">
+                                <option value="">الكل</option>
+                                <option value="new">قادم جديد</option>
+                                <option value="with_experience">خبرة سابقة</option>
+                            </select>
+                        </div>
                     </div>
                     @endif
 
@@ -1428,16 +1440,14 @@ $('#desktopReset').on('click', function () {
     $('#desktopFilterForm select').val('');
     $('.searchWorkerBtn').trigger('click');
 });
-document.querySelectorAll('.horizontal-filter .form-select').forEach(select => {
+document.querySelectorAll('.select-wrapper select').forEach(select => {
     select.addEventListener('focus', () => {
-        select.classList.add('open');
+        select.parentElement.classList.add('open');
     });
-
     select.addEventListener('blur', () => {
-        select.classList.remove('open');
+        select.parentElement.classList.remove('open');
     });
 });
-
 
 </script>
 
