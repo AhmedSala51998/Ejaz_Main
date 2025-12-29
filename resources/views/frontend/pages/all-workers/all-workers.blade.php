@@ -539,6 +539,10 @@
         }
 
         /*New Filter Design */
+        .filter-wrapper {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
         .horizontal-filter {
             background: #fff;
             padding: 20px;
@@ -747,96 +751,98 @@
 </div>
 
 {{-- Desktop Horizontal Filter --}}
-<div class="container d-none d-lg-block mb-4">
-    <form id="desktopFilterForm" class="horizontal-filter" method="get"
-          action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
+<div class="container-fluid d-none d-lg-block mb-4">
+    <div class="filter-wrapper">
+        <form id="desktopFilterForm" class="horizontal-filter" method="get"
+            action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
 
-        <div class="row g-3 align-items-end">
+            <div class="row g-3 align-items-end">
 
-            {{-- Nationality --}}
-            <div class="col">
-                <label class="filter-label">الجنسية</label>
-                <select name="nationality" class="form-select">
-                    <option value="">الكل</option>
-                    @foreach($nationalities as $n)
-                        <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
-                    @endforeach
-                </select>
+                {{-- Nationality --}}
+                <div class="col">
+                    <label class="filter-label">الجنسية</label>
+                    <select name="nationality" class="form-select">
+                        <option value="">الكل</option>
+                        @foreach($nationalities as $n)
+                            <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Job --}}
+                <div class="col">
+                    <label class="filter-label">المهنة</label>
+                    <select name="job" class="form-select">
+                        <option value="">الكل</option>
+                        @foreach($jobs as $j)
+                            <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Age --}}
+                <div class="col">
+                    <label class="filter-label">العمر</label>
+                    <select name="age" class="form-select">
+                        <option value="">الكل</option>
+                        @foreach($ages as $age)
+                            <option value="{{ $age->id }}">
+                                من {{ $age->from }} إلى {{ $age->to }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Religion --}}
+                <div class="col">
+                    <label class="filter-label">الديانة</label>
+                    <select name="religion" class="form-select">
+                        <option value="">الكل</option>
+                        @foreach($religions as $r)
+                            <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Social --}}
+                <div class="col">
+                    <label class="filter-label">الحالة الاجتماعية</label>
+                    <select name="social" class="form-select">
+                        <option value="">الكل</option>
+                        @foreach($social_types as $s)
+                            <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Experience --}}
+                @if(!isset($transfer) && !isset($rental))
+                <div class="col">
+                    <label class="filter-label">الخبرة</label>
+                    <select name="type_of_experience" class="form-select">
+                        <option value="">الكل</option>
+                        <option value="new">قادم جديد</option>
+                        <option value="with_experience">خبرة سابقة</option>
+                    </select>
+                </div>
+                @endif
+
+                {{-- Buttons --}}
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-confirm btn-filter">
+                        تأكيد
+                    </button>
+                </div>
+
+                <div class="col-auto">
+                    <button type="button" class="btn btn-clear btn-filter" id="desktopReset">
+                        مسح
+                    </button>
+                </div>
+
             </div>
-
-            {{-- Job --}}
-            <div class="col">
-                <label class="filter-label">المهنة</label>
-                <select name="job" class="form-select">
-                    <option value="">الكل</option>
-                    @foreach($jobs as $j)
-                        <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Age --}}
-            <div class="col">
-                <label class="filter-label">العمر</label>
-                <select name="age" class="form-select">
-                    <option value="">الكل</option>
-                    @foreach($ages as $age)
-                        <option value="{{ $age->id }}">
-                            من {{ $age->from }} إلى {{ $age->to }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Religion --}}
-            <div class="col">
-                <label class="filter-label">الديانة</label>
-                <select name="religion" class="form-select">
-                    <option value="">الكل</option>
-                    @foreach($religions as $r)
-                        <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Social --}}
-            <div class="col">
-                <label class="filter-label">الحالة الاجتماعية</label>
-                <select name="social" class="form-select">
-                    <option value="">الكل</option>
-                    @foreach($social_types as $s)
-                        <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Experience --}}
-            @if(!isset($transfer) && !isset($rental))
-            <div class="col">
-                <label class="filter-label">الخبرة</label>
-                <select name="type_of_experience" class="form-select">
-                    <option value="">الكل</option>
-                    <option value="new">قادم جديد</option>
-                    <option value="with_experience">خبرة سابقة</option>
-                </select>
-            </div>
-            @endif
-
-            {{-- Buttons --}}
-            <div class="col-auto">
-                <button type="submit" class="btn btn-confirm btn-filter">
-                    تأكيد
-                </button>
-            </div>
-
-            <div class="col-auto">
-                <button type="button" class="btn btn-clear btn-filter" id="desktopReset">
-                    مسح
-                </button>
-            </div>
-
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <section class="workers-section">
