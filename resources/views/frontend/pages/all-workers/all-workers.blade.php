@@ -597,88 +597,6 @@
 }
 
 
-
-.workers-filter-card {
-    background: #fff;
-    border-radius: 18px;
-    padding: 20px 22px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.06);
-    margin-bottom: 30px;
-}
-
-.filter-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 18px;
-    color: #1f1f1f;
-}
-
-.filter-header i {
-    color: var(--orange);
-}
-
-.filter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 14px;
-}
-
-.filter-item label {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 6px;
-    display: block;
-}
-
-.filter-item .form-select {
-    height: 44px;
-    border-radius: 12px;
-    font-size: 14px;
-    border: 1px solid #e5e5e5;
-}
-
-.filter-item .form-select.highlight {
-    border-color: var(--orange);
-    box-shadow: 0 0 0 2px rgba(216,152,53,.12);
-}
-
-.filter-actions {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-}
-
-.btn-apply {
-    height: 44px;
-    padding: 0 26px;
-    background: var(--orange);
-    color: #fff;
-    border-radius: 12px;
-    border: none;
-    font-weight: bold;
-}
-
-.btn-apply:hover {
-    background: var(--orange-dark);
-}
-
-.btn-reset {
-    height: 44px;
-    padding: 0 18px;
-    background: #f5f5f5;
-    color: #444;
-    border-radius: 12px;
-    border: none;
-}
-
-.btn-reset:hover {
-    background: #ececec;
-}
-
-
     </style>
 
 @endsection
@@ -834,49 +752,90 @@
 </div>
 
 {{-- Desktop Horizontal Filter --}}
-<div class="workers-filter-card">
-    <div class="filter-header">
-        <i class="fas fa-filter"></i>
-        <span>تصفية النتائج</span>
-    </div>
+<div class="container-fluid d-none d-lg-block mb-4">
+    <form id="desktopFilterForm" class="horizontal-filter" method="get"
+          action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
 
-    <form id="desktopFilterForm">
-        <div class="filter-grid">
+        <div class="row g-3 align-items-end">
 
-            <div class="filter-item">
-                <label>الدولة</label>
-                <select name="nationality" class="form-select highlight">
-                    <option value="">كل الدول</option>
+            {{-- Nationality --}}
+            <div class="col">
+                <label class="filter-label">الجنسية</label>
+                <select name="nationality" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($nationalities as $n)
+                        <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
+                    @endforeach
                 </select>
             </div>
 
-            <div class="filter-item">
-                <label>المهنة</label>
+            {{-- Job --}}
+            <div class="col">
+                <label class="filter-label">المهنة</label>
                 <select name="job" class="form-select">
                     <option value="">الكل</option>
+                    @foreach($jobs as $j)
+                        <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
+                    @endforeach
                 </select>
             </div>
 
-            <div class="filter-item">
-                <label>العمر</label>
+            {{-- Age --}}
+            <div class="col">
+                <label class="filter-label">العمر</label>
                 <select name="age" class="form-select">
                     <option value="">الكل</option>
+                    @foreach($ages as $age)
+                        <option value="{{ $age->id }}">
+                            من {{ $age->from }} إلى {{ $age->to }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
-            <div class="filter-item">
-                <label>الحالة الاجتماعية</label>
+            {{-- Religion --}}
+            <div class="col">
+                <label class="filter-label">الديانة</label>
+                <select name="religion" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach($religions as $r)
+                        <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Social --}}
+            <div class="col">
+                <label class="filter-label">الحالة الاجتماعية</label>
                 <select name="social" class="form-select">
                     <option value="">الكل</option>
+                    @foreach($social_types as $s)
+                        <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
+                    @endforeach
                 </select>
             </div>
 
-            <div class="filter-actions">
-                <button type="submit" class="btn btn-apply">
-                    بحث
-                </button>
+            {{-- Experience --}}
+            @if(!isset($transfer) && !isset($rental))
+            <div class="col">
+                <label class="filter-label">الخبرة</label>
+                <select name="type_of_experience" class="form-select">
+                    <option value="">الكل</option>
+                    <option value="new">قادم جديد</option>
+                    <option value="with_experience">خبرة سابقة</option>
+                </select>
+            </div>
+            @endif
 
-                <button type="button" class="btn btn-reset" id="desktopReset">
+            {{-- Buttons --}}
+            <div class="col-auto">
+                <button type="submit" class="btn btn-confirm btn-filter">
+                    تأكيد
+                </button>
+            </div>
+
+            <div class="col-auto">
+                <button type="button" class="btn btn-clear btn-filter" id="desktopReset">
                     مسح
                 </button>
             </div>
@@ -884,7 +843,6 @@
         </div>
     </form>
 </div>
-
 
 <section class="workers-section">
     <div class="container-fluid">
