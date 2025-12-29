@@ -538,64 +538,59 @@
             margin-bottom: 10px;
         }
 
+        /*New Filter Design */
+        .horizontal-filter {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            margin-top:20px
+        }
 
+        .horizontal-filter .filter-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: #333;
+            font-size: 14px;
+        }
 
+        .horizontal-filter .form-select {
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            transition: 0.3s;
+        }
 
+        .horizontal-filter .form-select:focus {
+            border-color: #f4a835;
+            box-shadow: 0 0 0 3px rgba(244,168,53,0.15);
+        }
 
+        .btn-confirm {
+            background: #f4a835;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+        }
 
-.horizontal-filter {
-    background: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-    margin-top:20px
-}
-
-.horizontal-filter .filter-label {
-    font-weight: 600;
-    margin-bottom: 6px;
-    display: block;
-    color: #333;
-    font-size: 14px;
-}
-
-.horizontal-filter .form-select {
-    border-radius: 12px;
-    padding: 10px 14px;
-    border: 1px solid #ddd;
-    transition: 0.3s;
-}
-
-.horizontal-filter .form-select:focus {
-    border-color: #f4a835;
-    box-shadow: 0 0 0 3px rgba(244,168,53,0.15);
-}
-
-.btn-confirm {
-    background: #f4a835;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 12px;
-}
-
-.btn-clear {
-    background: #3d3d3d;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 12px;
-}
-.horizontal-filter .btn-filter {
-    height: 44px;
-    min-width: 110px;
-    padding: 0 18px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
+        .btn-clear {
+            background: #3d3d3d;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+        .horizontal-filter .btn-filter {
+            height: 44px;
+            min-width: 110px;
+            padding: 0 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
     </style>
 
@@ -752,7 +747,7 @@
 </div>
 
 {{-- Desktop Horizontal Filter --}}
-<div class="container-fluid d-none d-lg-block mb-4">
+<div class="container-fluid d-none d-lg-block mb-3">
     <form id="desktopFilterForm" class="horizontal-filter" method="get"
           action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
 
