@@ -444,7 +444,7 @@
     border: 1px solid rgba(244, 168, 53, 0.25);
 }
 
-.cv-image-wrapper img {
+/*.cv-image-wrapper img {
     width: 100%;
     height: auto;
     display: block;
