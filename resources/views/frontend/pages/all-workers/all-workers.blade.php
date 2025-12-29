@@ -750,7 +750,7 @@
 
         .select-wrapper select {
             width: 100%;
-            padding: 10px 40px 10px 15px;
+            padding: 10px 15px 10px 15px;
             border: 2px solid #ddd;
             border-radius: 8px;
             appearance: none;
