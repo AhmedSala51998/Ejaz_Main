@@ -151,7 +151,7 @@
 }
 
 .cv-card {
-    flex-direction: row; 
+    flex-direction: row;
     align-items: stretch;
     gap: 20px;
     width: 100% !important;
@@ -363,6 +363,78 @@
         margin-top: 20px;
     }
 }
+
+/************** New Image Design *************/
+/* ===== CV IMAGE – PREMIUM STYLE ===== */
+.cv-slider {
+    width: 40%;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #f9f9f9;
+    position: relative;
+}
+
+.cv-image-wrapper {
+    width: 100%;
+    height: 620px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #eee;
+}
+.cv-image-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.05),
+        rgba(0,0,0,0.15)
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cv-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.6s ease;
+    border-radius: 22px;
+}
+.cv-image-wrapper:hover img {
+    transform: scale(1.06);
+}
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff !important;
+    background: rgba(0,0,0,0.35);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    backdrop-filter: blur(6px);
+    transition: 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: rgba(0,0,0,0.55);
+}
+@media (max-width: 768px) {
+    .cv-slider {
+        width: 100%;
+    }
+
+    .cv-image-wrapper {
+        height: 360px;
+        border-radius: 18px;
+    }
+
+    .cv-image-wrapper img {
+        border-radius: 18px;
+    }
+}
 </style>
 
 
@@ -370,16 +442,16 @@
 
 <div class="cv-card">
 
-    
+
     <div class="cv-slider">
         <div class="swiper workerCvSlider">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
-                           
+
                                 <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
-                           
+
                         </div>
                     </a>
                 </div>
@@ -387,9 +459,9 @@
                 <div class="swiper-slide">
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($image->image) }}">
                         <div class="cv-image-wrapper">
-                           
+
                                 <img src="{{ get_file($image->image) }}" alt="CV Image">
-                        
+
                         </div>
                     </a>
                 </div>
@@ -401,9 +473,9 @@
         </div>
     </div>
 
-  
+
     <div class="cv-info">
-        
+
         <div class="cv-warning">
             <p style="text-align:center !important">لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
         </div>
@@ -441,7 +513,7 @@
                 </li>
             @endif
         </ul>
-       
+
         <div class="cv-action">
             @php
                 $type = $cv->type;
