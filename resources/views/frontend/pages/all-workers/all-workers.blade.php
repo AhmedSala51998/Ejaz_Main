@@ -754,6 +754,8 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
             background-color: #fff;
             cursor: pointer;
         }
