@@ -584,26 +584,16 @@
     font-weight: bold;
     border-radius: 12px;
 }
-.horizontal-filter .form-select,
-.horizontal-filter .btn-confirm,
-.horizontal-filter .btn-clear {
+.horizontal-filter .btn-filter {
     height: 44px;
+    min-width: 110px;
+    padding: 0 18px;
     border-radius: 12px;
-    padding: 10px 14px;
     font-size: 14px;
-}
-
-.horizontal-filter .btn-confirm,
-.horizontal-filter .btn-clear {
-    width: 100%;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.horizontal-filter .btn-confirm:focus,
-.horizontal-filter .btn-clear:focus {
-    box-shadow: 0 0 0 3px rgba(244,168,53,0.15);
 }
 
 
@@ -838,14 +828,14 @@
             @endif
 
             {{-- Buttons --}}
-            <div class="col">
-                <button type="submit" class="btn btn-confirm w-100">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-confirm btn-filter">
                     تأكيد
                 </button>
             </div>
 
-            <div class="col">
-                <button type="button" class="btn btn-clear w-100" id="desktopReset">
+            <div class="col-auto">
+                <button type="button" class="btn btn-clear btn-filter" id="desktopReset">
                     مسح
                 </button>
             </div>
@@ -1044,11 +1034,34 @@
     var urlSegments = window.location.pathname.split('/').filter(s => s.length > 0);
     var nationalityIdFromUrl = urlSegments[1] || '';
 
+    function getNationalityFromUrl() {
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        return segments.length > 1 ? segments[segments.length - 1] : '';
+    }
+
+    $(document).ready(function () {
+        const nationalityFromUrl = getNationalityFromUrl();
+
+        if (nationalityFromUrl) {
+
+            // Desktop select
+            $('select[name="nationality"]').val(nationalityFromUrl);
+
+            // Mobile & sidebar radios
+            $('input[name="nationality"][value="' + nationalityFromUrl + '"]').prop('checked', true);
+        }
+    });
+
     function getFilters() {
+        const nationalityFromUrl = getNationalityFromUrl();
+
         return {
             age: $('input[name="age"]:checked, select[name="age"]').val() || '',
             job: $('input[name="job"]:checked, select[name="job"]').val() || '',
-            nationality: $('input[name="nationality"]:checked, select[name="nationality"]').val() || '',
+            nationality:
+                $('input[name="nationality"]:checked, select[name="nationality"]').val()
+                || nationalityFromUrl
+                || '',
             religion: $('input[name="religion"]:checked, select[name="religion"]').val() || '',
             social: $('input[name="social"]:checked, select[name="social"]').val() || '',
             type_of_experience: $('input[name="type_of_experience"]:checked, select[name="type_of_experience"]').val() || ''
