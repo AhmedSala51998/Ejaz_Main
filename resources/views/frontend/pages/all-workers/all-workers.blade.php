@@ -1202,31 +1202,6 @@
         return segments.length > 1 ? segments[segments.length - 1] : '';
     }
 
-    $(document).ready(function () {
-        const nationalityFromUrl = getNationalityFromUrl();
-
-        if (nationalityFromUrl) {
-            const $nationalityOptions = $('.custom-select-wrapper').find('.option[data-value="' + nationalityFromUrl + '"]');
-            if ($nationalityOptions.length) {
-                $nationalityOptions.addClass('selected');
-                $nationalityOptions.closest('.custom-select').find('.select-trigger span').text($nationalityOptions.text());
-            }
-        }
-
-        $('.custom-select .option').on('click', function () {
-            const $this = $(this);
-            const value = $this.data('value');
-            $this.addClass('selected').siblings().removeClass('selected');
-            $this.closest('.custom-select').find('.select-trigger span').text($this.text());
-            const name = $this.closest('.custom-select-wrapper').find('label').text().toLowerCase();
-            $('<input>').attr({
-                type: 'hidden',
-                name: name,
-                value: value
-            }).appendTo('#desktopFilterForm');
-        });
-    });
-
     function setNationality(value) {
         const $wrapper = $('.custom-select-wrapper').find('.option[data-value="' + value + '"]').closest('.custom-select-wrapper');
         const $option = $wrapper.find('.option[data-value="' + value + '"]');
@@ -1255,10 +1230,15 @@
     });
 
     function getFilters() {
+        const nationalityFromUrl = getNationalityFromUrl();
+
         return {
             age: $('input[name="age"]:checked, select[name="age"]').val() || '',
             job: $('input[name="job"]:checked, select[name="job"]').val() || '',
-            nationality: $('input[name="nationality"]').val() || '',
+            nationality:
+                $('input[name="nationality"]:checked, select[name="nationality"]').val()
+                || nationalityFromUrl
+                || '',
             religion: $('input[name="religion"]:checked, select[name="religion"]').val() || '',
             social: $('input[name="social"]:checked, select[name="social"]').val() || '',
             type_of_experience: $('input[name="type_of_experience"]:checked, select[name="type_of_experience"]').val() || ''
