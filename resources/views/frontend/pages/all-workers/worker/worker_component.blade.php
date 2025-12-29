@@ -435,6 +435,27 @@
         border-radius: 18px;
     }
 }
+
+.cv-image-wrapper {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(244, 168, 53, 0.25);
+}
+
+.cv-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.35s ease;
+}
+
+.cv-image-wrapper img:hover {
+    transform: scale(1.01);
+}
 </style>
 
 
