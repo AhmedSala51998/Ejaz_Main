@@ -596,6 +596,63 @@
             justify-content: center;
         }
 
+
+
+        /* ===== Container & Form Styling ===== */
+        .horizontal-filter .form-select {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            direction: rtl;
+        }
+
+        .horizontal-filter .form-select::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid #555;
+            border-bottom: 2px solid #555;
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .horizontal-filter .form-select:focus,
+        .horizontal-filter .form-select.open {
+            border-color: #D89835;
+            box-shadow: 0 4px 8px rgba(216, 152, 53, 0.2);
+            outline: none;
+        }
+
+        .horizontal-filter .form-select:focus::after,
+        .horizontal-filter .form-select.open::after {
+            transform: translateY(-50%) rotate(135deg);
+        }
+
+        /* ===== Placeholder styling ===== */
+        .horizontal-filter .form-select option:first-child {
+            color: #999;
+        }
+
+        /* ===== Hover effect ===== */
+        .horizontal-filter .form-select:hover {
+            border-color: #D89835;
+        }
+
     </style>
 
 @endsection
@@ -1255,6 +1312,15 @@ $('#desktopReset').on('click', function () {
     $('#desktopFilterForm select').val('');
     $('.searchWorkerBtn').trigger('click');
 });
+document.querySelectorAll('.horizontal-filter .form-select').forEach(select => {
+    select.addEventListener('focus', () => {
+        select.classList.add('open');
+    });
+    select.addEventListener('blur', () => {
+        select.classList.remove('open');
+    });
+});
+
 </script>
 
 
