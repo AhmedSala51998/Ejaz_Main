@@ -543,11 +543,12 @@
 
 
 
-        .horizontal-filter {
+.horizontal-filter {
     background: #fff;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    margin-top:20px
 }
 
 .horizontal-filter .filter-label {
