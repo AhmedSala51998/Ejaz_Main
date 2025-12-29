@@ -540,7 +540,7 @@
 
         /*New Filter Design */
         .filter-wrapper {
-            max-width: 1450px;
+            max-width: 1470px;
             margin: 0 auto;
         }
         .horizontal-filter {
