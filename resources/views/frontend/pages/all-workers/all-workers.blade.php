@@ -730,6 +730,45 @@
         background-color: #f3f3f3;
         }
 
+        .horizontal-filter .form-select {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            cursor: pointer;
+        }
+
+    .horizontal-filter .form-select::after {
+        content: "\25BC";
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        transition: transform 0.3s ease;
+    }
+
+    .horizontal-filter .form-select.open::after {
+        transform: translateY(-50%) rotate(180deg);
+    }
+    .horizontal-filter .form-select option {
+        padding: 10px;
+        font-size: 14px;
+        color: #333;
+        background-color: #fff;
+    }
+
+    .horizontal-filter .form-select option:hover {
+        background-color: #f0f0f0;
+    }
+
     </style>
 
 @endsection
@@ -1389,34 +1428,13 @@ $('#desktopReset').on('click', function () {
     $('#desktopFilterForm select').val('');
     $('.searchWorkerBtn').trigger('click');
 });
-document.querySelectorAll('.custom-select').forEach(select => {
-  const trigger = select.querySelector('.select-trigger');
-  const options = select.querySelectorAll('.option');
-
-  trigger.addEventListener('click', () => {
-    document.querySelectorAll('.custom-select').forEach(s => {
-      if (s !== select) s.classList.remove('open');
+document.querySelectorAll('.horizontal-filter .form-select').forEach(select => {
+    select.addEventListener('focus', () => {
+        select.classList.add('open');
     });
-    select.classList.toggle('open');
-  });
-
-  options.forEach(option => {
-    option.addEventListener('click', () => {
-      trigger.querySelector('span').textContent = option.textContent;
-      select.classList.remove('open');
-
-      let inputName = select.closest('.col').querySelector('select');
-      if(inputName){
-        inputName.value = option.dataset.value;
-      }
+    select.addEventListener('blur', () => {
+        select.classList.remove('open');
     });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!select.contains(e.target)) {
-      select.classList.remove('open');
-    }
-  });
 });
 
 </script>
