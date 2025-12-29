@@ -737,7 +737,7 @@
         .select-wrapper::after {
             content: "\25BC";
             position: absolute;
-            right: 15px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
