@@ -601,7 +601,7 @@
         /* ===== Container & Form Styling ===== */
         .horizontal-filter .form-select {
             width: 100%;
-            padding: 10px 40px 10px 15px;
+            padding: 10px 15px 10px 15px;
             border: 2px solid #ddd;
             border-radius: 8px;
             background-color: #fff;
@@ -729,6 +729,35 @@
         .option:hover {
         background-color: #f3f3f3;
         }
+
+        .form-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: none !important;
+        }
+        .col {
+        position: relative;
+        }
+
+        .col::after {
+        content: "";
+        position: absolute;
+        left: 14px; /* RTL */
+        top: 58%;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid #777;
+        border-bottom: 2px solid #777;
+        transform: rotate(45deg);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        }
+        .col:has(select:focus)::after {
+        transform: rotate(-135deg);
+        border-color: #f4a835;
+        }
+
     </style>
 
 @endsection
