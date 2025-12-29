@@ -1227,16 +1227,38 @@
         });
     });
 
-    function getFilters() {
-        const nationalityFromUrl = getNationalityFromUrl();
+    function setNationality(value) {
+        const $wrapper = $('.custom-select-wrapper').find('.option[data-value="' + value + '"]').closest('.custom-select-wrapper');
+        const $option = $wrapper.find('.option[data-value="' + value + '"]');
+        if ($option.length) {
+            $option.addClass('selected').siblings().removeClass('selected');
+            $wrapper.find('.select-trigger span').text($option.text());
 
+            let $hidden = $wrapper.closest('form').find('input[name="nationality"]');
+            if (!$hidden.length) {
+                $hidden = $('<input>').attr({ type: 'hidden', name: 'nationality' }).appendTo($wrapper.closest('form'));
+            }
+            $hidden.val(value);
+        }
+    }
+
+    $(document).ready(function () {
+        const nationalityFromUrl = getNationalityFromUrl();
+        if (nationalityFromUrl) {
+            setNationality(nationalityFromUrl);
+        }
+
+        $('.custom-select .option').on('click', function () {
+            const value = $(this).data('value');
+            setNationality(value);
+        });
+    });
+
+    function getFilters() {
         return {
             age: $('input[name="age"]:checked, select[name="age"]').val() || '',
             job: $('input[name="job"]:checked, select[name="job"]').val() || '',
-            nationality:
-                $('input[name="nationality"]:checked, select[name="nationality"]').val()
-                || nationalityFromUrl
-                || '',
+            nationality: $('input[name="nationality"]').val() || '',
             religion: $('input[name="religion"]:checked, select[name="religion"]').val() || '',
             social: $('input[name="social"]:checked, select[name="social"]').val() || '',
             type_of_experience: $('input[name="type_of_experience"]:checked, select[name="type_of_experience"]').val() || ''
