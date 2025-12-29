@@ -943,7 +943,10 @@
                             <select name="nationality" class="form-select">
                                 <option value="">الكل</option>
                                 @foreach($nationalities as $n)
-                                    <option value="{{ $n->id }}">{{ trans($n->title) }}</option>
+                                    <option value="{{ $n->id }}"
+                                        {{ request('nationality') == $n->id ? 'selected' : '' }}>
+                                        {{ trans($n->title) }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -956,7 +959,10 @@
                             <select name="job" class="form-select">
                                 <option value="">الكل</option>
                                 @foreach($jobs as $j)
-                                    <option value="{{ $j->id }}">{{ trans($j->title) }}</option>
+                                    <option value="{{ $j->id }}"
+                                        {{ request('job') == $j->id ? 'selected' : '' }}>
+                                        {{ trans($j->title) }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -969,7 +975,8 @@
                             <select name="age" class="form-select">
                                 <option value="">الكل</option>
                                 @foreach($ages as $age)
-                                    <option value="{{ $age->id }}">
+                                    <option value="{{ $age->id }}"
+                                        {{ request('age') == $age->id ? 'selected' : '' }}>
                                         من {{ $age->from }} إلى {{ $age->to }}
                                     </option>
                                 @endforeach
@@ -984,7 +991,10 @@
                             <select name="religion" class="form-select">
                                 <option value="">الكل</option>
                                 @foreach($religions as $r)
-                                    <option value="{{ $r->id }}">{{ trans($r->title) }}</option>
+                                    <option value="{{ $r->id }}"
+                                        {{ request('religion') == $r->id ? 'selected' : '' }}>
+                                        {{ trans($r->title) }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -997,7 +1007,10 @@
                             <select name="social" class="form-select">
                                 <option value="">الكل</option>
                                 @foreach($social_types as $s)
-                                    <option value="{{ $s->id }}">{{ trans($s->title) }}</option>
+                                    <option value="{{ $s->id }}"
+                                        {{ request('social') == $s->id ? 'selected' : '' }}>
+                                        {{ trans($s->title) }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -1010,8 +1023,14 @@
                         <div class="select-wrapper">
                             <select name="type_of_experience" class="form-select">
                                 <option value="">الكل</option>
-                                <option value="new">قادم جديد</option>
-                                <option value="with_experience">خبرة سابقة</option>
+                                <option value="new"
+                                    {{ request('type_of_experience') == 'new' ? 'selected' : '' }}>
+                                    قادم جديد
+                                </option>
+                                <option value="with_experience"
+                                    {{ request('type_of_experience') == 'with_experience' ? 'selected' : '' }}>
+                                    خبرة سابقة
+                                </option>
                             </select>
                         </div>
                     </div>
