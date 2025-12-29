@@ -1206,13 +1206,25 @@
         const nationalityFromUrl = getNationalityFromUrl();
 
         if (nationalityFromUrl) {
-
-            // Desktop select
-            $('select[name="nationality"]').val(nationalityFromUrl);
-
-            // Mobile & sidebar radios
-            $('input[name="nationality"][value="' + nationalityFromUrl + '"]').prop('checked', true);
+            const $nationalityOptions = $('.custom-select-wrapper').find('.option[data-value="' + nationalityFromUrl + '"]');
+            if ($nationalityOptions.length) {
+                $nationalityOptions.addClass('selected');
+                $nationalityOptions.closest('.custom-select').find('.select-trigger span').text($nationalityOptions.text());
+            }
         }
+
+        $('.custom-select .option').on('click', function () {
+            const $this = $(this);
+            const value = $this.data('value');
+            $this.addClass('selected').siblings().removeClass('selected');
+            $this.closest('.custom-select').find('.select-trigger span').text($this.text());
+            const name = $this.closest('.custom-select-wrapper').find('label').text().toLowerCase();
+            $('<input>').attr({
+                type: 'hidden',
+                name: name,
+                value: value
+            }).appendTo('#desktopFilterForm');
+        });
     });
 
     function getFilters() {
