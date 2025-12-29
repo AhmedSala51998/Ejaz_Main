@@ -436,7 +436,7 @@
     }
 }
 
-/*.cv-image-wrapper {
+.cv-image-wrapper {
     width: 100%;
     background: #fff;
     border-radius: 20px;
@@ -456,26 +456,6 @@
 .cv-image-wrapper img:hover {
     transform: scale(1.01);
 }*/
-.cv-image-wrapper {
-    width: 100%;
-    height: 620px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 22px;
-    background: #eee;
-}
-.cv-image-wrapper::after {
-    content: none;
-}
-
-.cv-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    border-radius: 22px;
-    transition: none;
-}
 </style>
 
 
