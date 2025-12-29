@@ -749,7 +749,7 @@
             border-bottom: 2px solid #555;
             transform: rotate(45deg);
             transition: all 0.3s;
-            margin-top: -2px;
+            margin-top: 0;
         }
         .btn-filter {
             padding: 10px 20px;
@@ -768,7 +768,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top:-20px !important
+            margin-top:-10px !important
+        }
+
+
+        .select-trigger {
+            min-height: 44px;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background: #fff;
+            transition: all 0.3s;
+        }
+
+        .select-trigger .arrow {
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #555;
+            border-bottom: 2px solid #555;
+            transform: rotate(45deg);
+            transition: all 0.3s;
+        }
+
+        .horizontal-filter .btn-filter {
+            height: 44px;
+            min-width: 110px;
+            padding: 0 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0;
         }
 
     </style>
