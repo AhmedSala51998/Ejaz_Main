@@ -729,6 +729,35 @@
         .option:hover {
         background-color: #f3f3f3;
         }
+        .select-trigger {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 1.2;
+            transition: all 0.3s;
+            min-height: 45px;
+        }
+
+        .select-trigger .arrow {
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid #555;
+            border-bottom: 2px solid #555;
+            transform: rotate(45deg);
+            transition: all 0.3s;
+            margin-top: 0;
+        }
+        .btn-filter {
+            padding: 10px 20px;
+            margin-top: 5px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
     </style>
 
 @endsection
