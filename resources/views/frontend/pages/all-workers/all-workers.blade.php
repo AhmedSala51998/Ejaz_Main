@@ -753,9 +753,10 @@
             padding: 10px 15px 10px 15px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            background-image: none !important;
             background-color: #fff;
             cursor: pointer;
         }
