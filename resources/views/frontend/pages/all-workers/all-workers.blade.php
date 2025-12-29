@@ -584,6 +584,27 @@
     font-weight: bold;
     border-radius: 12px;
 }
+.horizontal-filter .form-select,
+.horizontal-filter .btn-confirm,
+.horizontal-filter .btn-clear {
+    height: 44px;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+.horizontal-filter .btn-confirm,
+.horizontal-filter .btn-clear {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.horizontal-filter .btn-confirm:focus,
+.horizontal-filter .btn-clear:focus {
+    box-shadow: 0 0 0 3px rgba(244,168,53,0.15);
+}
 
 
     </style>
@@ -817,14 +838,14 @@
             @endif
 
             {{-- Buttons --}}
-            <div class="col-auto">
-                <button type="submit" class="btn btn-confirm px-4">
+            <div class="col">
+                <button type="submit" class="btn btn-confirm w-100">
                     تأكيد
                 </button>
             </div>
 
-            <div class="col-auto">
-                <button type="button" class="btn btn-clear px-4" id="desktopReset">
+            <div class="col">
+                <button type="button" class="btn btn-clear w-100" id="desktopReset">
                     مسح
                 </button>
             </div>
