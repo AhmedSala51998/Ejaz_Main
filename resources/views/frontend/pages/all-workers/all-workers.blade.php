@@ -747,7 +747,7 @@
 </div>
 
 {{-- Desktop Horizontal Filter --}}
-<div class="container-fluid d-none d-lg-block mb-3">
+<div class="container d-none d-lg-block mb-4">
     <form id="desktopFilterForm" class="horizontal-filter" method="get"
           action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
 
