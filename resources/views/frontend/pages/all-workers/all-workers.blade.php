@@ -743,8 +743,8 @@
         }
 
         .select-trigger .arrow {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-right: 2px solid #555;
             border-bottom: 2px solid #555;
             transform: rotate(45deg);
@@ -756,6 +756,19 @@
             margin-top: 5px;
             border-radius: 8px;
             font-size: 14px;
+        }
+
+        .horizontal-filter .btn-filter {
+            height: 44px;
+            min-width: 110px;
+            padding: 0 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top:-10px !important
         }
 
     </style>
