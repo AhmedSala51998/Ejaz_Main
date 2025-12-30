@@ -449,13 +449,13 @@ body.sticky-header-active {
 }
 
 .header-logo {
-    height: 58px;
+    height: 78px;
     width: auto;
 }
 
 .header-lottie {
-    width: 36px;
-    height: 36px;
+    width: 60px;
+    height: 60px;
 }
 
 @media (max-width: 768px) {
