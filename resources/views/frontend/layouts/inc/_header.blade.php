@@ -454,8 +454,8 @@ body.sticky-header-active {
 }
 
 .header-lottie {
-    width: 60px;
-    height: 60px;
+    width: 160px;
+    height: 160px;
 }
 
 @media (max-width: 768px) {
