@@ -441,6 +441,7 @@ body.sticky-header-active {
 }
 
 
+
 .logo-with-lottie {
     display: flex;
     align-items: center;
@@ -448,7 +449,7 @@ body.sticky-header-active {
 }
 
 .header-logo {
-    height: 48px;
+    height: 58px;
     width: auto;
 }
 
