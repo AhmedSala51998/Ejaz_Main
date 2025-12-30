@@ -440,6 +440,29 @@ body.sticky-header-active {
     opacity: 0;
 }
 
+
+.logo-with-lottie {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-logo {
+    height: 48px;
+    width: auto;
+}
+
+.header-lottie {
+    width: 36px;
+    height: 36px;
+}
+
+@media (max-width: 768px) {
+    .header-lottie {
+        display: none;
+    }
+}
+
 </style>
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
