@@ -449,8 +449,18 @@ body.sticky-header-active {
 <header class="main-header {{ $headerClass }}" id="mainHeader">
     <div class="container-fluid">
         <section class="header-inner">
-            <a class="navbar-brand" href="{{route('home')}}">
+            <!--<a class="navbar-brand" href="{{route('home')}}">
                 <img src="{{asset('frontend/img/logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">
+            </a>-->
+            <a class="navbar-brand logo-with-lottie" href="{{route('home')}}">
+                <img src="{{asset('frontend/img/logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">
+
+                <dotlottie-wc
+                    src="https://lottie.host/6e3d4846-9273-49bc-b9f8-ad68230ce99f/C0ScOf5nrx.lottie"
+                    class="header-lottie"
+                    autoplay
+                    loop>
+                </dotlottie-wc>
             </a>
 
             <nav class="navbar navbar-expand-lg main-nav">
