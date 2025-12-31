@@ -70,7 +70,7 @@ body.sticky-header-active {
 
 /* Logo Styling - Increased max-height while keeping header padding */
 .header-logo {
-    max-height: 95px; /* Increased logo size */
+    max-height: 75px; /* Increased logo size */
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2)); /* Default subtle shadow for white background */
 }
@@ -450,8 +450,8 @@ body.sticky-header-active {
     <div class="container-fluid">
         <section class="header-inner">
             <a class="navbar-brand" href="{{route('home')}}">
-                <!--<img src="{{asset('frontend/img/ramadan_logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">-->
-                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" loading="lazy" class="header-logo" alt="Company Logo">
+                <img src="{{asset('frontend/img/ramadan_logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">
+                <!--<img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" loading="lazy" class="header-logo" alt="Company Logo">-->
             </a>
 
             <nav class="navbar navbar-expand-lg main-nav">
