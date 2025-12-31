@@ -98,8 +98,8 @@
             <div class="col-lg-4">
                 <div class="footer-logo">
                     <a href="{{route('home')}}">
-                        <img src="{{asset('frontend/img/logo.png')}}" alt="logo">
-                        <!--<img src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="logo">-->
+                        <!--<img src="{{asset('frontend/img/ramadan_logo.png')}}" alt="logo">-->
+                        <img src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="logo">
                     </a>
                 </div>
                 <p>{{$settings->footer_desc}}</p>

@@ -450,7 +450,8 @@ body.sticky-header-active {
     <div class="container-fluid">
         <section class="header-inner">
             <a class="navbar-brand" href="{{route('home')}}">
-                <img src="{{asset('frontend/img/logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">
+                <!--<img src="{{asset('frontend/img/ramadan_logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">-->
+                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" loading="lazy" class="header-logo" alt="Company Logo">
             </a>
 
             <nav class="navbar navbar-expand-lg main-nav">
