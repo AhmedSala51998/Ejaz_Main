@@ -545,6 +545,55 @@
             to { transform: rotate(360deg); }
         }
 
+        .ramadan-lanterns{
+            position: absolute;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 5;
+        }
+
+        .ramadan-lanterns dotlottie-wc{
+            animation: lanternSwing 4s ease-in-out infinite;
+        }
+
+        @keyframes lanternSwing {
+            0%   { transform: rotate(-4deg); }
+            50%  { transform: rotate(4deg); }
+            100% { transform: rotate(-4deg); }
+        }
+
+        .ramadan-garland{
+            position: absolute;
+            top: 0;
+            width: 220px;
+            height: 120px;
+            background: url('/images/ramadan-garland.png') no-repeat center/contain;
+            animation: garlandMove 6s ease-in-out infinite;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .ramadan-garland.left{
+            left: 0;
+            transform-origin: top left;
+        }
+
+        .ramadan-garland.right{
+            right: 0;
+            transform-origin: top right;
+        }
+
+        @keyframes garlandMove {
+            0%   { transform: rotate(0deg); }
+            50%  { transform: rotate(3deg); }
+            100% { transform: rotate(0deg); }
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -581,6 +630,23 @@
 </div>
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
+<div class="ramadan-lanterns">
+    <dotlottie-wc
+      src="/lottie/ramadan-lantern.json"
+      autoplay
+      loop
+      style="width:120px;height:120px;">
+    </dotlottie-wc>
+
+    <dotlottie-wc
+      src="/lottie/ramadan-lantern.json"
+      autoplay
+      loop
+      style="width:120px;height:120px;">
+    </dotlottie-wc>
+</div>
+<div class="ramadan-garland left"></div>
+<div class="ramadan-garland right"></div>
 <!-- ================ /Header ================= -->
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
 <!--((((((((((((((((((( content )))))))))))))))))))-->
@@ -905,6 +971,7 @@
 
     </div>
 </div>
+<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js" type="module"></script>
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c" defer></script>
 </body>
 <!--@toastr_render-->
