@@ -70,7 +70,7 @@ body.sticky-header-active {
 
 /* Logo Styling - Increased max-height while keeping header padding */
 .header-logo {
-    max-height: 75px; /* Increased logo size */
+    max-height: 95px; /* Increased logo size */
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2)); /* Default subtle shadow for white background */
 }
