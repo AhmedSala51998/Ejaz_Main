@@ -241,114 +241,107 @@ canvas {
 }
 
 /* ===============================
-   Ramadan Decorations – PRO
+   RAMADAN DECORATIONS – PRO MAX
 ================================ */
 
 .ramadan-group {
     position: absolute;
-    top: 110px;
-    width: 160px;
-    z-index: 5;
+    top: 12%;
+    width: 170px;
+    z-index: 10;
     pointer-events: none;
+    transform-style: preserve-3d;
 }
 
-/* Left & Right Position */
-.ramadan-group.left {
-    left: 35px;
-}
+/* Position */
+.ramadan-group.left  { left: 2.5%; }
+.ramadan-group.right { right: 2.5%; }
 
-.ramadan-group.right {
-    right: 35px;
-}
-
-/* Moon */
+/* ================= Moon ================= */
 .ramadan-group .moon {
-    width: 80px;
+    width: 85px;
     display: block;
-    margin: 0 auto 10px;
-    opacity: 0.9;
-    animation: moonFloat 6s ease-in-out infinite;
+    margin: 0 auto 14px;
+    opacity: .95;
+    animation: moonFloat 7s ease-in-out infinite;
+    filter: drop-shadow(0 6px 18px rgba(255,255,255,.25));
 }
 
-/* Lantern */
+/* ================= Lantern ================= */
 .ramadan-group .lantern {
     width: 100%;
     display: block;
-    animation: lanternSwing 4s ease-in-out infinite;
     transform-origin: top center;
-    filter: drop-shadow(0 12px 25px rgba(216,152,53,0.35));
+    animation:
+        lanternSwing 4.5s cubic-bezier(.4,0,.2,1) infinite,
+        lanternGlow 2.2s ease-in-out infinite alternate;
+    will-change: transform, filter;
+    filter: drop-shadow(0 18px 30px rgba(216,152,53,.35));
 }
 
-/* Lantern Swing */
+/* ================= Animations ================= */
+
+/* Natural Lantern Swing */
 @keyframes lanternSwing {
-    0% { transform: rotate(0deg) translateY(0); }
-    25% { transform: rotate(2deg) translateY(5px); }
-    50% { transform: rotate(0deg) translateY(0); }
-    75% { transform: rotate(-2deg) translateY(5px); }
+    0%   { transform: rotate(0deg) translateY(0); }
+    20%  { transform: rotate(1.8deg) translateY(5px); }
+    40%  { transform: rotate(-1.4deg) translateY(9px); }
+    60%  { transform: rotate(2.2deg) translateY(6px); }
+    80%  { transform: rotate(-1.6deg) translateY(8px); }
     100% { transform: rotate(0deg) translateY(0); }
 }
 
-/* Moon Float */
+/* Moon Floating */
 @keyframes moonFloat {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(12px); }
     100% { transform: translateY(0); }
 }
 
-/* Hide on mobile */
-@media (max-width: 992px) {
-    .ramadan-group {
-        display: none;
-    }
-}
-/* Lantern Swing – Improved */
-@keyframes lanternSwing {
-    0% { transform: rotate(0deg) translateY(0); }
-    20% { transform: rotate(1deg) translateY(3px); }
-    40% { transform: rotate(-1deg) translateY(5px); }
-    60% { transform: rotate(2deg) translateY(2px); }
-    80% { transform: rotate(-2deg) translateY(4px); }
-    100% { transform: rotate(0deg) translateY(0); }
-}
-
-/* Moon Float – Improved */
-@keyframes moonFloat {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(5px); }
-    50% { transform: translateY(10px); }
-    75% { transform: translateY(5px); }
-    100% { transform: translateY(0); }
-}
-.ramadan-group .lantern {
-    animation: lanternSwing 4s ease-in-out infinite, lanternGlow 2s ease-in-out infinite alternate;
-}
-
+/* Lantern Glow */
 @keyframes lanternGlow {
-    0% { filter: drop-shadow(0 12px 25px rgba(216,152,53,0.3)); }
-    50% { filter: drop-shadow(0 12px 35px rgba(255,200,0,0.5)); }
-    100% { filter: drop-shadow(0 12px 25px rgba(216,152,53,0.3)); }
+    0% {
+        filter:
+            drop-shadow(0 15px 25px rgba(216,152,53,.25))
+            brightness(1);
+    }
+    100% {
+        filter:
+            drop-shadow(0 18px 40px rgba(255,200,0,.6))
+            brightness(1.15);
+    }
 }
-.ramadan-group {
-    position: absolute;
-    top: 10%;
-    width: 160px;
-    z-index: 10;
-    pointer-events: none;
+
+/* ================= Parallax Depth ================= */
+.ramadan-group.left {
+    animation: sideFloatLeft 12s ease-in-out infinite;
 }
-.ramadan-group.left { left: 2%; }
-.ramadan-group.right { right: 2%; }
+.ramadan-group.right {
+    animation: sideFloatRight 12s ease-in-out infinite;
+}
+
+@keyframes sideFloatLeft {
+    0%   { transform: translateY(0) translateX(0); }
+    50%  { transform: translateY(18px) translateX(6px); }
+    100% { transform: translateY(0) translateX(0); }
+}
+
+@keyframes sideFloatRight {
+    0%   { transform: translateY(0) translateX(0); }
+    50%  { transform: translateY(18px) translateX(-6px); }
+    100% { transform: translateY(0) translateX(0); }
+}
+
+/* ================= Mobile ================= */
 @media (max-width: 992px) {
     .ramadan-group {
-        width: 100px;
-        top: 5%;
-        left: 1%;
-        right: 1%;
+        width: 110px;
+        top: 6%;
+        opacity: .85;
     }
-    .ramadan-group.left { left: 1%; }
-    .ramadan-group.right { right: 1%; }
-    .ramadan-group .moon { width: 50px; }
-    .ramadan-group .lantern { width: 100%; }
+    .ramadan-group .moon { width: 55px; }
 }
+
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
@@ -393,10 +386,10 @@ canvas {
     @endphp
 
     @foreach($decorations as $index => $item)
-    <!--<div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
-        <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon">
-        <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern">
-    </div>-->
+    <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
+        <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon" alt="Ramadan Moon">
+        <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern" alt="Ramadan Lantern">
+    </div>
     @endforeach
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
