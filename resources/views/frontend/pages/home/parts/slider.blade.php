@@ -393,10 +393,10 @@ canvas {
     @endphp
 
     @foreach($decorations as $index => $item)
-    <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
+    <!--<div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
         <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon">
         <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern">
-    </div>
+    </div>-->
     @endforeach
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
