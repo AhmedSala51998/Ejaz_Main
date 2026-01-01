@@ -440,11 +440,67 @@ body.sticky-header-active {
     opacity: 0;
 }
 
+
+
+/* ===============================
+   RAMADAN TOP HEADER DECORATION
+================================ */
+
+.ramadan-top-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ramadan-top-decoration img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    transform-origin: top center;
+    animation: ramadanSwing 6s ease-in-out infinite;
+    filter: drop-shadow(0 10px 25px rgba(255, 200, 80, 0.35));
+    will-change: transform;
+}
+
+/* Swing Animation */
+@keyframes ramadanSwing {
+    0%   { transform: rotate(0deg) translateY(0); }
+    25%  { transform: rotate(0.6deg) translateY(3px); }
+    50%  { transform: rotate(0deg) translateY(6px); }
+    75%  { transform: rotate(-0.6deg) translateY(3px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+/* Hide on Mobile */
+@media (max-width: 991px) {
+    .ramadan-top-decoration {
+        display: none;
+    }
+}
+.ramadan-top-decoration img {
+    animation:
+        ramadanSwing 6s ease-in-out infinite,
+        lanternGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes lanternGlow {
+    from { filter: brightness(1) drop-shadow(0 10px 20px rgba(255,200,0,.25)); }
+    to   { filter: brightness(1.08) drop-shadow(0 15px 35px rgba(255,220,120,.6)); }
+}
+
 </style>
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
 @endphp
+
+<div class="ramadan-top-decoration">
+    <img src="{{ asset('frontend/img/ramadan/ramadan_header.png') }}" alt="Ramadan Lantern Decoration">
+</div>
 
 <header class="main-header {{ $headerClass }}" id="mainHeader">
     <div class="container-fluid">
