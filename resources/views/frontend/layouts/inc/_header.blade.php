@@ -500,7 +500,7 @@ body.sticky-header-active {
 <header class="main-header {{ $headerClass }}" id="mainHeader">
     <!-- Ramadan Hanging Decoration -->
     <div class="ramadan-hanging-decoration">
-        <img src="{{ asset('frontend/img/ramadan/ramadan-lantern-top.png') }}"
+        <img src="{{ asset('frontend/img/ramadan/ramadan_header.png') }}"
              alt="Ramadan Hanging Lanterns">
     </div>
     <div class="container-fluid">
