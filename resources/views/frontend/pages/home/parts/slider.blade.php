@@ -240,6 +240,67 @@ canvas {
   image-rendering: auto;
 }
 
+/* ===============================
+   Ramadan Decorations – PRO
+================================ */
+
+.ramadan-group {
+    position: absolute;
+    top: 110px;
+    width: 160px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Left & Right Position */
+.ramadan-group.left {
+    left: 35px;
+}
+
+.ramadan-group.right {
+    right: 35px;
+}
+
+/* Moon */
+.ramadan-group .moon {
+    width: 80px;
+    display: block;
+    margin: 0 auto 10px;
+    opacity: 0.9;
+    animation: moonFloat 6s ease-in-out infinite;
+}
+
+/* Lantern */
+.ramadan-group .lantern {
+    width: 100%;
+    display: block;
+    animation: lanternSwing 4s ease-in-out infinite;
+    transform-origin: top center;
+    filter: drop-shadow(0 12px 25px rgba(216,152,53,0.35));
+}
+
+/* Lantern Swing */
+@keyframes lanternSwing {
+    0% { transform: rotate(0deg) translateY(0); }
+    25% { transform: rotate(2deg) translateY(5px); }
+    50% { transform: rotate(0deg) translateY(0); }
+    75% { transform: rotate(-2deg) translateY(5px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+/* Moon Float */
+@keyframes moonFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+    100% { transform: translateY(0); }
+}
+
+/* Hide on mobile */
+@media (max-width: 992px) {
+    .ramadan-group {
+        display: none;
+    }
+}
 
 </style>
 @if (count($sliders)>0)
@@ -266,6 +327,16 @@ canvas {
         border-radius: 50%;
         animation: spin 1s linear infinite;
       "></div>
+    </div>
+    <!-- Ramadan Decorations -->
+    <div class="ramadan-group left">
+        <img src="{{ asset('frontend/img/ramadan/ramadan1.png') }}" class="moon">
+        <img src="{{ asset('frontend/img/ramadan/ramadan2.png') }}" class="lantern">
+    </div>
+
+    <div class="ramadan-group right">
+        <img src="{{ asset('frontend/img/ramadan/ramadan3.png') }}" class="moon">
+        <img src="{{ asset('frontend/img/ramadan/ramadan1.png') }}" class="lantern">
     </div>
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
