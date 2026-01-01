@@ -301,7 +301,54 @@ canvas {
         display: none;
     }
 }
+/* Lantern Swing – Improved */
+@keyframes lanternSwing {
+    0% { transform: rotate(0deg) translateY(0); }
+    20% { transform: rotate(1deg) translateY(3px); }
+    40% { transform: rotate(-1deg) translateY(5px); }
+    60% { transform: rotate(2deg) translateY(2px); }
+    80% { transform: rotate(-2deg) translateY(4px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
 
+/* Moon Float – Improved */
+@keyframes moonFloat {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(5px); }
+    50% { transform: translateY(10px); }
+    75% { transform: translateY(5px); }
+    100% { transform: translateY(0); }
+}
+.ramadan-group .lantern {
+    animation: lanternSwing 4s ease-in-out infinite, lanternGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes lanternGlow {
+    0% { filter: drop-shadow(0 12px 25px rgba(216,152,53,0.3)); }
+    50% { filter: drop-shadow(0 12px 35px rgba(255,200,0,0.5)); }
+    100% { filter: drop-shadow(0 12px 25px rgba(216,152,53,0.3)); }
+}
+.ramadan-group {
+    position: absolute;
+    top: 10%;
+    width: 160px;
+    z-index: 10;
+    pointer-events: none;
+}
+.ramadan-group.left { left: 2%; }
+.ramadan-group.right { right: 2%; }
+@media (max-width: 992px) {
+    .ramadan-group {
+        width: 100px;
+        top: 5%;
+        left: 1%;
+        right: 1%;
+    }
+    .ramadan-group.left { left: 1%; }
+    .ramadan-group.right { right: 1%; }
+    .ramadan-group .moon { width: 50px; }
+    .ramadan-group .lantern { width: 100%; }
+}
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
@@ -329,7 +376,7 @@ canvas {
       "></div>
     </div>
     <!-- Ramadan Decorations -->
-    <div class="ramadan-group left">
+    <!--<div class="ramadan-group left">
         <img src="{{ asset('frontend/img/ramadan/ramadan1.png') }}" class="moon">
         <img src="{{ asset('frontend/img/ramadan/ramadan2.png') }}" class="lantern">
     </div>
@@ -337,7 +384,20 @@ canvas {
     <div class="ramadan-group right">
         <img src="{{ asset('frontend/img/ramadan/ramadan3.png') }}" class="moon">
         <img src="{{ asset('frontend/img/ramadan/ramadan1.png') }}" class="lantern">
+    </div>-->
+    @php
+    $decorations = [
+        ['moon' => 'ramadan1.png', 'lantern' => 'ramadan2.png'],
+        ['moon' => 'ramadan3.png', 'lantern' => 'ramadan1.png'],
+    ];
+    @endphp
+
+    @foreach($decorations as $index => $item)
+    <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
+        <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon">
+        <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern">
     </div>
+    @endforeach
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
