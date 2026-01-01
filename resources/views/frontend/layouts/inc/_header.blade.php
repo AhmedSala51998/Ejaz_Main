@@ -439,58 +439,6 @@ body.sticky-header-active {
     animation: zoomFade 1s ease forwards;
     opacity: 0;
 }
-
-
-
-/* ===============================
-   RAMADAN HANGING DECORATION
-   (Behind Links – No Interaction)
-================================ */
-
-.ramadan-hanging-decoration {
-    position: absolute;
-    top: -70px; /* 🔥 نازلة من فوق */
-    left: 0;
-    width: 100%;
-    height: 200px;
-    z-index: 900; /* أقل من اللينكات */
-    pointer-events: none; /* 🔥 لا تلمس أي حاجة */
-    overflow: hidden;
-}
-
-.ramadan-hanging-decoration img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform-origin: top center;
-    animation: ramadanSoftSwing 7s ease-in-out infinite;
-    filter: drop-shadow(0 10px 25px rgba(255, 200, 80, 0.35));
-    will-change: transform;
-}
-
-/* Soft Natural Swing */
-@keyframes ramadanSoftSwing {
-    0%   { transform: rotate(0deg) translateY(0); }
-    25%  { transform: rotate(0.4deg) translateY(3px); }
-    50%  { transform: rotate(0deg) translateY(6px); }
-    75%  { transform: rotate(-0.4deg) translateY(3px); }
-    100% { transform: rotate(0deg) translateY(0); }
-}
-
-/* Ensure header content is above */
-.main-header .header-inner,
-.main-header .container-fluid {
-    position: relative;
-    z-index: 1000;
-}
-
-/* Hide on Mobile */
-@media (max-width: 991px) {
-    .ramadan-hanging-decoration {
-        display: none;
-    }
-}
-
 </style>
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
@@ -498,11 +446,6 @@ body.sticky-header-active {
 @endphp
 
 <header class="main-header {{ $headerClass }}" id="mainHeader">
-    <!-- Ramadan Hanging Decoration -->
-    <div class="ramadan-hanging-decoration">
-        <img src="{{ asset('frontend/img/ramadan/ramadan_header.png') }}"
-             alt="Ramadan Hanging Lanterns">
-    </div>
     <div class="container-fluid">
         <section class="header-inner">
             <a class="navbar-brand" href="{{route('home')}}">
