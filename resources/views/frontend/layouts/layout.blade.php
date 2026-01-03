@@ -551,12 +551,12 @@
         /* ===== RAMADAN SVG DECOR ===== */
         .ramadan-svg-decor{
         position: fixed;
-        top: 150;
+        top: -30px;
         left: 0;
         width: 100%;
         height: 180px;
         pointer-events: none;
-        z-index: 999;
+        z-index: 100000;
         }
 
         .lantern{
