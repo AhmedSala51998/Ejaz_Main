@@ -653,13 +653,11 @@
 </head>
 
 <body>
-<!-- RAMADAN DECOR -->
+<!-- RAMADAN DECOR
 <div class="ramadan-svg-decor">
 
-  <!-- Stars -->
   <div class="stars"></div>
 
-  <!-- Left Lantern -->
   <svg class="lantern left" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
     <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
     <path d="M55 35 L105 35 L120 60 H40 Z" fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
@@ -675,7 +673,6 @@
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
-  <!-- Moon -->
   <svg class="moon" viewBox="0 0 120 120">
     <defs>
       <radialGradient id="moonGlow">
@@ -687,7 +684,6 @@
     <circle cx="72" cy="52" r="40" fill="#ffffff"/>
   </svg>
 
-  <!-- Right Lantern -->
   <svg class="lantern right" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
     <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
     <path d="M55 35 L105 35 L120 60 H40 Z" fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
@@ -703,7 +699,7 @@
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
-</div>
+</div>-->
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
