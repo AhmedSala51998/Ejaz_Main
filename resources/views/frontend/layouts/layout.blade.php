@@ -1077,8 +1077,11 @@ const starsBox = document.querySelector('.stars');
 
 if(starsBox){
   for(let i=0;i<45;i++){
-    const star = document.createElement('span');
-    star.className = 'star';
+    const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    star.setAttribute("viewBox", "0 0 24 24");
+    star.setAttribute("width", "8");
+    star.setAttribute("height", "8");
+    star.style.position = "absolute";
 
     star.style.left = Math.random() * 100 + '%';
     star.style.top  = Math.random() * 30 + 'px';
@@ -1087,6 +1090,10 @@ if(starsBox){
       Math.random()*6 + 's, ' +
       Math.random()*2 + 's';
 
+    star.innerHTML = `
+      <polygon points="12,2 15,10 24,10 17,15 19,24 12,19 5,24 7,15 0,10 9,10"
+        fill="gold" stroke="orange" stroke-width="0.5"/>
+    `;
     starsBox.appendChild(star);
   }
 }
