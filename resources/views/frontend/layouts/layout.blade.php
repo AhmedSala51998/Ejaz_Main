@@ -545,6 +545,88 @@
             to { transform: rotate(360deg); }
         }
 
+
+
+
+
+        /* ================= Ramadan Decoration ================= */
+        .ramadan-decor {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        }
+
+        .lantern {
+        position: absolute;
+        top: 0;
+        width: 70px;
+        height: 110px;
+        background: radial-gradient(circle at center, #ffd27d, #f4a835);
+        border-radius: 0 0 40px 40px;
+        box-shadow: 0 0 25px rgba(244,168,53,.8);
+        animation: swing 3s ease-in-out infinite;
+        }
+
+        .lantern::before {
+        content: "";
+        position: absolute;
+        top: -35px;
+        left: 50%;
+        width: 2px;
+        height: 35px;
+        background: #f4a835;
+        transform: translateX(-50%);
+        }
+
+        .lantern.left { left: 40px; }
+        .lantern.right { right: 40px; animation-delay: 1.5s; }
+
+        @keyframes swing {
+        0%,100% { transform: rotate(5deg); }
+        50% { transform: rotate(-5deg); }
+        }
+
+        .moon {
+        position: absolute;
+        top: 80px;
+        right: 50%;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        box-shadow: -18px 0 0 0 #f4a835;
+        animation: glow 2.5s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+        0%,100% { opacity: .8; }
+        50% { opacity: 1; }
+        }
+
+        .stars span {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #ffd27d;
+        border-radius: 50%;
+        animation: twinkle 2s infinite ease-in-out;
+        }
+
+        .stars span:nth-child(1){ top:120px; left:30%; animation-delay:0s; }
+        .stars span:nth-child(2){ top:160px; left:60%; animation-delay:.6s; }
+        .stars span:nth-child(3){ top:100px; left:70%; animation-delay:1.2s; }
+        .stars span:nth-child(4){ top:180px; left:45%; animation-delay:1.8s; }
+
+        @keyframes twinkle {
+        0%,100% { opacity:.3; transform: scale(1); }
+        50% { opacity:1; transform: scale(1.6); }
+        }
+
+        @media (max-width:768px){
+        .lantern{ width:50px; height:80px; }
+        .moon{ width:60px; height:60px; }
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -562,7 +644,17 @@
 </head>
 
 <body>
+<!-- Ramadan Decoration -->
+<div class="ramadan-decor">
+  <div class="lantern left"></div>
+  <div class="lantern right"></div>
 
+  <div class="moon"></div>
+
+  <div class="stars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+</div>
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
