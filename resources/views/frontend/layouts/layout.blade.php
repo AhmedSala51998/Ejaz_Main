@@ -593,20 +593,15 @@
         }
 
         /* Stars */
-        .stars{
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        }
-
         .star{
         position: absolute;
-        width: 3px;
-        height: 3px;
-        background: #ffd27d;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, #fff 0%, #ffd27d 40%, transparent 70%);
         border-radius: 50%;
         opacity: 0;
-        animation: fall linear infinite;
+        filter: drop-shadow(0 0 6px #ffd27d);
+        animation: fall 5s linear infinite, twinkle 1.5s ease-in-out infinite;
         }
 
         @keyframes fall{
@@ -619,6 +614,17 @@
         100%{
             transform: translateY(140px);
             opacity: 0;
+        }
+        }
+
+        @keyframes twinkle{
+        0%,100%{
+            opacity: .4;
+            transform: scale(1);
+        }
+        50%{
+            opacity: 1;
+            transform: scale(1.6);
         }
         }
 
