@@ -593,64 +593,38 @@
         }
 
         /* Stars */
-        .stars{
+        .star {
         position: absolute;
-        top: -40px; /* تبدأ من فوق */
-        left: 0;
-        width: 100%;
-        height: 260px; /* أطول */
-        overflow: hidden;
-        z-index: 1;
-        }
-
-        .star{
-        position: absolute;
-        width: 6px;
-        height: 6px;
-
-        background: radial-gradient(
-            circle,
-            #ffffff 0%,
-            #ffd27d 35%,
-            rgba(255,210,125,.2) 55%,
-            transparent 70%
-        );
-
-        border-radius: 50%;
-        filter:
-            drop-shadow(0 0 8px rgba(255,210,125,.9))
-            drop-shadow(0 0 14px rgba(244,168,53,.6));
-
+        width: 8px;
+        height: 8px;
+        transform-origin: center;
         opacity: 0;
-
-        animation:
-            fall 6s linear infinite,
-            twinkle 1.6s ease-in-out infinite;
+        animation: fall 6s linear infinite, twinkle 1.6s ease-in-out infinite;
         }
 
-        @keyframes fall{
-        0%{
-            transform: translateY(-60px) scale(.5);
+        @keyframes fall {
+        0% {
+            transform: translateY(-60px) scale(0.5);
             opacity: 0;
         }
-        15%{
+        15% {
             opacity: 1;
         }
-        70%{
+        70% {
             opacity: 1;
         }
-        100%{
-            transform: translateY(180px) scale(.3);
+        100% {
+            transform: translateY(180px) scale(0.3);
             opacity: 0;
         }
         }
 
-        @keyframes twinkle{
-        0%,100%{
-            opacity: .4;
-            transform: scale(.9);
+        @keyframes twinkle {
+        0%, 100% {
+            opacity: 0.4;
+            transform: scale(0.9);
         }
-        50%{
+        50% {
             opacity: 1;
             transform: scale(1.8);
         }
@@ -1081,7 +1055,7 @@ if(starsBox){
     star.setAttribute("viewBox", "0 0 24 24");
     star.setAttribute("width", "8");
     star.setAttribute("height", "8");
-    star.style.position = "absolute";
+    star.classList.add('star');
 
     star.style.left = Math.random() * 100 + '%';
     star.style.top  = Math.random() * 30 + 'px';
