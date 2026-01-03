@@ -593,26 +593,54 @@
         }
 
         /* Stars */
+        .stars{
+        position: absolute;
+        top: -40px; /* تبدأ من فوق */
+        left: 0;
+        width: 100%;
+        height: 260px; /* أطول */
+        overflow: hidden;
+        z-index: 1;
+        }
+
         .star{
         position: absolute;
-        width: 4px;
-        height: 4px;
-        background: radial-gradient(circle, #fff 0%, #ffd27d 40%, transparent 70%);
+        width: 6px;
+        height: 6px;
+
+        background: radial-gradient(
+            circle,
+            #ffffff 0%,
+            #ffd27d 35%,
+            rgba(255,210,125,.2) 55%,
+            transparent 70%
+        );
+
         border-radius: 50%;
+        filter:
+            drop-shadow(0 0 8px rgba(255,210,125,.9))
+            drop-shadow(0 0 14px rgba(244,168,53,.6));
+
         opacity: 0;
-        filter: drop-shadow(0 0 6px #ffd27d);
-        animation: fall 5s linear infinite, twinkle 1.5s ease-in-out infinite;
+
+        animation:
+            fall 6s linear infinite,
+            twinkle 1.6s ease-in-out infinite;
         }
 
         @keyframes fall{
         0%{
-            transform: translateY(-20px);
+            transform: translateY(-60px) scale(.5);
             opacity: 0;
         }
-        20%{ opacity: 1; }
-        70%{ opacity: 1; }
+        15%{
+            opacity: 1;
+        }
+        70%{
+            opacity: 1;
+        }
         100%{
-            transform: translateY(140px);
+            transform: translateY(180px) scale(.3);
             opacity: 0;
         }
         }
@@ -620,11 +648,11 @@
         @keyframes twinkle{
         0%,100%{
             opacity: .4;
-            transform: scale(1);
+            transform: scale(.9);
         }
         50%{
             opacity: 1;
-            transform: scale(1.6);
+            transform: scale(1.8);
         }
         }
 
@@ -1044,6 +1072,25 @@
 
     </div>
 </div>
+<script>
+const starsBox = document.querySelector('.stars');
+
+if(starsBox){
+  for(let i=0;i<45;i++){
+    const star = document.createElement('span');
+    star.className = 'star';
+
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top  = Math.random() * 30 + 'px';
+
+    star.style.animationDelay =
+      Math.random()*6 + 's, ' +
+      Math.random()*2 + 's';
+
+    starsBox.appendChild(star);
+  }
+}
+</script>
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c" defer></script>
 </body>
 <!--@toastr_render-->
