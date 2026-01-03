@@ -548,45 +548,84 @@
 
 
 
-        /* ===== RAMADAN SVG DECOR ===== */
+        /* ===== RAMADAN DECOR ===== */
         .ramadan-svg-decor{
         position: fixed;
         top: 85px;
         left: 0;
         width: 100%;
-        height: 180px;
+        height: 200px;
         pointer-events: none;
         z-index: 100000;
         }
 
+        /* Lanterns */
         .lantern{
         position: absolute;
         top: 0;
-        width: 80px;
+        width: 85px;
+        transform-origin: top center;
         animation: swing 4s ease-in-out infinite;
-        filter: drop-shadow(0 8px 18px rgba(244,168,53,.45));
+        filter: drop-shadow(0 10px 22px rgba(244,168,53,.45));
         }
 
-        .lantern.left{ left: 40px; transform-origin: top center; }
-        .lantern.right{ right: 40px; animation-delay:2s; transform-origin: top center; }
+        .lantern.left{ left: 25px; }
+        .lantern.right{ right: 25px; animation-delay:2s; }
 
         @keyframes swing{
         0%,100%{ transform: rotate(3deg); }
         50%{ transform: rotate(-3deg); }
         }
 
+        /* Moon */
         .moon{
         position: absolute;
-        top: 50px;
+        top: 40px;
         left: 50%;
-        width: 70px;
+        width: 80px;
         transform: translateX(-50%);
-        opacity: .9;
+        animation: moonFloat 6s ease-in-out infinite;
         }
 
+        @keyframes moonFloat{
+        0%,100%{ transform: translate(-50%,0); }
+        50%{ transform: translate(-50%,-10px); }
+        }
+
+        /* Stars */
+        .stars{
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        }
+
+        .star{
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #ffd27d;
+        border-radius: 50%;
+        opacity: 0;
+        animation: fall linear infinite;
+        }
+
+        @keyframes fall{
+        0%{
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        20%{ opacity: 1; }
+        70%{ opacity: 1; }
+        100%{
+            transform: translateY(140px);
+            opacity: 0;
+        }
+        }
+
+        /* Responsive */
         @media(max-width:768px){
-        .lantern{ width:55px; }
-        .moon{ width:50px; }
+        .lantern{ width:60px; }
+        .moon{ width:55px; }
         }
 
     </style>
@@ -606,27 +645,54 @@
 </head>
 
 <body>
-<!-- Ramadan SVG Decoration -->
-<div class="ramadan-svg-decor" id="ramadanDecor">
+<!-- RAMADAN DECOR -->
+<div class="ramadan-svg-decor">
+
+  <!-- Stars -->
+  <div class="stars"></div>
 
   <!-- Left Lantern -->
-  <svg class="lantern left" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
-    <line x1="60" y1="0" x2="60" y2="40" stroke="#c47a00" stroke-width="4"/>
-    <rect x="25" y="40" width="70" height="110" rx="18" fill="#f4a835"/>
-    <rect x="35" y="55" width="50" height="80" rx="10" fill="#ffd27d"/>
+  <svg class="lantern left" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
+    <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
+    <path d="M55 35 L105 35 L120 60 H40 Z" fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
+    <path d="M35 60 Q80 35 125 60 V165 Q80 195 35 165 Z"
+          fill="#f4a835" stroke="#b17819" stroke-width="4"/>
+    <path d="M55 75 Q80 60 105 75 V150 Q80 165 55 150 Z"
+          fill="#fff1c1" opacity=".9"/>
+    <path d="M35 80 Q50 70 65 80 V145 Q50 155 35 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M95 80 Q110 70 125 80 V145 Q110 155 95 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M45 165 H115 L100 195 H60 Z"
+          fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
   <!-- Moon -->
-  <svg class="moon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="35" fill="#f4a835"/>
-    <circle cx="62" cy="45" r="35" fill="#ffffff"/>
+  <svg class="moon" viewBox="0 0 120 120">
+    <defs>
+      <radialGradient id="moonGlow">
+        <stop offset="0%" stop-color="#fff7d6"/>
+        <stop offset="100%" stop-color="#f4a835"/>
+      </radialGradient>
+    </defs>
+    <circle cx="60" cy="60" r="40" fill="url(#moonGlow)"/>
+    <circle cx="72" cy="52" r="40" fill="#ffffff"/>
   </svg>
 
   <!-- Right Lantern -->
-  <svg class="lantern right" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
-    <line x1="60" y1="0" x2="60" y2="40" stroke="#c47a00" stroke-width="4"/>
-    <rect x="25" y="40" width="70" height="110" rx="18" fill="#f4a835"/>
-    <rect x="35" y="55" width="50" height="80" rx="10" fill="#ffd27d"/>
+  <svg class="lantern right" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
+    <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
+    <path d="M55 35 L105 35 L120 60 H40 Z" fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
+    <path d="M35 60 Q80 35 125 60 V165 Q80 195 35 165 Z"
+          fill="#f4a835" stroke="#b17819" stroke-width="4"/>
+    <path d="M55 75 Q80 60 105 75 V150 Q80 165 55 150 Z"
+          fill="#fff1c1" opacity=".9"/>
+    <path d="M35 80 Q50 70 65 80 V145 Q50 155 35 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M95 80 Q110 70 125 80 V145 Q110 155 95 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M45 165 H115 L100 195 H60 Z"
+          fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
 </div>
