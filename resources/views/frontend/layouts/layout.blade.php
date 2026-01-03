@@ -549,82 +549,88 @@
 
 
 
-        /* ================= Ramadan Decoration ================= */
-        .ramadan-decor {
-        pointer-events: none;
+        /* ================= RAMADAN DECOR ================= */
+        .ramadan-top-decor{
         position: fixed;
-        inset: 0;
-        z-index: 9999;
-        }
-
-        .lantern {
-        position: absolute;
         top: 0;
-        width: 70px;
-        height: 110px;
-        background: radial-gradient(circle at center, #ffd27d, #f4a835);
-        border-radius: 0 0 40px 40px;
-        box-shadow: 0 0 25px rgba(244,168,53,.8);
-        animation: swing 3s ease-in-out infinite;
+        left: 0;
+        width: 100%;
+        height: 160px;
+        pointer-events: none;
+        z-index: 999;
+        overflow: hidden;
         }
 
-        .lantern::before {
-        content: "";
+        .ramadan-piece{
         position: absolute;
-        top: -35px;
-        left: 50%;
-        width: 2px;
-        height: 35px;
-        background: #f4a835;
-        transform: translateX(-50%);
+        top: -40px;
+        width: 140px;
+        height: 190px;
+        background: linear-gradient(180deg,#ffd27d,#f4a835,#e18b00);
+        border-radius: 0 0 90px 90px;
+        box-shadow: 0 18px 35px rgba(244,168,53,.35);
+        animation: ramadanFloat 4s ease-in-out infinite;
         }
 
-        .lantern.left { left: 40px; }
-        .lantern.right { right: 40px; animation-delay: 1.5s; }
+        .ramadan-piece.left{ left:-35px; }
+        .ramadan-piece.right{ right:-35px; animation-delay:2s; }
 
-        @keyframes swing {
-        0%,100% { transform: rotate(5deg); }
-        50% { transform: rotate(-5deg); }
+        @keyframes ramadanFloat{
+        0%,100%{ transform: translateY(0) rotate(2deg); }
+        50%{ transform: translateY(10px) rotate(-2deg); }
         }
 
-        .moon {
+        .lantern{
         position: absolute;
-        top: 80px;
-        right: 50%;
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        box-shadow: -18px 0 0 0 #f4a835;
-        animation: glow 2.5s ease-in-out infinite;
+        top: 10px;
+        width: 46px;
+        height: 70px;
+        background: radial-gradient(circle,#fff1c1,#f4a835);
+        border-radius: 0 0 25px 25px;
+        box-shadow: 0 0 20px rgba(244,168,53,.8);
+        animation: lanternSwing 3s ease-in-out infinite;
         }
 
-        @keyframes glow {
-        0%,100% { opacity: .8; }
-        50% { opacity: 1; }
+        .lantern::before{
+        content:"";
+        position:absolute;
+        top:-25px;
+        left:50%;
+        width:2px;
+        height:25px;
+        background:#f4a835;
+        transform:translateX(-50%);
         }
 
-        .stars span {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        background: #ffd27d;
-        border-radius: 50%;
-        animation: twinkle 2s infinite ease-in-out;
+        .lantern.l1{ left:25%; }
+        .lantern.l2{ right:25%; animation-delay:1.5s; }
+
+        @keyframes lanternSwing{
+        0%,100%{ transform: rotate(4deg); }
+        50%{ transform: rotate(-4deg); }
         }
 
-        .stars span:nth-child(1){ top:120px; left:30%; animation-delay:0s; }
-        .stars span:nth-child(2){ top:160px; left:60%; animation-delay:.6s; }
-        .stars span:nth-child(3){ top:100px; left:70%; animation-delay:1.2s; }
-        .stars span:nth-child(4){ top:180px; left:45%; animation-delay:1.8s; }
-
-        @keyframes twinkle {
-        0%,100% { opacity:.3; transform: scale(1); }
-        50% { opacity:1; transform: scale(1.6); }
+        .ramadan-moon{
+        position:absolute;
+        top:55px;
+        left:50%;
+        width:70px;
+        height:70px;
+        border-radius:50%;
+        box-shadow:-14px 0 0 #f4a835;
+        transform:translateX(-50%);
+        animation: moonGlow 2.5s ease-in-out infinite;
         }
 
-        @media (max-width:768px){
-        .lantern{ width:50px; height:80px; }
-        .moon{ width:60px; height:60px; }
+        @keyframes moonGlow{
+        0%,100%{ opacity:.7; }
+        50%{ opacity:1; }
+        }
+
+        @media(max-width:768px){
+        .ramadan-piece{ width:90px; height:120px; }
+        .lantern{ width:34px; height:52px; }
+        .ramadan-moon{ width:50px; height:50px; }
         }
 
     </style>
@@ -645,15 +651,16 @@
 
 <body>
 <!-- Ramadan Decoration -->
-<div class="ramadan-decor">
-  <div class="lantern left"></div>
-  <div class="lantern right"></div>
+<div class="ramadan-top-decor" id="ramadanDecor">
+  <div class="ramadan-piece left"></div>
+  <div class="ramadan-piece right"></div>
 
-  <div class="moon"></div>
+  <!-- Lanterns -->
+  <div class="lantern l1"></div>
+  <div class="lantern l2"></div>
 
-  <div class="stars">
-    <span></span><span></span><span></span><span></span>
-  </div>
+  <!-- Moon -->
+  <div class="ramadan-moon"></div>
 </div>
 <!-- custom cursor  -->
 <div class="customCursor"></div>
