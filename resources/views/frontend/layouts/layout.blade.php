@@ -548,89 +548,45 @@
 
 
 
-
-        /* ================= RAMADAN DECOR ================= */
-        .ramadan-top-decor{
+        /* ===== RAMADAN SVG DECOR ===== */
+        .ramadan-svg-decor{
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 160px;
+        height: 180px;
         pointer-events: none;
         z-index: 999;
-        overflow: hidden;
-        }
-
-        .ramadan-piece{
-        position: absolute;
-        top: -40px;
-        width: 140px;
-        height: 190px;
-        background: linear-gradient(180deg,#ffd27d,#f4a835,#e18b00);
-        border-radius: 0 0 90px 90px;
-        box-shadow: 0 18px 35px rgba(244,168,53,.35);
-        animation: ramadanFloat 4s ease-in-out infinite;
-        }
-
-        .ramadan-piece.left{ left:-35px; }
-        .ramadan-piece.right{ right:-35px; animation-delay:2s; }
-
-        @keyframes ramadanFloat{
-        0%,100%{ transform: translateY(0) rotate(2deg); }
-        50%{ transform: translateY(10px) rotate(-2deg); }
         }
 
         .lantern{
         position: absolute;
-        top: 10px;
-        width: 46px;
-        height: 70px;
-        background: radial-gradient(circle,#fff1c1,#f4a835);
-        border-radius: 0 0 25px 25px;
-        box-shadow: 0 0 20px rgba(244,168,53,.8);
-        animation: lanternSwing 3s ease-in-out infinite;
+        top: 0;
+        width: 80px;
+        animation: swing 4s ease-in-out infinite;
+        filter: drop-shadow(0 8px 18px rgba(244,168,53,.45));
         }
 
-        .lantern::before{
-        content:"";
-        position:absolute;
-        top:-25px;
-        left:50%;
-        width:2px;
-        height:25px;
-        background:#f4a835;
-        transform:translateX(-50%);
+        .lantern.left{ left: 40px; transform-origin: top center; }
+        .lantern.right{ right: 40px; animation-delay:2s; transform-origin: top center; }
+
+        @keyframes swing{
+        0%,100%{ transform: rotate(3deg); }
+        50%{ transform: rotate(-3deg); }
         }
 
-        .lantern.l1{ left:25%; }
-        .lantern.l2{ right:25%; animation-delay:1.5s; }
-
-        @keyframes lanternSwing{
-        0%,100%{ transform: rotate(4deg); }
-        50%{ transform: rotate(-4deg); }
-        }
-
-        .ramadan-moon{
-        position:absolute;
-        top:55px;
-        left:50%;
-        width:70px;
-        height:70px;
-        border-radius:50%;
-        box-shadow:-14px 0 0 #f4a835;
-        transform:translateX(-50%);
-        animation: moonGlow 2.5s ease-in-out infinite;
-        }
-
-        @keyframes moonGlow{
-        0%,100%{ opacity:.7; }
-        50%{ opacity:1; }
+        .moon{
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        width: 70px;
+        transform: translateX(-50%);
+        opacity: .9;
         }
 
         @media(max-width:768px){
-        .ramadan-piece{ width:90px; height:120px; }
-        .lantern{ width:34px; height:52px; }
-        .ramadan-moon{ width:50px; height:50px; }
+        .lantern{ width:55px; }
+        .moon{ width:50px; }
         }
 
     </style>
@@ -650,17 +606,29 @@
 </head>
 
 <body>
-<!-- Ramadan Decoration -->
-<div class="ramadan-top-decor" id="ramadanDecor">
-  <div class="ramadan-piece left"></div>
-  <div class="ramadan-piece right"></div>
+<!-- Ramadan SVG Decoration -->
+<div class="ramadan-svg-decor" id="ramadanDecor">
 
-  <!-- Lanterns -->
-  <div class="lantern l1"></div>
-  <div class="lantern l2"></div>
+  <!-- Left Lantern -->
+  <svg class="lantern left" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+    <line x1="60" y1="0" x2="60" y2="40" stroke="#c47a00" stroke-width="4"/>
+    <rect x="25" y="40" width="70" height="110" rx="18" fill="#f4a835"/>
+    <rect x="35" y="55" width="50" height="80" rx="10" fill="#ffd27d"/>
+  </svg>
 
   <!-- Moon -->
-  <div class="ramadan-moon"></div>
+  <svg class="moon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="35" fill="#f4a835"/>
+    <circle cx="62" cy="45" r="35" fill="#ffffff"/>
+  </svg>
+
+  <!-- Right Lantern -->
+  <svg class="lantern right" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+    <line x1="60" y1="0" x2="60" y2="40" stroke="#c47a00" stroke-width="4"/>
+    <rect x="25" y="40" width="70" height="110" rx="18" fill="#f4a835"/>
+    <rect x="35" y="55" width="50" height="80" rx="10" fill="#ffd27d"/>
+  </svg>
+
 </div>
 <!-- custom cursor  -->
 <div class="customCursor"></div>
