@@ -551,7 +551,7 @@
         /* ===== RAMADAN SVG DECOR ===== */
         .ramadan-svg-decor{
         position: fixed;
-        top: 100px;
+        top: 80px;
         left: 0;
         width: 100%;
         height: 180px;
