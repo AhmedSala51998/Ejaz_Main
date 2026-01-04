@@ -683,21 +683,21 @@
     <!-- Flags -->
     <g>
       <!-- Yellow -->
-      <polygon points="300,80 340,80 320,120" fill="#f7c400"/>
-      <polygon points="380,80 420,80 400,120" fill="#4fc3f7"/>
-      <polygon points="460,80 500,80 480,120" fill="#7cb342"/>
-      <polygon points="540,80 580,80 560,120" fill="#f7c400"/>
-      <polygon points="620,80 660,80 640,120" fill="#4fc3f7"/>
-      <polygon points="700,80 740,80 720,120" fill="#7cb342"/>
-      <polygon points="780,80 820,80 800,120" fill="#f7c400"/>
-      <polygon points="860,80 900,80 880,120" fill="#4fc3f7"/>
-      <polygon points="940,80 980,80 960,120" fill="#7cb342"/>
-      <polygon points="1020,80 1060,80 1040,120" fill="#f7c400"/>
-      <polygon points="1100,80 1140,80 1120,120" fill="#4fc3f7"/>
-      <polygon points="1180,80 1220,80 1200,120" fill="#7cb342"/>
-      <polygon points="1260,80 1300,80 1280,120" fill="#f7c400"/>
-      <polygon points="1340,80 1380,80 1360,120" fill="#4fc3f7"/>
-      <polygon points="1420,80 1460,80 1440,120" fill="#7cb342"/>
+    <polygon points="300,70 340,70 320,130" fill="#f7c400"/>
+    <polygon points="380,72 420,72 400,134" fill="#4fc3f7"/>
+    <polygon points="460,74 500,74 480,140" fill="#7cb342"/>
+    <polygon points="540,95 580,95 560,147" fill="#f7c400"/>
+    <polygon points="620,102 660,102 640,154" fill="#4fc3f7"/>
+    <polygon points="700,108 740,108 720,160" fill="#7cb342"/>
+    <polygon points="780,112 820,112 800,164" fill="#f7c400"/>
+    <polygon points="860,108 900,108 880,160" fill="#4fc3f7"/>
+    <polygon points="940,102 980,102 960,154" fill="#7cb342"/>
+    <polygon points="1020,95 1060,95 1040,147" fill="#f7c400"/>
+    <polygon points="1100,88 1140,88 1120,140" fill="#4fc3f7"/>
+    <polygon points="1180,82 1220,82 1200,134" fill="#7cb342"/>
+    <polygon points="1260,78 1300,78 1280,130" fill="#f7c400"/>
+    <polygon points="1340,75 1380,75 1360,127" fill="#4fc3f7"/>
+    <polygon points="1420,78 1460,78 1440,130" fill="#7cb342"/>
     </g>
 
     <!-- Stars -->
