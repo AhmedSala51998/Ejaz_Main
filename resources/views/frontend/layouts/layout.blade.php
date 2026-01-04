@@ -673,7 +673,7 @@
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
-  <svg class="moon" viewBox="0 0 120 120">
+  <!--<svg class="moon" viewBox="0 0 120 120">
     <defs>
       <radialGradient id="moonGlow">
         <stop offset="0%" stop-color="#fff7d6"/>
@@ -681,7 +681,34 @@
       </radialGradient>
     </defs>
     <circle cx="60" cy="60" r="40" fill="url(#moonGlow)"/>
-    <!--<circle cx="72" cy="52" r="40" fill="#ffffff"/>-->
+    <circle cx="72" cy="52" r="40" fill="#ffffff"/>
+  </svg>-->
+
+  <svg class="moon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="moonGlow">
+        <stop offset="0%" stop-color="#fff7d6"/>
+        <stop offset="100%" stop-color="#f4a835"/>
+        </radialGradient>
+
+        <!-- Mask for crescent -->
+        <mask id="crescentMask">
+        <!-- visible area -->
+        <rect width="120" height="120" fill="black"/>
+        <circle cx="60" cy="60" r="40" fill="white"/>
+        <!-- cut-out part -->
+        <circle cx="72" cy="52" r="40" fill="black"/>
+        </mask>
+    </defs>
+
+    <!-- Crescent Moon -->
+    <circle
+        cx="60"
+        cy="60"
+        r="40"
+        fill="url(#moonGlow)"
+        mask="url(#crescentMask)"
+    />
   </svg>
 
   <svg class="lantern right" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
