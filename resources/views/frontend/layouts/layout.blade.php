@@ -1115,24 +1115,20 @@ flags.forEach((flag, i) => {
   const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
   flag.setAttribute('points', points);
 
-  const duration = 3 + Math.random()*2;
-  const deltaX = 3 + Math.random()*2;
-  const deltaY = 2 + Math.random()*2;
-  const angle = 2 + Math.random()*2;
+  const angle = 2 + Math.random()*1.5;
+  const duration = 2 + Math.random()*1;
+  flag.style.transformOrigin = `${x}px ${y}px`;
+  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite alternate`;
 
   const style = document.createElement('style');
   style.innerHTML = `
     @keyframes flutter${i} {
-      0%   { transform: translate(0px,0px) rotate(0deg); }
-      25%  { transform: translate(${-deltaX}px, ${deltaY}px) rotate(${-angle}deg); }
-      50%  { transform: translate(0px,0px) rotate(0deg); }
-      75%  { transform: translate(${deltaX}px, ${-deltaY}px) rotate(${angle}deg); }
-      100% { transform: translate(0px,0px) rotate(0deg); }
+      0% { transform: rotate(${-angle}deg); }
+      50% { transform: rotate(${angle}deg); }
+      100% { transform: rotate(${-angle}deg); }
     }
   `;
   document.head.appendChild(style);
-
-  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite`;
 });
 </script>
 <script>
