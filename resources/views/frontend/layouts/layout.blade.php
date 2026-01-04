@@ -677,11 +677,14 @@
     <!-- Rope -->
     <path id="rope" d="M0 80 Q960 150 1920 80"
           stroke="#f4b400"
-          stroke-width="4"
+          stroke-width="2"
           fill="none"/>
 
     <!-- Flags -->
     <g id="flags">
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
         <polygon fill="#f7c400"/>
         <polygon fill="#4fc3f7"/>
         <polygon fill="#7cb342"/>
