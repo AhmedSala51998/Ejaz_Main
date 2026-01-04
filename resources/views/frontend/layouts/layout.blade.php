@@ -636,6 +636,61 @@
         .moon{ width:55px; }
         }
 
+        /* ===============================
+        RAMADAN STARS – PRO
+        ================================ */
+
+        .ramadan-stars{
+            position:absolute;
+            inset:0;
+            pointer-events:none;
+            overflow:hidden;
+        }
+
+        /* Star */
+        .ramadan-star{
+            position:absolute;
+            width:6px;
+            height:6px;
+            background: radial-gradient(circle,#fff8d8 0%,#f4a835 70%,transparent 100%);
+            border-radius:50%;
+            opacity:0;
+            animation: starFall linear infinite, starTwinkle ease-in-out infinite;
+        }
+
+        /* Falling */
+        @keyframes starFall{
+            0%{
+                transform:translateY(-30px) scale(.4);
+                opacity:0;
+            }
+            15%{opacity:1;}
+            70%{opacity:1;}
+            100%{
+                transform:translateY(220px) scale(.2);
+                opacity:0;
+            }
+        }
+
+        /* Twinkle */
+        @keyframes starTwinkle{
+            0%,100%{filter:brightness(.8);}
+            50%{filter:brightness(1.6);}
+        }
+
+        .moon{
+            animation: moonFloat 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px rgba(244,168,53,.55));
+        }
+        .lantern.left{
+            animation-duration:4.8s;
+        }
+
+        .lantern.right{
+            animation-duration:5.6s;
+            animation-delay:1.2s;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -656,7 +711,7 @@
 <!-- RAMADAN DECOR -->
 <div class="ramadan-svg-decor">
 
-  <div class="stars"></div>
+  <div class="ramadan-stars"></div>
 
   <svg class="lantern left" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
     <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
@@ -1043,30 +1098,31 @@
     </div>
 </div>
 <script>
-const starsBox = document.querySelector('.stars');
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector('.ramadan-stars');
+    const STAR_COUNT = 22;
 
-if(starsBox){
-  for(let i=0;i<45;i++){
-    const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    star.setAttribute("viewBox", "0 0 24 24");
-    star.setAttribute("width", "8");
-    star.setAttribute("height", "8");
-    star.classList.add('star');
+    for(let i = 0; i < STAR_COUNT; i++){
+        const star = document.createElement('span');
+        star.className = 'ramadan-star';
 
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top  = Math.random() * 30 + 'px';
+        const size = Math.random() * 5 + 4;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
 
-    star.style.animationDelay =
-      Math.random()*6 + 's, ' +
-      Math.random()*2 + 's';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * -150 + 'px';
 
-    star.innerHTML = `
-      <polygon points="12,2 15,10 24,10 17,15 19,24 12,19 5,24 7,15 0,10 9,10"
-        fill="gold" stroke="orange" stroke-width="0.5"/>
-    `;
-    starsBox.appendChild(star);
-  }
-}
+        const fallDuration = Math.random() * 4 + 5;
+        const delay = Math.random() * 6;
+
+        star.style.animationDuration =
+            `${fallDuration}s, ${Math.random() * 1.5 + 1}s`;
+        star.style.animationDelay = `${delay}s`;
+
+        container.appendChild(star);
+    }
+});
 </script>
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c" defer></script>
 </body>
