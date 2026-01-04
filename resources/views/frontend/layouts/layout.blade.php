@@ -653,7 +653,7 @@
 </head>
 
 <body>
-<!-- RAMADAN DECOR -->
+<!-- RAMADAN DECOR
 <div class="ramadan-svg-decor">
 
   <div class="stars"></div>
@@ -680,17 +680,13 @@
         <stop offset="100%" stop-color="#f4a835"/>
         </radialGradient>
 
-        <!-- Mask for crescent -->
         <mask id="crescentMask">
-        <!-- visible area -->
         <rect width="120" height="120" fill="black"/>
         <circle cx="60" cy="60" r="40" fill="white"/>
-        <!-- cut-out part -->
         <circle cx="72" cy="52" r="40" fill="black"/>
         </mask>
     </defs>
 
-    <!-- Crescent Moon -->
     <circle
         cx="60"
         cy="60"
@@ -715,7 +711,7 @@
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
-</div>
+</div>-->
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
