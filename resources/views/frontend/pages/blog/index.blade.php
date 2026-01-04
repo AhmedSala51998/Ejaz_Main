@@ -335,6 +335,24 @@ body {
     color:#777;
     margin-top:10px;
 }
+
+.mag-card {
+    position: relative;
+}
+
+.mag-card .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+}
+
+.mag-card a {
+    text-decoration: none;
+}
+
+.mag-card:hover {
+    transform: translateY(-4px);
+}
 </style>
 @endsection
 
@@ -387,26 +405,25 @@ body {
                 @if($normalBlogs->count())
                     <section class="magazine-grid">
                          @foreach($normalBlogs as $blog)
-                            <a href="{{ route('blog.show', $blog->slug) }}">
-                                <article class="mag-card">
-                                    <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
-                                        alt="{{ $blog->title }}">
+                            <article class="mag-card">
+                                <a href="{{ route('blog.show', $blog->slug) }}" class="card-link"></a>
+                                <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
+                                    alt="{{ $blog->title }}">
 
-                                    <div class="mag-content">
-                                        <span>
-                                            <i class="fa fa-calendar"></i>
-                                            {{ $blog->created_at->translatedFormat('d F Y') }}
-                                        </span>
+                                <div class="mag-content">
+                                    <span>
+                                        <i class="fa fa-calendar"></i>
+                                        {{ $blog->created_at->translatedFormat('d F Y') }}
+                                    </span>
 
-                                        <h3>{{ $blog->title }}</h3>
-                                        <p>{{ $blog->excerpt }}</p>
+                                    <h3>{{ $blog->title }}</h3>
+                                    <p>{{ $blog->excerpt }}</p>
 
-                                        <a href="{{ route('blog.show', $blog->slug) }}">
-                                            قراءة المقال →
-                                        </a>
-                                    </div>
-                                </article>
-                            </a>
+                                    <a href="{{ route('blog.show', $blog->slug) }}">
+                                        قراءة المقال →
+                                    </a>
+                                </div>
+                            </article>
                         @endforeach
                     </section>
                 @endif
