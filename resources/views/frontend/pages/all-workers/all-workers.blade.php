@@ -538,6 +538,240 @@
             margin-bottom: 10px;
         }
 
+        /*New Filter Design */
+        .filter-wrapper {
+            width: 100%;
+            padding: 0;
+        }
+        .horizontal-filter {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            margin-top:20px
+        }
+
+        .horizontal-filter .filter-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .horizontal-filter .form-select {
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            transition: 0.3s;
+        }
+
+        .horizontal-filter .form-select:focus {
+            border-color: #f4a835;
+            box-shadow: 0 0 0 3px rgba(244,168,53,0.15);
+        }
+
+        .btn-confirm {
+            background: #f4a835;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+
+        .btn-clear {
+            background: #3d3d3d;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+        .horizontal-filter .btn-filter {
+            height: 44px;
+            min-width: 110px;
+            padding: 0 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+        /* ===== Container & Form Styling ===== */
+        .horizontal-filter .form-select {
+            width: 100%;
+            padding: 10px 15px 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            direction: rtl;
+        }
+
+        .horizontal-filter .form-select::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid #555;
+            border-bottom: 2px solid #555;
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .horizontal-filter .form-select:focus,
+        .horizontal-filter .form-select.open {
+            border-color: #D89835;
+            box-shadow: 0 4px 8px rgba(216, 152, 53, 0.2);
+            outline: none;
+        }
+
+        .horizontal-filter .form-select:focus::after,
+        .horizontal-filter .form-select.open::after {
+            transform: translateY(-50%) rotate(135deg);
+        }
+
+        /* ===== Placeholder styling ===== */
+        .horizontal-filter .form-select option:first-child {
+            color: #999;
+        }
+
+        /* ===== Hover effect ===== */
+        .horizontal-filter .form-select:hover {
+            border-color: #D89835;
+        }
+
+
+        /* ==== Custom Select Styling ==== */
+        .custom-select-wrapper {
+        width: 100%;
+        position: relative;
+        font-family: Arial, sans-serif;
+        direction: rtl;
+        margin-bottom: 10px;
+        }
+
+        .custom-select label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        }
+
+        .custom-select {
+        position: relative;
+        cursor: pointer;
+        }
+
+        .select-trigger {
+        background: #fff;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+        }
+
+        .select-trigger .arrow {
+        width: 12px;
+        height: 12px;
+        border-right: 2px solid #555;
+        border-bottom: 2px solid #555;
+        transform: rotate(45deg);
+        transition: all 0.3s;
+        }
+
+        .custom-select.open .select-trigger {
+        border-color: #D89835;
+        box-shadow: 0 4px 8px rgba(216, 152, 53, 0.2);
+        }
+
+        .custom-select.open .arrow {
+        transform: rotate(-135deg);
+        }
+
+        .options {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background: #fff;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+        z-index: 100;
+        }
+
+        .custom-select.open .options {
+        display: block;
+        }
+
+        .option {
+        padding: 10px 15px;
+        transition: all 0.2s;
+        }
+
+        .option:hover {
+        background-color: #f3f3f3;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: "\25BC";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .select-wrapper.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            padding: 10px 15px 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            background-image: none !important;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .select-wrapper select option {
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .select-wrapper select option:hover {
+            background-color: #f0f0f0;
+        }
+
     </style>
 
 @endsection
@@ -692,6 +926,136 @@
     </div>
 </div>
 
+{{-- Desktop Horizontal Filter --}}
+<div class="container-fluid d-none d-lg-block mb-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="filter-wrapper">
+            <form id="desktopFilterForm" class="horizontal-filter" method="get"
+                action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}">
+
+                <div class="row g-3 align-items-end">
+
+                    {{-- Nationality --}}
+                    <div class="col">
+                        <label class="filter-label">الجنسية</label>
+                        <div class="select-wrapper">
+                            <select name="nationality" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($nationalities as $n)
+                                    <option value="{{ $n->id }}"
+                                        {{ request('nationality') == $n->id ? 'selected' : '' }}>
+                                        {{ trans($n->title) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Job --}}
+                    <div class="col">
+                        <label class="filter-label">المهنة</label>
+                        <div class="select-wrapper">
+                            <select name="job" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($jobs as $j)
+                                    <option value="{{ $j->id }}"
+                                        {{ request('job') == $j->id ? 'selected' : '' }}>
+                                        {{ trans($j->title) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Age --}}
+                    <div class="col">
+                        <label class="filter-label">العمر</label>
+                        <div class="select-wrapper">
+                            <select name="age" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($ages as $age)
+                                    <option value="{{ $age->id }}"
+                                        {{ request('age') == $age->id ? 'selected' : '' }}>
+                                        من {{ $age->from }} إلى {{ $age->to }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Religion --}}
+                    <div class="col">
+                        <label class="filter-label">الديانة</label>
+                        <div class="select-wrapper">
+                            <select name="religion" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($religions as $r)
+                                    <option value="{{ $r->id }}"
+                                        {{ request('religion') == $r->id ? 'selected' : '' }}>
+                                        {{ trans($r->title) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Social --}}
+                    <div class="col">
+                        <label class="filter-label">الحالة الاجتماعية</label>
+                        <div class="select-wrapper">
+                            <select name="social" class="form-select">
+                                <option value="">الكل</option>
+                                @foreach($social_types as $s)
+                                    <option value="{{ $s->id }}"
+                                        {{ request('social') == $s->id ? 'selected' : '' }}>
+                                        {{ trans($s->title) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- Experience --}}
+                    @if(!isset($transfer) && !isset($rental))
+                    <div class="col">
+                        <label class="filter-label">الخبرة</label>
+                        <div class="select-wrapper">
+                            <select name="type_of_experience" class="form-select">
+                                <option value="">الكل</option>
+                                <option value="new"
+                                    {{ request('type_of_experience') == 'new' ? 'selected' : '' }}>
+                                    قادم جديد
+                                </option>
+                                <option value="with_experience"
+                                    {{ request('type_of_experience') == 'with_experience' ? 'selected' : '' }}>
+                                    خبرة سابقة
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    {{-- Buttons --}}
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-confirm btn-filter">
+                            تأكيد
+                        </button>
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-clear btn-filter" id="desktopReset">
+                            مسح
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
 <section class="workers-section">
     <div class="container-fluid">
 
@@ -703,7 +1067,7 @@
         </div>
         <div class="row">
 
-            <div class="col-lg-3 d-none d-lg-block">
+            <!--<div class="col-lg-3 d-none d-lg-block">
                 <div class="side-bar">
                     <h4 style="margin-bottom:10px;border-bottom:1px solid #f4a835">{{__('frontend.advanced search')}}</h4>
                     <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}" method="get">
@@ -833,10 +1197,10 @@
                     </form>
 
                 </div>
-            </div>
+            </div>-->
 
 
-            <div class="col-lg-9 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <div class="workers-list" id="hereWillDisplayAllWorker">
                     @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs])
                 </div>
@@ -882,14 +1246,37 @@
     var urlSegments = window.location.pathname.split('/').filter(s => s.length > 0);
     var nationalityIdFromUrl = urlSegments[1] || '';
 
+    function getNationalityFromUrl() {
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        return segments.length > 1 ? segments[segments.length - 1] : '';
+    }
+
+    $(document).ready(function () {
+        const nationalityFromUrl = getNationalityFromUrl();
+
+        if (nationalityFromUrl) {
+
+            // Desktop select
+            $('select[name="nationality"]').val(nationalityFromUrl);
+
+            // Mobile & sidebar radios
+            $('input[name="nationality"][value="' + nationalityFromUrl + '"]').prop('checked', true);
+        }
+    });
+
     function getFilters() {
+        const nationalityFromUrl = getNationalityFromUrl();
+
         return {
-            age: $('input[name="age"]:checked').val() || '',
-            job: $('input[name="job"]:checked').val() || '',
-            nationality: $('input[name="nationality"]:checked').val() || '',
-            religion: $('input[name="religion"]:checked').val() || '',
-            social: $('input[name="social"]:checked').val() || '',
-            type_of_experience: $('input[name="type_of_experience"]:checked').val() || ''
+            age: $('input[name="age"]:checked, select[name="age"]').val() || '',
+            job: $('input[name="job"]:checked, select[name="job"]').val() || '',
+            nationality:
+                $('input[name="nationality"]:checked, select[name="nationality"]').val()
+                || nationalityFromUrl
+                || '',
+            religion: $('input[name="religion"]:checked, select[name="religion"]').val() || '',
+            social: $('input[name="social"]:checked, select[name="social"]').val() || '',
+            type_of_experience: $('input[name="type_of_experience"]:checked, select[name="type_of_experience"]').val() || ''
         };
     }
 
@@ -1070,6 +1457,20 @@ document.addEventListener('DOMContentLoaded', function () {
         collapse.addEventListener('hidden.bs.collapse', updateIcons);
     });
 });
+
+$('#desktopReset').on('click', function () {
+    $('#desktopFilterForm select').val('');
+    $('.searchWorkerBtn').trigger('click');
+});
+document.querySelectorAll('.select-wrapper select').forEach(select => {
+    select.addEventListener('focus', () => {
+        select.parentElement.classList.add('open');
+    });
+    select.addEventListener('blur', () => {
+        select.parentElement.classList.remove('open');
+    });
+});
+
 </script>
 
 
