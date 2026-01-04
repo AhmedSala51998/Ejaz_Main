@@ -671,9 +671,14 @@
 <body>
 <!-- RAMADAN BUNTING DECOR -->
 <div class="ramadan-top-decor">
-    <svg viewBox="0 0 1920 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 1920 180" preserveAspectRatio="none"
+       xmlns="http://www.w3.org/2000/svg">
+
     <!-- Rope -->
-    <path id="rope" d="M0 70 Q960 140 1920 70" stroke="#f4b400" stroke-width="4" fill="none"/>
+    <path d="M0 80 Q960 150 1920 80"
+          stroke="#f4b400"
+          stroke-width="4"
+          fill="none"/>
 
     <!-- Flags -->
     <g id="flags">
@@ -693,7 +698,19 @@
         <polygon fill="#4fc3f7"/>
         <polygon fill="#7cb342"/>
     </g>
-    </svg>
+
+    <!-- Stars -->
+    <g fill="#f7c400">
+      <circle cx="350" cy="55" r="4"/>
+      <circle cx="520" cy="45" r="3"/>
+      <circle cx="690" cy="55" r="4"/>
+      <circle cx="860" cy="45" r="3"/>
+      <circle cx="1030" cy="55" r="4"/>
+      <circle cx="1200" cy="45" r="3"/>
+      <circle cx="1370" cy="55" r="4"/>
+    </g>
+
+  </svg>
 </div>
 <!-- RAMADAN DECOR -->
 <div class="ramadan-svg-decor">
