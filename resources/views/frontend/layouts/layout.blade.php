@@ -277,7 +277,6 @@
             gap: 10px;
         }
 
-        /* مربعات اللوجو */
         .square {
             width: 60px;
             height: 60px;
@@ -295,14 +294,12 @@
             cursor: default;
         }
 
-        /* تأخيرات متتابعة لكل مربع */
         .square:nth-child(1) { animation-delay: 0s; }
         .square:nth-child(2) { animation-delay: 0.3s; }
         .square:nth-child(3) { animation-delay: 0.6s; }
         .square:nth-child(4) { animation-delay: 0.9s; }
         .square:nth-child(5) { animation-delay: 1.2s; }
 
-        /* حركة النبض والتباعد */
         @keyframes pulseMove {
             0%, 100% {
             transform: translateY(0) scale(1);
@@ -317,7 +314,7 @@
         }
 
         .cute-alert .alert-container.success {
-            background-color: #f4a835 !important; /* برتقالي */
+            background-color: #f4a835 !important;
             color: #fff !important;
         }
 
@@ -347,7 +344,6 @@
             animation: fadeInBg 0.6s ease forwards;
             }
 
-            /* محتوى المودال */
             .city-modal-content {
             background: linear-gradient(145deg, #fff, #f8f8f8);
             border-radius: 30px;
@@ -363,7 +359,6 @@
             overflow: hidden;
             }
 
-            /* تأثير خفيف من الأعلى */
             .city-modal-content::before {
             content: "";
             position: absolute;
@@ -376,7 +371,6 @@
             z-index: 0;
             }
 
-            /* العنوان */
             .city-modal-content h2 {
             font-size: 1.4rem;
             margin-bottom: 30px;
@@ -391,7 +385,6 @@
             font-weight: 700;
             }
 
-            /* السهم المتحرك */
             .arrow-icon {
             color: #ff8800;
             font-size: 20px;
@@ -404,7 +397,6 @@
             50% { transform: translateY(-8px); }
             }
 
-            /* شبكة الكروت */
             .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -414,7 +406,6 @@
             position: relative;
             }
 
-            /* تصميم الكرت */
             .card {
             width: 170px;
             height: 130px;
@@ -448,13 +439,11 @@
             left: 125%;
             }
 
-            /* تأثير التحويم */
             .card:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 35px rgba(255,136,0,0.4);
             }
 
-            /* الأيقونات */
             .card i {
             font-size: 48px;
             margin-bottom: 10px;
@@ -464,7 +453,6 @@
             transform: scale(1.15);
             }
 
-            /* الموقع */
             .location-icon {
             animation: bounce 1.5s infinite;
             }
@@ -484,7 +472,6 @@
             }
             }
 
-            /* أنيميشن الظهور */
             @keyframes fadeInBg {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -507,7 +494,6 @@
         to { transform: rotate(360deg); }
         }*/
 
-        /* شبكة الكروت الافتراضية */
         .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -517,14 +503,13 @@
             position: relative;
         }
 
-        /* Responsive: على الشاشات الصغيرة بوكسين في الصف */
         @media (max-width: 600px) {
             .cards {
-                grid-template-columns: repeat(2, 1fr); /* 2 كرت في الصف */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
             .card {
-                width: 100%; /* يملأ العمود */
+                width: 100%;
                 height: 115px;
             }
             .city-modal-content {
@@ -677,7 +662,7 @@
     <!-- Rope -->
     <path id="rope" d="M0 80 Q960 150 1920 80"
           stroke="#f4b400"
-          stroke-width="2"
+          stroke-width="1"
           fill="none"/>
 
     <!-- Flags -->
@@ -974,7 +959,6 @@
                 ob.html(`{{__('frontend.Recruitment Request')}} <i class="fa-solid fa-briefcase ms-2"></i>`);
 
                 let orderCode = data.order_code || '';
-                                // تشغيل صوت النجاح
                 let sound = document.getElementById('successSound');
                 if (sound) sound.play();
 
@@ -1119,7 +1103,7 @@
 <script>
 const rope = document.getElementById('rope');
 const flags = document.querySelectorAll('#flags polygon');
-const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420];
+const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420,1500,1580,1660];
 const baseOffset = 50;
 
 flags.forEach((flag, i) => {
@@ -1131,14 +1115,14 @@ flags.forEach((flag, i) => {
   const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
   flag.setAttribute('points', points);
 
-  const angle = Math.random() * 10 + 5;
-  const duration = Math.random() * 2 + 2;
+  const angle = 2 + Math.random()*1.5;
+  const duration = 2 + Math.random()*1;
   flag.style.transformOrigin = `${x}px ${y}px`;
-  flag.style.animation = `swing${i} ${duration}s ease-in-out infinite alternate`;
+  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite alternate`;
 
   const style = document.createElement('style');
   style.innerHTML = `
-    @keyframes swing${i} {
+    @keyframes flutter${i} {
       0% { transform: rotate(${-angle}deg); }
       50% { transform: rotate(${angle}deg); }
       100% { transform: rotate(${-angle}deg); }
