@@ -653,7 +653,7 @@
 </head>
 
 <body>
-<!-- RAMADAN DECOR
+<!-- RAMADAN DECOR -->
 <div class="ramadan-svg-decor">
 
   <div class="stars"></div>
@@ -699,7 +699,7 @@
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
-</div>-->
+</div>
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
