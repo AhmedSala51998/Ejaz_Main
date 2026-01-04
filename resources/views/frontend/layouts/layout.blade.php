@@ -671,47 +671,29 @@
 <body>
 <!-- RAMADAN BUNTING DECOR -->
 <div class="ramadan-top-decor">
-  <svg viewBox="0 0 1920 180" preserveAspectRatio="none"
-       xmlns="http://www.w3.org/2000/svg">
-
+    <svg viewBox="0 0 1920 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <!-- Rope -->
-    <path d="M0 80 Q960 150 1920 80"
-          stroke="#f4b400"
-          stroke-width="4"
-          fill="none"/>
+    <path id="rope" d="M0 70 Q960 140 1920 70" stroke="#f4b400" stroke-width="4" fill="none"/>
 
     <!-- Flags -->
-    <g>
-      <!-- Yellow -->
-    <polygon points="300,70 340,70 320,130" fill="#f7c400"/>
-    <polygon points="380,72 420,72 400,134" fill="#4fc3f7"/>
-    <polygon points="460,74 500,74 480,140" fill="#7cb342"/>
-    <polygon points="540,95 580,95 560,147" fill="#f7c400"/>
-    <polygon points="620,102 660,102 640,154" fill="#4fc3f7"/>
-    <polygon points="700,108 740,108 720,160" fill="#7cb342"/>
-    <polygon points="780,112 820,112 800,164" fill="#f7c400"/>
-    <polygon points="860,108 900,108 880,160" fill="#4fc3f7"/>
-    <polygon points="940,102 980,102 960,154" fill="#7cb342"/>
-    <polygon points="1020,95 1060,95 1040,147" fill="#f7c400"/>
-    <polygon points="1100,88 1140,88 1120,140" fill="#4fc3f7"/>
-    <polygon points="1180,82 1220,82 1200,134" fill="#7cb342"/>
-    <polygon points="1260,78 1300,78 1280,130" fill="#f7c400"/>
-    <polygon points="1340,75 1380,75 1360,127" fill="#4fc3f7"/>
-    <polygon points="1420,78 1460,78 1440,130" fill="#7cb342"/>
+    <g id="flags">
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
     </g>
-
-    <!-- Stars -->
-    <g fill="#f7c400">
-      <circle cx="350" cy="55" r="4"/>
-      <circle cx="520" cy="45" r="3"/>
-      <circle cx="690" cy="55" r="4"/>
-      <circle cx="860" cy="45" r="3"/>
-      <circle cx="1030" cy="55" r="4"/>
-      <circle cx="1200" cy="45" r="3"/>
-      <circle cx="1370" cy="55" r="4"/>
-    </g>
-
-  </svg>
+    </svg>
 </div>
 <!-- RAMADAN DECOR -->
 <div class="ramadan-svg-decor">
@@ -1114,6 +1096,37 @@
 
     </div>
 </div>
+<script>
+const rope = document.getElementById('rope');
+const flags = document.querySelectorAll('#flags polygon');
+const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420];
+const baseOffset = 50;
+
+flags.forEach((flag, i) => {
+  const x = positionsX[i];
+  const pathLength = rope.getTotalLength();
+  const point = rope.getPointAtLength((x / 1920) * pathLength);
+  const y = point.y;
+
+  const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
+  flag.setAttribute('points', points);
+
+  const angle = Math.random() * 10 + 5;
+  const duration = Math.random() * 2 + 2;
+  flag.style.transformOrigin = `${x}px ${y}px`;
+  flag.style.animation = `swing${i} ${duration}s ease-in-out infinite alternate`;
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes swing${i} {
+      0% { transform: rotate(${-angle}deg); }
+      50% { transform: rotate(${angle}deg); }
+      100% { transform: rotate(${-angle}deg); }
+    }
+  `;
+  document.head.appendChild(style);
+});
+</script>
 <script>
 const starsBox = document.querySelector('.stars');
 
