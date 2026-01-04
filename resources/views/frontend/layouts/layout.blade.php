@@ -675,7 +675,7 @@
        xmlns="http://www.w3.org/2000/svg">
 
     <!-- Rope -->
-    <path d="M0 80 Q960 150 1920 80"
+    <path id="rope" d="M0 80 Q960 150 1920 80"
           stroke="#f4b400"
           stroke-width="4"
           fill="none"/>
