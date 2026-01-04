@@ -496,7 +496,6 @@ class AdminBiographiesController extends Controller
                         $delete = 'hidden';
                     $actions = '';
 
-                    // زر الحظر / إلغاء الحظر
                     $blockButton = '';
                     if (checkPermission(46)) {
                         if ($row->is_blocked) {
