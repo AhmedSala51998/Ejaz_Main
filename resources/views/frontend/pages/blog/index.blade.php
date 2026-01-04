@@ -387,24 +387,26 @@ body {
                 @if($normalBlogs->count())
                     <section class="magazine-grid">
                          @foreach($normalBlogs as $blog)
-                            <article class="mag-card">
-                                <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
-                                    alt="{{ $blog->title }}">
+                            <a href="{{ route('blog.show', $blog->slug) }}">
+                                <article class="mag-card">
+                                    <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}"
+                                        alt="{{ $blog->title }}">
 
-                                <div class="mag-content">
-                                    <span>
-                                        <i class="fa fa-calendar"></i>
-                                        {{ $blog->created_at->translatedFormat('d F Y') }}
-                                    </span>
+                                    <div class="mag-content">
+                                        <span>
+                                            <i class="fa fa-calendar"></i>
+                                            {{ $blog->created_at->translatedFormat('d F Y') }}
+                                        </span>
 
-                                    <h3>{{ $blog->title }}</h3>
-                                    <p>{{ $blog->excerpt }}</p>
+                                        <h3>{{ $blog->title }}</h3>
+                                        <p>{{ $blog->excerpt }}</p>
 
-                                    <a href="{{ route('blog.show', $blog->slug) }}">
-                                        قراءة المقال →
-                                    </a>
-                                </div>
-                            </article>
+                                        <a href="{{ route('blog.show', $blog->slug) }}">
+                                            قراءة المقال →
+                                        </a>
+                                    </div>
+                                </article>
+                            </a>
                         @endforeach
                     </section>
                 @endif
