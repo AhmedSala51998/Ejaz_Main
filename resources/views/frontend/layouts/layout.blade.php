@@ -636,6 +636,22 @@
         .moon{ width:55px; }
         }
 
+        .ramadan-top-decor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 180px;
+        pointer-events: none;
+        z-index: 9999;
+        }
+
+        .ramadan-top-decor svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -653,7 +669,51 @@
 </head>
 
 <body>
-<!-- RAMADAN DECOR
+<!-- RAMADAN BUNTING DECOR -->
+<div class="ramadan-top-decor">
+  <svg viewBox="0 0 1920 180" preserveAspectRatio="none"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Rope -->
+    <path d="M0 80 Q960 150 1920 80"
+          stroke="#f4b400"
+          stroke-width="4"
+          fill="none"/>
+
+    <!-- Flags -->
+    <g>
+      <!-- Yellow -->
+      <polygon points="300,80 340,80 320,120" fill="#f7c400"/>
+      <polygon points="380,80 420,80 400,120" fill="#4fc3f7"/>
+      <polygon points="460,80 500,80 480,120" fill="#7cb342"/>
+      <polygon points="540,80 580,80 560,120" fill="#f7c400"/>
+      <polygon points="620,80 660,80 640,120" fill="#4fc3f7"/>
+      <polygon points="700,80 740,80 720,120" fill="#7cb342"/>
+      <polygon points="780,80 820,80 800,120" fill="#f7c400"/>
+      <polygon points="860,80 900,80 880,120" fill="#4fc3f7"/>
+      <polygon points="940,80 980,80 960,120" fill="#7cb342"/>
+      <polygon points="1020,80 1060,80 1040,120" fill="#f7c400"/>
+      <polygon points="1100,80 1140,80 1120,120" fill="#4fc3f7"/>
+      <polygon points="1180,80 1220,80 1200,120" fill="#7cb342"/>
+      <polygon points="1260,80 1300,80 1280,120" fill="#f7c400"/>
+      <polygon points="1340,80 1380,80 1360,120" fill="#4fc3f7"/>
+      <polygon points="1420,80 1460,80 1440,120" fill="#7cb342"/>
+    </g>
+
+    <!-- Stars -->
+    <g fill="#f7c400">
+      <circle cx="350" cy="55" r="4"/>
+      <circle cx="520" cy="45" r="3"/>
+      <circle cx="690" cy="55" r="4"/>
+      <circle cx="860" cy="45" r="3"/>
+      <circle cx="1030" cy="55" r="4"/>
+      <circle cx="1200" cy="45" r="3"/>
+      <circle cx="1370" cy="55" r="4"/>
+    </g>
+
+  </svg>
+</div>
+<!-- RAMADAN DECOR -->
 <div class="ramadan-svg-decor">
 
   <div class="stars"></div>
@@ -711,7 +771,7 @@
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
   </svg>
 
-</div>-->
+</div>
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
