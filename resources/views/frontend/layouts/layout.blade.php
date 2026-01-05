@@ -651,6 +651,20 @@
         visibility: visible;
         }
 
+        /* Hide globe & bubble until loader finishes */
+        #globe-container,
+        #saudi-bubble {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .6s ease, visibility .6s ease;
+        }
+
+        /* Show after loader */
+        .globe-visible {
+        opacity: 1;
+        visibility: visible;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
