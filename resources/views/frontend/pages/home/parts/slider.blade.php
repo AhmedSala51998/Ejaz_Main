@@ -606,30 +606,17 @@ function getCentroidFromMultiPolygon(polygons) {
   return [totalX / totalPoints, totalY / totalPoints];
 }
 
-const dbCountries = @json(
-    $countries->keyBy('country_name')
-);
-
 const emphasizedCountries = {
-  231: { id: 231, iso: 'et', name: 'اثيوبيا', price: null, revealed: false },
-  800: { id: 800, iso: 'ug', name: 'اوغندا', price: null, revealed: false },
-  50:  { id: 50, iso: 'bd', name: 'بنجلاديش', price: null, revealed: false },
-  608: { id: 608, iso: 'ph', name: 'الفلبين', price: null, revealed: false },
-  404: { id: 404, iso: 'ke', name: 'كينيا', price: null, revealed: false },
-  356: { id: 356, iso: 'in', name: 'الهند', price: null, revealed: false },
-  144: { id: 144, iso: 'lk', name: 'سريلانكا', price: null, revealed: false },
-  108: { id: 108, iso: 'bi', name: 'بروندي', price: null, revealed: false },
+  231: { id: 231, iso: 'et', name: 'اثيوبيا', price: '3999', revealed: false },
+  800: { id: 800, iso: 'ug', name: 'اوغندا', price: '4999', revealed: false },
+  50:  { id: 50, iso: 'bd', name: 'بنجلاديش', price: '6999', revealed: false },
+  608: { id: 608, iso: 'ph', name: 'الفلبين', price: '13999', revealed: false },
+  404: { id: 404, iso: 'ke', name: 'كينيا', price: '5999', revealed: false },
+  356: { id: 356, iso: 'in', name: 'الهند', price: '2999', revealed: false },
+  144: { id: 144, iso: 'lk', name: 'سريلانكا', price: '14199', revealed: false },
+  108: { id: 108, iso: 'bi', name: 'بروندي', price: '4999', revealed: false },
   682: { id: 682, iso: 'sa', name: 'المملكة العربية السعودية', price: null, revealed: true }
 };
-
-const normalize = str => str.trim();
-
-Object.values(emphasizedCountries).forEach(country => {
-    const key = normalize(country.name);
-    if (dbCountries[key]) {
-        country.price = dbCountries[key].price;
-    }
-});
 
 const saudiInfo = emphasizedCountries[682];
 let countryLabels = {};
