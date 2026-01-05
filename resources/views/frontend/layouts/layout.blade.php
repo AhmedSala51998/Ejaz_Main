@@ -541,7 +541,7 @@
         width: 100%;
         height: 200px;
         pointer-events: none;
-        z-index: 100000;
+        z-index: 10001;
         }
 
         /* Lanterns */
@@ -673,6 +673,20 @@
 
         #saudi-bubble.globe-visible {
         opacity: 1;
+        }
+
+        /* Hide header until loader finishes */
+        .main-header {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        }
+
+        /* Show header after page load */
+        body.page-loaded .main-header {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
         }
 
     </style>
