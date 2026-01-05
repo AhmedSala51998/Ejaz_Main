@@ -369,7 +369,7 @@
             max-width: 320px;
             height: 100vh;
             background: #fff;
-            z-index: 9999;
+            z-index: 10002;
             padding: 20px;
             box-shadow: -4px 0 20px rgba(0,0,0,0.15);
             transition: right 0.4s ease;
