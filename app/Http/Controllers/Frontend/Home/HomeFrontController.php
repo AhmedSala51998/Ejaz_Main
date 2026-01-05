@@ -66,29 +66,21 @@ class HomeFrontController extends Controller
 
     public function detectCityAjax(Request $request)
     {
-        \Log::info('detectCityAjax called', ['request' => $request->all()]);
-
         if ($request->has('branch')) {
             $branch = $request->branch;
-            \Log::info('Branch sent in request', ['branch' => $branch]);
         } else {
             $lat = $request->lat;
             $lng = $request->lng;
-            \Log::info('No branch sent, received coordinates', ['lat' => $lat, 'lng' => $lng]);
 
             if (!$lat || !$lng) {
                 $ip = $request->ip();
-                \Log::info('No coordinates, trying to detect from IP', ['ip' => $ip]);
                 try {
                     $location = geoip($ip);
                     $lat = $location->lat;
                     $lng = $location->lon;
-                    \Log::info('GeoIP detected location', ['lat' => $lat, 'lng' => $lng]);
                 } catch (\Exception $e) {
-                    \Log::error('GeoIP failed', ['exception' => $e->getMessage()]);
                     $lat = 24.7136;
                     $lng = 46.6753;
-                    \Log::info('Defaulting to Riyadh coordinates', ['lat' => $lat, 'lng' => $lng]);
                 }
             }
 
@@ -103,7 +95,6 @@ class HomeFrontController extends Controller
 
             foreach($cities as $city => $coords){
                 $dist = $this->getDistance($lat,$lng,$coords['lat'],$coords['lng']);
-                \Log::info('Distance check', ['city' => $city, 'distance' => $dist]);
                 if($dist < $minDistance){
                     $minDistance = $dist;
                     $closestCity = $city;
@@ -111,7 +102,6 @@ class HomeFrontController extends Controller
             }
 
             $branch = $closestCity;
-            \Log::info('Closest city determined', ['closestCity' => $branch]);
         }
 
         try {
@@ -124,7 +114,6 @@ class HomeFrontController extends Controller
 
 
         } catch (\Exception $e) {
-            \Log::error('Failed to return response', ['exception' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()]);
         }
     }

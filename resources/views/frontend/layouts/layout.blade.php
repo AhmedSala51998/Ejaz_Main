@@ -1062,25 +1062,32 @@
 
 </script>
 <script>
-    window.addEventListener('load', () => {
-    const loader = document.querySelector('.loader-wrapper');
-    const ramadanDecor = document.querySelectorAll(
-        '.ramadan-svg-decor, .ramadan-top-decor'
-    );
+window.addEventListener('load', () => {
 
-    if(loader){
-        loader.style.transition = 'opacity 0.3s ease';
-        loader.style.opacity = '0';
+  const loader = document.querySelector('.loader-wrapper');
 
-        setTimeout(() => {
-        loader.style.display = 'none';
+  const ramadanDecor = document.querySelectorAll(
+    '.ramadan-svg-decor, .ramadan-top-decor'
+  );
+  const globe = document.getElementById('globe-container');
+  const bubble = document.getElementById('saudi-bubble');
 
-        // show Ramadan decor AFTER loader
-        ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
+  if (loader) {
+    loader.style.transition = 'opacity 0.3s ease';
+    loader.style.opacity = '0';
 
-        }, 300);
-    }
-    });
+    setTimeout(() => {
+      loader.style.display = 'none';
+
+      ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
+
+      globe?.classList.add('globe-visible');
+      bubble?.classList.add('globe-visible');
+
+    }, 300);
+  }
+
+});
 </script>
 
 <script>
