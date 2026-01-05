@@ -541,7 +541,7 @@
         width: 100%;
         height: 200px;
         pointer-events: none;
-        z-index: 10001;
+        z-index: 100000;
         }
 
         /* Lanterns */
@@ -687,6 +687,31 @@
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
+        }
+
+        @media (max-width: 768px) {
+
+        .ramadan-svg-decor {
+            position: relative;
+            top: 0;
+            margin-top: 20px;
+            height: 160px;
+        }
+
+        .lantern {
+            top: 0;
+            width: 65px;
+            animation-duration: 5s;
+        }
+
+        .lantern.left {
+            left: 20%;
+        }
+
+        .lantern.right {
+            right: 20%;
+        }
+
         }
 
     </style>
