@@ -651,20 +651,6 @@
         visibility: visible;
         }
 
-        /* Hide globe & bubble until loader finishes */
-        #globe-container,
-        #saudi-bubble {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity .6s ease, visibility .6s ease;
-        }
-
-        /* Show after loader */
-        .globe-visible {
-        opacity: 1;
-        visibility: visible;
-        }
-
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1076,32 +1062,25 @@
 
 </script>
 <script>
-window.addEventListener('load', () => {
+    window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-wrapper');
+    const ramadanDecor = document.querySelectorAll(
+        '.ramadan-svg-decor, .ramadan-top-decor'
+    );
 
-  const loader = document.querySelector('.loader-wrapper');
+    if(loader){
+        loader.style.transition = 'opacity 0.3s ease';
+        loader.style.opacity = '0';
 
-  const ramadanDecor = document.querySelectorAll(
-    '.ramadan-svg-decor, .ramadan-top-decor'
-  );
-  const globe = document.getElementById('globe-container');
-  const bubble = document.getElementById('saudi-bubble');
+        setTimeout(() => {
+        loader.style.display = 'none';
 
-  if (loader) {
-    loader.style.transition = 'opacity 0.3s ease';
-    loader.style.opacity = '0';
+        // show Ramadan decor AFTER loader
+        ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
 
-    setTimeout(() => {
-      loader.style.display = 'none';
-
-      ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
-
-      globe?.classList.add('globe-visible');
-      bubble?.classList.add('globe-visible');
-
-    }, 300);
-  }
-
-});
+        }, 300);
+    }
+    });
 </script>
 
 <script>
