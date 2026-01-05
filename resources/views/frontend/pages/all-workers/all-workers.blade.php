@@ -360,7 +360,6 @@
             background-color: #e49b20;
         }
 
-                /* ✅ فلتر متحرك للموبايل */
         .mobile-filter-sidebar {
             position: fixed;
             top: 0;
@@ -386,7 +385,7 @@
             left: 0;
             bottom: 0;
             background: rgba(0,0,0,0.4);
-            z-index: 9998;
+            z-index: 10001;
             display: none;
         }
         .mobile-filter-overlay.active {
@@ -410,7 +409,6 @@
             background-color: #e49b20 !important;
         }
 
-        /* ✅ ستايل الفلتر الجانبي على الموبايل */
         .mobile-filter-sidebar {
             position: fixed;
             top: 0;
@@ -419,7 +417,7 @@
             max-width: 360px;
             height: 100%;
             background: #fff;
-            z-index: 9999;
+            z-index: 10002;
             box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
             border-radius: 16px 0 0 16px;
             transition: right 0.4s ease-in-out;
