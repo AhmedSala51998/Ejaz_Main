@@ -628,7 +628,7 @@
         width: 100%;
         height: 180px;
         pointer-events: none;
-        z-index: 9999;
+        z-index: 10001;
         }
 
         .ramadan-top-decor svg {
