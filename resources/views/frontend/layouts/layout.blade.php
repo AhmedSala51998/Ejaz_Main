@@ -637,6 +637,20 @@
         display: block;
         }
 
+        /* Hide Ramadan decor until loader finishes */
+        .ramadan-svg-decor,
+        .ramadan-top-decor {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .6s ease, visibility .6s ease;
+        }
+
+        /* When active */
+        .ramadan-visible {
+        opacity: 1;
+        visibility: visible;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1048,16 +1062,25 @@
 
 </script>
 <script>
-  window.addEventListener('load', () => {
+    window.addEventListener('load', () => {
     const loader = document.querySelector('.loader-wrapper');
+    const ramadanDecor = document.querySelectorAll(
+        '.ramadan-svg-decor, .ramadan-top-decor'
+    );
+
     if(loader){
         loader.style.transition = 'opacity 0.3s ease';
         loader.style.opacity = '0';
+
         setTimeout(() => {
         loader.style.display = 'none';
+
+        // show Ramadan decor AFTER loader
+        ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
+
         }, 300);
     }
-  });
+    });
 </script>
 
 <script>
