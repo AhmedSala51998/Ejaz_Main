@@ -342,6 +342,41 @@ canvas {
     .ramadan-group .moon { width: 55px; }
 }
 
+@media (max-width: 768px) {
+  .ramadan-group {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    margin: 10px auto 15px;
+    width: 100%;
+    z-index: 5;
+  }
+
+  .ramadan-group .moon {
+    width: 60px;
+    height: auto;
+  }
+
+  .ramadan-group .lantern {
+    width: 45px;
+    height: auto;
+    animation: swing 4.5s ease-in-out infinite;
+  }
+
+  .ramadan-group.left,
+  .ramadan-group.right {
+    left: auto !important;
+    right: auto !important;
+  }
+}
+
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
