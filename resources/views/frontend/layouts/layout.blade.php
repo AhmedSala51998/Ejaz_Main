@@ -651,6 +651,30 @@
         visibility: visible;
         }
 
+
+        /* Globe hidden visually but still measurable */
+        #globe-container {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .6s ease;
+        }
+
+        #globe-container.globe-visible {
+        opacity: 1;
+        pointer-events: auto;
+        }
+
+        /* Bubble */
+        #saudi-bubble {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .4s ease;
+        }
+
+        #saudi-bubble.globe-visible {
+        opacity: 1;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1062,25 +1086,34 @@
 
 </script>
 <script>
-    window.addEventListener('load', () => {
-    const loader = document.querySelector('.loader-wrapper');
-    const ramadanDecor = document.querySelectorAll(
-        '.ramadan-svg-decor, .ramadan-top-decor'
-    );
+window.addEventListener('load', () => {
 
-    if(loader){
-        loader.style.transition = 'opacity 0.3s ease';
-        loader.style.opacity = '0';
+  const loader = document.querySelector('.loader-wrapper');
+  const globe  = document.getElementById('globe-container');
+  const bubble = document.getElementById('saudi-bubble');
+  const ramadanDecor = document.querySelectorAll(
+    '.ramadan-svg-decor, .ramadan-top-decor'
+  );
 
-        setTimeout(() => {
-        loader.style.display = 'none';
+  if (loader) {
+    loader.style.transition = 'opacity 0.3s ease';
+    loader.style.opacity = '0';
 
-        // show Ramadan decor AFTER loader
-        ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
+    setTimeout(() => {
+      loader.style.display = 'none';
 
-        }, 300);
-    }
-    });
+      // mark page as loaded
+      document.body.classList.add('page-loaded');
+
+      // show elements
+      ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
+      globe?.classList.add('globe-visible');
+      bubble?.classList.add('globe-visible');
+
+    }, 300);
+  }
+
+});
 </script>
 
 <script>
