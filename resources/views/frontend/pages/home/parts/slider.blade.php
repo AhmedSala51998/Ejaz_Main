@@ -344,19 +344,17 @@ canvas {
 
 @media (max-width: 768px) {
   .ramadan-group {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-
+    position: absolute !important;
+    top: auto !important;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 14px;
-
-    margin: 10px auto 15px;
-    width: 100%;
-    z-index: 5;
+    width: auto;
+    z-index: 10;
   }
 
   .ramadan-group .moon {
@@ -368,12 +366,6 @@ canvas {
     width: 45px;
     height: auto;
     animation: swing 4.5s ease-in-out infinite;
-  }
-
-  .ramadan-group.left,
-  .ramadan-group.right {
-    left: auto !important;
-    right: auto !important;
   }
 }
 
@@ -404,28 +396,12 @@ canvas {
       "></div>
     </div>
     <!-- Ramadan Decorations -->
-    <!--<div class="ramadan-group left">
-        <img src="{{ asset('frontend/img/ramadan/ramadan1.png') }}" class="moon">
-        <img src="{{ asset('frontend/img/ramadan/ramadan2.png') }}" class="lantern">
-    </div>
-
-    <div class="ramadan-group right">
-        <img src="{{ asset('frontend/img/ramadan/ramadan3.png') }}" class="moon">
-        <img src="{{ asset('frontend/img/ramadan/ramadan1.png') }}" class="lantern">
-    </div>-->
     @php
     $decorations = [
         ['moon' => 'ramadan1.png', 'lantern' => 'ramadan2.png'],
         ['moon' => 'ramadan3.png', 'lantern' => 'ramadan1.png'],
     ];
     @endphp
-
-    @foreach($decorations as $index => $item)
-    <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
-        <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon" alt="Ramadan Moon">
-        <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern" alt="Ramadan Lantern">
-    </div>
-    @endforeach
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
@@ -434,6 +410,12 @@ canvas {
                     <canvas></canvas>
                 </div>-->
                 <div id="globe-container"></div>
+                @foreach($decorations as $index => $item)
+                <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                    <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon" alt="Ramadan Moon">
+                    <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern" alt="Ramadan Lantern">
+                </div>
+                @endforeach
                 <div id="saudi-bubble"></div>
                 <div id="tooltip"></div>
                 <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
