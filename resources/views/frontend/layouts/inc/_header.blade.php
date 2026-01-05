@@ -310,7 +310,7 @@ body.sticky-header-active {
     top: 0;
     height: 100%;
     transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Faster transition */
-    z-index: 11000;
+    z-index: 10002;
     overflow-y: auto;
 }
 
