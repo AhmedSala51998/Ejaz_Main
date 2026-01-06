@@ -411,10 +411,10 @@ canvas {
                 </div>-->
                 <div id="globe-container"></div>
                 @foreach($decorations as $index => $item)
-                <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
-                    <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon" alt="Ramadan Moon">
-                    <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern" alt="Ramadan Lantern">
-                </div>
+                    <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                        <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon" alt="Ramadan Moon">
+                        <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern" alt="Ramadan Lantern">
+                    </div>
                 @endforeach
                 <div id="saudi-bubble"></div>
                 <div id="tooltip"></div>
@@ -486,6 +486,12 @@ canvas {
                         <canvas></canvas>
                     </div>-->
                     <div id="globe-container"></div>
+                     @foreach($decorations as $index => $item)
+                        <div class="ramadan-group {{ $index % 2 == 0 ? 'left' : 'right' }}">
+                            <img src="{{ asset('frontend/img/ramadan/'.$item['moon']) }}" class="moon" alt="Ramadan Moon">
+                            <img src="{{ asset('frontend/img/ramadan/'.$item['lantern']) }}" class="lantern" alt="Ramadan Lantern">
+                        </div>
+                    @endforeach
                     <div id="saudi-bubble"></div>
                     <div id="tooltip"></div>
                     <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
