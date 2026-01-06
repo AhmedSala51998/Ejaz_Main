@@ -590,7 +590,7 @@
 <script>
     var workerCvSlider = new Swiper(".workerCvSlider", {
         spaceBetween: 0,
-        centeredSlides: true,
+        centeredSlides: false,
         speed: 1000,
         navigation: {
             nextEl: ".workerCvSliderNext",
