@@ -170,12 +170,12 @@
 }
 
 .cv-slider {
-    width: 45%;
+    width: 50%;
     margin-bottom: 0;
 }
 
 .cv-info {
-    width: 55%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
