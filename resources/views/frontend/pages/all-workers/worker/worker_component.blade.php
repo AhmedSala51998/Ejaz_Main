@@ -241,7 +241,7 @@
 }
 
 .cv-slider {
-    width: 45%;
+    width: 40%;
     border-radius: 18px;
     overflow: hidden;
     background: #fff;
@@ -273,7 +273,7 @@
 }
 
 .cv-info {
-    width: 55%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -367,7 +367,7 @@
 /************** New Image Design *************/
 /* ===== CV IMAGE – PREMIUM STYLE ===== */
 .cv-slider {
-    width: 45%;
+    width: 40%;
     border-radius: 22px;
     overflow: hidden;
     background: #f9f9f9;
@@ -376,7 +376,7 @@
 
 .cv-image-wrapper {
     width: 100%;
-    height: auto;
+    height: 620px;
     position: relative;
     overflow: hidden;
     border-radius: 22px;
@@ -398,7 +398,7 @@
 .cv-image-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: contain !important;
+    object-fit: cover;
     object-position: top center;
     transition: transform 0.6s ease;
     border-radius: 22px;
@@ -456,21 +456,6 @@
 .cv-image-wrapper img:hover {
     transform: scale(1.01);
 }*/
-
-.cv-image-wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    overflow: visible;
-}
-
-.cv-image-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 </style>
 
 
