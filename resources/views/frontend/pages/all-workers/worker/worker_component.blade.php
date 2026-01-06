@@ -255,7 +255,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 0 !important;
     border: 2px solid #f4a83533;
 }
 
@@ -398,7 +398,7 @@
 .cv-image-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain !important;
     object-position: top center;
     transition: transform 0.6s ease;
     border-radius: 22px;
@@ -590,7 +590,7 @@
 <script>
     var workerCvSlider = new Swiper(".workerCvSlider", {
         spaceBetween: 0,
-        centeredSlides: false,
+        centeredSlides: true,
         speed: 1000,
         navigation: {
             nextEl: ".workerCvSliderNext",
