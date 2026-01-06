@@ -690,8 +690,8 @@
         }
 
         .fancybox__container {
-            top: 110px !important;
-            height: calc(100% - 110px) !important;
+            top: 80px !important;
+            height: calc(100% - 80px) !important;
         }
 
     </style>
