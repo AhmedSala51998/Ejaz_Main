@@ -689,6 +689,12 @@
         pointer-events: auto;
         }
 
+        body.fancybox-active .main-header {
+            opacity: 1 !important;
+            transform: none !important;
+            pointer-events: auto !important;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1226,6 +1232,17 @@ if(starsBox){
     starsBox.appendChild(star);
   }
 }
+
+Fancybox.bind("[data-fancybox]", {
+    on: {
+        init: () => {
+            document.body.classList.add("fancybox-active");
+        },
+        destroy: () => {
+            document.body.classList.remove("fancybox-active");
+        }
+    }
+});
 </script>
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c" defer></script>
 </body>
