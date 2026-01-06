@@ -42,7 +42,7 @@ body {
     width: 100%;
     /* Background determined by homepage-header or default-header */
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow when sticky */
-    padding: 5px 0; /* Further reduced padding when sticky */
+    padding: 0 0; /* Further reduced padding when sticky */
 }
 /* Specific sticky shadow for homepage if it should be distinct */
 .main-header.homepage-header.sticky-header {
@@ -396,7 +396,7 @@ body.sticky-header-active {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 1099;
+    z-index: 10999;
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease; /* Faster transition */
