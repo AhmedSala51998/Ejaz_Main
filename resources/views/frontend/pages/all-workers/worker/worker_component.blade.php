@@ -463,6 +463,7 @@
     align-items: center;
     justify-content: center;
     background: #fff;
+    overflow: visible;
 }
 
 .cv-image-wrapper img {
