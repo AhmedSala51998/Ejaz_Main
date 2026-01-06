@@ -170,12 +170,12 @@
 }
 
 .cv-slider {
-    width: 50%;
+    width: 45%;
     margin-bottom: 0;
 }
 
 .cv-info {
-    width: 50%;
+    width: 55%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -241,7 +241,7 @@
 }
 
 .cv-slider {
-    width: 40%;
+    width: 45%;
     border-radius: 18px;
     overflow: hidden;
     background: #fff;
@@ -273,7 +273,7 @@
 }
 
 .cv-info {
-    width: 60%;
+    width: 55%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -367,7 +367,7 @@
 /************** New Image Design *************/
 /* ===== CV IMAGE – PREMIUM STYLE ===== */
 .cv-slider {
-    width: 40%;
+    width: 45%;
     border-radius: 22px;
     overflow: hidden;
     background: #f9f9f9;
