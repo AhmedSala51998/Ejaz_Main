@@ -22,7 +22,6 @@
                             id="Form" class="mt-4" oninput='repeatPassword.setCustomValidity(repeatPassword.value !== password.value ? "تأكيد كلمة المرور غير مطابق" : "")'>
                             @csrf
 
-                            <!-- الاسم -->
                             <div class="mb-3">
                                 <label class="form-label">
                                     <i class="fas fa-user me-2"></i>{{ __('frontend.FullName') }}
@@ -32,7 +31,6 @@
                                     required minlength="2">
                             </div>
 
-                            <!-- الجوال السعودي -->
                             <div class="mb-3">
                                 <label class="form-label">
                                     <i class="fas fa-phone-alt me-2"></i>{{ __('frontend.phone') }}
@@ -48,7 +46,6 @@
 
                             </div>
 
-                            <!-- كلمة المرور -->
                             <div class="mb-3 position-relative">
                                 <label class="form-label"><i class="fas fa-lock me-2"></i>{{ __('frontend.Password') }}</label>
                                 <div class="password-wrapper">
@@ -62,7 +59,6 @@
                                 </div>
                             </div>
 
-                            <!-- تأكيد كلمة المرور -->
                             <div class="mb-3 position-relative">
                                 <label class="form-label"><i class="fas fa-lock me-2"></i>{{ __('frontend.confirmPassword') }}</label>
                                 <div class="password-wrapper">
@@ -76,7 +72,6 @@
                                 </div>
                             </div>
 
-                            <!-- زر الإرسال -->
                             <div class="d-grid pt-4">
                                 <button type="submit" class="btn-submit position-relative overflow-hidden text-center" id="submitBtn">
                                     <span class="btn-text">{{ __('frontend.RegisterPage') }}</span>

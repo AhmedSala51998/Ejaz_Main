@@ -836,8 +836,7 @@
                     var url = "{{ route('frontend.show.worker', ['id' => $id]) }}";
                     location.replace(url);
                 @else
-                    // لو $id مش موجود، ممكن تحول المستخدم للـ branch page فقط أو صفحة افتراضية
-                    var url = "{{ url('/worker') }}"; // أو أي صفحة مناسبة
+                    var url = "{{ url('/worker') }}";
                     location.replace(url);
                 @endif
             }
@@ -929,7 +928,6 @@
 
     </script>
     <script>
-    // تفعيل فاليديشن رقم الجوال السعودي
     $.formUtils.addValidator({
         name: 'validatePhoneNumberOfSAR',
         validatorFunction: function (value) {
@@ -952,7 +950,6 @@
         }
     });
 
-    // إظهار وإخفاء كلمة المرور
     function togglePassword(inputId, iconId) {
         const input = document.getElementById(inputId);
         const icon = document.getElementById(iconId);
@@ -968,7 +965,6 @@
         }
     }
 
-    // إظهار أيقونة العين فقط عند الكتابة
     document.addEventListener("DOMContentLoaded", function () {
         const toggleVisibility = (inputId, toggleId) => {
             const input = document.getElementById(inputId);
@@ -989,7 +985,6 @@
         toggleVisibility("repeatPassword", "toggleRepeatPassword");
     });
 
-    // منع الحروف في رقم الجوال
     function isNumber(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
@@ -1005,7 +1000,6 @@
         const arrowIcon = document.getElementById('arrowIcon');
 
         form.addEventListener('submit', function () {
-            // تعطيل الزر وتشغيل اللودر
             submitBtn.disabled = true;
             btnText.style.display = 'none';
             arrowIcon.style.display = 'none';
@@ -1019,24 +1013,20 @@
   input.addEventListener('input', (e) => {
     const value = e.target.value;
 
-    // فقط رقم أو حرف واحد مقبول (حذف أي أكثر)
     e.target.value = value.replace(/[^0-9]/g, '').slice(0, 1);
 
     if (e.target.value && index < inputs.length - 1) {
-      // لو فيه قيمة وانت مش في اخر input، انتقل للتالي
       inputs[index + 1].focus();
     }
   });
 
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace' && !e.target.value && index > 0) {
-      // لو ضغط backspace وحقل فاضي، ارجع للخلف
       inputs[index - 1].focus();
     }
   });
 });
 
-// ركز المؤشر على اول input عند تحميل الصفحة
 window.addEventListener('DOMContentLoaded', () => {
   const firstInput = document.querySelector('#vCode input');
   if (firstInput) firstInput.focus();

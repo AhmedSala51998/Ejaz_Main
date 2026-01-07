@@ -553,8 +553,7 @@
                             var url = "{{ route('frontend.show.worker', ['id' => $id]) }}";
                             location.replace(url);
                         @else
-                            // لو $id مش موجود، ممكن تحول المستخدم للـ branch page فقط أو صفحة افتراضية
-                            var url = "{{ url('/worker') }}"; // أو أي صفحة مناسبة
+                            var url = "{{ url('/worker') }}";
                             location.replace(url);
                         @endif
                     }
@@ -585,7 +584,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
 
     <script>
-        // ✅ تفعيل الفاليدشن لرقم الجوال السعودي
         $.formUtils.addValidator({
             name: 'validatePhoneNumberOfSAR',
             validatorFunction: function (value) {
@@ -608,7 +606,6 @@
             }
         });
 
-        // ✅ تفعيل زر إظهار كلمة المرور فقط عند الكتابة
         document.addEventListener("DOMContentLoaded", function () {
             const passwordInput = document.getElementById("password");
             const togglePasswordEl = document.querySelector(".toggle-password");
@@ -625,7 +622,6 @@
             });
         });
 
-        // ✅ تغيير نوع حقل الباسورد (إظهار/إخفاء)
         function togglePassword() {
             const passwordInput = document.getElementById("password");
             const eyeIcon = document.getElementById("eyeIcon");

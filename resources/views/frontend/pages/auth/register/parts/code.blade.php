@@ -86,7 +86,6 @@
         color: #f4a835;
     }
 
-    /* ✅ كارد الدخول بشكل احترافي */
 .card {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 20px;
@@ -99,7 +98,6 @@
     overflow: hidden;
 }
 
-/* ✅ صورة */
 .loginImg {
     width: 100%;
     max-width: 200px;
@@ -107,7 +105,6 @@
     margin: 0 auto 25px;
 }
 
-/* ✅ الحقول */
 .form-control {
     border-radius: 12px;
     padding: 12px 16px;
@@ -121,14 +118,12 @@
     box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.15);
 }
 
-/* ✅ اللابل */
 .form-label {
     font-weight: 600;
     margin-bottom: 8px;
     color: #333;
 }
 
-/* ✅ الرابط السفلي */
 .card p a {
     color: #f4a835;
     font-weight: 600;
@@ -139,13 +134,11 @@
     text-decoration: underline;
 }
 
-/* ✅ تنسيق input-group */
 .input-group {
     border-radius: 12px;
     overflow: hidden;
 }
 
-/* ✅ checkbox و نسيت كلمة المرور */
 .form-check-label {
     font-weight: 500;
     font-size: 14px;
@@ -286,7 +279,7 @@
     font-size: 18px;
     color: #aaa;
     transition: 0.3s;
-    display: none; /* ✅ مخفية بالبداية */
+    display: none;
 }
 .toggle-password:hover {
     color: #f4a835;
@@ -411,7 +404,7 @@
   font-weight: 700;
   user-select: none;
   -webkit-appearance: none;
-  -moz-appearance: textfield; /* لإزالة الأسهم في بعض المتصفحات */
+  -moz-appearance: textfield;
   cursor: text;
 }
 
@@ -427,7 +420,6 @@
   font-weight: 400;
 }
 
-/* لو تحب تدي تأثير عند الكتابة ممكن: */
 .vCode-input:not(:placeholder-shown) {
   color: #f4a835;
 }
@@ -458,12 +450,12 @@
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
-  border: 2px solid #f4a835; /* لون برتقالي */
+  border: 2px solid #f4a835;
   border-radius: 12px;
   background: #fffefc;
   box-shadow: 0 4px 8px rgba(244, 168, 53, 0.25);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  -moz-appearance: textfield; /* إزالة السهم في الفايرفوكس */
+  -moz-appearance: textfield;
 }
 
 .vCode-input::-webkit-outer-spin-button,
