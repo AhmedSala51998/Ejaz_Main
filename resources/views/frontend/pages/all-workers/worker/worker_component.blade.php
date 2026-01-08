@@ -458,8 +458,12 @@
 }*/
 .cv-image-wrapper {
     width: 100%;
-    height: 100%;
-    background: #eee;
+    min-height: 620px;
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #f3f3f3 100%
+    );
     border-radius: 22px;
     overflow: hidden;
 }
