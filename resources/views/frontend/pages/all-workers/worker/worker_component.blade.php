@@ -458,7 +458,7 @@
 }*/
 .cv-image-wrapper {
     width: 100%;
-    min-height: 620px;
+    min-height: 720px;
     background: linear-gradient(
         to bottom,
         #ffffff 0%,
