@@ -456,24 +456,6 @@
 .cv-image-wrapper img:hover {
     transform: scale(1.01);
 }*/
-.cv-image-wrapper {
-    width: 100%;
-    min-height: 820px;
-    background: linear-gradient(
-        to bottom,
-        #ffffff 0%,
-        #f3f3f3 100%
-    );
-    border-radius: 22px;
-    overflow: hidden;
-}
-
-.cv-image-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
-}
 </style>
 
 
