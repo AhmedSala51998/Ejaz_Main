@@ -458,6 +458,7 @@
 }*/
 .cv-image-wrapper {
     width: 100%;
+    height: 100%;
     background: #eee;
     border-radius: 22px;
     overflow: hidden;
