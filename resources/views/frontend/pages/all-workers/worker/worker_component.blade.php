@@ -40,10 +40,6 @@
 .cv-image-wrapper img {
 
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: top center;
-    aspect-ratio: 3 / 4;
     border-radius: 20px;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
@@ -248,21 +244,15 @@
 }
 
 .cv-image-wrapper {
-    height: 100%;
     background: #fff;
     border-radius: 18px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 0 !important;
     border: 2px solid #f4a83533;
 }
 
 .cv-image-wrapper img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
     border-radius: 12px;
     transition: 0.3s ease;
 }
@@ -375,7 +365,6 @@
 
 .cv-image-wrapper {
     width: 100%;
-    height: 620px;
     position: relative;
     overflow: hidden;
     border-radius: 22px;
@@ -396,8 +385,6 @@
 
 .cv-image-wrapper img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
     object-position: top center;
     transition: transform 0.6s ease;
     border-radius: 22px;
@@ -456,10 +443,19 @@
     transform: scale(1.01);
 }*/
 
+/* ===== FINAL IMAGE SOLUTION – NO CROP EVER ===== */
+
+.cv-slider {
+    width: 43%;
+    background: #f9f9f9;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
 .cv-image-wrapper {
     width: 100%;
     background: #fff;
-    border-radius: 20px;
+    border-radius: 22px;
     overflow: hidden;
     border: 1px solid rgba(244, 168, 53, 0.25);
 }
@@ -470,12 +466,12 @@
     display: block;
     object-fit: contain;
     object-position: center;
-    border-radius: 20px;
+    border-radius: 22px;
     transition: transform 0.3s ease;
 }
 
 .cv-image-wrapper img:hover {
-    transform: scale(1.01);
+    transform: scale(1.02);
 }
 </style>
 
