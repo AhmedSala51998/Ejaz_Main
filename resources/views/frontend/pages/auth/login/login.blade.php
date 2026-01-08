@@ -400,6 +400,27 @@
     font-size: 13px;
     margin-top: 4px;
 }
+.form-check-input:checked {
+    background-color: #f4a835;
+    border-color: #f4a835;
+}
+
+.form-check-input:focus {
+    border-color: #f4a835;
+    box-shadow: 0 0 0 0.2rem rgba(244, 168, 53, 0.25);
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+.form-check-input {
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.form-check-input:hover {
+    border-color: #f4a835;
+}
 
 </style>
 @endsection
