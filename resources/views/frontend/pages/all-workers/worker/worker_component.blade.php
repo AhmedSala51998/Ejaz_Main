@@ -456,6 +456,19 @@
 .cv-image-wrapper img:hover {
     transform: scale(1.01);
 }*/
+.cv-image-wrapper {
+    width: 100%;
+    background: #eee;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.cv-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
 </style>
 
 
