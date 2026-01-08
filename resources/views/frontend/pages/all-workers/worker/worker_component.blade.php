@@ -397,8 +397,8 @@
 
 .cv-image-wrapper img {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
     object-position: top center;
     transition: transform 0.6s ease;
     border-radius: 22px;
