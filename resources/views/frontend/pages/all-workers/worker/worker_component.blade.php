@@ -424,7 +424,7 @@
 
 .cv-image-wrapper {
     width: 100%;
-    height:100%;
+    height: 100%;
     background: #fff;
     border-radius: 20px;
     overflow: hidden;
@@ -463,7 +463,7 @@
 
 .cv-image-wrapper img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: contain;
     object-position: center;
