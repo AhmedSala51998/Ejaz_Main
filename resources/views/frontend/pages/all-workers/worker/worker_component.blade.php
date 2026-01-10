@@ -451,6 +451,7 @@
 
 .cv-image-wrapper {
     width: 100%;
+    height: 620px;
     overflow: hidden;
     border-radius: 22px;
     background: #eee;
