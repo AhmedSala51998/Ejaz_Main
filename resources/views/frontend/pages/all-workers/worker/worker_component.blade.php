@@ -438,9 +438,21 @@
     overflow: hidden;
     border: 1px solid rgba(244, 168, 53, 0.25);
 }
+.swiper,
+.swiper-wrapper,
+.swiper-slide {
+    height: 100%;
+}
+
+.swiper-slide > a {
+    display: block;
+    height: 100%;
+}
+
 .cv-image-wrapper {
     width: 100%;
-    aspect-ratio: 3 / 4 !important;
+    aspect-ratio: 3 / 4;
+    height: 100%;
     overflow: hidden;
     border-radius: 22px;
     background: #eee;
