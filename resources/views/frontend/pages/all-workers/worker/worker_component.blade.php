@@ -25,16 +25,12 @@
 
 .cv-image-wrapper {
     width: 100%;
-    height: 620px;
     background: #fff;
     border: 2px solid rgba(245, 166, 35, 0.35);
     border-radius: 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    display: block;
 }
 
 .cv-image-wrapper img {
@@ -376,7 +372,6 @@
 
 .cv-image-wrapper {
     width: 100%;
-    height: 620px;
     position: relative;
     overflow: hidden;
     border-radius: 22px;
