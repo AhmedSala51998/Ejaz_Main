@@ -444,18 +444,15 @@
     border: 1px solid rgba(244, 168, 53, 0.25);
 }
 .cv-image-wrapper {
-    width: 100%;
-    height: 620px;
-    overflow: hidden;
+    aspect-ratio: 4 / 4;
 }
 
 .cv-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display: block;
+    background: #fff;
 }
-
 </style>
 
 
