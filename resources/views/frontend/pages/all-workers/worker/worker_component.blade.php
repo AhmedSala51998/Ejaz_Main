@@ -443,16 +443,7 @@
     overflow: hidden;
     border: 1px solid rgba(244, 168, 53, 0.25);
 }
-.cv-image-wrapper {
-    aspect-ratio: 4 / 4;
-}
 
-.cv-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #fff;
-}
 </style>
 
 
