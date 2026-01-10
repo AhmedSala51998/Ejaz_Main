@@ -451,7 +451,8 @@
 
 .cv-image-wrapper {
     width: 100%;
-    height: 620px;
+    aspect-ratio: 5 / 4;
+    height: 100%;
     overflow: hidden;
     border-radius: 22px;
     background: #eee;
@@ -459,7 +460,8 @@
 
 .cv-image-wrapper img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
     display: block;
 }
 </style>
