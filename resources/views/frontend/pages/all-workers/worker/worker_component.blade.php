@@ -344,20 +344,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const slider = document.querySelector(".workerCvSlider");
     if (!slider) return;
 
-    const slides = Array.from(slider.querySelectorAll(".swiper-slide a"));
+    const slides = slider.querySelectorAll(".swiper-slide img");
 
-    const validSlides = slides.filter(a => a.href && a.href.trim() !== "");
+    const imagesSrc = Array.from(slides).map(img => img.src);
 
-    const uniqueImages = [...new Set(validSlides.map(a => a.href))];
+    const uniqueImages = [...new Set(imagesSrc)];
 
     if (uniqueImages.length <= 1) {
         slider.classList.add("no-swiper");
-        document.querySelectorAll(".workerCvSliderNext, .workerCvSliderPrev")
-            .forEach(el => el.style.display = "none");
 
-        if (validSlides[0]) {
-            validSlides[0].setAttribute("data-fancybox", `users${validSlides[0].dataset.cvId}-CV`);
-        }
+        document.querySelectorAll(
+            ".workerCvSliderNext, .workerCvSliderPrev"
+        ).forEach(el => el.style.display = "none");
 
         return;
     }
