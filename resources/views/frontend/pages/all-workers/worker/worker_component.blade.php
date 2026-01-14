@@ -265,7 +265,7 @@
     <div class="cv-info">
 
         <div class="cv-warning">
-            <p style="text-align:center !important">لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
+            <p style="text-align:center !important;color:#FFF !important">لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
         </div>
         <ul>
             <li><h6>الاسم:</h6><p>{{$cv->cv_name}}</p></li>

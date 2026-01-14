@@ -48,18 +48,6 @@
         return v[2] || null;
     }
 
-    // --- اختيار المدينة ---
-    /*function chooseCity(branch) {
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
-        document.getElementById('cityModal').style.display = 'none';
-
-        axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        }).finally(() => {
-            location.reload();
-        });
-    }*/
     function chooseCity(element, branch) {
         const cards = document.querySelectorAll('.card');
         cards.forEach(c => c.style.pointerEvents = 'none');
@@ -131,14 +119,6 @@
         chooseCity('yanbu');
     }
 
-    /*document.addEventListener('DOMContentLoaded', () => {
-        const branch = localStorage.getItem('branch') || getCookie('branch');
-        if (!branch) {
-            document.getElementById('cityModal').style.display = 'flex';
-            document.body.style.pointerEvents = 'none';
-            document.getElementById('cityModal').style.pointerEvents = 'auto';
-        }
-    });*/
     document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch');
         const cookieBranch = getCookie('branch');
@@ -530,6 +510,49 @@
             to { transform: rotate(360deg); }
         }
 
+
+          /* Globe hidden visually but still measurable */
+        #globe-container {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .6s ease;
+        }
+
+        #globe-container.globe-visible {
+        opacity: 1;
+        pointer-events: auto;
+        }
+
+        /* Bubble */
+        #saudi-bubble {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .4s ease;
+        }
+
+        #saudi-bubble.globe-visible {
+        opacity: 1;
+        }
+
+        /* Hide header until loader finishes */
+        .main-header {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        }
+
+        /* Show header after page load */
+        body.page-loaded .main-header {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        }
+
+        .fancybox__container {
+            top: 80px !important;
+            height: calc(100% - 80px) !important;
+        }
+
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -581,37 +604,6 @@
             </div>
         </div>
     </div>
-    <!--<div id="cityModal" style="display:none;">
-    <div class="city-modal-content">
-        <h2>
-        مرحبًا بك في <span>إيجاز للاستقدام</span><br>
-        اختر مدينتك لعرض العمالة الأقرب إليك
-        <i class="fas fa-arrow-down arrow-icon"></i>
-        </h2>
-
-        <div class="cards">
-        <div class="card" onclick="chooseCity('jeddah')">
-            <i class="fas fa-city"></i>
-            <span>جدة</span>
-        </div>
-
-        <div class="card" onclick="chooseCity('yanbu')">
-            <i class="fas fa-water"></i>
-            <span>ينبع</span>
-        </div>
-
-        <div class="card" onclick="chooseCity('riyadh')">
-            <i class="fas fa-building"></i>
-            <span>الرياض</span>
-        </div>
-
-        <div class="card location" onclick="detectLocation()">
-            <i class="fas fa-map-marker-alt location-icon"></i>
-            <span>استكشف موقعي</span>
-        </div>
-        </div>
-    </div>
-    </div>-->
 
     <div id="cityModal" style="display:none;">
         <div class="city-modal-content">
