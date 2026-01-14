@@ -5,11 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Order;
 use App\Models\Biography;
-use TaqnyatSms;
+use App\Jobs\SendSMSJob;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CancelOrders extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -29,64 +30,56 @@ class CancelOrders extends Command
      *
      * @return int
      */
-    private function sendSMS($phone,$msg)
-    {
-        $bearer = '2a17275dc72bdb4bd16a93eaf6f6530e';
-        $taqnyt = new TaqnyatSms($bearer);
-
-        $body = 'message Content';
-        $recipients = ['966********'];
-        $sender = 'Ejazrec';
-        $smsId = '25489';
-
-        $phone= $phone;
-
-        //$message =$taqnyt->sendMsg($msg, $phone, $sender, $smsId);
-
-        $result = $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
-
-        return $result;
-
-    }
-
     public function handle()
     {
-        $count = Order::where('status', 'under_work')
-        ->where('created_at', '<=', now()->subHours(48))
-        ->count();
-
-        if ($count === 0) {
+        $lock = $this->laravel->cache->lock('cancel_orders_lock', 300);
+        if (!$lock->get()) {
+            Log::info('CancelOrders: Command already running.');
             return 0;
         }
 
-        $ordersToCancel = Order::with(['user:id,phone','biography:id,cv_name'])
-            ->where('status', 'under_work')
-            ->where('created_at', '<=', now()->subHours(48))
-            ->limit(10)
-            ->get();
+        try {
+            $count = Order::where('status', 'under_work')
+                ->where('created_at', '<=', now()->subHours(48))
+                ->count();
 
-        foreach ($ordersToCancel as $order) {
-
-            $order->update(['status' => 'canceled']);
-
-            $order->biography->update([
-                'status' => 'new',
-                'admin_id' => null,
-                'user_id' => null
-            ]);
-
-            $clientPhone = $order->user->phone ?? null;
-            $workerName = $order->biography->cv_name ?? 'العاملة';
-
-            if ($clientPhone) {
-                $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
-
-                try {
-                    $this->sendSMS($clientPhone, $msg);
-                } catch (\Exception $e) {
-                    \Log::error("SMS failed for Order ID {$order->id}: " . $e->getMessage());
-                }
+            if ($count === 0) {
+                Log::info('CancelOrders: No orders to cancel.');
+                return 0;
             }
+
+            Order::where('status', 'under_work')
+                ->where('created_at', '<=', now()->subHours(48))
+                ->with(['user:id,phone','biography:id,cv_name'])
+                ->chunkById(50, function ($orders) {
+                    foreach ($orders as $order) {
+                        DB::transaction(function() use ($order) {
+                            $order->update(['status' => 'canceled']);
+
+                            if ($order->biography) {
+                                $order->biography->update([
+                                    'status' => 'new',
+                                    'admin_id' => null,
+                                    'user_id' => null
+                                ]);
+                            }
+
+                            $clientPhone = $order->user->phone ?? null;
+                            $workerName = $order->biography->cv_name ?? 'العاملة';
+
+                            if ($clientPhone) {
+                                $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
+
+                                SendSMSJob::dispatch($clientPhone, $msg);
+                            }
+                        });
+                    }
+                });
+
+        } catch (\Exception $e) {
+            Log::error("CancelOrders failed: " . $e->getMessage());
+        } finally {
+            $lock->release();
         }
 
         return 0;
