@@ -340,7 +340,27 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
 <script>
-    var workerCvSlider = new Swiper(".workerCvSlider", {
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector(".workerCvSlider");
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll(".swiper-slide img");
+
+    const imagesSrc = Array.from(slides).map(img => img.src);
+
+    const uniqueImages = [...new Set(imagesSrc)];
+
+    if (uniqueImages.length <= 1) {
+        slider.classList.add("no-swiper");
+
+        document.querySelectorAll(
+            ".workerCvSliderNext, .workerCvSliderPrev"
+        ).forEach(el => el.style.display = "none");
+
+        return;
+    }
+
+    new Swiper(".workerCvSlider", {
         spaceBetween: 0,
         centeredSlides: true,
         speed: 1000,
@@ -349,4 +369,5 @@
             prevEl: ".workerCvSliderPrev",
         },
     });
+});
 </script>
