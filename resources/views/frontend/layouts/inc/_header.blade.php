@@ -721,14 +721,12 @@ body.sticky-header-active {
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // اختار كل أزرار حسابي فقط (حسب الكلاس الموجود في الكود الحالي)
         const accountDropdowns = document.querySelectorAll('.dropdownWrapper .dropdownToggle');
 
         accountDropdowns.forEach(toggle => {
             const parent = toggle.closest('.dropdownWrapper');
             const dropdownMenu = parent.querySelector('.dropdownMenu');
 
-            // تحكّم فقط إذا كان النص هو "حسابي"
             if (toggle.textContent.trim().includes("حسابي")) {
                 toggle.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -744,7 +742,6 @@ body.sticky-header-active {
                     }
                 });
 
-                // إغلاق عند الضغط خارج "حسابي"
                 document.addEventListener('click', function (event) {
                     if (!parent.contains(event.target)) {
                         dropdownMenu.classList.remove('force-show');
