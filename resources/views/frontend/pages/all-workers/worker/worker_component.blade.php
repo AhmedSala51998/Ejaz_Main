@@ -347,16 +347,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const slides = slider.querySelectorAll(".swiper-slide img");
 
     const imagesSrc = Array.from(slides).map(img => img.src);
-
     const uniqueImages = [...new Set(imagesSrc)];
 
     if (uniqueImages.length <= 1) {
         slider.classList.add("no-swiper");
 
-        document.querySelectorAll(
-            ".workerCvSliderNext, .workerCvSliderPrev"
-        ).forEach(el => el.style.display = "none");
+        document.querySelectorAll(".workerCvSliderNext, .workerCvSliderPrev")
+            .forEach(el => el.style.display = "none");
 
+        slides[0].parentElement.setAttribute("data-fancybox", `users${slides[0].dataset.cvId}-CV`);
         return;
     }
 
