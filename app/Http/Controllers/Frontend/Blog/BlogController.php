@@ -14,7 +14,7 @@ class BlogController extends Controller
             ->latest()
             ->paginate(9);
 
-        return view('frontend.pages.blog.index', compact('blogs'));
+        return view('frontend.pages.blogs.index', compact('blogs'));
     }
 
     public function show($slug)
@@ -27,6 +27,6 @@ class BlogController extends Controller
             session()->put($sessionKey, true);
         }
 
-        return view('frontend.pages.blog.show', compact('blog'));
+        return view('frontend.pages.blogs.show', compact('blog'));
     }
 }
