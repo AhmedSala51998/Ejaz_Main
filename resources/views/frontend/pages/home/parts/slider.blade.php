@@ -449,11 +449,9 @@ import Globe from 'https://unpkg.com/globe.gl/dist/globe.gl.js';
 import { feature } from 'https://unpkg.com/topojson@3/dist/topojson.min.js';
 import { geoCentroid } from 'https://unpkg.com/d3-geo@3/dist/d3-geo.min.js';
 
-// بيانات الدول
 const dbCountries = @json($countries->keyBy('country_name'));
 const emphasizedCountries = @json($countryMap);
 
-// ضبط الأسعار
 Object.values(emphasizedCountries).forEach(c => {
   const key = c.name.trim();
   if (dbCountries[key]) c.price = dbCountries[key].price;
