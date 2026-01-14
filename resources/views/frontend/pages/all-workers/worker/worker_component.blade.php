@@ -341,33 +341,39 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.querySelector(".workerCvSlider");
-    if (!slider) return;
+    const sliders = document.querySelectorAll(".workerCvSlider");
 
-    const slides = slider.querySelectorAll(".swiper-slide img");
+    sliders.forEach(slider => {
+        const slides = slider.querySelectorAll(".swiper-slide img");
 
-    const imagesSrc = Array.from(slides).map(img => img.src);
+        const imagesSrc = Array.from(slides).map(img => img.src);
 
-    const uniqueImages = [...new Set(imagesSrc)];
+        const uniqueImages = [...new Set(imagesSrc)];
 
-    if (uniqueImages.length <= 1) {
-        slider.classList.add("no-swiper");
+        const nextBtn = slider.querySelector(".workerCvSliderNext");
+        const prevBtn = slider.querySelector(".workerCvSliderPrev");
 
-        document.querySelectorAll(
-            ".workerCvSliderNext, .workerCvSliderPrev"
-        ).forEach(el => el.style.display = "none");
+        if (uniqueImages.length <= 1) {
+            if (nextBtn) nextBtn.style.display = "none";
+            if (prevBtn) prevBtn.style.display = "none";
+            return;
+        }
 
-        return;
-    }
+        new Swiper(slider, {
+            spaceBetween: 0,
+            centeredSlides: true,
+            speed: 1000,
+            navigation: {
+                nextEl: nextBtn,
+                prevEl: prevBtn,
+            },
+        });
+    });
 
-    new Swiper(".workerCvSlider", {
-        spaceBetween: 0,
-        centeredSlides: true,
-        speed: 1000,
-        navigation: {
-            nextEl: ".workerCvSliderNext",
-            prevEl: ".workerCvSliderPrev",
-        },
+    // === Fancybox ===
+    Fancybox.bind("[data-fancybox]", {
+        Thumbs: false,
+        Toolbar: true,
     });
 });
 </script>
