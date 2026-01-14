@@ -1,6 +1,12 @@
 User-agent: *
 Allow: /
 
+Disallow: /register
+Disallow: /login
+Disallow: /forget-password
+Disallow: /forget-email-sent-successfully
+Disallow: /reset-password
+
 Disallow: /admin
 
 Sitemap: https://isteqdamejaz.com/sitemap.xml
