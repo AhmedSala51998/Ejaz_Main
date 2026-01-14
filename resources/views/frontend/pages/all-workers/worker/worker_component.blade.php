@@ -33,6 +33,7 @@
     overflow: hidden;
     background: #f9f9f9;
     position: relative;
+    aspect-ratio: 5 / 4;
 }
 
 /* ================== IMAGE ================== */
@@ -78,10 +79,9 @@
 }
 
 /* ================== SWIPER ================== */
-.swiper,
-.swiper-wrapper,
-.swiper-slide {
-    height: 100%;
+.swiper {
+    width: 100%;
+    height: auto;
 }
 
 .swiper-slide {
@@ -238,7 +238,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
 
-                                <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
+                                <img src="{{ get_file($cv->cv_file) }}" width="800" height="640" loading="lazy" decoding="async" alt="CV Image">
 
                         </div>
                     </a>

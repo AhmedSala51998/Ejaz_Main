@@ -239,6 +239,18 @@
 canvas {
   image-rendering: auto;
 }
+#globe-container {
+    width: 100%;
+    max-width: 460px;
+    aspect-ratio: 1 / 1;
+    min-height: 360px;
+    visibility: hidden;
+}
+#saudi-bubble,
+#chat-message {
+    will-change: transform;
+    contain: layout paint;
+}
 
 </style>
 @if (count($sliders)>0)
@@ -447,6 +459,7 @@ $countryMap = [
 <script src="https://unpkg.com/topojson@3"></script>
 <script src="https://unpkg.com/d3-geo@3"></script>
 <script>
+function initGlobe() {
 function getCentroidFromPolygon(coords) {
   let x = 0, y = 0, len = coords.length;
   for (let i = 0; i < len; i++) {
@@ -817,6 +830,17 @@ function showSaudiMessage() {
     }, 600);
   }, 3700);
 }
-
-
+setTimeout(() => {
+  document.getElementById('globe-container').style.visibility = 'visible';
+}, 100);
+}
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(() => {
+    initGlobe();
+  });
+} else {
+  setTimeout(() => {
+    initGlobe();
+  }, 1200);
+}
 </script>
