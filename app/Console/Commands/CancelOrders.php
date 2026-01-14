@@ -34,7 +34,6 @@ class CancelOrders extends Command
     {
         $lock = $this->laravel->cache->lock('cancel_orders_lock', 300);
         if (!$lock->get()) {
-            Log::info('CancelOrders: Command already running.');
             return 0;
         }
 
@@ -44,7 +43,6 @@ class CancelOrders extends Command
                 ->count();
 
             if ($count === 0) {
-                Log::info('CancelOrders: No orders to cancel.');
                 return 0;
             }
 
