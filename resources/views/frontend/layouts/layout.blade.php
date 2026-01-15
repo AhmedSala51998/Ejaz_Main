@@ -11,6 +11,19 @@
 
         gtag('config', 'G-NTCLJLMES5');
     </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXNLF389JY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-DXNLF389JY');
+    </script>
     <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
     <script>
         (function(h,o,t,j,a,r){
@@ -22,7 +35,7 @@
             a.appendChild(r);
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
-    <script defer  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
     // --- Helpers ---
     function setCookie(name, value) {
@@ -120,8 +133,9 @@
                 localStorage.setItem('branch', cookieBranch);
             }
         }
+    });
 
-
+        document.addEventListener('DOMContentLoaded', () => {
         const branch = localStorage.getItem('branch') || getCookie('branch');
         if (!branch) {
             const cityModal = document.getElementById('cityModal');
@@ -539,18 +553,19 @@
             height: calc(100% - 80px) !important;
         }
 
-        .loader-wrapper {
-        opacity: 1;
-        pointer-events: none;
-        }
-
-        body.page-loaded .loader-wrapper {
-        opacity: 0;
-        }
-
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11543933560">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-11543933560');
+    </script>
 
 </head>
 
@@ -670,10 +685,7 @@
                 window.setTimeout(function () {
                     $('#CVHere').html(data.html);
                 }, 1000);
-                if (window.cvSwiper) {
-                window.cvSwiper.destroy(true, true);
-                }
-                window.cvSwiper = new Swiper(".workerCvSlider", {
+                new Swiper(".workerCvSlider", {
                     spaceBetween: 0,
                     centeredSlides: true,
                     // loop: true,
@@ -859,8 +871,7 @@ window.addEventListener('load', () => {
 {{--        }--}}
 {{--    });--}}
 {{--</script>--}}
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="floating-container">
     <div class="floating-button"><i class="material-icons">headset_mic</i></div>
     <div class="element-container">
