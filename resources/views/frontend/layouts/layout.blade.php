@@ -502,8 +502,6 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity .6s ease;
-        min-height: 520px;
-        aspect-ratio: 1 / 1;
         }
 
         #globe-container.globe-visible {
