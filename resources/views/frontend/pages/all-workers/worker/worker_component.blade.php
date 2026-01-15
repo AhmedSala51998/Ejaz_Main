@@ -118,7 +118,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    aspect-ratio: 3 / 4;
 }
 
 .cv-warning {
