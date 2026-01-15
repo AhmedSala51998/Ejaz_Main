@@ -568,7 +568,13 @@
     <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
     <div class="spinner"></div>
 </div>-->
-
+<div class="loader-wrapper" aria-label="لودر لوجو إيجاز">
+  <div class="square">إ</div>
+  <div class="square">ي</div>
+  <div class="square">ج</div>
+  <div class="square">ا</div>
+  <div class="square">ز</div>
+</div>
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
 <!-- ================ /Header ================= -->
@@ -810,7 +816,36 @@
     });
 
 </script>
+<script>
+window.addEventListener('load', () => {
 
+  const loader = document.querySelector('.loader-wrapper');
+  const globe  = document.getElementById('globe-container');
+  const bubble = document.getElementById('saudi-bubble');
+  const ramadanDecor = document.querySelectorAll(
+    '.ramadan-svg-decor, .ramadan-top-decor'
+  );
+
+  if (loader) {
+    loader.style.transition = 'opacity 0.3s ease';
+    loader.style.opacity = '0';
+
+    setTimeout(() => {
+      loader.style.display = 'none';
+
+      // mark page as loaded
+      document.body.classList.add('page-loaded');
+
+      // show elements
+      ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
+      globe?.classList.add('globe-visible');
+      bubble?.classList.add('globe-visible');
+
+    }, 300);
+  }
+
+});
+</script>
 
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
