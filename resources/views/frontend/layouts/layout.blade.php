@@ -542,7 +542,6 @@
         }
 
         #globe-container {
-            aspect-ratio: 1 / 1;
             min-height: 360px;
         }
 
