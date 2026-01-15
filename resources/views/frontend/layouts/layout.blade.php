@@ -553,6 +553,21 @@
             height: calc(100% - 80px) !important;
         }
 
+        #globe-container {
+            aspect-ratio: 1 / 1;
+            min-height: 360px;
+        }
+
+        @media (max-width: 768px) {
+            #globe-container {
+                min-height: 300px;
+            }
+        }
+        @media (max-width: 768px) {
+            #saudi-bubble {
+                backdrop-filter: none;
+            }
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

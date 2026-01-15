@@ -40,7 +40,10 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
-<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
+<script defer src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script defer src="https://unpkg.com/globe.gl"></script>
+<script defer src="https://unpkg.com/topojson@3"></script>
+<script defer src="https://unpkg.com/d3-geo@3"></script>
 <script>
 $(document).on('submit', 'form#Form', function (e) {
     e.preventDefault();
@@ -101,9 +104,6 @@ $(document).on('submit', 'form#Form', function (e) {
         success: function (data) {
             submitBtn.prop('disabled', false);
             submitBtn.html(`<i class="fa-solid fa-paper-plane me-2"></i> إرسال`);
-
-            let sound = document.getElementById('successSound');
-            if (sound) sound.play();
 
             Swal.fire({
                 title: '🎉 تم الإرسال بنجاح!',
