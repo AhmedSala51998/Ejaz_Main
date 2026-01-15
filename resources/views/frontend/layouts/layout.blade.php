@@ -535,18 +535,6 @@
         }
 
         /* Hide header until loader finishes */
-        .main-header {
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-        }
-
-        /* Show header after page load */
-        body.page-loaded .main-header {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-        }
 
         .fancybox__container {
             top: 80px !important;
@@ -828,36 +816,7 @@
     });
 
 </script>
-<script>
-window.addEventListener('load', () => {
 
-  const loader = document.querySelector('.loader-wrapper');
-  const globe  = document.getElementById('globe-container');
-  const bubble = document.getElementById('saudi-bubble');
-  const ramadanDecor = document.querySelectorAll(
-    '.ramadan-svg-decor, .ramadan-top-decor'
-  );
-
-  if (loader) {
-    loader.style.transition = 'opacity 0.3s ease';
-    loader.style.opacity = '0';
-
-    setTimeout(() => {
-      loader.style.display = 'none';
-
-      // mark page as loaded
-      document.body.classList.add('page-loaded');
-
-      // show elements
-      ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
-      globe?.classList.add('globe-visible');
-      bubble?.classList.add('globe-visible');
-
-    }, 300);
-  }
-
-});
-</script>
 
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
