@@ -442,11 +442,10 @@ $countryMap = [
     682 => ['iso' => 'sa', 'revealed' => true, 'name' => 'المملكة العربية السعودية'],
 ];
 @endphp
-<script defer src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
-<script defer src="https://unpkg.com/globe.gl"></script>
-<script defer src="https://unpkg.com/topojson@3"></script>
-<script defer src="https://unpkg.com/d3-geo@3"></script>
-
+<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson@3"></script>
+<script src="https://unpkg.com/d3-geo@3"></script>
 <script>
 function getCentroidFromPolygon(coords) {
   let x = 0, y = 0, len = coords.length;
