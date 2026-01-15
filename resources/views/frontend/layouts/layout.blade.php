@@ -607,7 +607,7 @@
         </div>
     </div>
 
-    <div id="cityModal" style="display:none;">
+    <!--<div id="cityModal" style="display:none;">
         <div class="city-modal-content">
             <h2>
             مرحبًا بك في <span>إيجاز للاستقدام</span><br>
@@ -632,7 +632,7 @@
             </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
 </content>
