@@ -239,6 +239,13 @@
 canvas {
   image-rendering: auto;
 }
+#globe-container {
+  min-height: 420px;
+  aspect-ratio: 1 / 1;
+}
+@font-face {
+  font-display: swap;
+}
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
