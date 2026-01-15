@@ -209,6 +209,7 @@
     .cv-slider,
     .cv-info {
         width: 100%;
+        min-height: 360px;
     }
 
     .cv-image-wrapper {
@@ -241,7 +242,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
 
-                                <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
+                                <img src="{{ get_file($cv->cv_file) }}" width="500" height="400" fetchpriority="high" decoding="async" alt="CV Image">
 
                         </div>
                     </a>
