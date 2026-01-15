@@ -238,7 +238,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
 
-                                <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
+                                <img src="{{ get_file($cv->cv_file) }}" src="..." width="1200" height="1500" loading="lazy" decoding="async" alt="CV Image">
 
                         </div>
                     </a>
@@ -336,44 +336,32 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const sliders = document.querySelectorAll(".workerCvSlider");
+document.addEventListener("DOMContentLoaded", () => {
 
-    sliders.forEach(slider => {
-        const slides = slider.querySelectorAll(".swiper-slide img");
+  document.querySelectorAll(".workerCvSlider").forEach(slider => {
 
-        const imagesSrc = Array.from(slides).map(img => img.src);
+    const images = slider.querySelectorAll("img");
+    if (images.length <= 1) {
+      slider.querySelector(".workerCvSliderNext")?.remove();
+      slider.querySelector(".workerCvSliderPrev")?.remove();
+      return;
+    }
 
-        const uniqueImages = [...new Set(imagesSrc)];
-
-        const nextBtn = slider.querySelector(".workerCvSliderNext");
-        const prevBtn = slider.querySelector(".workerCvSliderPrev");
-
-        if (uniqueImages.length <= 1) {
-            if (nextBtn) nextBtn.style.display = "none";
-            if (prevBtn) prevBtn.style.display = "none";
-            return;
-        }
-
-        new Swiper(slider, {
-            spaceBetween: 0,
-            centeredSlides: true,
-            speed: 1000,
-            navigation: {
-                nextEl: nextBtn,
-                prevEl: prevBtn,
-            },
-        });
+    new Swiper(slider, {
+      speed: 800,
+      spaceBetween: 0,
+      navigation: {
+        nextEl: slider.querySelector(".workerCvSliderNext"),
+        prevEl: slider.querySelector(".workerCvSliderPrev"),
+      },
+      watchSlidesProgress: true
     });
+  });
 
-    // === Fancybox ===
-    Fancybox.bind("[data-fancybox]", {
-        Thumbs: false,
-        Toolbar: true,
-    });
 });
 </script>
