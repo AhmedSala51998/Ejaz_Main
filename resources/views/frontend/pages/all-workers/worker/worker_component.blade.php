@@ -33,6 +33,7 @@
     overflow: hidden;
     background: #f9f9f9;
     position: relative;
+    aspect-ratio: 5 / 4;
 }
 
 /* ================== IMAGE ================== */
@@ -71,6 +72,7 @@
 
     border-radius: 22px;
     transition: transform 0.6s ease;
+
 }
 
 .cv-image-wrapper:hover img {
@@ -249,7 +251,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($image->image) }}">
                         <div class="cv-image-wrapper">
 
-                                <img src="{{ get_file($image->image) }}" alt="CV Image">
+                                <img src="{{ get_file($image->image) }}" width="500" height="400" loading="lazy" decoding="async" alt="CV Image">
 
                         </div>
                     </a>
@@ -337,8 +339,8 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
