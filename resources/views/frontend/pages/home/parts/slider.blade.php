@@ -240,7 +240,7 @@ canvas {
   image-rendering: auto;
 }
 #globe-container {
-  min-height: 420px;
+  min-height: 320px;
   aspect-ratio: 1 / 1;
 }
 @font-face {
