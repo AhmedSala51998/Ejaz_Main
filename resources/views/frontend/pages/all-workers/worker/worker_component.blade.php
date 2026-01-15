@@ -223,6 +223,15 @@
         margin-top: 20px;
     }
 }
+img {
+  max-width: 100%;
+  height: auto;
+}
+.workerCvSlider {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+}
+
 </style>
 
 
@@ -238,7 +247,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
 
-                                <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
+                                <img src="{{ get_file($cv->cv_file) }}" width="1200" height="1600" loading="lazy" decoding="async" alt="CV Image">
 
                         </div>
                     </a>
