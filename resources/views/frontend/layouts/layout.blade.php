@@ -535,6 +535,18 @@
         }
 
         /* Hide header until loader finishes */
+        .main-header {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        }
+
+        /* Show header after page load */
+        body.page-loaded .main-header {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        }
 
         .fancybox__container {
             top: 80px !important;
