@@ -134,7 +134,7 @@
       font-size: 14px;
       max-width: 280px;
       box-shadow: 0 6px 18px rgba(244, 168, 53, 0.6);
-      z-index: 11000;
+      z-index: 10000;
       line-height: 1.4;
       user-select: none;
       cursor: default;
@@ -142,19 +142,6 @@
       opacity: 0;
       pointer-events: none;
     }
-
-    /*#chat-message::after {
-      content: '';
-      position: absolute;
-      bottom: -14px;
-      left: 40px;
-      width: 0;
-      height: 0;
-      border-left: 14px solid transparent;
-      border-right: 14px solid transparent;
-      border-top: 14px solid #e07b00;
-      filter: drop-shadow(0 3px 3px rgba(224, 123, 0, 0.3));
-    }*/
 
     @keyframes fadeSlideIn {
       from {
