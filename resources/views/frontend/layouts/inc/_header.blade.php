@@ -56,7 +56,8 @@ body.sticky-header-active {
 }
 
 .main-header .container-fluid {
-    max-width: 1440px; /* Wider container for more space */
+    width: auto;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 30px; /* More padding on sides */
 }
