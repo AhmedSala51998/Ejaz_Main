@@ -249,7 +249,7 @@
             justify-content: center;
             height: 100vh;
             background: #fffefc;
-            z-index: 9999;
+            z-index: 10002;
             position: fixed;
             top: 0;
             left: 0;
@@ -535,18 +535,6 @@
         }
 
         /* Hide header until loader finishes */
-        .main-header {
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-        }
-
-        /* Show header after page load */
-        body.page-loaded .main-header {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-        }
 
         .fancybox__container {
             top: 80px !important;
