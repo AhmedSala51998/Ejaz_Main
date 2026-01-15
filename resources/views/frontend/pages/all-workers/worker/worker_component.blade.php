@@ -260,8 +260,6 @@
 
                 @endforeach
             </div>
-            <div class="swiper-button-next workerCvSliderNext"></div>
-            <div class="swiper-button-prev workerCvSliderPrev"></div>
         </div>
     </div>
 
@@ -340,41 +338,9 @@
 </div>
 
 
-<script defer src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const sliders = document.querySelectorAll(".workerCvSlider");
-
-    sliders.forEach(slider => {
-        const slides = slider.querySelectorAll(".swiper-slide img");
-
-        const imagesSrc = Array.from(slides).map(img => img.src);
-
-        const uniqueImages = [...new Set(imagesSrc)];
-
-        const nextBtn = slider.querySelector(".workerCvSliderNext");
-        const prevBtn = slider.querySelector(".workerCvSliderPrev");
-
-        if (uniqueImages.length <= 1) {
-            if (nextBtn) nextBtn.style.display = "none";
-            if (prevBtn) prevBtn.style.display = "none";
-            return;
-        }
-
-        new Swiper(slider, {
-            spaceBetween: 0,
-            centeredSlides: true,
-            speed: 1000,
-            navigation: {
-                nextEl: nextBtn,
-                prevEl: prevBtn,
-            },
-        });
-    });
-
-    // === Fancybox ===
     Fancybox.bind("[data-fancybox]", {
         Thumbs: false,
         Toolbar: true,
