@@ -363,6 +363,8 @@ canvas {
     </section>
 @endif
 
+<canvas id="sphere-canvas" width="600" height="600"></canvas>
+
 <script>
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
@@ -370,7 +372,7 @@ const ctx = canvas.getContext('2d');
 const W = canvas.width;
 const H = canvas.height;
 
-const R = Math.min(W, H) * 0.55;
+const R = Math.min(W, H) * 0.45;
 let angleY = 0;
 
 const latSteps = 24;
@@ -390,7 +392,7 @@ function projectPoint(p) {
   const y = R * Math.cos(p.theta);
   const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
 
-  const scale = 1.1;
+  const scale = 1.0;
   return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
 }
 
