@@ -384,8 +384,8 @@ let lastY = 0;
 let velocityX = 0;
 let velocityY = 0;
 
-const latSteps = 48;
-const lonSteps = 96;
+const latSteps = 24;
+const lonSteps = 48;
 
 const points = [];
 for (let i = 0; i <= latSteps; i++) {
@@ -443,20 +443,34 @@ window.addEventListener('mousemove', e => {
 function draw() {
   ctx.clearRect(0, 0, W, H);
 
-  for (const p of points) {
-    const proj = projectPoint(p);
-
-    if (proj.z < 0) continue;
-
-    const size = 0.5 + proj.z / (R * 2.5);
-
+  for (let j = 0; j <= lonSteps; j++) {
     ctx.beginPath();
-    ctx.arc(proj.x, proj.y, size, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(244,168,53,0.85)';
-    ctx.fill();
+    for (let i = 0; i <= latSteps; i++) {
+      const p = points[i * (lonSteps + 1) + j];
+      const proj = projectPoint(p);
+      if (i === 0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
   }
 
-  if (!isDragging) {
+  for (let i = 0; i <= latSteps; i++) {
+    ctx.beginPath();
+    for (let j = 0; j <= lonSteps; j++) {
+      const p = points[i * (lonSteps + 1) + j];
+      const proj = projectPoint(p);
+      if (j === 0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+  }
+
+  if (isDragging) {
+  } else {
     velocityY *= 0.95;
     velocityX *= 0.95;
 
