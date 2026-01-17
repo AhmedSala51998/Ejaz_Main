@@ -375,7 +375,7 @@ const R = Math.min(W, H) * 0.45;
 let angleX = 0;
 let angleY = 0;
 
-const autoSpeed = 0.00015;
+const autoSpeed = 0.0008;
 
 let isDragging = false;
 let lastX = 0;
