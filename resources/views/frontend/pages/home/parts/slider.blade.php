@@ -369,61 +369,127 @@ const ctx = canvas.getContext('2d');
 
 const W = canvas.width;
 const H = canvas.height;
-
 const R = Math.min(W, H) * 0.45;
+
 let angleY = 0;
 
 const latSteps = 24;
 const lonSteps = 48;
 
+/* =======================
+   نقاط الشبكة
+======================= */
 const points = [];
-for(let i=0; i<=latSteps; i++){
+for (let i = 0; i <= latSteps; i++) {
   const theta = i * Math.PI / latSteps;
-  for(let j=0; j<=lonSteps; j++){
+  for (let j = 0; j <= lonSteps; j++) {
     const phi = j * 2 * Math.PI / lonSteps;
-    points.push({theta, phi});
+    points.push({ theta, phi });
   }
 }
 
+/* =======================
+   إسقاط 3D → 2D
+======================= */
 function projectPoint(p) {
   const x = R * Math.sin(p.theta) * Math.cos(p.phi + angleY);
   const y = R * Math.cos(p.theta);
   const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
-
-  const scale = 1.0;
-  return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
+  return {
+    x: W / 2 + x,
+    y: H / 2 + y,
+    z
+  };
 }
 
+/* =======================
+   تحويل Lat/Lon
+======================= */
+function latLonToThetaPhi(lat, lon) {
+  return {
+    theta: (90 - lat) * Math.PI / 180,
+    phi: lon * Math.PI / 180
+  };
+}
+
+/* =======================
+   بيانات القارات (مبسطة)
+======================= */
+const continents = [
+  // Africa
+  [[37,-17],[30,10],[15,40],[-10,50],[-35,28],[-35,-17],[5,-10],[37,-17]],
+
+  // Europe
+  [[70,-10],[60,40],[50,60],[40,30],[45,0],[55,-10],[70,-10]],
+
+  // Asia
+  [[70,40],[60,100],[40,140],[10,120],[0,90],[20,60],[50,40],[70,40]],
+
+  // North America
+  [[70,-160],[60,-100],[40,-80],[20,-100],[30,-140],[60,-160],[70,-160]],
+
+  // South America
+  [[10,-80],[-10,-60],[-30,-55],[-55,-70],[-40,-80],[10,-80]],
+
+  // Australia
+  [[-10,110],[-20,150],[-45,150],[-45,110],[-10,110]]
+];
+
+/* =======================
+   رسم القارات
+======================= */
+function drawContinent(shape) {
+  ctx.beginPath();
+  shape.forEach((pt, i) => {
+    const p = latLonToThetaPhi(pt[0], pt[1]);
+    const proj = projectPoint(p);
+    if (proj.z < 0) return; // إخفاء اللي ورا الكرة
+    if (i === 0) ctx.moveTo(proj.x, proj.y);
+    else ctx.lineTo(proj.x, proj.y);
+  });
+  ctx.strokeStyle = 'rgba(0,255,180,0.9)';
+  ctx.lineWidth = 1.3;
+  ctx.stroke();
+}
+
+/* =======================
+   الرسم
+======================= */
 function draw() {
   ctx.clearRect(0, 0, W, H);
 
-  for(let j=0; j<=lonSteps; j++){
+  // خطوط الطول
+  for (let j = 0; j <= lonSteps; j++) {
     ctx.beginPath();
-    for(let i=0; i<=latSteps; i++){
-      const p = points[i*(lonSteps+1)+j];
+    for (let i = 0; i <= latSteps; i++) {
+      const p = points[i * (lonSteps + 1) + j];
       const proj = projectPoint(p);
-      if(i===0) ctx.moveTo(proj.x, proj.y);
+      if (i === 0) ctx.moveTo(proj.x, proj.y);
       else ctx.lineTo(proj.x, proj.y);
     }
-    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
-    ctx.lineWidth = 0.4;
+    ctx.strokeStyle = 'rgba(244,168,53,0.35)';
+    ctx.lineWidth = 0.5;
     ctx.stroke();
   }
 
-  for(let i=0; i<=latSteps; i++){
+  // خطوط العرض
+  for (let i = 0; i <= latSteps; i++) {
     ctx.beginPath();
-    for(let j=0; j<=lonSteps; j++){
-      const p = points[i*(lonSteps+1)+j];
+    for (let j = 0; j <= lonSteps; j++) {
+      const p = points[i * (lonSteps + 1) + j];
       const proj = projectPoint(p);
-      if(j===0) ctx.moveTo(proj.x, proj.y);
+      if (j === 0) ctx.moveTo(proj.x, proj.y);
       else ctx.lineTo(proj.x, proj.y);
     }
-    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(244,168,53,0.35)';
+    ctx.lineWidth = 0.8;
     ctx.stroke();
   }
 
-  angleY += 0.0008;
+  // القارات
+  continents.forEach(drawContinent);
+
+  angleY += 0.002;
   requestAnimationFrame(draw);
 }
 
