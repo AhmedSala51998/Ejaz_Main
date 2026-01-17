@@ -255,10 +255,12 @@ canvas {
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
+
                 <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
                     <canvas id="sphere-canvas" width="600" height="600"
                             style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                 </div>
+
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
@@ -302,10 +304,12 @@ canvas {
         <div class="container-fluid">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
+
                     <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
                         <canvas id="sphere-canvas" width="600" height="600"
                                 style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                     </div>
+
                 </div>
                 <div class="col-md-5 order-md-1 p-1">
                     <!-- main slider -->
@@ -365,72 +369,59 @@ const ctx = canvas.getContext('2d');
 
 const W = canvas.width;
 const H = canvas.height;
-const R = Math.min(W, H) * 0.45;
 
+const R = Math.min(W, H) * 0.45;
 let angleY = 0;
 
-const continents = [
-  { name: "Africa", coords: [
-    [-20, 37], [50, 37], [50, -35], [-20, -35], [-20, 37]
-  ]},
-  { name: "Europe", coords: [
-    [-10, 71], [40, 71], [40, 35], [-10, 35], [-10, 71]
-  ]},
-  { name: "Asia", coords: [
-    [40, 77], [180, 77], [180, 5], [40, 5], [40, 77]
-  ]},
-  { name: "North America", coords: [
-    [-170, 72], [-50, 72], [-50, 5], [-170, 5], [-170, 72]
-  ]},
-  { name: "South America", coords: [
-    [-82, 13], [-35, 13], [-35, -55], [-82, -55], [-82, 13]
-  ]},
-  { name: "Australia", coords: [
-    [110, -10], [155, -10], [155, -45], [110, -45], [110, -10]
-  ]}
-];
+const latSteps = 24;
+const lonSteps = 48;
 
-function latLonToSphere(lat, lon){
-  const theta = (90 - lat) * Math.PI / 180;
-  const phi = lon * Math.PI / 180;
-  return {theta, phi};
+const points = [];
+for(let i=0; i<=latSteps; i++){
+  const theta = i * Math.PI / latSteps;
+  for(let j=0; j<=lonSteps; j++){
+    const phi = j * 2 * Math.PI / lonSteps;
+    points.push({theta, phi});
+  }
 }
 
-function projectPoint(p){
+function projectPoint(p) {
   const x = R * Math.sin(p.theta) * Math.cos(p.phi + angleY);
   const y = R * Math.cos(p.theta);
   const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
 
-  const scale = 0.9 + 0.1*(z/R);
+  const scale = 1.0;
   return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
 }
 
-function drawContinent(continent){
-  ctx.beginPath();
-  continent.coords.forEach((coord, i) => {
-    const {theta, phi} = latLonToSphere(coord[1], coord[0]);
-    const proj = projectPoint({theta, phi});
-    if(i===0) ctx.moveTo(proj.x, proj.y);
-    else ctx.lineTo(proj.x, proj.y);
-  });
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(244,168,53,0.6)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(244,168,53,1)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-}
+function draw() {
+  ctx.clearRect(0, 0, W, H);
 
-function draw(){
-  ctx.clearRect(0,0,W,H);
+  for(let j=0; j<=lonSteps; j++){
+    ctx.beginPath();
+    for(let i=0; i<=latSteps; i++){
+      const p = points[i*(lonSteps+1)+j];
+      const proj = projectPoint(p);
+      if(i===0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+  }
 
-  ctx.beginPath();
-  ctx.arc(W/2, H/2, R, 0, Math.PI*2);
-  ctx.strokeStyle = 'rgba(244,168,53,0.3)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  continents.forEach(drawContinent);
+  for(let i=0; i<=latSteps; i++){
+    ctx.beginPath();
+    for(let j=0; j<=lonSteps; j++){
+      const p = points[i*(lonSteps+1)+j];
+      const proj = projectPoint(p);
+      if(j===0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
 
   angleY += 0.0008;
   requestAnimationFrame(draw);
