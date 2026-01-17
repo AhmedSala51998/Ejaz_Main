@@ -256,8 +256,8 @@ canvas {
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
-                <div id="sphere-wrapper" style="width:460px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                    <canvas id="sphere-canvas" width="560" height="560"
+                <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                    <canvas id="sphere-canvas" width="600" height="600"
                             style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                 </div>
 
@@ -305,8 +305,8 @@ canvas {
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
-                    <div id="sphere-wrapper" style="width:460px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                        <canvas id="sphere-canvas" width="460" height="460"
+                    <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                        <canvas id="sphere-canvas" width="600" height="600"
                                 style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                     </div>
 
@@ -370,16 +370,16 @@ const ctx = canvas.getContext('2d');
 const W = canvas.width;
 const H = canvas.height;
 
-const R = W / 2;
+const R = Math.min(W, H) * 0.55;
 let angleY = 0;
 
 const latSteps = 24;
 const lonSteps = 48;
 
 const points = [];
-for(let i=0;i<=latSteps;i++){
+for(let i=0; i<=latSteps; i++){
   const theta = i * Math.PI / latSteps;
-  for(let j=0;j<=lonSteps;j++){
+  for(let j=0; j<=lonSteps; j++){
     const phi = j * 2 * Math.PI / lonSteps;
     points.push({theta, phi});
   }
@@ -390,16 +390,16 @@ function projectPoint(p) {
   const y = R * Math.cos(p.theta);
   const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
 
-  const scale = 1;
+  const scale = 1.1;
   return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
 }
 
 function draw() {
-  ctx.clearRect(0,0,W,H);
+  ctx.clearRect(0, 0, W, H);
 
-  for(let j=0;j<=lonSteps;j++){
+  for(let j=0; j<=lonSteps; j++){
     ctx.beginPath();
-    for(let i=0;i<=latSteps;i++){
+    for(let i=0; i<=latSteps; i++){
       const p = points[i*(lonSteps+1)+j];
       const proj = projectPoint(p);
       if(i===0) ctx.moveTo(proj.x, proj.y);
@@ -410,9 +410,9 @@ function draw() {
     ctx.stroke();
   }
 
-  for(let i=0;i<=latSteps;i++){
+  for(let i=0; i<=latSteps; i++){
     ctx.beginPath();
-    for(let j=0;j<=lonSteps;j++){
+    for(let j=0; j<=lonSteps; j++){
       const p = points[i*(lonSteps+1)+j];
       const proj = projectPoint(p);
       if(j===0) ctx.moveTo(proj.x, proj.y);
@@ -423,7 +423,7 @@ function draw() {
     ctx.stroke();
   }
 
-  angleY += 0.001;
+  angleY += 0.0008;
   requestAnimationFrame(draw);
 }
 
