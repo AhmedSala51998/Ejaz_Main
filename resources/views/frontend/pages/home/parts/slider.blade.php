@@ -366,97 +366,81 @@ canvas {
 <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
 
 <script>
-  const canvas = document.getElementById("sphere-canvas");
-  const wrapper = document.getElementById("sphere-wrapper");
+const canvas = document.getElementById('sphere-canvas');
+const ctx = canvas.getContext('2d');
 
-  const scene = new THREE.Scene();
+const W = canvas.width;
+const H = canvas.height;
+const R = Math.min(W, H) * 0.45;
 
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    wrapper.clientWidth / wrapper.clientHeight,
-    0.1,
-    1000
-  );
-  camera.position.z = 3;
+let angleY = 0;
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-    alpha: true
+const continents = [
+  { name: "Africa", coords: [
+    [-20, 37], [50, 37], [50, -35], [-20, -35], [-20, 37]
+  ]},
+  { name: "Europe", coords: [
+    [-10, 71], [40, 71], [40, 35], [-10, 35], [-10, 71]
+  ]},
+  { name: "Asia", coords: [
+    [40, 77], [180, 77], [180, 5], [40, 5], [40, 77]
+  ]},
+  { name: "North America", coords: [
+    [-170, 72], [-50, 72], [-50, 5], [-170, 5], [-170, 72]
+  ]},
+  { name: "South America", coords: [
+    [-82, 13], [-35, 13], [-35, -55], [-82, -55], [-82, 13]
+  ]},
+  { name: "Australia", coords: [
+    [110, -10], [155, -10], [155, -45], [110, -45], [110, -10]
+  ]}
+];
+
+function latLonToSphere(lat, lon){
+  const theta = (90 - lat) * Math.PI / 180;
+  const phi = lon * Math.PI / 180;
+  return {theta, phi};
+}
+
+function projectPoint(p){
+  const x = R * Math.sin(p.theta) * Math.cos(p.phi + angleY);
+  const y = R * Math.cos(p.theta);
+  const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
+
+  const scale = 0.9 + 0.1*(z/R);
+  return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
+}
+
+function drawContinent(continent){
+  ctx.beginPath();
+  continent.coords.forEach((coord, i) => {
+    const {theta, phi} = latLonToSphere(coord[1], coord[0]);
+    const proj = projectPoint({theta, phi});
+    if(i===0) ctx.moveTo(proj.x, proj.y);
+    else ctx.lineTo(proj.x, proj.y);
   });
-  renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(244,168,53,0.6)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(244,168,53,1)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+}
 
-  scene.add(new THREE.AmbientLight(0x555555));
+function draw(){
+  ctx.clearRect(0,0,W,H);
 
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5, 3, 5);
-  scene.add(light);
+  ctx.beginPath();
+  ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(244,168,53,0.3)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
 
-  const texture = new THREE.TextureLoader().load(
-    "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg"
-  );
+  continents.forEach(drawContinent);
 
-  const earth = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 64, 64),
-    new THREE.MeshStandardMaterial({ map: texture })
-  );
-  scene.add(earth);
+  angleY += 0.0008;
+  requestAnimationFrame(draw);
+}
 
-  let isDragging = false;
-  let lastX = 0;
-  let lastY = 0;
-  let velocityX = 0;
-  let velocityY = 0;
-
-  canvas.addEventListener("mousedown", e => {
-    isDragging = true;
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
-
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
-
-  window.addEventListener("mousemove", e => {
-    if (!isDragging) return;
-
-    const dx = e.clientX - lastX;
-    const dy = e.clientY - lastY;
-
-    earth.rotation.y += dx * 0.005;
-    earth.rotation.x += dy * 0.005;
-
-    velocityY = dx * 0.0008;
-    velocityX = dy * 0.0008;
-
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
-
-  function animate() {
-    requestAnimationFrame(animate);
-
-    if (!isDragging) {
-      velocityX *= 0.95;
-      velocityY *= 0.95;
-
-      earth.rotation.y += 0.001 + velocityY;
-      earth.rotation.x += velocityX;
-    }
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  window.addEventListener("resize", () => {
-    const w = wrapper.clientWidth;
-    const h = wrapper.clientHeight;
-
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
+draw();
 </script>
