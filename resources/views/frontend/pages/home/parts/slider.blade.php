@@ -406,7 +406,7 @@ function draw() {
       else ctx.lineTo(proj.x, proj.y);
     }
     ctx.strokeStyle = 'rgba(244,168,53,0.5)';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 0.5;
     ctx.stroke();
   }
 
