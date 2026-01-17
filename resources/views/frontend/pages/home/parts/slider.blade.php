@@ -363,8 +363,6 @@ canvas {
     </section>
 @endif
 
-<canvas id="sphere-canvas" width="600" height="600"></canvas>
-
 <script>
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
