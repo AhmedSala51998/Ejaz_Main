@@ -256,16 +256,16 @@ canvas {
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
-                    <div id="globe-wrapper"
-                        style="position:relative; aspect-ratio:1/1; max-width:460px; margin:auto;">
+                <div id="globe-wrapper"
+                    style="position:relative; aspect-ratio:1/1; max-width:460px; margin:auto;">
 
-                        <div id="globe-placeholder"
-                            style="width:100%; height:100%; background: #f0f0f0; border-radius:50%; display:block;">
-                        </div>
-
-                        <div id="globe-container" hidden></div>
-
+                    <div id="globe-placeholder"
+                        style="width:100%; height:100%; background: #f0f0f0; border-radius:50%; display:block;">
                     </div>
+
+                    <div id="globe-container" hidden></div>
+
+                </div>
 
             </div>
             <div class="col-md-5 order-md-1 p-1">
