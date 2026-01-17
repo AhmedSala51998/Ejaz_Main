@@ -369,7 +369,8 @@ const ctx = canvas.getContext('2d');
 
 const W = canvas.width;
 const H = canvas.height;
-const R = W/2 - 10;
+
+const R = W/2 * 0.95;
 let angleY = 0;
 
 const latSteps = 18;
@@ -389,7 +390,7 @@ function projectPoint(p) {
   const y = R * Math.cos(p.theta);
   const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
 
-  const scale = (z + R) / (2*R) + 0.5;
+  const scale = 0.85 + 0.15 * (z + R) / (2*R);
   return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
 }
 
@@ -422,7 +423,7 @@ function draw() {
     ctx.stroke();
   }
 
-  angleY += 0.008;
+  angleY += 0.002;
   requestAnimationFrame(draw);
 }
 
