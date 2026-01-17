@@ -257,7 +257,7 @@ canvas {
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
                 <div id="sphere-wrapper" style="width:460px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                    <canvas id="sphere-canvas" width="460" height="460"
+                    <canvas id="sphere-canvas" width="560" height="560"
                             style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                 </div>
 
