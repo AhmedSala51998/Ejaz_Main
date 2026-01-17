@@ -375,6 +375,8 @@ const R = Math.min(W, H) * 0.45;
 let angleX = 0;
 let angleY = 0;
 
+const autoSpeed = 0.00015;
+
 let isDragging = false;
 let lastX = 0;
 let lastY = 0;
@@ -467,11 +469,13 @@ function draw() {
     ctx.stroke();
   }
 
-  if (!isDragging) {
-    angleY += velocityY;
+  if (isDragging) {
+  } else {
+    velocityY *= 0.95;
+    velocityX *= 0.95;
+
+    angleY += autoSpeed + velocityY;
     angleX += velocityX;
-    velocityX *= 0.98;
-    velocityY *= 0.98;
   }
 
   requestAnimationFrame(draw);
