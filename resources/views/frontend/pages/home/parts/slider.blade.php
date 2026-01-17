@@ -362,14 +362,13 @@ canvas {
         </div>
     </section>
 @endif
-
 <script>
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
 
 const W = canvas.width;
 const H = canvas.height;
-const R = W/2 - 20;
+const R = Math.min(W,H) * 0.45;
 let angleY = 0;
 
 const latSteps = 18;
@@ -426,7 +425,7 @@ function draw() {
     ctx.stroke();
   }
 
-  angleY += 0.01;
+  angleY += 0.008;
   requestAnimationFrame(draw);
 }
 
