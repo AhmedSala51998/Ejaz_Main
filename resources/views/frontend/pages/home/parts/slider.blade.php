@@ -364,101 +364,116 @@ canvas {
 @endif
 
 <script>
-const canvas = document.getElementById("sphere-canvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('sphere-canvas');
+const ctx = canvas.getContext('2d');
 
 const W = canvas.width;
 const H = canvas.height;
-const R = W * 0.45;
 
-let rot = 0;
+const R = Math.min(W, H) * 0.45;
 
-/* =========================
-   إسقاط كروي
-========================= */
-function project(lat, lon){
-  const t = (90 - lat) * Math.PI/180;
-  const p = lon * Math.PI/180 + rot;
+let angleX = 0;
+let angleY = 0;
 
-  const x = R * Math.sin(t) * Math.cos(p);
-  const y = R * Math.cos(t);
-  const z = R * Math.sin(t) * Math.sin(p);
+let isDragging = false;
+let lastX = 0;
+let lastY = 0;
 
-  return {x:W/2+x, y:H/2+y, z};
+let velocityX = 0;
+let velocityY = 0;
+
+const latSteps = 24;
+const lonSteps = 48;
+
+const points = [];
+for (let i = 0; i <= latSteps; i++) {
+  const theta = i * Math.PI / latSteps;
+  for (let j = 0; j <= lonSteps; j++) {
+    const phi = j * 2 * Math.PI / lonSteps;
+    points.push({ theta, phi });
+  }
 }
 
-/* =========================
-   خريطة العالم (حقيقية مبسطة)
-========================= */
-const world = [
-/* North America */
-[
-[72,-168],[60,-150],[50,-130],[45,-110],[40,-100],
-[30,-95],[25,-110],[30,-130],[45,-160],[72,-168]
-],
+function projectPoint(p) {
+  let x = R * Math.sin(p.theta) * Math.cos(p.phi);
+  let y = R * Math.cos(p.theta);
+  let z = R * Math.sin(p.theta) * Math.sin(p.phi);
 
-/* South America */
-[
-[12,-80],[5,-70],[-10,-55],[-30,-55],[-50,-70],
-[-40,-80],[12,-80]
-],
+  let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
+  let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
 
-/* Europe */
-[
-[70,-10],[60,20],[55,40],[45,35],[40,20],
-[45,0],[55,-10],[70,-10]
-],
+  let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
+  let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
 
-/* Africa */
-[
-[37,-17],[30,10],[20,30],[5,45],[-10,50],
-[-30,30],[-35,18],[-35,-17],[0,-10],[37,-17]
-],
-
-/* Asia */
-[
-[70,40],[60,80],[50,120],[40,140],
-[20,120],[10,90],[20,60],[40,50],[60,40],[70,40]
-],
-
-/* Australia */
-[
-[-10,112],[-20,140],[-45,145],[-45,115],[-10,112]
-]
-];
-
-/* =========================
-   رسم القارات
-========================= */
-function drawLand(poly){
-  ctx.beginPath();
-  poly.forEach((pt,i)=>{
-    const p = project(pt[0],pt[1]);
-    if(p.z < 0) return;
-    if(i===0) ctx.moveTo(p.x,p.y);
-    else ctx.lineTo(p.x,p.y);
-  });
-  ctx.strokeStyle="rgba(0,255,180,.9)";
-  ctx.lineWidth=1.4;
-  ctx.stroke();
+  return {
+    x: W / 2 + x2,
+    y: H / 2 + y1,
+    z: z2
+  };
 }
 
-/* =========================
-   رسم الكرة
-========================= */
-function draw(){
-  ctx.clearRect(0,0,W,H);
+canvas.addEventListener('mousedown', e => {
+  isDragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
 
-  // دائرة الكرة
-  ctx.beginPath();
-  ctx.arc(W/2,H/2,R,0,Math.PI*2);
-  ctx.strokeStyle="rgba(255,255,255,.15)";
-  ctx.lineWidth=1;
-  ctx.stroke();
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
 
-  world.forEach(drawLand);
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
 
-  rot += 0.002;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+
+  angleY += dx * 0.005;
+  angleX += dy * 0.005;
+
+  velocityY = dx * 0.0005;
+  velocityX = dy * 0.0005;
+
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  for (let j = 0; j <= lonSteps; j++) {
+    ctx.beginPath();
+    for (let i = 0; i <= latSteps; i++) {
+      const p = points[i * (lonSteps + 1) + j];
+      const proj = projectPoint(p);
+      if (i === 0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+  }
+
+  for (let i = 0; i <= latSteps; i++) {
+    ctx.beginPath();
+    for (let j = 0; j <= lonSteps; j++) {
+      const p = points[i * (lonSteps + 1) + j];
+      const proj = projectPoint(p);
+      if (j === 0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+  }
+
+  if (!isDragging) {
+    angleY += velocityY;
+    angleX += velocityX;
+    velocityX *= 0.98;
+    velocityY *= 0.98;
+  }
+
   requestAnimationFrame(draw);
 }
 
