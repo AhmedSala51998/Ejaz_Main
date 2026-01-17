@@ -40,6 +40,10 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+<script defer src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script defer src="https://unpkg.com/globe.gl"></script>
+<script defer src="https://unpkg.com/topojson@3"></script>
+<script defer src="https://unpkg.com/d3-geo@3"></script>
 <script>
 $(document).on('submit', 'form#Form', function (e) {
     e.preventDefault();
