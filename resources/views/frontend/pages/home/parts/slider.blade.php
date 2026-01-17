@@ -448,7 +448,7 @@ function draw() {
 
     if (proj.z < 0) continue;
 
-    const size = 1.4 + proj.z / R;
+    const size = 0.5 + proj.z / (R * 2.5);
 
     ctx.beginPath();
     ctx.arc(proj.x, proj.y, size, 0, Math.PI * 2);
