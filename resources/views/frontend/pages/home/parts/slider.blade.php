@@ -363,114 +363,109 @@ canvas {
     </section>
 @endif
 
-<script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
-
 <script>
-  const canvas = document.getElementById("sphere-canvas");
-  const wrapper = document.getElementById("sphere-wrapper");
+const canvas = document.getElementById('sphere-canvas');
+const ctx = canvas.getContext('2d');
 
-  const scene = new THREE.Scene();
+const W = canvas.width;
+const H = canvas.height;
 
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    wrapper.clientWidth / wrapper.clientHeight,
-    0.1,
-    1000
-  );
-  camera.position.z = 3;
+const R = Math.min(W, H) * 0.45;
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-    alpha: true
-  });
-  renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
+let angleX = 0;
+let angleY = 0;
 
-  scene.add(new THREE.AmbientLight(0x555555));
+const autoSpeed = 0.0008;
 
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5, 3, 5);
-  scene.add(light);
+let isDragging = false;
+let lastX = 0;
+let lastY = 0;
 
-const textureLoader = new THREE.TextureLoader();
+let velocityX = 0;
+let velocityY = 0;
 
-const earthTexture = textureLoader.load(
-  "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg"
-);
+const latSteps = 48;
+const lonSteps = 96;
 
-const dotTexture = textureLoader.load(
-  "https://threejs.org/examples/textures/sprites/disc.png"
-);
+const points = [];
+for (let i = 0; i <= latSteps; i++) {
+  const theta = i * Math.PI / latSteps;
+  for (let j = 0; j <= lonSteps; j++) {
+    const phi = j * 2 * Math.PI / lonSteps;
+    points.push({ theta, phi });
+  }
+}
 
-const geometry = new THREE.SphereGeometry(1, 128, 128);
+function projectPoint(p) {
+  let x = R * Math.sin(p.theta) * Math.cos(p.phi);
+  let y = R * Math.cos(p.theta);
+  let z = R * Math.sin(p.theta) * Math.sin(p.phi);
 
-const material = new THREE.PointsMaterial({
-  map: earthTexture,
-  alphaMap: dotTexture,
-  color: 0xffb347,
-  size: 0.012,
-  transparent: true,
-  depthWrite: false
+  let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
+  let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
+
+  let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
+  let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
+
+  return {
+    x: W / 2 + x2,
+    y: H / 2 + y1,
+    z: z2
+  };
+}
+
+canvas.addEventListener('mousedown', e => {
+  isDragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
 });
 
-const earth = new THREE.Points(geometry, material);
-scene.add(earth);
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
 
-  let isDragging = false;
-  let lastX = 0;
-  let lastY = 0;
-  let velocityX = 0;
-  let velocityY = 0;
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
 
-  canvas.addEventListener("mousedown", e => {
-    isDragging = true;
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
 
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+  angleY += dx * 0.005;
+  angleX += dy * 0.005;
 
-  window.addEventListener("mousemove", e => {
-    if (!isDragging) return;
+  velocityY = dx * 0.0005;
+  velocityX = dy * 0.0005;
 
-    const dx = e.clientX - lastX;
-    const dy = e.clientY - lastY;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
 
-    earth.rotation.y += dx * 0.005;
-    earth.rotation.x += dy * 0.005;
+function draw() {
+  ctx.clearRect(0, 0, W, H);
 
-    velocityY = dx * 0.0008;
-    velocityX = dy * 0.0008;
+  for (const p of points) {
+    const proj = projectPoint(p);
 
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
+    if (proj.z < 0) continue;
 
-  function animate() {
-    requestAnimationFrame(animate);
+    const size = 1.4 + proj.z / R;
 
-    if (!isDragging) {
-      velocityX *= 0.95;
-      velocityY *= 0.95;
-
-      earth.rotation.y += 0.001 + velocityY;
-      earth.rotation.x += velocityX;
-    }
-
-    renderer.render(scene, camera);
+    ctx.beginPath();
+    ctx.arc(proj.x, proj.y, size, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(244,168,53,0.85)';
+    ctx.fill();
   }
 
-  animate();
+  if (!isDragging) {
+    velocityY *= 0.95;
+    velocityX *= 0.95;
 
-  window.addEventListener("resize", () => {
-    const w = wrapper.clientWidth;
-    const h = wrapper.clientHeight;
+    angleY += autoSpeed + velocityY;
+    angleX += velocityX;
+  }
 
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
+  requestAnimationFrame(draw);
+}
+
+draw();
 </script>
