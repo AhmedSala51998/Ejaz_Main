@@ -255,14 +255,32 @@ canvas {
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                <!-- orbit canvas -->
-                <!--<div id="globe">
-                    <canvas></canvas>
-                </div>-->
-                <div id="globe-container"></div>
+
+                <!-- ===== Globe Wrapper (LCP Safe) ===== -->
+                <div id="globe-wrapper"
+                    style="position:relative; aspect-ratio:1/1; max-width:460px; margin:auto;">
+
+                    <img
+                        id="globe-placeholder"
+                        src="frontend/img/map.webp"
+                        width="460"
+                        height="460"
+                        alt="خريطة الدول"
+                        style="width:100%;height:100%;object-fit:contain;display:block;"
+                    >
+
+                    <div id="globe-container" hidden></div>
+
+                </div>
+                <!-- ===== End Globe Wrapper ===== -->
+
                 <div id="saudi-bubble"></div>
                 <div id="tooltip"></div>
-                <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
+
+                <div id="chat-message">
+                    مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد
+                </div>
+
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
@@ -294,8 +312,6 @@ canvas {
             </div>
         </div>
     </div>
-
-
     <!-- bubble-animate -->
     <div class="bubble-animate">
         <span class="circle small square1"></span>
@@ -325,14 +341,32 @@ canvas {
         <div class="container-fluid">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                    <!-- orbit canvas -->
-                    <!--<div id="globe">
-                        <canvas></canvas>
-                    </div>-->
-                    <div id="globe-container"></div>
+
+                    <!-- ===== Globe Wrapper (LCP Safe) ===== -->
+                    <div id="globe-wrapper"
+                        style="position:relative; aspect-ratio:1/1; max-width:460px; margin:auto;">
+
+                        <img
+                            id="globe-placeholder"
+                            src="frontend/img/map.webp"
+                            width="460"
+                            height="460"
+                            alt="خريطة الدول"
+                            style="width:100%;height:100%;object-fit:contain;display:block;"
+                        >
+
+                        <div id="globe-container" hidden></div>
+
+                    </div>
+                    <!-- ===== End Globe Wrapper ===== -->
+
                     <div id="saudi-bubble"></div>
                     <div id="tooltip"></div>
-                    <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
+
+                    <div id="chat-message">
+                        مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد
+                    </div>
+
                 </div>
                 <div class="col-md-5 order-md-1 p-1">
                     <!-- main slider -->
@@ -403,16 +437,6 @@ canvas {
             <span class="circle large square4"></span>
         </div>
     </section>
-
-
-
-
-
-
-
-
-
-
 @endif
 
 @php
@@ -429,7 +453,7 @@ $countryMap = [
 ];
 @endphp
 <script>
-window.addEventListener('load', function () {
+function initGlobe() {
     function getCentroidFromPolygon(coords) {
     let x = 0, y = 0, len = coords.length;
     for (let i = 0; i < len; i++) {
@@ -806,6 +830,49 @@ window.addEventListener('load', function () {
         }, 600);
     }, 3700);
     }
-});
+}
+</script>
+<script>
+let globeLoaded = false;
 
+function loadScript(src) {
+  return new Promise(resolve => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.defer = true;
+    s.onload = resolve;
+    document.body.appendChild(s);
+  });
+}
+
+async function loadGlobeLazy() {
+  if (globeLoaded) return;
+  globeLoaded = true;
+
+  document.getElementById('globe-placeholder').style.display = 'none';
+  document.getElementById('globe-container').hidden = false;
+
+  await loadScript('https://unpkg.com/three@0.152.2/build/three.min.js');
+  await loadScript('https://unpkg.com/globe.gl');
+  await loadScript('https://unpkg.com/topojson@3');
+  await loadScript('https://unpkg.com/d3-geo@3');
+
+  initGlobe();
+}
+</script>
+<script>
+const globeWrapper = document.getElementById('globe-wrapper');
+
+if (globeWrapper) {
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      loadGlobeLazy();
+      obs.disconnect();
+    }
+  }, {
+    rootMargin: '200px'
+  });
+
+  obs.observe(globeWrapper);
+}
 </script>
