@@ -256,15 +256,9 @@ canvas {
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
-                <div id="globe-wrapper"
-                    style="position:relative; aspect-ratio:1/1; max-width:460px; margin:auto;">
-
-                    <div id="globe-placeholder"
-                        style="width:100%; height:100%; background: #f0f0f0; border-radius:50%; display:block;">
-                    </div>
-
-                    <div id="globe-container" hidden></div>
-
+                <div id="sphere-wrapper" style="width:460px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                    <canvas id="sphere-canvas" width="460" height="460"
+                            style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                 </div>
 
             </div>
@@ -311,15 +305,9 @@ canvas {
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
-                    <div id="globe-wrapper"
-                        style="position:relative; aspect-ratio:1/1; max-width:460px; margin:auto;">
-
-                        <div id="globe-placeholder"
-                            style="width:100%; height:100%; background: #f0f0f0; border-radius:50%; display:block;">
-                        </div>
-
-                        <div id="globe-container" hidden></div>
-
+                    <div id="sphere-wrapper" style="width:460px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                        <canvas id="sphere-canvas" width="460" height="460"
+                                style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                     </div>
 
                 </div>
@@ -376,68 +364,67 @@ canvas {
 @endif
 
 <script>
-function initGlobe() {
-  const globe = Globe()(document.getElementById('globe-container'))
-    .globeImageUrl(null)
-    .backgroundColor('white')
-    .showAtmosphere(false)
-    .pointAltitude(0.01)
-    .pointRadius(0.08)
-    .pointColor(() => '#3A60A5')
-    .pointsData(generateDots());
+const canvas = document.getElementById('sphere-canvas');
+const ctx = canvas.getContext('2d');
 
-  globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.3;
-  globe.controls().enableZoom = false;
+const W = canvas.width;
+const H = canvas.height;
+const R = W/2 - 10;
+let angleY = 0;
 
-  // Disable any polygons or labels
-  globe.polygonsData([]);
+const latSteps = 18;
+const lonSteps = 36;
 
-  function generateDots() {
-    const dots = [];
-    for (let lat = -85; lat <= 85; lat += 5) {
-      for (let lng = -180; lng <= 180; lng += 5) {
-        dots.push({ lat, lng });
-      }
-    }
-    return dots;
+const points = [];
+for(let i=0;i<=latSteps;i++){
+  const theta = i * Math.PI / latSteps;
+  for(let j=0;j<=lonSteps;j++){
+    const phi = j * 2 * Math.PI / lonSteps;
+    points.push({theta, phi});
   }
 }
 
-// Lazy load as before
-let globeLoaded = false;
+function projectPoint(p) {
+  const x = R * Math.sin(p.theta) * Math.cos(p.phi + angleY);
+  const y = R * Math.cos(p.theta);
+  const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
 
-async function loadGlobeLazy() {
-  if (globeLoaded) return;
-  globeLoaded = true;
-
-  document.getElementById('globe-placeholder').style.display = 'none';
-  document.getElementById('globe-container').hidden = false;
-
-  await loadScript('https://unpkg.com/three@0.152.2/build/three.min.js');
-  await loadScript('https://unpkg.com/globe.gl');
-  initGlobe();
+  const scale = (z + R) / (2*R) + 0.5;
+  return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
 }
 
-function loadScript(src) {
-  return new Promise(resolve => {
-    const s = document.createElement('script');
-    s.src = src;
-    s.defer = true;
-    s.onload = resolve;
-    document.body.appendChild(s);
-  });
-}
+function draw() {
+  ctx.clearRect(0,0,W,H);
 
-// IntersectionObserver
-const globeWrapper = document.getElementById('globe-wrapper');
-if (globeWrapper) {
-  const obs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      loadGlobeLazy();
-      obs.disconnect();
+  for(let j=0;j<=lonSteps;j++){
+    ctx.beginPath();
+    for(let i=0;i<=latSteps;i++){
+      const p = points[i*(lonSteps+1)+j];
+      const proj = projectPoint(p);
+      if(i===0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
     }
-  }, { rootMargin: '200px' });
-  obs.observe(globeWrapper);
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  for(let i=0;i<=latSteps;i++){
+    ctx.beginPath();
+    for(let j=0;j<=lonSteps;j++){
+      const p = points[i*(lonSteps+1)+j];
+      const proj = projectPoint(p);
+      if(j===0) ctx.moveTo(proj.x, proj.y);
+      else ctx.lineTo(proj.x, proj.y);
+    }
+    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  angleY += 0.005;
+  requestAnimationFrame(draw);
 }
+
+draw();
 </script>
