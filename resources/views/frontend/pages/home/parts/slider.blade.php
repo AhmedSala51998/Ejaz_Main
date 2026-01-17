@@ -370,7 +370,7 @@ const ctx = canvas.getContext('2d');
 const W = canvas.width;
 const H = canvas.height;
 
-const R = W/2 * 0.95;
+const R = W / 2 * 0.98;
 let angleY = 0;
 
 const latSteps = 18;
@@ -423,7 +423,7 @@ function draw() {
     ctx.stroke();
   }
 
-  angleY += 0.002;
+  angleY += 0.0015;
   requestAnimationFrame(draw);
 }
 
