@@ -367,12 +367,9 @@ canvas {
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = 400;
-canvas.height = 400;
-
 const W = canvas.width;
 const H = canvas.height;
-const R = W/2 - 20;
+const R = W/2 - 10;
 let angleY = 0;
 
 const latSteps = 18;
@@ -392,7 +389,7 @@ function projectPoint(p) {
   const y = R * Math.cos(p.theta);
   const z = R * Math.sin(p.theta) * Math.sin(p.phi + angleY);
 
-  const scale = 0.8 + 0.2 * (z + R) / (2*R);
+  const scale = (z + R) / (2*R) + 0.5;
   return {x: W/2 + x*scale, y: H/2 + y*scale, z, scale};
 }
 
@@ -425,7 +422,7 @@ function draw() {
     ctx.stroke();
   }
 
-  angleY += 0.002;
+  angleY += 0.008;
   requestAnimationFrame(draw);
 }
 
