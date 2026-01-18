@@ -48,5 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('offline', () => alertify.error('لا يوجد خدمة انترنت !'));
 });
 
+window.addEventListener('load', function () {
+    $('.select2').select2({
+        dir: 'rtl',
+        width: '100%'
+    });
+});
 </script>
 
