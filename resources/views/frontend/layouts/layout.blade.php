@@ -304,9 +304,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(0.5px);
-            -webkit-backdrop-filter: blur(1px);
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             z-index: 99999;
             animation: fadeInBg 0.6s ease forwards;
             }
@@ -545,6 +545,7 @@
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
