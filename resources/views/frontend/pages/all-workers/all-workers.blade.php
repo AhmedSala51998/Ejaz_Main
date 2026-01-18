@@ -1238,13 +1238,13 @@
     var new_page = 1;
 
     @php
-        $ajaxUrl = match (true) {
-            request()->routeIs('transferService') => route('transferService'),
-            request()->routeIs('services-single') => route('services-single'),
-            default => route('all-workers'),
-        };
+        $ajaxUrl = route('all-workers');
+        if (request()->routeIs('transferService')) {
+            $ajaxUrl = route('transferService');
+        } elseif (request()->routeIs('services-single')) {
+            $ajaxUrl = route('services-single');
+        }
     @endphp
-
 
     var link_only = '{{ $ajaxUrl }}';
 
