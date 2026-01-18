@@ -6,56 +6,44 @@
 <link rel="stylesheet" href="{{asset('frontend')}}/css/dropify.min.css">
 
 
-<!-- fonts  -->
-<link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
+<link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/animate.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/aos.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/dropify.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/jquery.fancybox.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/odometer.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/select2.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/introjs.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/introjs-rtl.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}" rel="stylesheet">
-<link rel="stylesheet" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}">
+<noscript>
+  <link rel="stylesheet" href="{{asset('frontend/css/swiper-bundle.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/animate.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/aos.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/dropify.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/jquery.fancybox.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/odometer.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/introjs.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/introjs-rtl.css')}}">
+</noscript>
 
-
-
-<!-- favicon -->
-<!-- Bootstrap -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/bootstrap.rtl.min.css" />
-<!-- Font Awesome -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/fontawesome.min.css" />
-<!-- swiper -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/swiper-bundle.min.css" />
-<!-- animate -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/animate.min.css" />
-<!-- aos -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/aos.css" />
-<!-- select2 -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/select2.min.css" />
-<!-- img gallery -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/jquery.fancybox.min.css" />
-<!-- odometer -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/odometer.min.css" />
-<!-- intro  -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/introjs.css">
-<link rel="stylesheet" href="{{asset('frontend')}}/css/introjs-rtl.css">
-<!-- Custom style  -->
-<link rel="stylesheet" href="{{asset('frontend')}}/css/style.css" />
-{{--<link href="{{asset('frontend')}}/css/all.css" rel="stylesheet" type="text/css" />--}}
-<!-- Icons Css -->
-<!-- App Css-->
-<!-- <link href="assets/css/app.min.css" rel="stylesheet" type="text/css"> -->
-{{--<link href="{{asset('frontend')}}/css/appAR.css" rel="stylesheet" type="text/css">--}}
-<!-- custom Css-->
-{{--<link href="{{asset('frontend')}}/assets/css/custom.min.css" rel="stylesheet" type="text/css">--}}
-
-
-
-
-
-
-
-{{--<!-- CSS -->--}}
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-<!-- Default theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 
 <style>
+    @font-face {
+        font-family: 'Cairo';
+        src: url('{{asset("frontend/fonts/Cairo.woff2")}}') format('woff2'),
+            url('{{asset("frontend/fonts/Cairo.woff")}}') format('woff');
+        font-display: swap;
+    }
+
     .form-error{
         color: red;
         font-weight: normal;
