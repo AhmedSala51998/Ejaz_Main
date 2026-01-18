@@ -363,6 +363,7 @@ canvas {
     </section>
 @endif
 
+<script src="https://unpkg.com/topojson-client@3"></script>
 <script>
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
@@ -373,7 +374,7 @@ const R = Math.min(W, H) * 0.48;
 
 let angleX = 0;
 let angleY = 0;
-const autoSpeed = 0.0008;
+const autoSpeed = 0.0006;
 
 let isDragging = false;
 let lastX = 0;
@@ -381,18 +382,18 @@ let lastY = 0;
 let velocityX = 0;
 let velocityY = 0;
 
-const latSteps = 120;
-const lonSteps = 240;
-
-const mapImg = new Image();
-mapImg.src = "https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg";
+fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
+  .then(res => res.json())
+  .then(world => {
+    const countries = topojson.feature(world, world.objects.countries);
+    draw(countries.features);
+  });
 
 canvas.addEventListener('mousedown', e => {
   isDragging = true;
   lastX = e.clientX;
   lastY = e.clientY;
 });
-
 window.addEventListener('mouseup', () => isDragging = false);
 
 window.addEventListener('mousemove', e => {
@@ -407,7 +408,10 @@ window.addEventListener('mousemove', e => {
   lastY = e.clientY;
 });
 
-function project(theta, phi) {
+function project(lat, lon) {
+  const theta = (90 - lat) * Math.PI / 180;
+  const phi = (lon + 180) * Math.PI / 180;
+
   let x = R * Math.sin(theta) * Math.cos(phi);
   let y = R * Math.cos(theta);
   let z = R * Math.sin(theta) * Math.sin(phi);
@@ -421,47 +425,25 @@ function project(theta, phi) {
   return { x: W / 2 + x2, y: H / 2 + y1, z: z2 };
 }
 
-function draw() {
+function draw(features) {
   ctx.clearRect(0, 0, W, H);
 
-  for (let i = 0; i < latSteps; i++) {
-    const theta1 = i * Math.PI / latSteps;
-    const theta2 = (i + 1) * Math.PI / latSteps;
+  ctx.strokeStyle = 'rgba(244,168,53,0.9)';
+  ctx.lineWidth = 0.7;
 
-    for (let j = 0; j < lonSteps; j++) {
-      const phi1 = j * 2 * Math.PI / lonSteps;
-      const phi2 = (j + 1) * 2 * Math.PI / lonSteps;
-
-      const p1 = project(theta1, phi1);
-      const p2 = project(theta2, phi1);
-      const p3 = project(theta2, phi2);
-      const p4 = project(theta1, phi2);
-
-      if (p1.z < 0 && p2.z < 0 && p3.z < 0 && p4.z < 0) continue;
-
-      const u = j / lonSteps * mapImg.width;
-      const v = i / latSteps * mapImg.height;
-      const uw = mapImg.width / lonSteps;
-      const vh = mapImg.height / latSteps;
-
-      ctx.save();
+  features.forEach(country => {
+    country.geometry.coordinates.forEach(poly => {
       ctx.beginPath();
-      ctx.moveTo(p1.x, p1.y);
-      ctx.lineTo(p2.x, p2.y);
-      ctx.lineTo(p3.x, p3.y);
-      ctx.lineTo(p4.x, p4.y);
-      ctx.closePath();
-      ctx.clip();
-
-      ctx.drawImage(mapImg, u, v, uw, vh,
-        Math.min(p1.x, p2.x, p3.x, p4.x),
-        Math.min(p1.y, p2.y, p3.y, p4.y),
-        Math.max(p1.x, p2.x, p3.x, p4.x) - Math.min(p1.x, p2.x, p3.x, p4.x),
-        Math.max(p1.y, p2.y, p3.y, p4.y) - Math.min(p1.y, p2.y, p3.y, p4.y)
-      );
-      ctx.restore();
-    }
-  }
+      poly[0].forEach((coord, i) => {
+        const [lon, lat] = coord;
+        const p = project(lat, lon);
+        if (p.z < 0) return;
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      });
+      ctx.stroke();
+    });
+  });
 
   if (!isDragging) {
     velocityX *= 0.95;
@@ -470,8 +452,6 @@ function draw() {
     angleX += velocityX;
   }
 
-  requestAnimationFrame(draw);
+  requestAnimationFrame(() => draw(features));
 }
-
-mapImg.onload = draw;
 </script>
