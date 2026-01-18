@@ -384,7 +384,6 @@ let velocityY = 0;
 const latSteps = 120;
 const lonSteps = 240;
 
-// تحميل خريطة العالم
 const mapImg = new Image();
 mapImg.src = "https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg";
 
