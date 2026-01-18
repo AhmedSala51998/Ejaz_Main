@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
 
 <link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/animate.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -19,7 +20,6 @@
 <link rel="preload" href="{{asset('frontend/css/dropify.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/jquery.fancybox.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/odometer.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/select2.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/introjs.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -32,7 +32,6 @@
   <link rel="stylesheet" href="{{asset('frontend/css/dropify.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.fancybox.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/odometer.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/introjs.css')}}">
@@ -67,4 +66,34 @@ input.valid, textarea.valid { border: 1px solid green; }
 .container-call .floating-button:hover { background-color:#166fbf; }
 .container-call .floating-button i { position:absolute; top:0; left:0; right:0; line-height:60px; text-align:center; transition:all 0.3s; }
 .container-call .floating-button .icon.call { animation: wa-out 0.3s; }
+/* ===== Select2 RTL FIX ===== */
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 42px;
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid #f4a835;
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__rendered {
+    padding-right: 0 !important;
+    padding-left: 24px !important;
+    text-align: right;
+    line-height: normal !important;
+}
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__arrow {
+    right: auto !important;
+    left: 10px;
+    height: 100%;
+}
 </style>

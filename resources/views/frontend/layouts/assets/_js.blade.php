@@ -3,7 +3,7 @@
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/swiper-bundle.min.js')}}" defer></script>
-<script src="{{asset('frontend/js/select2.min.js')}}"></script>
+<script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.fancybox.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
 <script src="{{asset('frontend/js/odometer.min.js')}}" defer></script>
@@ -48,4 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-
+<script>
+window.addEventListener('load', function () {
+    if (window.jQuery && $.fn.select2) {
+        $('.select2').select2({
+            dir: 'rtl',
+            width: '100%'
+        });
+    }
+});
+</script>
