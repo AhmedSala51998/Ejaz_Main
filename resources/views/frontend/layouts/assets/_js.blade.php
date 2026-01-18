@@ -3,7 +3,7 @@
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/swiper-bundle.min.js')}}" defer></script>
-<script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/select2.min.js')}}"></script>
 <script src="{{asset('frontend/js/jquery.fancybox.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
 <script src="{{asset('frontend/js/odometer.min.js')}}" defer></script>
