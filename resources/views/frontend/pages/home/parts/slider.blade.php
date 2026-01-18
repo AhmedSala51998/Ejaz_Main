@@ -369,50 +369,24 @@ const ctx = canvas.getContext('2d');
 
 const W = canvas.width;
 const H = canvas.height;
-
-const R = Math.min(W, H) * 0.45;
+const R = Math.min(W, H) * 0.48;
 
 let angleX = 0;
 let angleY = 0;
-
 const autoSpeed = 0.0008;
 
 let isDragging = false;
 let lastX = 0;
 let lastY = 0;
-
 let velocityX = 0;
 let velocityY = 0;
 
-const latSteps = 24;
-const lonSteps = 48;
+const latSteps = 120;
+const lonSteps = 240;
 
-const points = [];
-for (let i = 0; i <= latSteps; i++) {
-  const theta = i * Math.PI / latSteps;
-  for (let j = 0; j <= lonSteps; j++) {
-    const phi = j * 2 * Math.PI / lonSteps;
-    points.push({ theta, phi });
-  }
-}
-
-function projectPoint(p) {
-  let x = R * Math.sin(p.theta) * Math.cos(p.phi);
-  let y = R * Math.cos(p.theta);
-  let z = R * Math.sin(p.theta) * Math.sin(p.phi);
-
-  let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
-  let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
-
-  let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
-  let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
-
-  return {
-    x: W / 2 + x2,
-    y: H / 2 + y1,
-    z: z2
-  };
-}
+// تحميل خريطة العالم
+const mapImg = new Image();
+mapImg.src = "https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg";
 
 canvas.addEventListener('mousedown', e => {
   isDragging = true;
@@ -420,60 +394,79 @@ canvas.addEventListener('mousedown', e => {
   lastY = e.clientY;
 });
 
-window.addEventListener('mouseup', () => {
-  isDragging = false;
-});
+window.addEventListener('mouseup', () => isDragging = false);
 
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
-
   const dx = e.clientX - lastX;
   const dy = e.clientY - lastY;
-
   angleY += dx * 0.005;
   angleX += dy * 0.005;
-
-  velocityY = dx * 0.0005;
-  velocityX = dy * 0.0005;
-
+  velocityY = dx * 0.0004;
+  velocityX = dy * 0.0004;
   lastX = e.clientX;
   lastY = e.clientY;
 });
 
+function project(theta, phi) {
+  let x = R * Math.sin(theta) * Math.cos(phi);
+  let y = R * Math.cos(theta);
+  let z = R * Math.sin(theta) * Math.sin(phi);
+
+  let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
+  let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
+
+  let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
+  let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
+
+  return { x: W / 2 + x2, y: H / 2 + y1, z: z2 };
+}
+
 function draw() {
   ctx.clearRect(0, 0, W, H);
 
-  for (let j = 0; j <= lonSteps; j++) {
-    ctx.beginPath();
-    for (let i = 0; i <= latSteps; i++) {
-      const p = points[i * (lonSteps + 1) + j];
-      const proj = projectPoint(p);
-      if (i === 0) ctx.moveTo(proj.x, proj.y);
-      else ctx.lineTo(proj.x, proj.y);
+  for (let i = 0; i < latSteps; i++) {
+    const theta1 = i * Math.PI / latSteps;
+    const theta2 = (i + 1) * Math.PI / latSteps;
+
+    for (let j = 0; j < lonSteps; j++) {
+      const phi1 = j * 2 * Math.PI / lonSteps;
+      const phi2 = (j + 1) * 2 * Math.PI / lonSteps;
+
+      const p1 = project(theta1, phi1);
+      const p2 = project(theta2, phi1);
+      const p3 = project(theta2, phi2);
+      const p4 = project(theta1, phi2);
+
+      if (p1.z < 0 && p2.z < 0 && p3.z < 0 && p4.z < 0) continue;
+
+      const u = j / lonSteps * mapImg.width;
+      const v = i / latSteps * mapImg.height;
+      const uw = mapImg.width / lonSteps;
+      const vh = mapImg.height / latSteps;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.lineTo(p3.x, p3.y);
+      ctx.lineTo(p4.x, p4.y);
+      ctx.closePath();
+      ctx.clip();
+
+      ctx.drawImage(mapImg, u, v, uw, vh,
+        Math.min(p1.x, p2.x, p3.x, p4.x),
+        Math.min(p1.y, p2.y, p3.y, p4.y),
+        Math.max(p1.x, p2.x, p3.x, p4.x) - Math.min(p1.x, p2.x, p3.x, p4.x),
+        Math.max(p1.y, p2.y, p3.y, p4.y) - Math.min(p1.y, p2.y, p3.y, p4.y)
+      );
+      ctx.restore();
     }
-    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
-    ctx.lineWidth = 0.4;
-    ctx.stroke();
   }
 
-  for (let i = 0; i <= latSteps; i++) {
-    ctx.beginPath();
-    for (let j = 0; j <= lonSteps; j++) {
-      const p = points[i * (lonSteps + 1) + j];
-      const proj = projectPoint(p);
-      if (j === 0) ctx.moveTo(proj.x, proj.y);
-      else ctx.lineTo(proj.x, proj.y);
-    }
-    ctx.strokeStyle = 'rgba(244,168,53,0.5)';
-    ctx.lineWidth = 0.4;
-    ctx.stroke();
-  }
-
-  if (isDragging) {
-  } else {
-    velocityY *= 0.95;
+  if (!isDragging) {
     velocityX *= 0.95;
-
+    velocityY *= 0.95;
     angleY += autoSpeed + velocityY;
     angleX += velocityX;
   }
@@ -481,5 +474,5 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-draw();
+mapImg.onload = draw;
 </script>
