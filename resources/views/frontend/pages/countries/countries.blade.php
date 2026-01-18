@@ -227,6 +227,7 @@
                 margin-bottom: 10px;
                 color: var(--orange);
                 font-weight: 700;
+                font-family: cairo !important
             }
 
             /* السعر */
@@ -235,6 +236,7 @@
                 margin-bottom: 5px;
                 color: var(--text-main);
                 font-weight: 600;
+                font-family: cairo !important
             }
 
         </style>
