@@ -2,9 +2,7 @@
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
-<script src="{{asset('frontend/js/swiper-bundle.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
-<script src="{{asset('frontend/js/jquery.fancybox.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
 <script src="{{asset('frontend/js/odometer.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/intro.js')}}" defer></script>
@@ -56,5 +54,42 @@ window.addEventListener('load', function () {
             width: '100%'
         });
     }
+});
+</script>
+<script>
+document.addEventListener('click', function(e){
+    if (e.target.closest('[data-fancybox]')) {
+        if (!window.Fancybox) {
+            const s = document.createElement('script');
+            s.src = "{{ asset('frontend/js/jquery.fancybox.min.js') }}";
+            s.onload = () => Fancybox.bind("[data-fancybox]");
+            document.body.appendChild(s);
+        }
+    }
+});
+</script>
+<script>
+if (document.querySelector('.swiper')) {
+    const s = document.createElement('script');
+    s.src = "{{ asset('frontend/js/swiper-bundle.min.js') }}";
+    s.defer = true;
+    document.body.appendChild(s);
+}
+</script>
+<script>
+let hotjarLoaded = false;
+
+function loadHotjar() {
+    if (hotjarLoaded) return;
+    hotjarLoaded = true;
+
+    const s = document.createElement('script');
+    s.src = 'https://script.hotjar.com/modules.5af39c6….js';
+    s.async = true;
+    document.body.appendChild(s);
+}
+
+['scroll','mousemove','touchstart'].forEach(evt => {
+    window.addEventListener(evt, loadHotjar, { once: true });
 });
 </script>
