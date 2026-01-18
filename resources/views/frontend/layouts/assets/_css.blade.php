@@ -100,7 +100,7 @@ input.valid, textarea.valid { border: 1px solid green; }
 .select2-container--default
 .select2-selection--single
 .select2-selection__arrow {
-    top: 50%;
+    top: 46%;
     transform: translateY(-40%);
 }
 
