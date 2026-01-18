@@ -1,7 +1,14 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    ارسال طلب
+    @php
+        $title = match (true) {
+            request()->routeIs('transferService') => 'نقل خدمات',
+            request()->routeIs('services-single') => 'خدمات فردية',
+            default => 'إرسال طلب',
+        };
+    @endphp
+    {{ $title }}
 @endsection
 
 @section('styles')
@@ -1231,13 +1238,13 @@
     var new_page = 1;
 
     @php
-        $ajaxUrl = route('all-workers');
-        if (request()->routeIs('transferService')) {
-            $ajaxUrl = route('transferService');
-        } elseif (request()->routeIs('services-single')) {
-            $ajaxUrl = route('services-single');
-        }
+        $ajaxUrl = match (true) {
+            request()->routeIs('transferService') => route('transferService'),
+            request()->routeIs('services-single') => route('services-single'),
+            default => route('all-workers'),
+        };
     @endphp
+
 
     var link_only = '{{ $ajaxUrl }}';
 
