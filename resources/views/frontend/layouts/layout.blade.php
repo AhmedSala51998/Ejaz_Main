@@ -11,19 +11,6 @@
 
         gtag('config', 'G-NTCLJLMES5');
     </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXNLF389JY"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'G-DXNLF389JY');
-    </script>
     <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
     <script>
         (function(h,o,t,j,a,r){
@@ -319,7 +306,7 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(0.5px);
-            -webkit-backdrop-filter: blur(0.5px);
+            -webkit-backdrop-filter: blur(1px);
             z-index: 99999;
             animation: fadeInBg 0.6s ease forwards;
             }
@@ -558,17 +545,6 @@
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11543933560">
-    </script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-11543933560');
-    </script>
-
 </head>
 
 <body>
