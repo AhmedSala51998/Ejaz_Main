@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
-<link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
 
 <link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/animate.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -20,6 +19,7 @@
 <link rel="preload" href="{{asset('frontend/css/dropify.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/jquery.fancybox.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/odometer.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/select2.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/introjs.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="{{asset('frontend/css/dropify.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.fancybox.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/odometer.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/introjs.css')}}">
@@ -96,7 +97,6 @@ input.valid, textarea.valid { border: 1px solid green; }
     left: 10px;
     height: 100%;
 }
-
 .select2-container--default
 .select2-selection--single
 .select2-selection__arrow {
