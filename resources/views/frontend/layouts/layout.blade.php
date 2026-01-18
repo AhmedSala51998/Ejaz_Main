@@ -305,8 +305,8 @@
             justify-content: center;
             align-items: center;
             background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(1px);
-            -webkit-backdrop-filter: blur(1px);
+            backdrop-filter: blur(0.2px);
+            -webkit-backdrop-filter: blur(0.2px);
             z-index: 99999;
             animation: fadeInBg 0.6s ease forwards;
             }
