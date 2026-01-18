@@ -382,11 +382,13 @@ let lastY = 0;
 let velocityX = 0;
 let velocityY = 0;
 
+let features = [];
+
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
-  .then(res => res.json())
+  .then(r => r.json())
   .then(world => {
-    const countries = topojson.feature(world, world.objects.countries);
-    draw(countries.features);
+    features = topojson.feature(world, world.objects.countries).features;
+    requestAnimationFrame(draw);
   });
 
 canvas.addEventListener('mousedown', e => {
@@ -409,12 +411,12 @@ window.addEventListener('mousemove', e => {
 });
 
 function project(lat, lon) {
-  const theta = (90 - lat) * Math.PI / 180;
-  const phi = (lon + 180) * Math.PI / 180;
+  const latR = lat * Math.PI / 180;
+  const lonR = lon * Math.PI / 180;
 
-  let x = R * Math.sin(theta) * Math.cos(phi);
-  let y = R * Math.cos(theta);
-  let z = R * Math.sin(theta) * Math.sin(phi);
+  let x = R * Math.cos(latR) * Math.sin(lonR);
+  let y = -R * Math.sin(latR);
+  let z = R * Math.cos(latR) * Math.cos(lonR);
 
   let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
   let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
@@ -422,27 +424,44 @@ function project(lat, lon) {
   let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
   let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
 
-  return { x: W / 2 + x2, y: H / 2 + y1, z: z2 };
+  return { x: W/2 + x2, y: H/2 + y1, z: z2 };
 }
 
-function draw(features) {
+function drawSphereOutline() {
+  ctx.beginPath();
+  ctx.arc(W/2, H/2, R, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(244,168,53,0.25)';
+  ctx.lineWidth = 0.8;
+  ctx.stroke();
+}
+
+function drawPolygon(coords) {
+  ctx.beginPath();
+  coords.forEach((c, i) => {
+    const [lon, lat] = c;
+    const p = project(lat, lon);
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  });
+  ctx.stroke();
+}
+
+function draw() {
   ctx.clearRect(0, 0, W, H);
 
-  ctx.strokeStyle = 'rgba(244,168,53,0.9)';
-  ctx.lineWidth = 0.7;
+  drawSphereOutline();
 
-  features.forEach(country => {
-    country.geometry.coordinates.forEach(poly => {
-      ctx.beginPath();
-      poly[0].forEach((coord, i) => {
-        const [lon, lat] = coord;
-        const p = project(lat, lon);
-        if (p.z < 0) return;
-        if (i === 0) ctx.moveTo(p.x, p.y);
-        else ctx.lineTo(p.x, p.y);
-      });
-      ctx.stroke();
-    });
+  ctx.strokeStyle = 'rgba(244,168,53,0.9)';
+  ctx.lineWidth = 0.6;
+
+  features.forEach(f => {
+    if (f.geometry.type === "Polygon") {
+      f.geometry.coordinates.forEach(drawPolygon);
+    } else if (f.geometry.type === "MultiPolygon") {
+      f.geometry.coordinates.forEach(p =>
+        p.forEach(drawPolygon)
+      );
+    }
   });
 
   if (!isDragging) {
@@ -452,6 +471,6 @@ function draw(features) {
     angleX += velocityX;
   }
 
-  requestAnimationFrame(() => draw(features));
+  requestAnimationFrame(draw);
 }
 </script>
