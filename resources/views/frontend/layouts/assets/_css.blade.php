@@ -96,4 +96,12 @@ input.valid, textarea.valid { border: 1px solid green; }
     left: 10px;
     height: 100%;
 }
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__arrow {
+    top: 50%;
+    transform: translateY(-40%);
+}
+
 </style>
