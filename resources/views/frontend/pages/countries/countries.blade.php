@@ -178,12 +178,14 @@
             color: var(--orange);
             margin-top: 40px;
             margin-bottom: 5px;
+            font-family: cairo !important
         }
 
         .country h5 {
             font-size: 1.1rem;
             color: var(--text-main);
             margin-bottom: 10px;
+            font-family: cairo !important
         }
 
         .country p {
@@ -277,9 +279,9 @@
                                 <div class="country" data-aos="zoom-in">
                                     <!-- شعار الدولة -->
                                     <div class="flag-wrapper">
-                                        
+
                                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
-                                        
+
                                     </div>
 
                                     <h4>{{ $country->title }}</h4>

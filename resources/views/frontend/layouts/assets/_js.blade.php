@@ -19,7 +19,6 @@
 <script src="{{asset('frontend/backEndFiles/axios.min.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}"></script>
 
-
 <script>
     // goBack
     function goBack() {
@@ -48,11 +47,5 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('offline', () => alertify.error('لا يوجد خدمة انترنت !'));
 });
 
-window.addEventListener('load', function () {
-    $('.select2').select2({
-        dir: 'rtl',
-        width: '100%'
-    });
-});
 </script>
 
