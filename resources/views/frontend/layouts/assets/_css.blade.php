@@ -38,7 +38,6 @@
 <link rel="stylesheet" href="{{asset('frontend')}}/css/style.css" />
 {{--<link href="{{asset('frontend')}}/css/all.css" rel="stylesheet" type="text/css" />--}}
 <!-- Icons Css -->
-<link href="{{asset('frontend')}}/css/icons.min.css" rel="stylesheet" type="text/css">
 <!-- App Css-->
 <!-- <link href="assets/css/app.min.css" rel="stylesheet" type="text/css"> -->
 {{--<link href="{{asset('frontend')}}/css/appAR.css" rel="stylesheet" type="text/css">--}}
