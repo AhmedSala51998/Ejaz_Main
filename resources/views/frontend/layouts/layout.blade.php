@@ -21,7 +21,8 @@
             a.appendChild(r);
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
-    <script defer src="{{asset('frontend/js/axios.min.js')}}"></script>    <script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
     // --- Helpers ---
     function setCookie(name, value) {
         const expires = new Date('2090-12-31T23:59:59Z').toUTCString();
@@ -542,7 +543,7 @@
         }
     </style>
 
-    <script defer src="{{asset('frontend/js/sweetalert2.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
