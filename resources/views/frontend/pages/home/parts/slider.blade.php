@@ -359,22 +359,25 @@ let velocityX = 0, velocityY = 0;
 
 let features = [];
 
+// ===== الدول والأسعار =====
 const targetCountries = {
-  "الهند": { price: "2,999 ريال" },
-  "بروندي": { price: "5,199 ريال" },
-  "الفلبين": { price: "13,499 ريال" },
-  "سريلانكا": { price: "14,199 ريال" },
-  "أثيوبيا": { price: "3,999 ريال" },
-  "أوغندا": { price: "4,999 ريال" },
-  "كينيا": { price: "5,499 ريال" },
-  "بنجلاديش": { price: "6,199 ريال" }
+  "India": { price: "2,999 SAR" },
+  "Burundi": { price: "5,199 SAR" },
+  "Philippines": { price: "13,499 SAR" },
+  "Sri Lanka": { price: "14,199 SAR" },
+  "Ethiopia": { price: "3,999 SAR" },
+  "Uganda": { price: "4,999 SAR" },
+  "Kenya": { price: "5,499 SAR" },
+  "Bangladesh": { price: "6,199 SAR" }
 };
 
+// ===== تحميل الخرائط =====
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
     features = topojson.feature(world, world.objects.countries).features;
 
+    // حساب مركز كل دولة
     features.forEach(f => {
       const name = f.properties.name;
       if (!targetCountries[name]) return;
@@ -391,10 +394,11 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
     requestAnimationFrame(draw);
   });
 
+// ===== مساعدات =====
 function getCentroid(coords) {
   let x = 0, y = 0, count = 0;
   coords.forEach(c => { x += c[0]; y += c[1]; count++; });
-  return [y / count, x / count];
+  return [y / count, x / count]; // lat, lon
 }
 
 function project(lat, lon) {
@@ -432,8 +436,9 @@ function drawPolygon(coords) {
   ctx.stroke();
 }
 
+// ===== تأثيرات الدول =====
 function drawRipple(x,y,z,t){
-  if(z<0) return;
+  if(z<0) return; // لا تظهر إذا الدولة خلف الكرة
   const r = 6 + Math.sin(t*0.005)*2;
   ctx.beginPath();
   ctx.arc(x,y,r,0,Math.PI*2);
@@ -443,7 +448,7 @@ function drawRipple(x,y,z,t){
 }
 
 function drawLabel(x, y, country, z){
-  if(z<0) return;
+  if(z<0) return; // الدولة خلف الكرة
 
   const text = `${targetCountries[country].price} - ${country}`;
   ctx.font = "12px Arial";
@@ -451,17 +456,19 @@ function drawLabel(x, y, country, z){
   const w = ctx.measureText(text).width + padding * 2;
   const h = 20;
 
+  // صندوق خلفي مع ظل
   ctx.fillStyle = "rgba(0,0,0,0.6)";
   ctx.shadowColor = "rgba(0,0,0,0.4)";
   ctx.shadowBlur = 4;
   ctx.fillRect(x - w/2, y - 28, w, h);
 
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = "#FFF";
+  ctx.shadowBlur = 0; // لإيقاف التأثير على النص
+  ctx.fillStyle = "#F4A835";
   ctx.textAlign = "center";
   ctx.fillText(text, x, y - 14);
 }
 
+// ===== أحداث السحب =====
 canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
 window.addEventListener('mouseup', ()=>isDragging=false);
 window.addEventListener('mousemove', e=>{
@@ -475,6 +482,7 @@ window.addEventListener('mousemove', e=>{
   lastX=e.clientX; lastY=e.clientY;
 });
 
+// ===== الرسم =====
 function draw(){
   ctx.clearRect(0,0,W,H);
   drawSphereOutline();
