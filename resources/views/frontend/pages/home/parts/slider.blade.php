@@ -359,11 +359,11 @@ let velocityX = 0, velocityY = 0;
 
 let features = [];
 
-const targetCountries = {
-    @foreach($countries as $c)
-        "{{ $c->country_name }}": { price: "{{ number_format($c->price,0) }} ريال" },
-    @endforeach
-};
+const targetCountries = @json(
+    $countries->mapWithKeys(function($c){
+        return [$c->country_name => ['price' => number_format($c->price,0) . ' ريال']];
+    })
+);
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
