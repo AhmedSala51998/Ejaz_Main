@@ -850,19 +850,19 @@ window.addEventListener('load', () => {
 {{--    });--}}
 {{--</script>--}}
 <div class="floating-container">
-    <div class="floating-button"><i class="material-icons">headset_mic</i></div>
+    <div class="floating-button"><i class="fa-solid fa-headset">headset_mic</i></div>
     <div class="element-container">
 
         <a  href="tel:{{$settings->callNumber}}" target="_blank">
           <span class="float-element tooltip-left">
-              <i class="material-icons">phone
+              <i class="fa-solid fa-phone">phone
               </i>
           </span>
         </a>
 
          <span class="float-element">
              <a  href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
-          <i style="color: white" class="material-icons">chat
+          <i style="color: white" class="fa-brands fa-whatsapp">chat
           </i>
                   </a>
          </span>
@@ -870,7 +870,7 @@ window.addEventListener('load', () => {
         <span class="float-element">
                     <a href="mailto::{{$settings->email1}}" target="_blank" >
 
-          <i style="color: white" class="material-icons">mail</i>
+          <i style="color: white" class="fa-solid fa-envelope">mail</i>
                          </a>
         </span>
 
