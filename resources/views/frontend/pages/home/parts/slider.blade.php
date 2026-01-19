@@ -371,6 +371,17 @@ const targetCountries = {
   "Bangladesh": { price: "6,199 SAR" }
 };
 
+const arabicNames = {
+  "India": "الهند",
+  "Burundi": "بروندي",
+  "Philippines": "الفلبين",
+  "Sri Lanka": "سريلانكا",
+  "Ethiopia": "إثيوبيا",
+  "Uganda": "أوغندا",
+  "Kenya": "كينيا",
+  "Bangladesh": "بنجلاديش"
+};
+
 // ===== تحميل الخرائط =====
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
@@ -438,7 +449,7 @@ function drawPolygon(coords) {
 
 // ===== تأثيرات الدول =====
 function drawRipple(x,y,z,t){
-  if(z<0) return; // لا تظهر إذا الدولة خلف الكرة
+  if(z<0) return;
   const r = 6 + Math.sin(t*0.005)*2;
   ctx.beginPath();
   ctx.arc(x,y,r,0,Math.PI*2);
@@ -448,21 +459,19 @@ function drawRipple(x,y,z,t){
 }
 
 function drawLabel(x, y, country, z){
-  if(z<0) return; // الدولة خلف الكرة
-
-  const text = `${targetCountries[country].price} - ${country}`;
+  if(z<0) return;
+  const text = `${targetCountries[country].price} - ${arabicNames[country]}`;
   ctx.font = "12px Arial";
   const padding = 6;
   const w = ctx.measureText(text).width + padding * 2;
   const h = 20;
 
-  // صندوق خلفي مع ظل
   ctx.fillStyle = "rgba(0,0,0,0.6)";
   ctx.shadowColor = "rgba(0,0,0,0.4)";
   ctx.shadowBlur = 4;
   ctx.fillRect(x - w/2, y - 28, w, h);
 
-  ctx.shadowBlur = 0; // لإيقاف التأثير على النص
+  ctx.shadowBlur = 0;
   ctx.fillStyle = "#F4A835";
   ctx.textAlign = "center";
   ctx.fillText(text, x, y - 14);
