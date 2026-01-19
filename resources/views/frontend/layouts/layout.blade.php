@@ -2,14 +2,6 @@
 <html>
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-NTCLJLMES5"></script>
-    <script defer>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-NTCLJLMES5');
-    </script>
     <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
     <script>
         (function(h,o,t,j,a,r){
