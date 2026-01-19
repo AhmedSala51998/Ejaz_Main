@@ -242,16 +242,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
 
-                                <img
-                                src="{{ get_file($cv->cv_file) }}"
-                                srcset="{{ get_file($cv->cv_file_small) }} 400w,
-                                        {{ get_file($cv->cv_file) }} 800w"
-                                sizes="(max-width: 768px) 100vw, 40vw"
-                                width="500"
-                                height="400"
-                                fetchpriority="high"
-                                decoding="async"
-                                alt="CV Image">
+                                <img src="{{ get_file($cv->cv_file) }}" width="500" height="400" fetchpriority="high" decoding="async" alt="CV Image">
 
                         </div>
                     </a>
