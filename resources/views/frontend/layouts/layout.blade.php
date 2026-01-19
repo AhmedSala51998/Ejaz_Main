@@ -853,7 +853,7 @@ window.addEventListener('load', () => {
 
          <span class="float-element">
              <a  href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
-          <i style="color: white" class="fa-solid fa-whatsapp"></i>
+          <i style="color: white" class="fa-brands fa-whatsapp"></i>
                   </a>
          </span>
 
