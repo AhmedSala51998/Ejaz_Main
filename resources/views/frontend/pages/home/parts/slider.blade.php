@@ -232,26 +232,6 @@ canvas {
 
 
     {{--@if (count($sliders)>0)--}}
-    <div id="globe-loader" style="
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(255,255,255,0.8);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(6px);
-    ">
-      <div class="globe-spinner" style="
-        width: 80px;
-        height: 80px;
-        border: 6px solid #f4a835;
-        border-top: 6px solid transparent;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      "></div>
-    </div>
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">

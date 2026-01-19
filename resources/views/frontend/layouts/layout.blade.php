@@ -13,7 +13,7 @@
             a.appendChild(r);
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
     // --- Helpers ---
     function setCookie(name, value) {
@@ -535,7 +535,7 @@
         }
     </style>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
