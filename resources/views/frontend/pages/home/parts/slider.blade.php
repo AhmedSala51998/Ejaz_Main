@@ -359,11 +359,16 @@ let velocityX = 0, velocityY = 0;
 
 let features = [];
 
-const targetCountries = @json(
-    $countries->mapWithKeys(function($c){
-        return [$c->country_name => ['price' => number_format($c->price,0) . ' ريال']];
-    })
-);
+const targetCountries = {
+  "الهند": { price: "2,999 ريال" },
+  "بروندي": { price: "5,199 ريال" },
+  "الفلبين": { price: "13,499 ريال" },
+  "سريلانكا": { price: "14,199 ريال" },
+  "أثيوبيا": { price: "3,999 ريال" },
+  "أوغندا": { price: "4,999 ريال" },
+  "كينيا": { price: "5,499 ريال" },
+  "بنجلاديش": { price: "6,199 ريال" }
+};
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
@@ -452,7 +457,7 @@ function drawLabel(x, y, country, z){
   ctx.fillRect(x - w/2, y - 28, w, h);
 
   ctx.shadowBlur = 0;
-  ctx.fillStyle = "#F4A835";
+  ctx.fillStyle = "#FFF";
   ctx.textAlign = "center";
   ctx.fillText(text, x, y - 14);
 }
