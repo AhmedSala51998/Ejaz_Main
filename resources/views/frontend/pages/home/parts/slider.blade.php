@@ -342,7 +342,18 @@ canvas {
         </div>
     </section>
 @endif
-
+@php
+$countryMap = [
+    "الهند" => "India",
+    "بروندي" => "Burundi",
+    "الفلبين" => "Philippines",
+    "سريلانكا" => "Sri Lanka",
+    "إثيوبيا" => "Ethiopia",
+    "أوغندا" => "Uganda",
+    "كينيا" => "Kenya",
+    "بنجلاديش" => "Bangladesh"
+];
+@endphp
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script>
 const canvas = document.getElementById('sphere-canvas');
@@ -358,18 +369,6 @@ let isDragging=false, lastX=0, lastY=0;
 let velocityX=0, velocityY=0;
 
 let features = [];
-
-// ===== 1. خريطة عربي → إنجليزي (مطابقة GeoJSON) =====
-const countryMap = {
-  "الهند": "India",
-  "بروندي": "Burundi",
-  "الفلبين": "Philippines",
-  "سريلانكا": "Sri Lanka",
-  "إثيوبيا": "Ethiopia",
-  "أوغندا": "Uganda",
-  "كينيا": "Kenya",
-  "بنجلاديش": "Bangladesh"
-};
 
 // ===== 2. تجهيز targetCountries + arabicNames ديناميك من $countries =====
 const targetCountries = {};
