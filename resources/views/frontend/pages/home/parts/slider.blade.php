@@ -230,6 +230,12 @@ canvas {
   position: absolute;
   inset: 0;
   z-index: 5;
+  transition: opacity .2s ease;
+}
+
+.lcp-clone.hide {
+  opacity: 0;
+  pointer-events: none;
 }
 </style>
 @if (count($sliders)>0)
@@ -480,7 +486,19 @@ const swiper = new Swiper('.mainSliderContainer', {
   loop: true,
   on: {
     init() {
-      document.querySelector('.lcp-clone')?.remove();
+      requestAnimationFrame(() => {
+        const realTitle = document.querySelector(
+          '.mainSliderContainer .swiper-slide-active .sliderTitle'
+        );
+
+        if (realTitle) {
+          document.querySelector('.lcp-clone')?.classList.add('hide');
+
+          setTimeout(() => {
+            document.querySelector('.lcp-clone')?.remove();
+          }, 300);
+        }
+      });
     }
   }
 });
