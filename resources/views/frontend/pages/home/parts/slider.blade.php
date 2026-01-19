@@ -240,6 +240,9 @@ canvas {
   visibility: hidden;
   pointer-events: none;
 }
+.col-md-5.order-md-1 {
+  position: relative;
+}
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
@@ -504,20 +507,10 @@ function draw() {
 const swiper = new Swiper('.mainSliderContainer', {
   loop: true,
   on: {
-    init() {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const activeTitle = document.querySelector(
-            '.mainSliderContainer .swiper-slide-active .sliderTitle'
-          );
-
-          if (activeTitle) {
-            document
-              .querySelector('.lcp-clone')
-              ?.classList.add('is-hidden');
-          }
-        });
-      });
+    slideChangeTransitionEnd() {
+      document
+        .querySelectorAll('.lcp-clone')
+        .forEach(el => el.classList.add('is-hidden'));
     }
   }
 });
