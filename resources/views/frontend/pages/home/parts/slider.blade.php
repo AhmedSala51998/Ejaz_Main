@@ -352,43 +352,54 @@ const W = canvas.width;
 const H = canvas.height;
 const R = Math.min(W, H) * 0.48;
 
-let angleX = 0;
-let angleY = 0;
+let angleX = 0, angleY = 0;
 const autoSpeed = 0.0006;
-
-let isDragging = false;
-let lastX = 0;
-let lastY = 0;
-let velocityX = 0;
-let velocityY = 0;
+let isDragging = false, lastX = 0, lastY = 0;
+let velocityX = 0, velocityY = 0;
 
 let features = [];
 
+// ===== الدول والأسعار =====
+const targetCountries = {
+  "India": { price: "13,000 SAR" },
+  "Burundi": { price: "9,000 SAR" },
+  "Philippines": { price: "14,500 SAR" },
+  "Sri Lanka": { price: "12,000 SAR" },
+  "Ethiopia": { price: "8,500 SAR" },
+  "Uganda": { price: "9,500 SAR" },
+  "Kenya": { price: "10,000 SAR" },
+  "Bangladesh": { price: "11,000 SAR" }
+};
+
+// ===== تحميل الخرائط =====
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
     features = topojson.feature(world, world.objects.countries).features;
+
+    // حساب مركز كل دولة
+    features.forEach(f => {
+      const name = f.properties.name;
+      if (!targetCountries[name]) return;
+
+      let coords;
+      if (f.geometry.type === "Polygon") coords = f.geometry.coordinates[0];
+      else coords = f.geometry.coordinates[0][0];
+
+      const [lat, lon] = getCentroid(coords);
+      targetCountries[name].lat = lat;
+      targetCountries[name].lon = lon;
+    });
+
     requestAnimationFrame(draw);
   });
 
-canvas.addEventListener('mousedown', e => {
-  isDragging = true;
-  lastX = e.clientX;
-  lastY = e.clientY;
-});
-window.addEventListener('mouseup', () => isDragging = false);
-
-window.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-  angleY += dx * 0.005;
-  angleX += dy * 0.005;
-  velocityY = dx * 0.0004;
-  velocityX = dy * 0.0004;
-  lastX = e.clientX;
-  lastY = e.clientY;
-});
+// ===== مساعدات =====
+function getCentroid(coords) {
+  let x = 0, y = 0, count = 0;
+  coords.forEach(c => { x += c[0]; y += c[1]; count++; });
+  return [y / count, x / count]; // lat, lon
+}
 
 function project(lat, lon) {
   const latR = lat * Math.PI / 180;
@@ -417,34 +428,74 @@ function drawSphereOutline() {
 
 function drawPolygon(coords) {
   ctx.beginPath();
-  coords.forEach((c, i) => {
+  coords.forEach((c,i)=>{
     const [lon, lat] = c;
     const p = project(lat, lon);
-    if (i === 0) ctx.moveTo(p.x, p.y);
-    else ctx.lineTo(p.x, p.y);
+    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
   });
   ctx.stroke();
 }
 
-function draw() {
-  ctx.clearRect(0, 0, W, H);
+// ===== تأثيرات الدول =====
+function drawRipple(x,y,z,t){
+  if(z<0) return;
+  const r = 6 + Math.sin(t*0.005)*2;
+  ctx.beginPath();
+  ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.strokeStyle = 'rgba(244,168,53,0.5)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+}
 
+function drawLabel(x,y,text,z){
+  if(z<0) return;
+  ctx.font = "12px Arial";
+  const padding = 6;
+  const w = ctx.measureText(text).width + padding*2;
+
+  ctx.fillStyle = "rgba(0,0,0,0.6)";
+  ctx.fillRect(x - w/2, y -28, w, 20);
+
+  ctx.fillStyle = "#F4A835";
+  ctx.textAlign = "center";
+  ctx.fillText(text, x, y-14);
+}
+
+// ===== أحداث السحب =====
+canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
+window.addEventListener('mouseup', ()=>isDragging=false);
+window.addEventListener('mousemove', e=>{
+  if(!isDragging) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  angleY += dx*0.005;
+  angleX += dy*0.005;
+  velocityY = dx*0.0004;
+  velocityX = dy*0.0004;
+  lastX=e.clientX; lastY=e.clientY;
+});
+
+// ===== الرسم =====
+function draw(){
+  ctx.clearRect(0,0,W,H);
   drawSphereOutline();
 
-  ctx.strokeStyle = 'rgba(244,168,53,0.9)';
-  ctx.lineWidth = 0.6;
-
-  features.forEach(f => {
-    if (f.geometry.type === "Polygon") {
-      f.geometry.coordinates.forEach(drawPolygon);
-    } else if (f.geometry.type === "MultiPolygon") {
-      f.geometry.coordinates.forEach(p =>
-        p.forEach(drawPolygon)
-      );
-    }
+  ctx.strokeStyle='rgba(244,168,53,0.9)';
+  ctx.lineWidth=0.6;
+  features.forEach(f=>{
+    if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
+    else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
   });
 
-  if (!isDragging) {
+  const t = performance.now();
+  Object.values(targetCountries).forEach(c=>{
+    if(!c.lat) return;
+    const p = project(c.lat,c.lon);
+    drawRipple(p.x,p.y,p.z,t);
+    drawLabel(p.x,p.y,c.price,p.z);
+  });
+
+  if(!isDragging){
     velocityX *= 0.95;
     velocityY *= 0.95;
     angleY += autoSpeed + velocityY;
