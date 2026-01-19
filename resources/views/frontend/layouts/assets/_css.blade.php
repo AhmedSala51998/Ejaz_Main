@@ -9,39 +9,28 @@
 }
 </style>
 
-<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
-<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
+ <!-- Preload non-critical CSS -->
+    <link rel="preload" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{asset('frontend/css/style.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{asset('frontend/css/cute-alert-master/style.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-<link rel="preload" href="{{asset('frontend/css/fontawesome.min.css')}}" as="style" onload="this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/animate.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/aos.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/dropify.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/jquery.fancybox.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/odometer.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/select2.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/introjs.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="{{asset('frontend/css/introjs-rtl.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/cute-alert-master/style.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </noscript>
 
-
-<noscript>
-  <link rel="stylesheet" href="{{asset('frontend/css/swiper-bundle.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/animate.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/aos.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/dropify.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/jquery.fancybox.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/odometer.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/backEndFiles/validation/toastr.min.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/introjs.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/introjs-rtl.css')}}">
-  <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}">
-</noscript>
+    <!-- JS defer -->
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
+body { font-family: 'Cairo', sans-serif; margin:0; }
+header { display:flex; justify-content:space-between; align-items:center; height:80px; background:#fff; }
+h1.sliderTitle { font-size:2rem; font-weight:700; color:#222; margin:0; }
+.navbar { display:flex; justify-content:space-between; align-items:center; }
 .form-error { color: red; font-weight: normal; font-size: smaller; }
 input.valid, textarea.valid { border: 1px solid green; }
 
