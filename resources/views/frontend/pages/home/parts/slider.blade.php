@@ -230,11 +230,14 @@ canvas {
   position: absolute;
   inset: 0;
   z-index: 5;
-  transition: opacity .2s ease;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .15s ease;
 }
 
-.lcp-clone.hide {
+.lcp-clone.is-hidden {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 </style>
@@ -487,17 +490,17 @@ const swiper = new Swiper('.mainSliderContainer', {
   on: {
     init() {
       requestAnimationFrame(() => {
-        const realTitle = document.querySelector(
-          '.mainSliderContainer .swiper-slide-active .sliderTitle'
-        );
+        requestAnimationFrame(() => {
+          const activeTitle = document.querySelector(
+            '.mainSliderContainer .swiper-slide-active .sliderTitle'
+          );
 
-        if (realTitle) {
-          document.querySelector('.lcp-clone')?.classList.add('hide');
-
-          setTimeout(() => {
-            document.querySelector('.lcp-clone')?.remove();
-          }, 300);
-        }
+          if (activeTitle) {
+            document
+              .querySelector('.lcp-clone')
+              ?.classList.add('is-hidden');
+          }
+        });
       });
     }
   }
