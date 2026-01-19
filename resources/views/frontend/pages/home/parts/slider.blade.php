@@ -360,14 +360,9 @@ let velocityX = 0, velocityY = 0;
 let features = [];
 
 const targetCountries = {
-  "India": { price: "13,000 SAR" },
-  "Burundi": { price: "9,000 SAR" },
-  "Philippines": { price: "14,500 SAR" },
-  "Sri Lanka": { price: "12,000 SAR" },
-  "Ethiopia": { price: "8,500 SAR" },
-  "Uganda": { price: "9,500 SAR" },
-  "Kenya": { price: "10,000 SAR" },
-  "Bangladesh": { price: "11,000 SAR" }
+    @foreach($countries as $c)
+        "{{ $c->country_name }}": { price: "{{ number_format($c->price,0) }} ريال" },
+    @endforeach
 };
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
