@@ -13,7 +13,6 @@
     margin-bottom: 30px;
 
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
 
@@ -26,6 +25,15 @@
     transform: translateY(-5px);
 }
 
+.cv-card {
+  backdrop-filter: none;
+}
+
+@supports (backdrop-filter: blur(14px)) {
+  .cv-card.loaded {
+    backdrop-filter: blur(14px);
+  }
+}
 /* ================== SLIDER ================== */
 .cv-slider {
     width: 40%;
@@ -242,7 +250,7 @@
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
 
-                                <img src="{{ get_file($cv->cv_file) }}" width="500" height="400" fetchpriority="high" decoding="async" alt="CV Image">
+                                <img src="{{ get_file($cv->cv_file) }}" width="500" height="400" fetchpriority="high" loading="lazy" decoding="async" alt="CV Image">
 
                         </div>
                     </a>
@@ -345,5 +353,12 @@ document.addEventListener("DOMContentLoaded", function () {
         Thumbs: false,
         Toolbar: true,
     });
+});
+</script>
+<script>
+window.addEventListener("load", () => {
+  document.querySelectorAll(".cv-card").forEach(el => {
+    el.classList.add("loaded");
+  });
 });
 </script>

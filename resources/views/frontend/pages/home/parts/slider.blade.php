@@ -226,6 +226,11 @@
 canvas {
   image-rendering: auto;
 }
+.lcp-clone {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
@@ -243,6 +248,22 @@ canvas {
 
             </div>
             <div class="col-md-5 order-md-1 p-1">
+                <div class="swiper-slide mainSlideItem lcp-clone">
+                    <div class="info">
+                        <h1 class="sliderTitle" style="color:#D89835">
+                            {{ $sliders->first()->title }}
+                        </h1>
+
+                        <p class="hint" style="color:#D89835">
+                            {{ $sliders->first()->desc }}
+                        </p>
+
+                        <a href="{{route('all-workers')}}" class="animatedLinkk">
+                            طلب استقدام
+                            <i class="fa-regular fa-arrow-up-left ms-2"><span></span></i>
+                        </a>
+                    </div>
+                </div>
                 <!-- main slider -->
                 <div class="mainSlider swiperContainer">
                     <div class="swiper mainSliderContainer">
@@ -453,4 +474,14 @@ function draw() {
 
   requestAnimationFrame(draw);
 }
+</script>
+<script>
+const swiper = new Swiper('.mainSliderContainer', {
+  loop: true,
+  on: {
+    init() {
+      document.querySelector('.lcp-clone')?.remove();
+    }
+  }
+});
 </script>
