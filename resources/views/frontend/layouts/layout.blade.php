@@ -546,17 +546,17 @@
 <div class="customCursorInner"></div>
 <!-- end custom cursor  -->
 <!-- loader -->
-<!--<div class="loader">
+<div class="loader">
     <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
     <div class="spinner"></div>
-</div>-->
-<div class="loader-wrapper" aria-label="لودر لوجو إيجاز">
+</div>
+<!--<div class="loader-wrapper" aria-label="لودر لوجو إيجاز">
   <div class="square">إ</div>
   <div class="square">ي</div>
   <div class="square">ج</div>
   <div class="square">ا</div>
   <div class="square">ز</div>
-</div>
+</div>-->
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
 <!-- ================ /Header ================= -->
