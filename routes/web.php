@@ -258,7 +258,7 @@ Route::group(
 
     ## support
 
-    //Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
+    Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
 
 
     ## contactUs Support
