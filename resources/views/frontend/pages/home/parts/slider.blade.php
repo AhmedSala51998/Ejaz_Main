@@ -463,7 +463,15 @@ function drawWaterRipple(x, y, z, t) {
 function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(x, y);
+
+  const h = 28;
+  const arrowGap = 2;
+
+  ctx.translate(
+    x,
+    y + h * scale / 2 + arrowGap
+  );
+
   ctx.scale(scale, scale);
 
   ctx.beginPath();
