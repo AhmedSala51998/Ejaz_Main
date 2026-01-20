@@ -354,7 +354,7 @@ $countryMap = [
     "بنجلاديش" => "Bangladesh",
 ];
 @endphp
-<script src="https://unpkg.com/topojson-client@3"></script>
+<script defer src="https://unpkg.com/topojson-client@3"></script>
 <script>
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
