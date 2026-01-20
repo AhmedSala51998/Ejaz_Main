@@ -517,43 +517,34 @@ window.addEventListener('mousemove', e=>{
   lastX=e.clientX; lastY=e.clientY;
 });
 
-function draw(){
-  ctx.clearRect(0,0,W,H);
+function draw() {
+  ctx.clearRect(0, 0, W, H);
   drawSphereOutline();
 
-  ctx.strokeStyle='rgba(244,168,53,0.9)';
-  ctx.lineWidth=0.6;
-  features.forEach(f=>{
-    if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
-    else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
+  ctx.strokeStyle = 'rgba(244,168,53,0.9)';
+  ctx.lineWidth = 0.6;
+  features.forEach(f => {
+    if (f.geometry.type === "Polygon") f.geometry.coordinates.forEach(drawPolygon);
+    else if (f.geometry.type === "MultiPolygon") f.geometry.coordinates.forEach(p => p.forEach(drawPolygon));
   });
 
   const t = performance.now();
   Object.keys(targetCountries).forEach(name => {
     const c = targetCountries[name];
-    if(!c.lat) return;
-    const p = project(c.lat,c.lon);
+    if (!c.lat) return;
+    const p = project(c.lat, c.lon);
     if (p.z < 0) return;
 
-    drawWaterRipple(p.x, p.y, p.z, t);
+    drawRipple(p.x, p.y, p.z, t);
 
-    const float = (Math.sin(t * 0.002) + 1) / 2;
-    const bubbleBaseY = p.y - 20;
-    const bubbleY = bubbleBaseY - float * 14;
-
-    drawArrow(p.x, bubbleBaseY - 2);
+    const anim = (Math.sin(t * 0.002) + 1) / 2;
+    const bubbleY = p.y - 22 - anim * 12;
 
     const text = `${c.price} - ${arabicNames[name]}`;
-    drawChatBubble(
-        p.x,
-        bubbleY,
-        text,
-        0.95,
-        0.95 + float * 0.05
-    );
+    drawChatBubble(p.x, bubbleY, text, 0.9, 0.95 + anim * 0.05);
   });
 
-  if(!isDragging){
+  if (!isDragging) {
     velocityX *= 0.95;
     velocityY *= 0.95;
     angleY += autoSpeed + velocityY;
