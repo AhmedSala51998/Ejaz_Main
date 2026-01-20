@@ -273,9 +273,6 @@ Route::group(
 
     Route::get('services-single',[\App\Http\Controllers\Frontend\Rental\RentalController::class,'rental'])->name('services-single');
 
-    Route::redirect('/all-workers/transferService', '/transferService', 301);
-    Route::redirect('/supports/transferService', '/supports/contactUs', 301);
-    Route::redirect('/blog/transferService', '/blog', 301);
     ### pdf
 
     Route::get('/invoice-download',[\App\Http\Controllers\InvoiceController::class, 'downloadZip'])->name('frontend.invoice-download');
