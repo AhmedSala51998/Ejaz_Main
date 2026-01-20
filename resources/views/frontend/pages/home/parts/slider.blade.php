@@ -342,18 +342,6 @@ canvas {
         </div>
     </section>
 @endif
-@php
-$countryMap = [
-    "الهند" => "India",
-    "بروندي" => "Burundi",
-    "الفلبين" => "Philippines",
-    "سريلانكا" => "Sri Lanka",
-    "اثيوبيا" => "Ethiopia",
-    "اوغندا" => "Uganda",
-    "كينيا" => "Kenya",
-    "بنجلاديش" => "Bangladesh",
-];
-@endphp
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script>
 const canvas = document.getElementById('sphere-canvas');
@@ -363,52 +351,43 @@ const W = canvas.width;
 const H = canvas.height;
 const R = Math.min(W, H) * 0.48;
 
-let angleX = 0, angleY = 0;
+let angleX = 0;
+let angleY = 0;
 const autoSpeed = 0.0006;
-let isDragging = false, lastX = 0, lastY = 0;
-let velocityX = 0, velocityY = 0;
+
+let isDragging = false;
+let lastX = 0;
+let lastY = 0;
+let velocityX = 0;
+let velocityY = 0;
 
 let features = [];
-
-const targetCountries = {};
-const arabicNames = {};
-
-@foreach($countries as $c)
-    @if(isset($countryMap[$c->country_name]))
-        targetCountries["{{ $countryMap[$c->country_name] }}"] = {
-            price: "{{ number_format($c->price,0) }} ريال"
-        };
-
-        arabicNames["{{ $countryMap[$c->country_name] }}"] = "{{ $c->country_name }}";
-    @endif
-@endforeach
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
     features = topojson.feature(world, world.objects.countries).features;
-
-    features.forEach(f => {
-      const name = f.properties.name;
-      if (!targetCountries[name]) return;
-
-      let coords;
-      if (f.geometry.type === "Polygon") coords = f.geometry.coordinates[0];
-      else coords = f.geometry.coordinates[0][0];
-
-      const [lat, lon] = getCentroid(coords);
-      targetCountries[name].lat = lat;
-      targetCountries[name].lon = lon;
-    });
-
     requestAnimationFrame(draw);
   });
 
-function getCentroid(coords) {
-  let x = 0, y = 0, count = 0;
-  coords.forEach(c => { x += c[0]; y += c[1]; count++; });
-  return [y / count, x / count];
-}
+canvas.addEventListener('mousedown', e => {
+  isDragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+window.addEventListener('mouseup', () => isDragging = false);
+
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  angleY += dx * 0.005;
+  angleX += dy * 0.005;
+  velocityY = dx * 0.0004;
+  velocityX = dy * 0.0004;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
 
 function project(lat, lon) {
   const latR = lat * Math.PI / 180;
@@ -437,127 +416,34 @@ function drawSphereOutline() {
 
 function drawPolygon(coords) {
   ctx.beginPath();
-  coords.forEach((c,i)=>{
+  coords.forEach((c, i) => {
     const [lon, lat] = c;
     const p = project(lat, lon);
-    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
   });
   ctx.stroke();
 }
 
-function drawWaterRipple(x, y, z, t) {
-  if (z < 0) return;
+function draw() {
+  ctx.clearRect(0, 0, W, H);
 
-  const base = (Math.sin(t * 0.004) + 1) / 2;
-
-  for (let i = 0; i < 3; i++) {
-    const r = 6 + base * 6 + i * 4;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(244,168,53,${0.35 - i * 0.1})`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
-}
-
-function drawArrow(x, y) {
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x - 7, y - 14);
-  ctx.lineTo(x + 7, y - 14);
-  ctx.closePath();
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.fill();
-}
-
-function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(x, y);
-  ctx.scale(scale, scale);
-
-  ctx.font = "bold 14px Arial";
-  const padding = 10;
-  const textWidth = ctx.measureText(text).width;
-  const w = textWidth + padding * 2;
-  const h = 28;
-  const r = 14;
-
-  ctx.beginPath();
-  ctx.moveTo(-w/2 + r, -h);
-  ctx.lineTo(w/2 - r, -h);
-  ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
-  ctx.lineTo(w/2, -r);
-  ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
-  ctx.lineTo(-w/2 + r, 0);
-  ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
-  ctx.lineTo(-w/2, -h + r);
-  ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
-  ctx.closePath();
-
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.shadowColor = "rgba(0,0,0,0.45)";
-  ctx.shadowBlur = 8;
-  ctx.fill();
-
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = "#fff";
-  ctx.textAlign = "center";
-  ctx.fillText(text, 0, -h/2 + 5);
-
-  ctx.restore();
-}
-
-canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
-window.addEventListener('mouseup', ()=>isDragging=false);
-window.addEventListener('mousemove', e=>{
-  if(!isDragging) return;
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-  angleY += dx*0.005;
-  angleX += dy*0.005;
-  velocityY = dx*0.0004;
-  velocityX = dy*0.0004;
-  lastX=e.clientX; lastY=e.clientY;
-});
-
-function draw(){
-  ctx.clearRect(0,0,W,H);
   drawSphereOutline();
 
-  ctx.strokeStyle='rgba(244,168,53,0.9)';
-  ctx.lineWidth=0.6;
-  features.forEach(f=>{
-    if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
-    else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
+  ctx.strokeStyle = 'rgba(244,168,53,0.9)';
+  ctx.lineWidth = 0.6;
+
+  features.forEach(f => {
+    if (f.geometry.type === "Polygon") {
+      f.geometry.coordinates.forEach(drawPolygon);
+    } else if (f.geometry.type === "MultiPolygon") {
+      f.geometry.coordinates.forEach(p =>
+        p.forEach(drawPolygon)
+      );
+    }
   });
 
-  const t = performance.now();
-  Object.keys(targetCountries).forEach(name => {
-    const c = targetCountries[name];
-    if(!c.lat) return;
-    const p = project(c.lat,c.lon);
-    if (p.z < 0) return;
-
-    drawWaterRipple(p.x, p.y, p.z, t);
-
-    const float = (Math.sin(t * 0.002) + 1) / 2;
-    const bubbleBaseY = p.y - 20;
-    const bubbleY = bubbleBaseY - float * 14;
-
-    drawArrow(p.x, bubbleBaseY - 2);
-
-    const text = `${c.price} - ${arabicNames[name]}`;
-    drawChatBubble(
-        p.x,
-        bubbleY,
-        text,
-        0.95,
-        0.95 + float * 0.05
-    );
-  });
-
-  if(!isDragging){
+  if (!isDragging) {
     velocityX *= 0.95;
     velocityY *= 0.95;
     angleY += autoSpeed + velocityY;
