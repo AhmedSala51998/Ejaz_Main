@@ -460,53 +460,49 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
-function drawArrow(x, y) {
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x - 7, y - 14);
-  ctx.lineTo(x + 7, y - 14);
-  ctx.closePath();
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.fill();
-}
-
 function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(x, y);
-  ctx.scale(scale, scale);
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
 
-  ctx.font = "bold 14px Arial";
-  const padding = 10;
-  const textWidth = ctx.measureText(text).width;
-  const w = textWidth + padding * 2;
-  const h = 28;
-  const r = 14;
+    ctx.font = "bold 14px Arial";
+    const padding = 10;
+    const textWidth = ctx.measureText(text).width;
+    const w = textWidth + padding * 2;
+    const h = 28;
+    const r = 14;
+    const arrowH = 12;
+    const arrowW = 14;
 
-  ctx.beginPath();
-  ctx.moveTo(-w/2 + r, -h);
-  ctx.lineTo(w/2 - r, -h);
-  ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
-  ctx.lineTo(w/2, -r);
-  ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
-  ctx.lineTo(-w/2 + r, 0);
-  ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
-  ctx.lineTo(-w/2, -h + r);
-  ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
-  ctx.closePath();
+    ctx.beginPath();
+    ctx.moveTo(-w/2 + r, -h);
+    ctx.lineTo(w/2 - r, -h);
+    ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
+    ctx.lineTo(w/2, 0);
+    ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
+    ctx.lineTo(arrowW/2, 0);
+    ctx.lineTo(0, arrowH);
+    ctx.lineTo(-arrowW/2, 0);
+    ctx.lineTo(-w/2 + r, 0);
+    ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
+    ctx.lineTo(-w/2, -h + r);
+    ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
+    ctx.closePath();
 
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.shadowColor = "rgba(0,0,0,0.45)";
-  ctx.shadowBlur = 8;
-  ctx.fill();
+    ctx.fillStyle = "rgba(0,0,0,0.65)";
+    ctx.shadowColor = "rgba(0,0,0,0.45)";
+    ctx.shadowBlur = 8;
+    ctx.fill();
 
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = "#fff";
-  ctx.textAlign = "center";
-  ctx.fillText(text, 0, -h/2 + 5);
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText(text, 0, -h/2 + 5);
 
-  ctx.restore();
+    ctx.restore();
 }
+
 
 canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
 window.addEventListener('mouseup', ()=>isDragging=false);
