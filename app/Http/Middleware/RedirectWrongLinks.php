@@ -21,7 +21,7 @@ class RedirectWrongLinks
             return redirect($redirects[$url], 301);
         }
 
-        if (str_starts_with($url, 'supports/transferservice')) {
+        if ($url === 'supports/transferservice') {
             return redirect('/supports/contactUs', 301);
         }
 
