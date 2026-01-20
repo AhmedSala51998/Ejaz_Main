@@ -460,16 +460,6 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
-function drawArrow(x, y) {
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x - 7, y - 14);
-  ctx.lineTo(x + 7, y - 14);
-  ctx.closePath();
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.fill();
-}
-
 function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -482,13 +472,21 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   const w = textWidth + padding * 2;
   const h = 28;
   const r = 14;
+  const arrowH = 10;
 
+  // البوكس
   ctx.beginPath();
   ctx.moveTo(-w/2 + r, -h);
   ctx.lineTo(w/2 - r, -h);
   ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
   ctx.lineTo(w/2, -r);
   ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
+
+  // السهم
+  ctx.lineTo(8, 0);
+  ctx.lineTo(0, arrowH);
+  ctx.lineTo(-8, 0);
+
   ctx.lineTo(-w/2 + r, 0);
   ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
   ctx.lineTo(-w/2, -h + r);
@@ -549,11 +547,11 @@ function draw(){
 
     const text = `${c.price} - ${arabicNames[name]}`;
     drawChatBubble(
-        p.x,
-        bubbleY,
-        text,
-        0.95,
-        0.95 + float * 0.05
+    p.x,
+    bubbleY,
+    text,
+    0.95,
+    0.95 + float * 0.05
     );
   });
 
