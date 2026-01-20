@@ -455,23 +455,52 @@ function drawRipple(x,y,z,t){
   ctx.stroke();
 }
 
-function drawLabel(x, y, country, z){
-  if(z<0) return;
-  const text = `${targetCountries[country].price} - ${arabicNames[country]}`;
-  ctx.font = "12px Arial";
-  const padding = 6;
-  const w = ctx.measureText(text).width + padding * 2;
-  const h = 20;
+function drawArrow(x, y) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x - 7, y - 12);
+  ctx.lineTo(x + 7, y - 12);
+  ctx.closePath();
+  ctx.fillStyle = "#F4A835";
+  ctx.fill();
+}
 
-  ctx.fillStyle = "rgba(0,0,0,0.6)";
-  ctx.shadowColor = "rgba(0,0,0,0.4)";
-  ctx.shadowBlur = 4;
-  ctx.fillRect(x - w/2, y - 28, w, h);
+function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  ctx.font = "12px Arial";
+  const padding = 10;
+  const textWidth = ctx.measureText(text).width;
+  const w = textWidth + padding * 2;
+  const h = 28;
+  const r = 14;
+
+  ctx.beginPath();
+  ctx.moveTo(-w/2 + r, -h);
+  ctx.lineTo(w/2 - r, -h);
+  ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
+  ctx.lineTo(w/2, -r);
+  ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
+  ctx.lineTo(-w/2 + r, 0);
+  ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
+  ctx.lineTo(-w/2, -h + r);
+  ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
+  ctx.closePath();
+
+  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.shadowColor = "rgba(0,0,0,0.45)";
+  ctx.shadowBlur = 8;
+  ctx.fill();
 
   ctx.shadowBlur = 0;
-  ctx.fillStyle = "#FFF";
+  ctx.fillStyle = "#fff";
   ctx.textAlign = "center";
-  ctx.fillText(text, x, y - 14);
+  ctx.fillText(text, 0, -h/2 + 5);
+
+  ctx.restore();
 }
 
 canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
@@ -504,7 +533,23 @@ function draw(){
     if(!c.lat) return;
     const p = project(c.lat,c.lon);
     drawRipple(p.x,p.y,p.z,t);
-    drawLabel(p.x,p.y,name,p.z);
+    if (p.z < 0) return;
+
+    drawRipple(p.x, p.y, p.z, t);
+
+    const anim = (Math.sin(t * 0.002) + 1) / 2;
+    const bubbleY = p.y - 22 - anim * 12;
+
+    drawArrow(p.x, bubbleY + 2);
+
+    const text = `${c.price} - ${arabicNames[name]}`;
+    drawChatBubble(
+    p.x,
+    bubbleY - 10,
+    text,
+    0.9,
+    0.95 + anim * 0.05
+    );
   });
 
   if(!isDragging){
