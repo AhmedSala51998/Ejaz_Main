@@ -460,50 +460,53 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
-function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.translate(x, y);
-    ctx.scale(scale, scale);
-
-    ctx.font = "bold 14px Arial";
-    const padding = 10;
-    const textWidth = ctx.measureText(text).width;
-    const w = textWidth + padding * 2;
-    const h = 28;
-    const r = 14;
-
-    const arrowHeight = 12;
-    const arrowWidth = 14;
-
-    ctx.beginPath();
-    ctx.moveTo(-w/2 + r, -h);
-    ctx.lineTo(w/2 - r, -h);
-    ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
-    ctx.lineTo(w/2, -r);
-    ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
-    ctx.lineTo(arrowWidth/2, 0);
-    ctx.lineTo(0, arrowHeight);
-    ctx.lineTo(-arrowWidth/2, 0);
-    ctx.lineTo(-w/2 + r, 0);
-    ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
-    ctx.lineTo(-w/2, -h + r);
-    ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
-    ctx.closePath();
-
-    ctx.fillStyle = "rgba(0,0,0,0.65)";
-    ctx.shadowColor = "rgba(0,0,0,0.45)";
-    ctx.shadowBlur = 8;
-    ctx.fill();
-
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = "#fff";
-    ctx.textAlign = "center";
-    ctx.fillText(text, 0, -h/2 + 5);
-
-    ctx.restore();
+function drawArrow(x, y) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x - 7, y - 14);
+  ctx.lineTo(x + 7, y - 14);
+  ctx.closePath();
+  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.fill();
 }
 
+function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  ctx.font = "bold 14px Arial";
+  const padding = 10;
+  const textWidth = ctx.measureText(text).width;
+  const w = textWidth + padding * 2;
+  const h = 28;
+  const r = 14;
+
+  ctx.beginPath();
+  ctx.moveTo(-w/2 + r, -h);
+  ctx.lineTo(w/2 - r, -h);
+  ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
+  ctx.lineTo(w/2, -r);
+  ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
+  ctx.lineTo(-w/2 + r, 0);
+  ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
+  ctx.lineTo(-w/2, -h + r);
+  ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
+  ctx.closePath();
+
+  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.shadowColor = "rgba(0,0,0,0.45)";
+  ctx.shadowBlur = 8;
+  ctx.fill();
+
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "#fff";
+  ctx.textAlign = "center";
+  ctx.fillText(text, 0, -h/2 + 5);
+
+  ctx.restore();
+}
 
 canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
 window.addEventListener('mouseup', ()=>isDragging=false);
@@ -530,21 +533,29 @@ function draw(){
   });
 
   const t = performance.now();
-    Object.keys(targetCountries).forEach(name => {
-        const c = targetCountries[name];
-        if (!c.lat) return;
+  Object.keys(targetCountries).forEach(name => {
+    const c = targetCountries[name];
+    if(!c.lat) return;
+    const p = project(c.lat,c.lon);
+    if (p.z < 0) return;
 
-        const p = project(c.lat, c.lon);
-        if (p.z < 0) return;
+    drawWaterRipple(p.x, p.y, p.z, t);
 
-        drawWaterRipple(p.x, p.y, p.z, t);
+    const float = (Math.sin(t * 0.002) + 1) / 2;
+    const bubbleBaseY = p.y - 20;
+    const bubbleY = bubbleBaseY - float * 14;
 
-        const anim = (Math.sin(t * 0.002) + 1) / 2;
-        const bubbleY = p.y - 22 - anim * 12;
+    drawArrow(p.x, bubbleBaseY - 2);
 
-        const text = `${c.price} - ${arabicNames[name]}`;
-        drawChatBubble(p.x, bubbleY - 10, text, 0.9, 0.95 + anim * 0.05);
-    });
+    const text = `${c.price} - ${arabicNames[name]}`;
+    drawChatBubble(
+        p.x,
+        bubbleY,
+        text,
+        0.95,
+        0.95 + float * 0.05
+    );
+  });
 
   if(!isDragging){
     velocityX *= 0.95;
