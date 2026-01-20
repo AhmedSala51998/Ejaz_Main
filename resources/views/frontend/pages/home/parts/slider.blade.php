@@ -460,6 +460,24 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
+function drawArrowAttached(x, y, scale = 1, alpha = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-7, 10);
+  ctx.lineTo(7, 10);
+  ctx.closePath();
+
+  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.fill();
+
+  ctx.restore();
+}
+
 function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -472,21 +490,13 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   const w = textWidth + padding * 2;
   const h = 28;
   const r = 14;
-  const arrowH = 10;
 
-  // البوكس
   ctx.beginPath();
   ctx.moveTo(-w/2 + r, -h);
   ctx.lineTo(w/2 - r, -h);
   ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
   ctx.lineTo(w/2, -r);
   ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
-
-  // السهم
-  ctx.lineTo(8, 0);
-  ctx.lineTo(0, arrowH);
-  ctx.lineTo(-8, 0);
-
   ctx.lineTo(-w/2 + r, 0);
   ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
   ctx.lineTo(-w/2, -h + r);
@@ -543,15 +553,23 @@ function draw(){
     const bubbleBaseY = p.y - 20;
     const bubbleY = bubbleBaseY - float * 14;
 
-    drawArrow(p.x, bubbleBaseY - 2);
-
     const text = `${c.price} - ${arabicNames[name]}`;
+    const scale = 0.95 + float * 0.05;
+    const alpha = 0.95;
+
     drawChatBubble(
     p.x,
     bubbleY,
     text,
-    0.95,
-    0.95 + float * 0.05
+    alpha,
+    scale
+    );
+
+    drawArrowAttached(
+    p.x,
+    bubbleY,
+    scale,
+    alpha
     );
   });
 
