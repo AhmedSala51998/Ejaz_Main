@@ -27,6 +27,11 @@ Route::group(
         return redirect($url);
     })->name('changeLangFront');
 
+    Route::redirect('/all-workers/transferService', '/transferService', 301);
+    Route::redirect('/supports/transferService', '/supports/contactUs', 301);
+    Route::redirect('/blog/transferService', '/blog', 301);
+
+
 
     ### worker
 
