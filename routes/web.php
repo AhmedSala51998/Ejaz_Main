@@ -28,6 +28,12 @@ Route::group(
     })->name('changeLangFront');
 
 
+    Route::redirect('/all-workers/transferService', '/transferService', 301);
+    Route::redirect('/supports/transferService', '/supports/contactUs', 301);
+
+    Route::get('blog/{any}', function($any) {
+        return redirect('/blog', 301);
+    })->where('any', '.*');
 
     ### worker
 
@@ -81,7 +87,7 @@ Route::group(
     Route::get('completeTheRecruitmentRequest/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'completeTheRecruitmentRequest'])->name('front.completeTheRecruitmentRequest');
     Route::post('/cancel-reservation/{id}', [\App\Http\Controllers\Admin\CRUD\AdminOrderController::class, 'autoCancelReservation']);
 
-    Route::get('all-workers/{id?}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showAllWorkers'])->whereNumber('id')->name('all-workers');
+    Route::get('all-workers/{id?}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showAllWorkers'])->name('all-workers');
     Route::get('view-worker/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showWorker'])->name('showWorker');
 
 
@@ -258,7 +264,7 @@ Route::group(
 
     ## support
 
-    Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
+    //Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
 
 
     ## contactUs Support
