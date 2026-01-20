@@ -15,13 +15,19 @@ class RedirectWrongLinks
             'all-workers/transferservice' => '/all-workers',
             'all-workers/services-single' => '/all-workers',
             'blog/transferservice' => '/blog',
-            'supports/transferservice' => '/supports/contactUs',
         ];
 
         if (isset($redirects[$url])) {
             return redirect($redirects[$url], 301);
         }
 
+        if (str_starts_with($url, 'supports/transferservice')) {
+            return redirect('/supports/contactUs', 301);
+        }
+
         return $next($request);
     }
 }
+
+
+
