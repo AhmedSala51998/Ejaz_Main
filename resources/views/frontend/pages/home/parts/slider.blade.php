@@ -465,7 +465,7 @@ function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   ctx.globalAlpha = alpha;
 
   const h = 28;
-  const arrowGap = -4;
+  const arrowGap = -5;
 
   ctx.translate(
     x,
