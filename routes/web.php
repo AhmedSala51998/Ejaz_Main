@@ -28,13 +28,6 @@ Route::group(
     })->name('changeLangFront');
 
 
-    Route::redirect('/all-workers/transferService', '/transferService', 301);
-    Route::redirect('/supports/transferService', '/supports/contactUs', 301);
-
-    Route::get('blog/{any}', function($any) {
-        return redirect('/blog', 301);
-    })->where('any', '.*');
-
     ### worker
 
     Route::get('convert-pdf-to-image', [\App\Http\Controllers\ImageController::class, 'index'])->name('form');
