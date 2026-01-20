@@ -9,11 +9,13 @@ class RedirectWrongLinks
 {
     public function handle(Request $request, Closure $next)
     {
-        $url = $request->path();
+        $url = rtrim(strtolower($request->path()), '/');
+
         $redirects = [
-            'all-workers/transferService' => '/all-workers',
-            'blog/transferService' => '/blog',
-            'supports/transferService' => '/supports/contactUs',
+            'all-workers/transferservice' => '/all-workers',
+            'all-workers/services-single' => '/all-workers',
+            'blog/transferservice' => '/blog',
+            'supports/transferservice' => '/supports/contactUs',
         ];
 
         if (isset($redirects[$url])) {
