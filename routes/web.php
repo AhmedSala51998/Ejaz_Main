@@ -2,6 +2,7 @@
 use App\Http\Controllers\Frontend\CvDesignController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
@@ -266,6 +267,9 @@ Route::group(
     Route::get('supports/contactUs',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'contactUs'])->name('frontend.supports.contactUs');
 
 
+    Route::get('supports/transferService', function() {
+        return redirect()->route('frontend.supports.contactUs', [], 301);
+    });
 
     ## transfer service
 

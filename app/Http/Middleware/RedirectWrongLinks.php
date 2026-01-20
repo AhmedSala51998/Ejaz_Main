@@ -21,10 +21,6 @@ class RedirectWrongLinks
             return redirect($redirects[$url], 301);
         }
 
-        if ($url === 'supports/transferservice') {
-            return redirect('/supports/contactUs', 301);
-        }
-
         return $next($request);
     }
 }
