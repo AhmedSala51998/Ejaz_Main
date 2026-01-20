@@ -468,8 +468,8 @@ function drawArrowAttached(x, y, scale = 1, alpha = 1) {
 
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.lineTo(-7, 10);
-  ctx.lineTo(7, 10);
+  ctx.lineTo(-7, -10);
+  ctx.lineTo(7, -10);
   ctx.closePath();
 
   ctx.fillStyle = "rgba(0,0,0,0.65)";
