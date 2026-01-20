@@ -445,23 +445,28 @@ function drawPolygon(coords) {
   ctx.stroke();
 }
 
-function drawRipple(x,y,z,t){
-  if(z<0) return;
-  const r = 6 + Math.sin(t*0.005)*2;
-  ctx.beginPath();
-  ctx.arc(x,y,r,0,Math.PI*2);
-  ctx.strokeStyle = 'rgba(244,168,53,0.5)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
+function drawWaterRipple(x, y, z, t) {
+  if (z < 0) return;
+
+  const base = (Math.sin(t * 0.004) + 1) / 2;
+
+  for (let i = 0; i < 3; i++) {
+    const r = 6 + base * 6 + i * 4;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(244,168,53,${0.35 - i * 0.1})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
 }
 
 function drawArrow(x, y) {
   ctx.beginPath();
   ctx.moveTo(x, y);
-  ctx.lineTo(x - 7, y - 12);
-  ctx.lineTo(x + 7, y - 12);
+  ctx.lineTo(x - 7, y - 14);
+  ctx.lineTo(x + 7, y - 14);
   ctx.closePath();
-  ctx.fillStyle = "#F4A835";
+  ctx.fillStyle = "rgba(0,0,0,0.65)";
   ctx.fill();
 }
 
@@ -471,7 +476,7 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.translate(x, y);
   ctx.scale(scale, scale);
 
-  ctx.font = "12px Arial";
+  ctx.font = "bold 14px Arial";
   const padding = 10;
   const textWidth = ctx.measureText(text).width;
   const w = textWidth + padding * 2;
@@ -532,23 +537,23 @@ function draw(){
     const c = targetCountries[name];
     if(!c.lat) return;
     const p = project(c.lat,c.lon);
-    drawRipple(p.x,p.y,p.z,t);
     if (p.z < 0) return;
 
-    drawRipple(p.x, p.y, p.z, t);
+    drawWaterRipple(p.x, p.y, p.z, t);
 
-    const anim = (Math.sin(t * 0.002) + 1) / 2;
-    const bubbleY = p.y - 22 - anim * 12;
+    const float = (Math.sin(t * 0.002) + 1) / 2;
+    const bubbleBaseY = p.y - 20;
+    const bubbleY = bubbleBaseY - float * 14;
 
-    drawArrow(p.x, bubbleY + 2);
+    drawArrow(p.x, bubbleBaseY - 2);
 
     const text = `${c.price} - ${arabicNames[name]}`;
     drawChatBubble(
-    p.x,
-    bubbleY - 10,
-    text,
-    0.9,
-    0.95 + anim * 0.05
+        p.x,
+        bubbleY,
+        text,
+        0.95,
+        0.95 + float * 0.05
     );
   });
 
