@@ -236,7 +236,7 @@ canvas {
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
-                <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;min-height: 600px;">
                     <canvas id="sphere-canvas" width="600" height="600"
                             style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                 </div>
