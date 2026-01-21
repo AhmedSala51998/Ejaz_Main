@@ -14,60 +14,6 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script defer>
-        (() => {
-
-            const modal = document.getElementById('cityModal');
-
-            const setCookie = (n,v) => {
-                document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
-            };
-
-            const getCookie = n =>
-                document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
-
-            const showModal = () => {
-                modal.hidden = false;
-                document.body.style.pointerEvents = 'none';
-                modal.style.pointerEvents = 'auto';
-
-                requestAnimationFrame(() => {
-                    modal.classList.add('active');
-                });
-            };
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const branch = localStorage.getItem('branch') || getCookie('branch');
-                if (!branch) {
-                    if ('requestIdleCallback' in window) {
-                        requestIdleCallback(showModal, { timeout: 1500 });
-                    } else {
-                        setTimeout(showModal, 400);
-                    }
-                }
-            });
-
-            modal.addEventListener('click', e => {
-                const card = e.target.closest('.card');
-                if (!card) return;
-
-                const branch = card.dataset.branch;
-
-                modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
-                card.innerHTML = '<div class="loader-circle"></div>';
-
-                localStorage.setItem('branch', branch);
-                setCookie('branch', branch);
-
-                requestIdleCallback(() => {
-                    axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-                        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-                    }).finally(() => location.reload());
-                });
-            });
-
-        })();
-    </script>
 
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -658,7 +604,84 @@ window.addEventListener('load', () => {
 
 });
 </script>
+<script>
+(() => {
 
+    const modal = document.getElementById('cityModal');
+    if (!modal) return;
+
+    const setCookie = (n,v) =>
+        document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
+
+    const getCookie = n =>
+        document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
+
+    const showModal = () => {
+        modal.hidden = false;
+        document.body.style.pointerEvents = 'none';
+        modal.style.pointerEvents = 'auto';
+
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
+
+        fixZohoChat(); // 👈 مهم
+    };
+
+    const fixZohoChat = () => {
+        const selectors = [
+            '#zsiq_float',
+            '#zsiq_widget',
+            '.zsiq_flt_rel',
+            '[id^="zsiq_"]'
+        ];
+
+        let tries = 0;
+        const interval = setInterval(() => {
+            tries++;
+            selectors.forEach(sel => {
+                document.querySelectorAll(sel).forEach(el => {
+                    el.style.pointerEvents = 'auto';
+                });
+            });
+
+            if (document.querySelector('#zsiq_float') || tries > 10) {
+                clearInterval(interval);
+            }
+        }, 400);
+    };
+
+    const branch = localStorage.getItem('branch') || getCookie('branch');
+
+    if (!branch) {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(showModal, { timeout: 1200 });
+        } else {
+            setTimeout(showModal, 300);
+        }
+    }
+
+    modal.addEventListener('click', e => {
+        const card = e.target.closest('.card');
+        if (!card) return;
+
+        const branch = card.dataset.branch;
+
+        modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
+        card.innerHTML = '<div class="loader-circle"></div>';
+
+        localStorage.setItem('branch', branch);
+        setCookie('branch', branch);
+
+        requestIdleCallback(() => {
+            axios.post('{{ route("detect.location.ajax") }}', { branch }, {
+                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+            }).finally(() => location.reload());
+        });
+    });
+
+})();
+</script>
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
         e.preventDefault();
