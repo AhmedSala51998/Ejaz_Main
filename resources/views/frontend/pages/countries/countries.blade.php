@@ -76,7 +76,6 @@
             --border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* الخلفية */
         .countries {
             background: radial-gradient(circle at center, #fef6ea, #fff);
             padding: 60px 0;
@@ -104,7 +103,6 @@
             gap: 30px;
         }
 
-        /* كارت الدولة */
         .country {
             position: relative;
             background: var(--card-bg);
@@ -123,7 +121,6 @@
             box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
         }
 
-        /* شعار الدولة */
         .flag-wrapper {
             position: absolute;
             top: 0;
@@ -140,7 +137,6 @@
             opacity: 1;
         }
 
-        /* حركة الشعار مرة واحدة */
         .animate-flag-once {
             animation: flag-move-in 1.5s ease-out forwards;
         }
@@ -211,38 +207,54 @@
             background: var(--orange-dark);
         }
 
-        /* أضف هذا التعديل داخل <style> أو ملف CSS */
 
-            @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@500;600;700&display=swap');
 
-            .country h4,
-            .country h5 {
-                font-family: 'Cairo', sans-serif !important;
-            }
-
-            /* العنوان */
             .country h4 {
-                font-size: 1.6rem !important;  /* أكبر */
-                margin-top: 60px !important;  /* ينزل تحت عن الصورة */
+                font-size: 1.6rem !important;
+                margin-top: 60px !important;
                 margin-bottom: 10px;
                 color: var(--orange);
                 font-weight: 700;
                 font-family: 'Cairo' !important
             }
 
-            /* السعر */
             .country h5 {
-                font-size: 1.2rem !important;  /* أكبر */
+                font-size: 1.2rem !important;
                 margin-bottom: 5px;
                 color: var(--text-main);
                 font-weight: 600;
                 font-family: 'Cairo' !important
             }
 
+            .country h4 {
+                font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+                font-size: 1.85rem;
+                font-weight: 700;
+                letter-spacing: 0.3px;
+                margin-top: 65px;
+                margin-bottom: 8px;
+                color: var(--orange);
+            }
+
+            .country h5 {
+                font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+                font-size: 1.35rem;
+                font-weight: 600;
+                color: #222;
+                margin-bottom: 12px;
+            }
+
+            .country h5::after {
+                content: " شامل الضريبة";
+                font-size: 0.85rem;
+                color: #777;
+                margin-right: 4px;
+            }
+
         </style>
 
 <script>
-    // تشغيل الحركة مرة واحدة عند أول تحميل
     window.addEventListener("DOMContentLoaded", function () {
         const flags = document.querySelectorAll(".flag-wrapper");
         flags.forEach(flag => {
@@ -279,7 +291,6 @@
                         <div class="allCountries">
                             @foreach($countries as $country)
                                 <div class="country" data-aos="zoom-in">
-                                    <!-- شعار الدولة -->
                                     <div class="flag-wrapper">
 
                                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
