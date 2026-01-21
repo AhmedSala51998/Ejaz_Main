@@ -174,7 +174,7 @@
         .city-modal-content {
         background: linear-gradient(145deg, #fff, #f8f8f8);
         border-radius: 30px;
-        padding: 40px 30px;
+        padding: 70px 30px;
         max-width: 520px;
         width: 90%;
         text-align: center;
@@ -191,8 +191,8 @@
         }
 
         .city-modal-content h2 {
-        font-size: 1.8rem;
-        line-height: 2;
+        font-size: 1.4rem;
+        line-height: 1.8;
         margin-bottom: 30px;
         }
         .city-modal-content h2 span {
@@ -340,11 +340,11 @@
     <!-- ======= City Modal ======= -->
     <div id="cityModal" hidden>
     <div class="city-modal-content">
-        <h2>
+        <!--<h2>
         مرحبًا بك في <span>إيجاز للاستقدام</span><br>
         اختر مدينتك لعرض العمالة الأقرب إليك
         <i class="fas fa-arrow-down arrow-icon"></i>
-        </h2>
+        </h2>-->
 
         <div class="cards">
         <div class="card" data-branch="jeddah">
