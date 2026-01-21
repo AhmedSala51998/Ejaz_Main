@@ -190,20 +190,12 @@
         transition: transform .5s ease, opacity .5s ease;
         }
 
-        .city-modal-content .sr-only{
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0,0,0,0);
-        border: 0;
-        font-size: 1.4rem;
-        line-height: 1.8;
+        .city-modal-content h2 {
+        font-size: 1.8rem;
+        line-height: 2;
         margin-bottom: 30px;
         }
-        .city-modal-content .sr-only span {
+        .city-modal-content h2 span {
         color: #ff8800;
         font-weight: 700;
         }
