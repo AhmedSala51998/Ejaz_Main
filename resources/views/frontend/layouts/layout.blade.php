@@ -340,7 +340,7 @@
     <!-- ======= City Modal ======= -->
     <div id="cityModal" hidden>
     <div class="city-modal-content">
-       <!-- <h2>
+        <!--<h2>
         مرحبًا بك في <span>إيجاز للاستقدام</span><br>
         اختر مدينتك لعرض العمالة الأقرب إليك
         <i class="fas fa-arrow-down arrow-icon"></i>
@@ -591,21 +591,19 @@ window.addEventListener('load', () => {
 
 });
 </script>
-<!-- ======= JS ======= -->
 <script>
-window.addEventListener('load', () => {
+(() => {
 
-    requestIdleCallback(() => {
+    const modal = document.getElementById('cityModal');
+    if (!modal) return;
 
-        const modal = document.getElementById('cityModal');
-        if (!modal) return;
+    const setCookie = (n,v) =>
+        document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
 
-        const getCookie = n =>
-            document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
+    const getCookie = n =>
+        document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
 
-        const branch = localStorage.getItem('branch') || getCookie('branch');
-        if (branch) return;
-
+    const showModal = () => {
         modal.hidden = false;
         document.body.style.pointerEvents = 'none';
         modal.style.pointerEvents = 'auto';
@@ -614,42 +612,62 @@ window.addEventListener('load', () => {
             modal.classList.add('active');
         });
 
-        // Zoho AFTER modal
-        setTimeout(fixZohoChat, 500);
+        fixZohoChat();
+    };
 
-        // handle city selection
-        modal.addEventListener('click', e => {
-            const card = e.target.closest('.card');
-            if (!card) return;
+    const fixZohoChat = () => {
+        const selectors = [
+            '#zsiq_float',
+            '#zsiq_widget',
+            '.zsiq_flt_rel',
+            '[id^="zsiq_"]'
+        ];
 
-            const branch = card.dataset.branch;
-            modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
-            card.innerHTML = '<div class="loader-circle"></div>';
-
-            localStorage.setItem('branch', branch);
-            document.cookie = `${'branch'}=${branch}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
-
-            requestIdleCallback(() => {
-                axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-                }).finally(() => location.reload());
+        let tries = 0;
+        const interval = setInterval(() => {
+            tries++;
+            selectors.forEach(sel => {
+                document.querySelectorAll(sel).forEach(el => {
+                    el.style.pointerEvents = 'auto';
+                });
             });
+
+            if (document.querySelector('#zsiq_float') || tries > 10) {
+                clearInterval(interval);
+            }
+        }, 400);
+    };
+
+    const branch = localStorage.getItem('branch') || getCookie('branch');
+
+    if (!branch) {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(showModal, { timeout: 1200 });
+        } else {
+            setTimeout(showModal, 300);
+        }
+    }
+
+    modal.addEventListener('click', e => {
+        const card = e.target.closest('.card');
+        if (!card) return;
+
+        const branch = card.dataset.branch;
+
+        modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
+        card.innerHTML = '<div class="loader-circle"></div>';
+
+        localStorage.setItem('branch', branch);
+        setCookie('branch', branch);
+
+        requestIdleCallback(() => {
+            axios.post('{{ route("detect.location.ajax") }}', { branch }, {
+                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+            }).finally(() => location.reload());
         });
+    });
 
-    }, { timeout: 2000 });
-
-});
-
-function fixZohoChat() {
-    const selectors = ['#zsiq_float','[id^="zsiq_"]'];
-    let i = 0;
-    const t = setInterval(() => {
-        selectors.forEach(s =>
-            document.querySelectorAll(s).forEach(el => el.style.pointerEvents = 'auto')
-        );
-        if (++i > 8) clearInterval(t);
-    }, 400);
-}
+})();
 </script>
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
