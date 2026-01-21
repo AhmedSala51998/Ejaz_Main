@@ -156,113 +156,100 @@
 
         /*********************************/
         #cityModal {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255,255,255,.04);
-            z-index: 99999;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255,255,255,.04);
+        z-index: 99999;
+        contain: layout paint;
         }
-
         #cityModal.active {
-            backdrop-filter: blur(0.2px);
-            -webkit-backdrop-filter: blur(0.2px);
-            animation: fadeInBg .4s ease forwards;
+        backdrop-filter: blur(0.2px);
+        -webkit-backdrop-filter: blur(0.2px);
+        animation: fadeInBg .4s ease forwards;
         }
 
         .city-modal-content {
-            background: linear-gradient(145deg, #fff, #f8f8f8);
-            border-radius: 30px;
-            padding: 40px 30px;
-            max-width: 520px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 8px 40px rgba(0,0,0,.15);
-            border: 1px solid rgba(255,136,0,.2);
-            transform: translateY(40px);
-            opacity: 0;
-            will-change: transform, opacity;
+        background: linear-gradient(145deg, #fff, #f8f8f8);
+        border-radius: 30px;
+        padding: 40px 30px;
+        max-width: 520px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 8px 40px rgba(0,0,0,.15);
+        border: 1px solid rgba(255,136,0,.2);
+        transform: translateY(40px);
+        opacity: 0;
+        will-change: transform, opacity;
         }
-
         #cityModal.active .city-modal-content {
-            transform: translateY(0);
-            opacity: 1;
-            transition: transform .5s ease, opacity .5s ease;
+        transform: translateY(0);
+        opacity: 1;
+        transition: transform .5s ease, opacity .5s ease;
         }
 
         .city-modal-content h2 {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
+        font-size: 1.4rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
         }
-
         .city-modal-content h2 span {
-            color: #ff8800;
-            font-weight: 700;
+        color: #ff8800;
+        font-weight: 700;
         }
-
         .arrow-icon {
-            color: #ff8800;
-            margin-right: 6px;
-            animation: arrowBounce 1.2s infinite;
+        color: #ff8800;
+        margin-right: 6px;
+        animation: arrowBounce 1.2s infinite;
         }
 
         .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 20px;
         }
 
         .card {
-            height: 120px;
-            background: linear-gradient(135deg, #ff9a00, #ffb347, #ff8c00);
-            border-radius: 22px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform .3s ease, box-shadow .3s ease;
-            box-shadow: 0 8px 22px rgba(255,136,0,.25);
+        height: 120px;
+        background: linear-gradient(135deg, #ff9a00, #ffb347, #ff8c00);
+        border-radius: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform .3s ease, box-shadow .3s ease;
+        box-shadow: 0 8px 22px rgba(255,136,0,.25);
         }
-
         .card:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255,136,0,.4);
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(255,136,0,.4);
         }
-
         .card i {
-            font-size: 44px;
-            margin-bottom: 10px;
+        font-size: 44px;
+        margin-bottom: 10px;
         }
 
         .loader-circle {
-            width: 36px;
-            height: 36px;
-            border: 3px solid rgba(255,136,0,.2);
-            border-top-color: #ff8800;
-            border-radius: 50%;
-            animation: spin .8s linear infinite;
+        width: 36px;
+        height: 36px;
+        border: 3px solid rgba(255,136,0,.2);
+        border-top-color: #ff8800;
+        border-radius: 50%;
+        animation: spin .8s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        @keyframes fadeInBg {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes arrowBounce {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeInBg { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes arrowBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
         @media (max-width:600px){
-            .card { height: 110px; }
-            .city-modal-content { padding: 25px 15px; }
+        .card { height: 110px; }
+        .city-modal-content { padding: 25px 15px; }
         }
           /* Globe hidden visually but still measurable */
         #globe-container {
@@ -350,32 +337,32 @@
         </div>
     </div>
 
-    <!-- City Modal -->
+    <!-- ======= City Modal ======= -->
     <div id="cityModal" hidden>
-        <div class="city-modal-content">
-            <h2>
-                مرحبًا بك في <span>إيجاز للاستقدام</span><br>
-                اختر مدينتك لعرض العمالة الأقرب إليك
-                <i class="fas fa-arrow-down arrow-icon"></i>
-            </h2>
+    <div class="city-modal-content">
+        <h2>
+        مرحبًا بك في <span>إيجاز للاستقدام</span><br>
+        اختر مدينتك لعرض العمالة الأقرب إليك
+        <i class="fas fa-arrow-down arrow-icon"></i>
+        </h2>
 
-            <div class="cards">
-                <div class="card" data-branch="jeddah">
-                    <i class="fas fa-city"></i>
-                    <span>جدة</span>
-                </div>
-
-                <div class="card" data-branch="yanbu">
-                    <i class="fas fa-water"></i>
-                    <span>ينبع</span>
-                </div>
-
-                <div class="card" data-branch="riyadh">
-                    <i class="fas fa-building"></i>
-                    <span>الرياض</span>
-                </div>
-            </div>
+        <div class="cards">
+        <div class="card" data-branch="jeddah">
+            <i class="fas fa-city"></i>
+            <span>جدة</span>
         </div>
+
+        <div class="card" data-branch="yanbu">
+            <i class="fas fa-water"></i>
+            <span>ينبع</span>
+        </div>
+
+        <div class="card" data-branch="riyadh">
+            <i class="fas fa-building"></i>
+            <span>الرياض</span>
+        </div>
+        </div>
+    </div>
     </div>
 
 
@@ -604,19 +591,21 @@ window.addEventListener('load', () => {
 
 });
 </script>
+<!-- ======= JS ======= -->
 <script>
-(() => {
+window.addEventListener('load', () => {
 
-    const modal = document.getElementById('cityModal');
-    if (!modal) return;
+    requestIdleCallback(() => {
 
-    const setCookie = (n,v) =>
-        document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
+        const modal = document.getElementById('cityModal');
+        if (!modal) return;
 
-    const getCookie = n =>
-        document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
+        const getCookie = n =>
+            document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
 
-    const showModal = () => {
+        const branch = localStorage.getItem('branch') || getCookie('branch');
+        if (branch) return;
+
         modal.hidden = false;
         document.body.style.pointerEvents = 'none';
         modal.style.pointerEvents = 'auto';
@@ -625,62 +614,42 @@ window.addEventListener('load', () => {
             modal.classList.add('active');
         });
 
-        fixZohoChat();
-    };
+        // Zoho AFTER modal
+        setTimeout(fixZohoChat, 500);
 
-    const fixZohoChat = () => {
-        const selectors = [
-            '#zsiq_float',
-            '#zsiq_widget',
-            '.zsiq_flt_rel',
-            '[id^="zsiq_"]'
-        ];
+        // handle city selection
+        modal.addEventListener('click', e => {
+            const card = e.target.closest('.card');
+            if (!card) return;
 
-        let tries = 0;
-        const interval = setInterval(() => {
-            tries++;
-            selectors.forEach(sel => {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.style.pointerEvents = 'auto';
-                });
+            const branch = card.dataset.branch;
+            modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
+            card.innerHTML = '<div class="loader-circle"></div>';
+
+            localStorage.setItem('branch', branch);
+            document.cookie = `${'branch'}=${branch}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
+
+            requestIdleCallback(() => {
+                axios.post('{{ route("detect.location.ajax") }}', { branch }, {
+                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                }).finally(() => location.reload());
             });
-
-            if (document.querySelector('#zsiq_float') || tries > 10) {
-                clearInterval(interval);
-            }
-        }, 400);
-    };
-
-    const branch = localStorage.getItem('branch') || getCookie('branch');
-
-    if (!branch) {
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(showModal, { timeout: 1200 });
-        } else {
-            setTimeout(showModal, 300);
-        }
-    }
-
-    modal.addEventListener('click', e => {
-        const card = e.target.closest('.card');
-        if (!card) return;
-
-        const branch = card.dataset.branch;
-
-        modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
-        card.innerHTML = '<div class="loader-circle"></div>';
-
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
-
-        requestIdleCallback(() => {
-            axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-            }).finally(() => location.reload());
         });
-    });
 
-})();
+    }, { timeout: 2000 });
+
+});
+
+function fixZohoChat() {
+    const selectors = ['#zsiq_float','[id^="zsiq_"]'];
+    let i = 0;
+    const t = setInterval(() => {
+        selectors.forEach(s =>
+            document.querySelectorAll(s).forEach(el => el.style.pointerEvents = 'auto')
+        );
+        if (++i > 8) clearInterval(t);
+    }, 400);
+}
 </script>
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
