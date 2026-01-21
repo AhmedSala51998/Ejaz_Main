@@ -191,9 +191,6 @@
         }
 
         .city-modal-content .sr-only{
-        font-size: 1.4rem;
-        line-height: 1.8;
-        margin-bottom: 30px;
         position: absolute;
         width: 1px;
         height: 1px;
@@ -202,6 +199,9 @@
         overflow: hidden;
         clip: rect(0,0,0,0);
         border: 0;
+        font-size: 1.4rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
         }
         .city-modal-content .sr-only span {
         color: #ff8800;
