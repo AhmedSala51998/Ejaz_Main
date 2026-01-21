@@ -401,9 +401,7 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
       targetCountries[name].lon = lon;
     });
 
-    setTimeout(() => {
-      requestAnimationFrame(draw);
-    }, 80);
+    requestAnimationFrame(draw);
 
   });
 
