@@ -142,7 +142,6 @@
 .country a:hover {
     background: var(--orange-dark);
 }
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@500;600;700&display=swap');
 
 .country h4 {
     font-size: 1.6rem !important;
@@ -159,30 +158,6 @@
     color: var(--text-main);
     font-weight: 600;
     font-family: 'Cairo' !important
-}
-.country h4 {
-    font-family: 'IBM Plex Sans Arabic', sans-serif !important;
-    font-size: 1.85rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    margin-top: 65px;
-    margin-bottom: 8px;
-    color: var(--orange);
-}
-
-.country h5 {
-    font-family: 'IBM Plex Sans Arabic', sans-serif !important;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: #222;
-    margin-bottom: 12px;
-}
-
-.country h5::after {
-    content: " شامل الضريبة";
-    font-size: 0.85rem;
-    color: #777;
-    margin-right: 4px;
 }
 .section-title {
     font-size: 3.2rem;
