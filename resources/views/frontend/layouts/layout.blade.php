@@ -39,7 +39,11 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const branch = localStorage.getItem('branch') || getCookie('branch');
                 if (!branch) {
-                    requestIdleCallback(showModal);
+                    if ('requestIdleCallback' in window) {
+                        requestIdleCallback(showModal, { timeout: 1500 });
+                    } else {
+                        setTimeout(showModal, 400);
+                    }
                 }
             });
 
