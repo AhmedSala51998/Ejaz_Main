@@ -190,7 +190,7 @@
         transition: transform .5s ease, opacity .5s ease;
         }
 
-        .city-modal-content h2.sr-only{
+        .city-modal-content .sr-only{
         font-size: 1.4rem;
         line-height: 1.8;
         margin-bottom: 30px;
@@ -203,7 +203,7 @@
         clip: rect(0,0,0,0);
         border: 0;
         }
-        .city-modal-content h2 span {
+        .city-modal-content .sr-only span {
         color: #ff8800;
         font-weight: 700;
         }
@@ -348,7 +348,7 @@
     <!-- ======= City Modal ======= -->
     <div id="cityModal" hidden>
     <div class="city-modal-content">
-        <h2 class="sr-only">
+        <h2>
         مرحبًا بك في <span>إيجاز للاستقدام</span><br>
         اختر مدينتك لعرض العمالة الأقرب إليك
         <i class="fas fa-arrow-down arrow-icon"></i>
