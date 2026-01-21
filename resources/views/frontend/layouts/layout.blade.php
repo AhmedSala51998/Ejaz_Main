@@ -625,7 +625,7 @@ window.addEventListener('load', () => {
             modal.classList.add('active');
         });
 
-        fixZohoChat(); // 👈 مهم
+        fixZohoChat();
     };
 
     const fixZohoChat = () => {
