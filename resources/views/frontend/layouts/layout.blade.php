@@ -14,137 +14,55 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-    // --- Helpers ---
-    function setCookie(name, value) {
-        const expires = new Date('2090-12-31T23:59:59Z').toUTCString();
-        document.cookie = `${name}=${value}; path=/; expires=${expires}`;
-    }
+    <script defer>
+        (() => {
 
-    function getCookie(name) {
-        const v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)') || [];
-        return v[2] || null;
-    }
+            const modal = document.getElementById('cityModal');
 
-    function chooseCity(element, branch) {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(c => c.style.pointerEvents = 'none');
+            const setCookie = (n,v) => {
+                document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
+            };
 
-        const oldHTML = element.innerHTML;
+            const getCookie = n =>
+                document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
 
-        element.innerHTML = '';
+            const showModal = () => {
+                modal.hidden = false;
+                document.body.style.pointerEvents = 'none';
+                modal.style.pointerEvents = 'auto';
 
-        const loader = document.createElement('div');
-        loader.className = 'loader-circle';
-        element.appendChild(loader);
-
-        element.style.opacity = '0.8';
-
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
-
-        axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        })
-        .then(res => {
-            console.log('✅ تم اختيار المدينة:', branch);
-        })
-        .catch(err => {
-            console.error('❌ خطأ أثناء إرسال الطلب:', err);
-        })
-        .finally(() => {
-            document.getElementById('cityModal').style.display = 'none';
-            location.reload();
-        });
-    }
-
-    function detectLocation() {
-        const btn = document.querySelector('.location');
-        const icon = btn.querySelector('i');
-        const text = btn.querySelector('span');
-
-        icon.style.display = 'none';
-        text.textContent = 'جارٍ تحديد موقعك...';
-        const loader = document.createElement('div');
-        loader.className = 'loader-circle';
-        btn.appendChild(loader);
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                pos => sendCoords(pos.coords.latitude, pos.coords.longitude, btn, loader, icon, text),
-                err => fallbackLocation(btn, loader, icon, text),
-                { enableHighAccuracy: true, timeout: 15000 }
-            );
-        } else fallbackLocation(btn, loader, icon, text);
-    }
-
-    function sendCoords(lat, lng, btn, loader, icon, text) {
-        axios.post('{{ route("detect.location.ajax") }}', { lat, lng }, {
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        }).then(res => {
-            const closestCity = res.data.closestCity;
-            localStorage.setItem('branch', closestCity);
-            setCookie('branch', closestCity);
-            document.getElementById('cityModal').style.display = 'none';
-            location.reload();
-        }).catch(() => fallbackLocation(btn, loader, icon, text));
-    }
-
-    function fallbackLocation(btn, loader, icon, text) {
-        if (loader) loader.remove();
-        icon.style.display = 'block';
-        text.textContent = 'استكشف موقعي';
-        chooseCity('yanbu');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const branch = localStorage.getItem('branch');
-        const cookieBranch = getCookie('branch');
-
-        if (!branch) {
-            document.getElementById('cityModal').style.display = 'flex';
-            document.body.style.pointerEvents = 'none';
-            document.getElementById('cityModal').style.pointerEvents = 'auto';
-        } else {
-
-            if (branch !== cookieBranch) {
-                localStorage.setItem('branch', cookieBranch);
-            }
-        }
-    });
-
-        document.addEventListener('DOMContentLoaded', () => {
-        const branch = localStorage.getItem('branch') || getCookie('branch');
-        if (!branch) {
-            const cityModal = document.getElementById('cityModal');
-            document.body.style.pointerEvents = 'none';
-            cityModal.style.display = 'flex';
-            cityModal.style.pointerEvents = 'auto';
-
-            const chatSelectors = [
-                '#zsiq_float',
-                '#zsiq_widget',
-                '.zsiq_flt_rel',
-                '[id^="zsiq_"]'
-            ];
-
-            const allowPointerEventsForChat = () => {
-                chatSelectors.forEach(sel => {
-                    document.querySelectorAll(sel).forEach(el => {
-                        el.style.pointerEvents = 'auto';
-                    });
+                requestAnimationFrame(() => {
+                    modal.classList.add('active');
                 });
             };
 
-            const chatFixInterval = setInterval(() => {
-                allowPointerEventsForChat();
-                if (document.querySelector('#zsiq_float')) {
-                    clearInterval(chatFixInterval);
+            document.addEventListener('DOMContentLoaded', () => {
+                const branch = localStorage.getItem('branch') || getCookie('branch');
+                if (!branch) {
+                    requestIdleCallback(showModal);
                 }
-            }, 1000);
-        }
-    });
+            });
 
+            modal.addEventListener('click', e => {
+                const card = e.target.closest('.card');
+                if (!card) return;
+
+                const branch = card.dataset.branch;
+
+                modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
+                card.innerHTML = '<div class="loader-circle"></div>';
+
+                localStorage.setItem('branch', branch);
+                setCookie('branch', branch);
+
+                requestIdleCallback(() => {
+                    axios.post('{{ route("detect.location.ajax") }}', { branch }, {
+                        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                    }).finally(() => location.reload());
+                });
+            });
+
+        })();
     </script>
 
     <!-- Required meta tags -->
@@ -286,87 +204,68 @@
             border-radius: 10px;
         }
 
-        /*********************/
+        /*********************************/
         #cityModal {
             position: fixed;
             inset: 0;
-            width: 100%;
-            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,.04);
+            z-index: 99999;
+        }
+
+        #cityModal.active {
             backdrop-filter: blur(0.2px);
             -webkit-backdrop-filter: blur(0.2px);
-            z-index: 99999;
-            animation: fadeInBg 0.6s ease forwards;
-            }
+            animation: fadeInBg .4s ease forwards;
+        }
 
-            .city-modal-content {
+        .city-modal-content {
             background: linear-gradient(145deg, #fff, #f8f8f8);
             border-radius: 30px;
             padding: 40px 30px;
-            text-align: center;
-            color: #333;
-            width: 90%;
             max-width: 520px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 136, 0, 0.2);
-            animation: modalSlideIn 0.7s ease forwards;
-            position: relative;
-            overflow: hidden;
-            }
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(0,0,0,.15);
+            border: 1px solid rgba(255,136,0,.2);
+            transform: translateY(40px);
+            opacity: 0;
+            will-change: transform, opacity;
+        }
 
-            .city-modal-content::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(255,136,0,0.08), transparent 60%);
-            transform: rotate(25deg);
-            z-index: 0;
-            }
+        #cityModal.active .city-modal-content {
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform .5s ease, opacity .5s ease;
+        }
 
-            .city-modal-content h2 {
+        .city-modal-content h2 {
             font-size: 1.4rem;
-            margin-bottom: 30px;
-            color: #222;
             line-height: 1.8;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-            }
-            .city-modal-content h2 span {
+            margin-bottom: 30px;
+        }
+
+        .city-modal-content h2 span {
             color: #ff8800;
             font-weight: 700;
-            }
+        }
 
-            .arrow-icon {
+        .arrow-icon {
             color: #ff8800;
-            font-size: 20px;
-            margin-left: 8px;
+            margin-right: 6px;
             animation: arrowBounce 1.2s infinite;
-            display: inline-block;
-            }
-            @keyframes arrowBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-            }
+        }
 
-            .cards {
+        .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 22px;
-            justify-items: center;
-            z-index: 1;
-            position: relative;
-            }
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
 
-            .card {
-            width: 170px;
-            height: 130px;
+        .card {
+            height: 120px;
             background: linear-gradient(135deg, #ff9a00, #ffb347, #ff8c00);
             border-radius: 22px;
             display: flex;
@@ -374,121 +273,47 @@
             justify-content: center;
             align-items: center;
             color: #fff;
-            font-weight: 600;
-            text-align: center;
             cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 22px rgba(255,136,0,0.25);
-            position: relative;
-            overflow: hidden;
-            }
-            .card::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 100%;
-            background: rgba(255,255,255,0.15);
-            transform: skewX(-25deg);
-            transition: left 0.5s ease;
-            }
-            .card:hover::after {
-            left: 125%;
-            }
+            font-weight: 600;
+            transition: transform .3s ease, box-shadow .3s ease;
+            box-shadow: 0 8px 22px rgba(255,136,0,.25);
+        }
 
-            .card:hover {
+        .card:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255,136,0,0.4);
-            }
+            box-shadow: 0 15px 35px rgba(255,136,0,.4);
+        }
 
-            .card i {
-            font-size: 48px;
+        .card i {
+            font-size: 44px;
             margin-bottom: 10px;
-            transition: transform 0.5s ease;
-            }
-            .card:hover i {
-            transform: scale(1.15);
-            }
+        }
 
-            .location-icon {
-            animation: bounce 1.5s infinite;
-            }
-            @keyframes bounce {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            }
-
-            /* Responsive */
-            @media (max-width: 600px) {
-            .card {
-                width: 150px;
-                height: 115px;
-            }
-            .city-modal-content {
-                padding: 25px 15px;
-            }
-            }
-
-            @keyframes fadeInBg {
-            from { opacity: 0; }
-            to { opacity: 1; }
-            }
-            @keyframes modalSlideIn {
-            from { transform: translateY(40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-            }
-      /*.loader-circle {
-        border: 4px solid rgba(255, 136, 0, 0.2);
-        border-top: 4px solid #ff8800;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        animation: spin 1s linear infinite;
-        margin-top: 8px;
+        .loader-circle {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(255,136,0,.2);
+            border-top-color: #ff8800;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
         }
 
         @keyframes spin {
-        to { transform: rotate(360deg); }
-        }*/
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 22px;
-            justify-items: center;
-            z-index: 1;
-            position: relative;
-        }
-
-        @media (max-width: 600px) {
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-            .card {
-                width: 100%;
-                height: 115px;
-            }
-            .city-modal-content {
-                padding: 25px 15px;
-            }
-        }
-        .loader-circle {
-            border: 4px solid rgba(255, 136, 0, 0.2);
-            border-top: 4px solid #ff8800;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-            @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes arrowBounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
 
-
+        @media (max-width:600px){
+            .card { height: 110px; }
+            .city-modal-content { padding: 25px 15px; }
+        }
           /* Globe hidden visually but still measurable */
         #globe-container {
         opacity: 0;
@@ -575,29 +400,30 @@
         </div>
     </div>
 
-    <div id="cityModal" style="display:none;">
+    <!-- City Modal -->
+    <div id="cityModal" hidden>
         <div class="city-modal-content">
             <h2>
-            مرحبًا بك في <span>إيجاز للاستقدام</span><br>
-            اختر مدينتك لعرض العمالة الأقرب إليك
-            <i class="fas fa-arrow-down arrow-icon"></i>
+                مرحبًا بك في <span>إيجاز للاستقدام</span><br>
+                اختر مدينتك لعرض العمالة الأقرب إليك
+                <i class="fas fa-arrow-down arrow-icon"></i>
             </h2>
 
             <div class="cards">
-            <div class="card" onclick="chooseCity(this, 'jeddah')">
-                <i class="fas fa-city"></i>
-                <span>جدة</span>
-            </div>
+                <div class="card" data-branch="jeddah">
+                    <i class="fas fa-city"></i>
+                    <span>جدة</span>
+                </div>
 
-            <div class="card" onclick="chooseCity(this, 'yanbu')">
-                <i class="fas fa-water"></i>
-                <span>ينبع</span>
-            </div>
+                <div class="card" data-branch="yanbu">
+                    <i class="fas fa-water"></i>
+                    <span>ينبع</span>
+                </div>
 
-            <div class="card" onclick="chooseCity(this, 'riyadh')">
-                <i class="fas fa-building"></i>
-                <span>الرياض</span>
-            </div>
+                <div class="card" data-branch="riyadh">
+                    <i class="fas fa-building"></i>
+                    <span>الرياض</span>
+                </div>
             </div>
         </div>
     </div>
