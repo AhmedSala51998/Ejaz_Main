@@ -338,13 +338,13 @@
     </div>
 
     <!-- ======= City Modal ======= -->
-    <!--<div id="cityModal" hidden>
+    <div id="cityModal" hidden>
     <div class="city-modal-content">
-        <h2>
+       <!-- <h2>
         مرحبًا بك في <span>إيجاز للاستقدام</span><br>
         اختر مدينتك لعرض العمالة الأقرب إليك
         <i class="fas fa-arrow-down arrow-icon"></i>
-        </h2>
+        </h2>-->
 
         <div class="cards">
         <div class="card" data-branch="jeddah">
@@ -363,7 +363,7 @@
         </div>
         </div>
     </div>
-    </div>-->
+    </div>
 
 
 </content>
