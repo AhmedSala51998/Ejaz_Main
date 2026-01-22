@@ -184,6 +184,23 @@
     font-size: 1.2rem;
     margin-top: 10px;
 }
+.country h4 {
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 1.75rem !important;
+    font-weight: 800;
+    color: var(--orange);
+    margin-top: 65px !important;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+.country h5 {
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 1.35rem !important;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 12px;
+}
+
 </style>
 
 <script>
