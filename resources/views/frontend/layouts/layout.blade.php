@@ -722,20 +722,32 @@ window.addEventListener('load', () => {
     </div>
 </div>
 <script>
-let zohoLoaded = false;
+(function () {
 
-function loadZoho() {
-  if (zohoLoaded) return;
-  zohoLoaded = true;
+  let zohoLoaded = false;
 
-  const s = document.createElement('script');
-  s.src = 'https://salesiq.zohopublic.sa/widget?wc=XXXXX';
-  s.defer = true;
-  document.body.appendChild(s);
-}
+  function loadZoho() {
+    if (zohoLoaded) return;
+    zohoLoaded = true;
 
-window.addEventListener('scroll', loadZoho, { once: true });
-window.addEventListener('touchstart', loadZoho, { once: true });
+    window.$zoho = window.$zoho || {};
+    window.$zoho.salesiq = window.$zoho.salesiq || {
+      ready: function () {}
+    };
+
+    const s = document.createElement('script');
+    s.id = 'zsiqscript';
+    s.src = 'https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c';
+    s.defer = true;
+
+    document.body.appendChild(s);
+  }
+
+  window.addEventListener('scroll', loadZoho, { once: true, passive: true });
+  window.addEventListener('touchstart', loadZoho, { once: true, passive: true });
+  window.addEventListener('mousemove', loadZoho, { once: true });
+
+})();
 </script>
 </body>
 <!--@toastr_render-->
