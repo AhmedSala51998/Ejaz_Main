@@ -1,14 +1,5 @@
 <link rel="icon" type="image/x-icon" href="{{$settings->tap_logo ? get_file($settings->tap_logo) : asset('frontend/img/fav.svg')}}">
 
-<style>
-@font-face {
-    font-family: 'Cairo';
-    src: url('{{asset("frontend/fonts/Cairo.woff2")}}') format('woff2'),
-         url('{{asset("frontend/fonts/Cairo.woff")}}') format('woff');
-    font-display: swap;
-}
-</style>
-
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
 
