@@ -2,6 +2,7 @@
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
@@ -23,10 +24,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     // side menu
     $(function () {
-    $('.sideBtn').on('click', function () {
-        $(this).toggleClass('active');
-        $('.sideMenu').toggleClass('active');
-    });
+        $('.sideBtn').on('click', function () {
+            $(this).toggleClass('active');
+            $('.sideMenu').toggleClass('active');
+        });
     });
 
     // goBack
