@@ -18,6 +18,13 @@
 <script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}"></script>
 
 <script>
+    // goBack
+    function goBack() {
+        window.history.back();
+    };
+</script>
+
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     // side menu
     $(".sideBtn").click(function () {
