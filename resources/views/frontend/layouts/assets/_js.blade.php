@@ -22,9 +22,11 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // side menu
-    $(".sideBtn").click(function () {
-        $(this).toggleClass("active");
-        $(".sideMenu").toggleClass("active");
+    $(function () {
+    $('.sideBtn').on('click', function () {
+        $(this).toggleClass('active');
+        $('.sideMenu').toggleClass('active');
+    });
     });
 
     // goBack
