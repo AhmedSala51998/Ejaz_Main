@@ -137,6 +137,7 @@ Route::group(
             'musaned',
             'sitemap.xml',
             'sitemap-pages.xml',
+            'supports/transferService',
         ];
 
         $routes = collect(\Route::getRoutes())
