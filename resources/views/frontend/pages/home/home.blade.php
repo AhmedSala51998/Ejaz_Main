@@ -113,25 +113,57 @@ $(document).on('submit', 'form#Form', function (e) {
             submitBtn.prop('disabled', false);
             submitBtn.html(`<i class="fa-solid fa-paper-plane me-2"></i> إرسال`);
 
-            const isMobile = window.innerWidth < 768;
-
             Swal.fire({
                 title: '🎉 تم الإرسال بنجاح!',
-                text: 'شكرًا لتواصلك معنا! سنقوم بالرد عليك في أقرب وقت ممكن.',
-                icon: 'success',
-                showConfirmButton: true,
+                html: `
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; font-family: 'Tajawal', sans-serif; direction: rtl;">
+                        <div id="lottie-success" style="width: 140px; height: 140px;"></div>
+                        <p style="font-size: 18px; color: #2c3e50; font-weight: 600; margin: 0;">
+                            شكرًا لتواصلك معنا! <br> سنقوم بالرد عليك في أقرب وقت ممكن.
+                        </p>
+                        <button id="swal-ok-btn" style="
+                            margin-top: 10px;
+                            background: linear-gradient(135deg, #f4a835, #ffb23c);
+                            border: none;
+                            color: white;
+                            font-size: 16px;
+                            padding: 10px 28px;
+                            border-radius: 25px;
+                            cursor: pointer;
+                            box-shadow: 0 8px 20px rgba(244, 168, 53, 0.35);
+                            transition: all 0.3s ease-in-out;
+                        " onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                            تم ✔️
+                        </button>
+                    </div>
+                `,
+                showConfirmButton: false,
+                didOpen: () => {
+                    lottie.loadAnimation({
+                        container: document.getElementById('lottie-success'),
+                        renderer: 'svg',
+                        loop: false,
+                        autoplay: true,
+                        path: 'https://assets6.lottiefiles.com/packages/lf20_jbrw3hcz.json'
+                    });
 
-                  (isMobile ? {} : {
-                    didOpen: () => {
-                        lottie.loadAnimation({
-                            container: document.getElementById('swal2-icon'),
-                            renderer: 'svg',
-                            loop: false,
-                            autoplay: true,
-                            path: 'https://assets6.lottiefiles.com/packages/lf20_jbrw3hcz.json'
-                        });
-                    }
-                })
+                    document.getElementById('swal-ok-btn').addEventListener('click', () => {
+                        Swal.close();
+                        form[0].reset();
+                    });
+                },
+                backdrop: `
+                    rgba(0,0,0,0.4)
+                    url("https://assets10.lottiefiles.com/temp/lf20_HpFqiS.json")
+                    left top
+                    no-repeat
+                `,
+                background: 'rgba(255, 255, 255, 0.95)',
+                width: 380,
+                padding: '30px 20px',
+                customClass: {
+                    popup: 'ultra-glass-popup'
+                }
             });
         },
         error: function (jqXHR) {
