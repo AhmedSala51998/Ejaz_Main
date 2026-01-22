@@ -38,24 +38,12 @@
 @endsection
 
 @section('js')
-<script>
-let swalLoaded = false;
-
-async function loadSwal() {
-  if (swalLoaded) return;
-  swalLoaded = true;
-
-  await Promise.all([
-    import('https://cdn.jsdelivr.net/npm/sweetalert2@11'),
-    import('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js')
-  ]);
-}
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
 <script>
 $(document).on('submit', 'form#Form', function (e) {
     e.preventDefault();
-    await loadSwal();
+
     let form = $('#Form');
     let submitBtn = $('#submit_button');
     let formEl = form[0];
