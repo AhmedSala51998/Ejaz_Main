@@ -4,16 +4,26 @@
 <head>
     <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
     <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:4969317,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    let hotjarLoaded = false;
+
+    function loadHotjar() {
+    if (hotjarLoaded) return;
+    hotjarLoaded = true;
+
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:4969317,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    }
+
+    window.addEventListener('scroll', loadHotjar, { once: true });
+    window.addEventListener('touchstart', loadHotjar, { once: true });
     </script>
-    <script async src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -293,6 +303,11 @@
         @media (max-width: 768px) {
             #saudi-bubble {
                 backdrop-filter: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .loader-wrapper {
+                display: none !important;
             }
         }
     </style>
@@ -706,7 +721,22 @@ window.addEventListener('load', () => {
 
     </div>
 </div>
-<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c" defer></script>
+<script>
+let zohoLoaded = false;
+
+function loadZoho() {
+  if (zohoLoaded) return;
+  zohoLoaded = true;
+
+  const s = document.createElement('script');
+  s.src = 'https://salesiq.zohopublic.sa/widget?wc=XXXXX';
+  s.defer = true;
+  document.body.appendChild(s);
+}
+
+window.addEventListener('scroll', loadZoho, { once: true });
+window.addEventListener('touchstart', loadZoho, { once: true });
+</script>
 </body>
 <!--@toastr_render-->
 </html>
