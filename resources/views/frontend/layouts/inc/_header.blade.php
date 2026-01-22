@@ -26,6 +26,11 @@ body {
     border-color: rgba(252, 239, 220, 0.5); /* Matching border for light gradient */
     box-shadow: 0 4px 15px rgba(252, 239, 220, 0.5); /* Subtle shadow matching the gradient */
 }
+@media (max-width: 768px) {
+  .homepage-header {
+    background: #ffffff !important;
+  }
+}
 
 /* Header Background for Other Pages (default is light/white) */
 .main-header.default-header {
@@ -75,7 +80,15 @@ body.sticky-header-active {
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2)); /* Default subtle shadow for white background */
 }
+@media (max-width: 768px) {
+  .header-logo {
+    max-height: 50px;
+  }
 
+  .main-header .container-fluid {
+    padding: 0 16px;
+  }
+}
 /* Logo shadow for homepage (light orange gradient background) */
 .homepage-header .header-logo {
     filter: drop-shadow(0 0 10px rgba(247, 183, 49, 0.4)); /* Slightly more pronounced for better visibility on lighter gradient */
@@ -90,7 +103,13 @@ body.sticky-header-active {
 .default-header .navbar-brand:hover .header-logo {
     filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.4));
 }
-
+@media (max-width: 768px) {
+  .header-logo,
+  .main-header {
+    filter: none !important;
+    box-shadow: none !important;
+  }
+}
 
 /* Navigation Menu */
 .main-nav .navbar-nav {
@@ -440,6 +459,12 @@ body.sticky-header-active {
     animation: zoomFade 1s ease forwards;
     opacity: 0;
 }
+@media (max-width: 768px) {
+  .animate-logo {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
 </style>
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
@@ -451,7 +476,7 @@ body.sticky-header-active {
         <section class="header-inner">
             <a class="navbar-brand" href="{{route('home')}}">
                 <!--<img src="{{asset('frontend/img/ramadan_logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">-->
-                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" loading="lazy" class="header-logo" alt="Company Logo">
+                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" width="150" height="55" loading="eager" fetchpriority="high" decoding="async" class="header-logo" alt="Company Logo">
             </a>
 
             <nav class="navbar navbar-expand-lg main-nav">
@@ -526,7 +551,7 @@ body.sticky-header-active {
 <div id="mobileSidebar" class="mobile-sidebar">
     <div class="sidebar-header text-center">
         <a href="{{ route('home') }}" class="logo-link animate-logo">
-            <img src="{{ asset('frontend/img/logo.png') }}" class="img-fluid logo-img" alt="شعار">
+            <img src="{{ asset('frontend/img/logo.png') }}" width="150" height="55" loading="eager" fetchpriority="high" decoding="async" class="img-fluid logo-img" alt="شعار">
         </a>
         <button id="closeSidebar" class="close-btn">&times;</button>
     </div>
