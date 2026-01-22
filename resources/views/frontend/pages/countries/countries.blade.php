@@ -223,6 +223,30 @@
                 font-family: 'Cairo' !important
             }
 
+            .country h4 {
+                font-family: 'Cairo', sans-serif !important;
+                font-size: 1.75rem !important;
+                font-weight: 800;
+                color: var(--orange);
+                margin-top: 65px !important;
+                margin-bottom: 8px;
+                letter-spacing: 0.3px;
+            }
+            .country h5 {
+                font-family: 'Cairo', sans-serif !important;
+                font-size: 1.35rem !important;
+                font-weight: 700;
+                color: #1f2937;
+                margin-bottom: 12px;
+            }
+
+            .currency {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: #6b7280;
+                margin-right: 4px;
+            }
+
         </style>
 
 <script>
@@ -270,7 +294,7 @@
                                     </div>
 
                                     <h4>{{ $country->title }}</h4>
-                                    <h5>{{ $country->price }} ريال</h5>
+                                    <h5>{{ $country->price }}  <span class="currency">ريال</span></h5>
                                     <p>{{ $country->description }}</p>
                                     <a href="{{ route('all-workers', $country->id) }}">
                                         اطلب الآن
