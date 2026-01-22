@@ -476,7 +476,7 @@ body.sticky-header-active {
         <section class="header-inner">
             <a class="navbar-brand" href="{{route('home')}}">
                 <!--<img src="{{asset('frontend/img/ramadan_logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">-->
-                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" width="130" height="55" loading="eager" fetchpriority="high" decoding="async" class="header-logo" alt="Company Logo">
+                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" width="100" height="55" loading="eager" fetchpriority="high" decoding="async" class="header-logo" alt="Company Logo">
             </a>
 
             <nav class="navbar navbar-expand-lg main-nav">
