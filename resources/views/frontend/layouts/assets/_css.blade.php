@@ -1,5 +1,7 @@
 <link rel="icon" type="image/x-icon" href="{{$settings->tap_logo ? get_file($settings->tap_logo) : asset('frontend/img/fav.svg')}}">
 
+<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
 
 <link rel="preload" href="{{asset('frontend/css/fontawesome.min.css')}}" as="style" onload="this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -31,22 +33,6 @@
 </noscript>
 
 <link rel="preload"
-      href="{{asset('frontend/css/bootstrap.rtl.min.css')}}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<link rel="preload"
-      href="{{asset('frontend/css/style.css')}}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<noscript>
-<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}">
-<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
-</noscript>
-
-
-<link rel="preload"
       as="style"
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap"
       onload="this.onload=null;this.rel='stylesheet'">
@@ -58,79 +44,6 @@
 
 
 <style>
-/* ===== Critical CSS ===== */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Tajawal', 'Cairo', sans-serif;
-    background-color: #fff;
-    color: #212121;
-}
-
-/* ===== Header / Navbar ===== */
-header {
-    width: 100%;
-    background: #ffffff;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-}
-
-.navbar img {
-    height: 48px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: #212121;
-    font-weight: 500;
-}
-
-/* ===== Hero Section (LCP) ===== */
-.hero {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #f4a835, #d89835);
-}
-
-.hero h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-.hero p {
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 25px;
-}
-
-.hero .btn {
-    display: inline-block;
-    padding: 12px 28px;
-    background: #ffffff;
-    color: #212121;
-    border-radius: 30px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
 .form-error { color: red; font-weight: normal; font-size: smaller; }
 input.valid, textarea.valid { border: 1px solid green; }
 
