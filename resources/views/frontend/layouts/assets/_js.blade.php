@@ -1,8 +1,6 @@
-<script src="{{asset('frontend/js/jquery.min.js')}}" defer></script>
-
-<script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/jquery.min.js')}}"></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
-
+<script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
@@ -11,14 +9,13 @@
 <script src="{{asset('frontend/js/wow.js')}}" defer></script>
 <script src="{{asset('frontend/js/particles.js')}}" defer></script>
 <script src="{{asset('frontend/js/dropify.min.js')}}" defer></script>
-
-<script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.min.js')}}" defer></script>
-<script src="{{asset('frontend/backEndFiles/validation/toastr.min.js')}}" defer></script>
-<script src="{{asset('frontend/backEndFiles/axios.min.js')}}" defer></script>
-<script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}" defer></script>
-
-<script src="{{asset('frontend/js/Custom.js')}}" defer></script>
+<script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
+
+<script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/validation/toastr.min.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/axios.min.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}"></script>
 
 <script>
     // goBack
@@ -27,34 +24,27 @@
     };
 </script>
 
-<script defer>
-(function () {
-
-  /* ===== Side Menu ===== */
-  document.querySelectorAll('.sideBtn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('active');
-      document.querySelector('.sideMenu')?.classList.toggle('active');
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // side menu
+    $(".sideBtn").click(function () {
+        $(this).toggleClass("active");
+        $(".sideMenu").toggleClass("active");
     });
-  });
 
-  /* ===== Numbers Only ===== */
-  document.addEventListener('keyup', e => {
-    if (e.target.classList.contains('numbersOnly')) {
-      e.target.value = e.target.value.replace(/[^0-9]/g,'');
-    }
-  });
+    // goBack
+    function goBack() { window.history.back(); }
 
-  /* ===== Online / Offline ===== */
-  window.addEventListener('online', () => {
-    if (window.alertify) alertify.success('عادت خدمة الانترنت !');
-  });
+    // input number validation
+    $(document).on('keyup','.numbersOnly',function () {
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+    });
 
-  window.addEventListener('offline', () => {
-    if (window.alertify) alertify.error('لا يوجد خدمة انترنت !');
-  });
+    // online/offline alert
+    window.addEventListener('online', () => alertify.success('عادت خدمة الانترنت !'));
+    window.addEventListener('offline', () => alertify.error('لا يوجد خدمة انترنت !'));
+});
 
-})();
 </script>
 <script>
 window.addEventListener('load', function () {
