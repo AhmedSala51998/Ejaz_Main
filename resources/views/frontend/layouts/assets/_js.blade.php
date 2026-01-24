@@ -12,7 +12,7 @@
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
 
-<script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/validation/toastr.min.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/axios.min.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}"></script>
