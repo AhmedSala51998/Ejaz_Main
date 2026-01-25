@@ -156,7 +156,7 @@
                             <input id="track" type="text" name="code" class="form-control form-control-lg rounded-pill" placeholder="ادخل هنا" required>
                         </div>
                         <div class="d-grid">
-                            <button style="background-color: #ff8c00 !important;color#FFF !important" class="btn btn-warning btn-lg rounded-pill" id="CompleteRegisterr" type="submit">تحقق</button>
+                            <button style="background-color: #f4a835 !important;color:#FFF !important" class="btn btn-warning btn-lg rounded-pill" id="CompleteRegisterr" type="submit">تحقق</button>
                         </div>
                     </form>
                 </div>
