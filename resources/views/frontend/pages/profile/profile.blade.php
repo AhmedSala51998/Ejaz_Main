@@ -10,7 +10,6 @@
 
     .profile-v2{
         background:#FFF !important;
-        min-height:40vh;
         padding:60px 0;
         font-family:'Tajawal',sans-serif;
     }
@@ -125,13 +124,7 @@
         width:100%;
         height:100%;
         border-radius:18px;
-        background:
-            linear-gradient(
-                90deg,
-                #eee,
-                #ddd,
-                #eee
-            );
+        background:#FFF;
         animation:loading 1.2s infinite;
     }
 
