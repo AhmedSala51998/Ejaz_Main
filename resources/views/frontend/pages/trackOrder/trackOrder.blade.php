@@ -144,7 +144,6 @@
     <div class="container">
         <div class="row align-items-center justify-content-center gy-4">
 
-            <!-- يسار: فورم التتبع -->
             <div class="col-lg-6 col-md-10">
                 <div class="track-form p-5 shadow-lg rounded-4" style="background: rgba(255,255,255,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.05);">
                     <form action="{{route('track_order')}}" id="CompleteRegister" method="post">
@@ -163,7 +162,6 @@
                 </div>
             </div>
 
-            <!-- يمين: الصورة -->
             <div class="col-lg-6 col-md-10 text-center">
                 <div class="trackorder-image">
                     <img src="{{asset('frontend')}}/img/register.svg" alt="" class="img-fluid" style="max-height: 350px;">
@@ -198,7 +196,6 @@ $(document).on('submit','form#CompleteRegister',function(e) {
                 .html('<span class="spinner-border-dotted"></span>');
         },
         complete: function() {
-            // استهدف الزر فقط، وليس الفورم
             $('#CompleteRegisterr')
                 .removeClass('loading-btn')
                 .attr('disabled', false)
