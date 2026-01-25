@@ -82,6 +82,16 @@
     color: #fff;
     transform: translateY(-3px);
 }
+.newOrderBtn{
+    display: inline-flex;
+    min-width: 280px;
+    justify-content: center;
+}
 
+@media (max-width: 768px){
+    .newOrderBtn{
+        width: 100%;
+    }
+}
 
 </style>
