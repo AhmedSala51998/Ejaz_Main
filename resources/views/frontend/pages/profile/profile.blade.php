@@ -10,6 +10,7 @@
 
     .profile-v2{
         background:#FFF !important;
+        min-height:-40vh;
         padding:60px 0;
         font-family:'Tajawal',sans-serif;
     }
