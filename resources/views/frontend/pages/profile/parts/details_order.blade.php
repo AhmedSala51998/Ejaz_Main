@@ -5,7 +5,7 @@
 @section('styles')
 <style>
 body, html {
-  background: #f8f9fa; /* Lighter, modern background */
+  background: #FFF; /* Lighter, modern background */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   scroll-behavior: smooth;
@@ -1247,25 +1247,198 @@ body[dir="rtl"] .info-label {
     }
 
 }
+    .banner {
+        background: linear-gradient(135deg, #f4a835, #fff1db);
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 0 0 50px 50px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        color: #333;
+    }
+
+    .banner::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .banner h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner ul li a {
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .banner ul li a.active,
+    .banner ul li a:hover {
+        color: #fff;
+        background: #f4a835;
+        padding: 6px 14px;
+        border-radius: 12px;
+    }
+        @media (max-width: 767.98px) {
+        .banner h1 {
+            font-size: 2rem;
+        }
+        .banner ul {
+            flex-wrap: wrap; /* Allow navigation links to wrap */
+            gap: 10px;
+        }
+        .banner {
+            padding: 40px 15px;
+            border-radius: 0 0 30px 30px;
+        }
+        .banner h1 {
+            font-size: 1.8rem;
+        }
+    }
+    /* ===== Pro User Header ===== */
+    .userHeaderPro{
+        background: linear-gradient(135deg,#f4a835,#ffd28a);
+        border-radius:26px;
+        padding:28px 32px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        box-shadow:0 25px 55px rgba(244,168,53,.35);
+    }
+
+    /* Left side */
+    .userLeft{
+        display:flex;
+        align-items:center;
+        gap:18px;
+    }
+
+    /* Avatar */
+    .userHeaderPro .avatar{
+        width:64px;
+        height:64px;
+        border-radius:50%;
+        background:#fff;
+        color:#f4a835;
+        font-size:30px;
+        font-weight:900;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 8px 20px rgba(0,0,0,.15);
+    }
+
+    /* Name + phone */
+    .userHeaderPro .userMeta h3{
+        margin:0;
+        font-size:22px;
+        font-weight:900;
+        color:#FFF;
+    }
+
+    .userHeaderPro .userMeta span{
+        font-size:14px;
+        color:#FFF;
+        font-weight:600;
+    }
+
+    /* Actions */
+    .userActions{
+        display:flex;
+        align-items:center;
+    }
+
+    /* Logout Button */
+    .logoutBtn{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        background:rgba(255,255,255,.9);
+        color:#92400e;
+        padding:12px 18px;
+        border-radius:14px;
+        font-weight:800;
+        transition:.3s ease;
+        box-shadow:0 6px 18px rgba(0,0,0,.12);
+    }
+
+    .logoutBtn i{
+        font-size:18px;
+    }
+
+    .logoutBtn:hover{
+        background:#fff;
+        transform:translateY(-2px);
+    }
+    @media(max-width:768px){
+        .userHeaderPro{
+            flex-direction:column;
+            gap:20px;
+            text-align:center;
+        }
+        .userLeft{
+            justify-content:center;
+        }
+    }
 </style>
 @endsection
 @section('content')
     <content>
+    <div class="banner">
+        <h1> حسابي الشخصي </h1>
+        <ul>
+            <li> <a href="{{route('home')}}">الرئيسية </a> </li>
+            <li> <a href="#!" class="active"> تفاصيل الحجز </a> </li>
+        </ul>
+    </div>
     <section class="profile" style="margin-top:20px">
         <div class="container ">
             <div class="row justify-content-center">
                 <div class="col-lg-9 p-2">
-                    <div class="userHeader">
-                        <div class="control">
-                            <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title=" {{__('frontend.Logout')}} ">
-                                <i class="fas fa-power-off"></i>
-                            </a>
-                        </div>
-                        <div class="userInfo">
-                            <div class="userName">
-                                <h3>{{$user->name}}</h3>
-                                <p> {{$user->phone}} </p>
+                    <div class="col-lg-12 mb-3">
+                        <div class="userHeaderPro">
+
+                            <div class="userLeft">
+                                <div class="avatar">
+                                    {{ mb_substr($user->name,0,1) }}
+                                </div>
+
+                                <div class="userMeta">
+                                    <h3>{{$user->name}}</h3>
+                                    <span>{{$user->phone}}</span>
+                                </div>
                             </div>
+
+                            <div class="userActions">
+                                <a href="{{route('auth.logout')}}" class="logoutBtn">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>تسجيل الخروج</span>
+                                </a>
+                            </div>
+
                         </div>
                     </div>
 
