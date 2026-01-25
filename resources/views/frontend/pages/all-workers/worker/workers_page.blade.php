@@ -8,7 +8,6 @@
         </div>
     @endforeach
 
-    {{-- ✅ الباجينيشن --}}
     @if ($cvs instanceof \Illuminate\Pagination\LengthAwarePaginator)
         <div class="col-12 mt-4">
             <div class="d-flex justify-content-center">
