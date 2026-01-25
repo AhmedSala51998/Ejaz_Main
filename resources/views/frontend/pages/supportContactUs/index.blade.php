@@ -11,7 +11,7 @@
         font-family: 'Tajawal', sans-serif;
         line-height: 1.7;
         color: #333;
-        overflow-x: hidden; /* Prevent horizontal scroll */
+        overflow-x: hidden;
     }
 
     .banner {
@@ -648,7 +648,6 @@
     }
 }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 @endsection
 
 
@@ -667,22 +666,6 @@
                 <div class="row align-items-center flex-column-reverse flex-lg-row"> {{-- Added flex-column-reverse for mobile, map will appear above contact info --}}
                     <div class="col-lg-6">
                         <div class="worldMap">
-                            <audio id="bubbleSound" preload="auto">
-                                <source src="{{ asset('frontend/sounds/pop.mp3') }}" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                            <div class="bubble-container">
-                                <div class="user-bubble" style="top: 31.5%; left: -2%;">مرحباً 👋 بك</div>
-
-                                <div class="user-bubble" style="top: 23.5%; left: 34.5%;">تواصل معنا الآن</div>
-
-                                <div class="user-bubble" style="top: 14.8%; left: 65.8%;">استفسر الآن</div>
-
-                                <div class="user-bubble" style="top: 45.2%; left: 64.3%;">خدمتك شرف لنا</div>
-
-                                <div class="user-bubble" style="top: 55.5%; left: 15.5%;">أهلاً وسهلاً</div>
-                            </div>
-
                             <div class="earth"></div>
                             <div class="orbic">
                                 <svg viewBox="0 0 500 500" width="0" height="0">
