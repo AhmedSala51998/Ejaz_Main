@@ -36,7 +36,6 @@ body {
 .main-header.default-header {
     background: #ffffff; /* Pure white background */
     border-color: rgba(0, 0, 0, 0.08); /* Slightly more visible border for white header */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Default shadow for white header */
 }
 
 /* Sticky Header (applies to both types) */
@@ -46,12 +45,10 @@ body {
     left: 0;
     width: 100%;
     /* Background determined by homepage-header or default-header */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow when sticky */
     padding: 0 0; /* Further reduced padding when sticky */
 }
 /* Specific sticky shadow for homepage if it should be distinct */
 .main-header.homepage-header.sticky-header {
-    box-shadow: 0 6px 20px rgba(252, 239, 220, 0.7); /* Stronger shadow for sticky on homepage */
 }
 
 
