@@ -6,6 +6,265 @@
 @endsection
 
 @section('styles')
+    <style>
+        body {
+            background-color: #FFF;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #f4a835, #fff1db);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            z-index: 1;
+            position: relative;
+        }
+
+        .banner ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .banner ul li a {
+            color: #333;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .banner ul li a.active,
+        .banner ul li a:hover {
+            color: #fff;
+            background: #f4a835;
+            padding: 6px 14px;
+            border-radius: 12px;
+        }
+        :root {
+            --orange: #D89835;
+            --orange-dark: #c8812a;
+            --gray-dark: #5F5F5F;
+            --text-main: #212121;
+            --card-bg: rgba(255, 255, 255, 0.2);
+            --border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .countries {
+            background: radial-gradient(circle at center, #fef6ea, #fff);
+            padding: 60px 0;
+        }
+
+        .sectionTitle {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .sectionTitle h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .sectionTitle h6 {
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+        }
+
+        .allCountries {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+        }
+
+        .country {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 60px 20px 30px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            overflow: visible;
+        }
+
+        .country:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
+        }
+
+        .flag-wrapper {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--orange);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            z-index: 5;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            opacity: 1;
+        }
+
+        .animate-flag-once {
+            animation: flag-move-in 1.5s ease-out forwards;
+        }
+
+        @keyframes flag-move-in {
+            0% {
+                transform: translate(150%, -50%);
+                opacity: 0;
+            }
+            70% {
+                transform: translate(30%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .flag-wrapper:hover {
+            border-color: var(--orange-dark);
+        }
+
+        .flag-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 0;
+        }
+
+        .country h4 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--orange);
+            margin-top: 40px;
+            margin-bottom: 5px;
+            font-family: cairo !important
+        }
+
+        .country h5 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-family: cairo !important
+        }
+
+        .country p {
+            font-size: 0.95rem;
+            color: var(--gray-dark);
+            min-height: 50px;
+            margin-bottom: 18px;
+        }
+
+        .country a {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .country a:hover {
+            background: var(--orange-dark);
+        }
+
+            .country h4 {
+                font-size: 1.6rem !important;
+                margin-top: 60px !important;
+                margin-bottom: 10px;
+                color: var(--orange);
+                font-weight: 700;
+                font-family: 'Cairo' !important
+            }
+
+            .country h5 {
+                font-size: 1.2rem !important;
+                margin-bottom: 5px;
+                color: var(--text-main);
+                font-weight: 600;
+                font-family: 'Cairo' !important
+            }
+
+            .country h4 {
+                font-family: 'Cairo', sans-serif !important;
+                font-size: 1.75rem !important;
+                font-weight: 800;
+                color: var(--orange);
+                margin-top: 65px !important;
+                margin-bottom: 8px;
+                letter-spacing: 0.3px;
+            }
+            .country h5 {
+                font-family: 'Cairo', sans-serif !important;
+                font-size: 1.35rem !important;
+                font-weight: 700;
+                color: #1f2937;
+                margin-bottom: 12px;
+            }
+
+            .currency {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: #6b7280;
+                margin-right: 4px;
+            }
+            .price {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .riyal-logo {
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .riyal-logo svg {
+                width: 60px;
+                height: auto;
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+            }
+        </style>
+
 <script>
     window.addEventListener("DOMContentLoaded", function () {
         const flags = document.querySelectorAll(".flag-wrapper");

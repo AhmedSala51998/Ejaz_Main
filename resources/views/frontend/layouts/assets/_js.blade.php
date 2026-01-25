@@ -11,6 +11,8 @@
 <script src="{{asset('frontend/js/dropify.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
 
 <script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/validation/toastr.min.js')}}"></script>

@@ -4,6 +4,399 @@
     {{__('frontend.Forget Password Page')}}
 @endsection
 
+@section('styles')
+    <style>
+        body {
+        background-color: #fffefc;
+        font-family: 'Tajawal', sans-serif;
+        line-height: 1.7;
+        color: #333;
+    }
+
+    .banner {
+        background: linear-gradient(135deg, #f4a835, #fff1db);
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 0 0 50px 50px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        color: #333;
+    }
+
+    .banner::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .banner h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner ul li a {
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .banner ul li a.active,
+    .banner ul li a:hover {
+        color: #fff;
+        background: #f4a835;
+        padding: 6px 14px;
+        border-radius: 12px;
+    }
+        .password-wrapper {
+        position: relative;
+    }
+
+    .password-input {
+        padding-right: 40px;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+        transition: color 0.3s ease;
+        z-index: 10;
+    }
+
+    .toggle-password:hover {
+        color: #f4a835;
+    }
+
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+.loginImg {
+    width: 100%;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto 25px;
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #f4a835;
+    box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.15);
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.card p a {
+    color: #f4a835;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+.card p a:hover {
+    color: #d4901d;
+    text-decoration: underline;
+}
+
+.input-group {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.form-check-label {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.auth-card a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #555;
+    transition: 0.3s;
+}
+
+.auth-card a:hover {
+    color: #f4a835;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    padding: 45px 35px;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    position: relative;
+}
+.card::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #f4a835, #ffdfb0);
+    border-radius: 50%;
+    top: -40px;
+    right: -40px;
+    opacity: 0.1;
+    z-index: 0;
+}
+.loginImg {
+    max-width: 180px;
+    margin: 0 auto 30px;
+    display: block;
+}
+.form-label {
+    font-weight: 700;
+    font-size: 15px;
+    color: #444;
+}
+.form-control {
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    transition: 0.3s ease;
+}
+.form-control:focus {
+    border-color: #f4a835;
+    box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.15);
+}
+.password-wrapper {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #aaa;
+    transition: 0.3s;
+}
+.toggle-password:hover {
+    color: #f4a835;
+}
+.form-check-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+.card p a {
+    color: #f4a835;
+    font-weight: 600;
+}
+.card p a:hover {
+    color: #d88f1e;
+    text-decoration: underline;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 45px 35px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.loginImg {
+    max-width: 180px;
+    margin: 0 auto 30px;
+    display: block;
+}
+
+.form-label {
+    font-weight: 700;
+    font-size: 15px;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    transition: 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #f4a835;
+    box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.15);
+}
+
+/* Toggle password */
+.password-wrapper {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #aaa;
+    transition: 0.3s;
+    display: none;
+}
+.toggle-password:hover {
+    color: #f4a835;
+}
+
+.auth-section {
+    background: #fffefc;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-card::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #f4a835, #ffdfb0);
+    border-radius: 50%;
+    top: -40px;
+    right: -40px;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.auth-img {
+    display: block;
+    width: 160px;
+    margin: 0 auto 20px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #444;
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #f4a835;
+    box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.1);
+}
+
+.input-group-text {
+    background: #f4a835;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+.submit_button {
+    background-color: #f4a835;
+    color: white;
+    font-weight: 600;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+.submit_button:hover {
+    background-color: #d88f1e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(244,168,53,0.4);
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    display: none;
+    font-size: 16px;
+}
+.toggle-password:hover {
+    color: #f4a835;
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 45px 35px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.form-error {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+</style>
+@endsection
+
 @section('content')
     <content>
         <!-- ================ banner ================= -->
@@ -52,8 +445,6 @@
 @endsection
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $.formUtils.addValidator({
             name: 'validatePhoneNumberOfSAR',
