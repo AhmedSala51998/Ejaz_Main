@@ -349,10 +349,6 @@
             justify-content:center;
         }
     }
-    .userHeaderPro{
-        width:100%;
-        box-sizing:border-box;
-    }
 </style>
 @endsection
 @section('content')
@@ -367,32 +363,32 @@
     <section class="profile profile-v2">
         <div class="container-fluid px-lg-5 px-3">
             <div class="row justify-content-center">
-                <div class="col-12 px-2">
-                    <div class="userHeaderPro">
-
-                        <div class="userLeft">
-                            <div class="avatar">
-                                {{ mb_substr($user->name,0,1) }}
-                            </div>
-
-                            <div class="userMeta">
-                                <h3>{{$user->name}}</h3>
-                                <span>{{$user->phone}}</span>
-                            </div>
-                        </div>
-
-                        <div class="userActions">
-                            <a href="{{route('auth.logout')}}" class="logoutBtn" title="{{__('frontend.Logout')}}">
-                                <i class="fas fa-power-off"></i>
-                                <span>تسجيل الخروج</span>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-
                 <div class="col-12 p-2"> {{-- Wrapped navigation and content in a single row for better alignment --}}
                     <div class="row">
+                        <!-- ===== Header ===== -->
+                        <div class="col-lg-12 mb-3">
+                            <div class="userHeaderPro">
+
+                                <div class="userLeft">
+                                    <div class="avatar">
+                                        {{ mb_substr($user->name,0,1) }}
+                                    </div>
+
+                                    <div class="userMeta">
+                                        <h3>{{$user->name}}</h3>
+                                        <span>{{$user->phone}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="userActions">
+                                    <a href="{{route('auth.logout')}}" class="logoutBtn">
+                                        <i class="fas fa-power-off"></i>
+                                        <span>تسجيل الخروج</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="col-lg-3"> {{-- Dedicated column for navigation --}}
                             <div class="profileNavCol">
                                 <a href="{{route('profile.CurrentOrders')}}" id="activeButton" class="change_part_of_profile">
