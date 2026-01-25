@@ -302,12 +302,12 @@
         margin:0;
         font-size:22px;
         font-weight:900;
-        color:#1f2937;
+        color:#FFF;
     }
 
     .userHeaderPro .userMeta span{
         font-size:14px;
-        color:#374151;
+        color:#FFF;
         font-weight:600;
     }
 
