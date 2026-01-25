@@ -1,6 +1,5 @@
-<!-- زر إضافة طلب جديد -->
 <a href="{{route('all-workers')}}" class="newOrderBtn d-inline-flex align-items-center gap-2 mb-4">
-    <i class="fa-duotone fa-file-plus fa-xl"></i>
+    <i class="fa fa-file-plus fa-xl"></i>
     <p class="mb-0 fw-bold">{{ __('frontend.New Recruitment Request') }}</p>
 </a>
 
