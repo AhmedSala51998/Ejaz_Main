@@ -4,322 +4,159 @@
 @endsection
 @section('styles')
 <style>
-    /* General Profile Section Styling */
-    .profile {
-        background-color: #fff; /* A softer, modern light grey background */
-        padding: 60px 0;
-        min-height: 100vh; /* Ensure it takes at least the full viewport height */
-        display: flex;
-        align-items: flex-start; /* Align content to the top */
-        margin-top:-30px
+    /* =======================
+    PROFILE DASHBOARD V2
+    ======================= */
+
+    .profile-v2{
+        background:#f4f6f8 !important;
+        min-height:100vh;
+        padding:60px 0;
+        font-family:'Tajawal',sans-serif;
     }
 
-
-    /* User Header Styling */
-    .userHeader {
-        background: linear-gradient(135deg, #f4a835, #fff1db); /* Orange gradient */
-        border-radius: 10px !important;
-        padding: 30px 40px;
-        color: #000 !important;
-        box-shadow: 0 12px 30px rgba(255,140,0,0.15); /* Deeper, softer shadow with orange tint */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight:bold !important;
-        margin-bottom: 40px; /* More space below header */
-        flex-wrap: wrap;
-        position: relative; /* For potential absolute positioning of elements */
-        overflow: hidden; /* Ensure content stays within rounded corners */
+    /* ===== Header ===== */
+    .profile-v2 .userHeader{
+        background:
+            linear-gradient(135deg,#f4a835 0%,#ffcf8b 100%);
+        border-radius:22px;
+        padding:40px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 25px 50px rgba(244,168,53,.35);
     }
 
-    .userHeader::before { /* Subtle background pattern */
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23ffffff" opacity="0.1"/></svg>');
-        background-size: 50px;
-        opacity: 0.1;
-        pointer-events: none;
+    .profile-v2 .userInfo h3{
+        font-size:32px;
+        font-weight:800;
+        color:#1f2937;
+        margin:0 0 6px;
     }
 
-    .userInfo {
-        z-index: 1; /* Ensure text is above pseudo-element */
-    }
-    .userInfo h3 {
-        font-size: 32px; /* Even larger font size for name */
-        font-weight: 800; /* Extra bold */
-        margin-bottom: 10px;
-        letter-spacing: 0.5px; /* Slightly more spaced letters */
-    }
-    .userInfo p {
-        margin: 0;
-        font-size: 18px;
-        opacity: 0.9; /* Slightly less opaque for better contrast on gradient */
-        font-weight: 400;
-    }
-    .userHeader .control a {
-        color: white;
-        font-size: 26px; /* Larger icon */
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease; /* Smooth hover effect */
-        background-color: rgba(255, 165, 0, 0.5); /* Semi-transparent orange background for button */
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-    }
-    .userHeader .control a:hover {
-        transform: scale(1.15) rotate(5deg); /* More dynamic hover */
-        opacity: 0.9;
-        background-color: rgba(255, 165, 0, 0.7); /* More opaque orange on hover */
+    .profile-v2 .userInfo p{
+        font-size:16px;
+        color:#374151;
     }
 
-    .userHeader .control a {
-        color: #fff;
-        font-size: 28px; /* Larger, more prominent icon */
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother animation */
-        background-color: rgba(255, 255, 255, 0.2); /* Lighter, more subtle background */
-        border-radius: 50%;
-        width: 55px; /* Larger click area */
-        height: 55px; /* Larger click area */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .userHeader .control a:hover {
-        transform: scale(1.18) rotate(8deg); /* More dynamic hover */
-        background-color: rgba(255, 255, 255, 0.35); /* More opaque on hover */
-        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
-    /* Profile Navigation Styling */
-    .profileNavCol {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(255,140,0,0.1); /* Consistent, refined shadow with orange tint */
-        overflow: hidden;
-        margin-top: 0;
-        padding: 15px 0; /* Internal padding for the whole nav block */
-        height: fit-content; /* Adjust height based on content */
-    }
-    .profileNavCol a {
-        padding: 18px 25px;
-        text-align: right;
-        text-decoration: none;
-        color: #4a4a4a; /* Darker grey for better contrast */
-        border-bottom: 1px solid #e0e0e0; /* Lighter, subtle border */
-        transition: background 0.3s ease, color 0.3s ease, padding-right 0.3s ease;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end; /* Align content to the right for RTL */
-        font-size: 17px;
-        background-color: rgba(244, 168, 53, 0.1) !important;
-
-    }
-    .profileNavCol a i {
-        margin-left: 12px; /* Space between icon and text for RTL */
-        font-size: 20px; /* Larger icons */
-        color: #888; /* Slightly darker grey icon color */
-        transition: color 0.3s ease;
-    }
-    .profileNavCol a:last-child {
-        border-bottom: none;
-    }
-    .profileNavCol a.active, .profileNavCol a:hover {
-        background: #fff0cc; /* Light orange background for active/hover */
-        color: #ff8c00; /* Orange text color */
-        padding-right: 35px; /* More pronounced indent on hover/active */
-        border: 1px solid #ff8c00;
-    }
-    .profileNavCol a.active i, .profileNavCol a:hover i {
-        color: #ff8c00; /* Orange icon on active/hover */
-    }
-    .profileNavCol a.active {
-        position: relative;
-    }
-    .profileNavCol a.active::before { /* Active indicator bar */
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 5px;
-        background-color: #ff8c00; /* Orange bar */
-        border-radius: 0 5px 5px 0;
+    .profile-v2 .control a{
+        width:60px;
+        height:60px;
+        background:#fff;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:24px;
+        color:#f4a835;
+        transition:.3s;
     }
 
-
-    /* Profile Content Styling */
-    .profileContent {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(255,140,0,0.1); /* Consistent shadow with nav, orange tint */
-        padding: 40px;
-        min-height: 500px; /* Increased min-height for more substantial content area */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column; /* Allow content to stack */
-        text-align: center;
-    }
-    .image_for_profile {
-        max-width: 70%; /* Smaller image for better balance */
-        height: auto;
-        border-radius: 20px; /* More rounded corners */
-        box-shadow: 0 10px 25px rgba(255,140,0,0.1); /* Orange tinted shadow */
-        margin-bottom: 30px; /* Space below image */
+    .profile-v2 .control a:hover{
+        transform:scale(1.15) rotate(10deg);
     }
 
-    /* Loader Styling (if used) */
-    .linear-background3 {
-        background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%);
-        width: 100%;
-        height: 100%; /* Take full height of parent */
-        animation: loading 1.5s infinite linear;
-        border-radius: 10px;
-    }
-    @keyframes loading {
-        0% { transform: translate(-100%, 0); }
-        100% { transform: translate(100%, 0); }
+    /* ===== Layout ===== */
+    .profile-v2 .profileNavCol{
+        background:#111827;
+        border-radius:22px;
+        padding:20px;
+        box-shadow:0 20px 40px rgba(0,0,0,.25);
     }
 
+    .profile-v2 .profileNavCol a{
+        display:flex;
+        align-items:center;
+        gap:14px;
+        padding:16px 18px;
+        border-radius:16px;
+        color:#d1d5db;
+        font-weight:600;
+        margin-bottom:10px;
+        transition:.25s;
+    }
 
-    /* Responsive Adjustments */
-    @media (max-width: 991.98px) { /* Tablet and smaller */
-        .profile {
-            padding: 40px 0;
-            margin-top:-10px
-        }
-        .userHeader {
-            flex-direction: column;
-            text-align: center;
-            padding: 25px 30px;
-            margin-bottom: 30px;
-        }
-        .userHeader .userInfo {
-            margin-bottom: 25px; /* More space between info and control */
-        }
-        .userInfo h3 {
-            font-size: 26px;
-        }
-        .userInfo p {
-            font-size: 17px;
-        }
-        .userHeader .control a {
-            width: 45px;
-            height: 45px;
-            font-size: 22px;
-        }
+    .profile-v2 .profileNavCol a i{
+        font-size:18px;
+    }
 
-        .profileNavCol {
-            flex-direction: row; /* Display nav links horizontally */
-            flex-wrap: wrap; /* Allow wrapping */
-            justify-content: center; /* Center horizontally */
-            margin-bottom: 30px; /* Space below nav on smaller screens */
-            padding: 10px; /* Smaller internal padding */
-            box-shadow: 0 8px 20px rgba(255,140,0,0.08); /* Slightly lighter shadow with orange tint */
-        }
-        .profileNavCol a {
-            flex: 1 1 auto; /* Allow links to grow and shrink */
-            padding: 15px 10px;
-            font-size: 15px;
-            border-bottom: none; /* Remove bottom border for horizontal layout */
-            border-left: 1px solid #f0f0f0; /* Add left border for separation */
-            text-align: center;
-            justify-content: center; /* Center icon and text */
-        }
-        .profileNavCol a:first-child {
-            border-left: none; /* No left border for the first item */
-        }
-        .profileNavCol a i {
-            margin: 0 5px; /* Adjust margin for horizontal layout */
-        }
-        .profileNavCol a.active, .profileNavCol a:hover {
-            padding-right: 15px; /* Reset padding for horizontal layout */
-            padding-left: 15px;
-            background: #fff0cc; /* Keep light orange */
-            color: #ff8c00; /* Keep orange text */
-        }
-        .profileNavCol a.active::before { /* Adjust active indicator for horizontal */
-            width: 100%;
-            height: 5px;
-            top: auto;
-            bottom: 0;
-            left: 0;
-            border-radius: 0 0 5px 5px;
-        }
+    .profile-v2 .profileNavCol a:hover{
+        background:rgba(244,168,53,.15);
+        color:#f4a835;
+    }
 
-        .profileContent {
-            padding: 30px;
-            min-height: 350px;
+    .profile-v2 .profileNavCol a.active{
+        background:linear-gradient(135deg,#f4a835,#ffcd7a);
+        color:#111;
+        box-shadow:0 12px 25px rgba(244,168,53,.4);
+    }
+
+    /* ===== Content ===== */
+    .profile-v2 .profileContent{
+        background:#fff;
+        border-radius:22px;
+        padding:60px;
+        min-height:520px;
+        box-shadow:0 20px 45px rgba(0,0,0,.08);
+        position:relative;
+    }
+
+    .profile-v2 .profileContent::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        border-radius:22px;
+        background:
+            linear-gradient(
+                to bottom right,
+                rgba(244,168,53,.12),
+                transparent 40%
+            );
+        pointer-events:none;
+    }
+
+    .profile-v2 .image_for_profile{
+        max-width:420px;
+        filter:drop-shadow(0 20px 35px rgba(0,0,0,.2));
+    }
+
+    /* ===== Loader ===== */
+    .profile-v2 .linear-background3{
+        width:100%;
+        height:100%;
+        border-radius:18px;
+        background:
+            linear-gradient(
+                90deg,
+                #eee,
+                #ddd,
+                #eee
+            );
+        animation:loading 1.2s infinite;
+    }
+
+    @keyframes loading{
+        from{background-position:-200px}
+        to{background-position:200px}
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width:991px){
+        .profile-v2 .profileNavCol{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
         }
-        .image_for_profile {
-            max-width: 80%;
+        .profile-v2 .profileNavCol a{
+            flex:1 1 48%;
+            justify-content:center;
+        }
+        .profile-v2 .profileContent{
+            padding:35px;
         }
     }
 
-    @media (max-width: 767.98px) { /* Mobile */
-        .profile {
-            padding: 25px 0;
-        }
-        .userHeader {
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-        .userInfo h3 {
-            font-size: 22px;
-        }
-        .userInfo p {
-            font-size: 15px;
-        }
-        .userHeader .control a {
-            font-size: 20px;
-            width: 40px;
-            height: 40px;
-        }
-        .profileNavCol {
-            padding: 5px;
-        }
-        .profileNavCol a {
-            font-size: 14px;
-            padding: 12px 8px;
-            flex-basis: 50%; /* Two items per row on very small screens */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
-            border: 1px solid #f0f0f0; /* Add border for clear separation */
-            margin: 2px 0; /* Small margin between items */
-        }
-        .profileNavCol a:first-child,
-        .profileNavCol a:nth-child(2) { /* Adjust borders for first two items */
-            border-left: 1px solid #f0f0f0;
-        }
-        .profileNavCol a.active::before { /* For mobile, active indicator can be top or bottom */
-            height: 3px;
-            width: 80%;
-            left: 10%;
-            top: 0;
-            bottom: auto;
-            border-radius: 0 0 3px 3px;
-        }
-        .profileContent {
-            padding: 20px;
-            min-height: 280px;
-        }
-        .image_for_profile {
-            max-width: 90%;
-            margin-bottom: 20px;
-        }
-    }
-
-        .banner {
+    .banner {
         background: linear-gradient(135deg, #f4a835, #fff1db);
         padding: 60px 20px;
         text-align: center;
@@ -401,7 +238,7 @@
             <li> <a href="#!" class="active"> حسابي الشخصي </a> </li>
         </ul>
     </div>
-    <section class="profile">
+    <section class="profile profile-v2">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 p-2"> {{-- Increased column width for better header display --}}
