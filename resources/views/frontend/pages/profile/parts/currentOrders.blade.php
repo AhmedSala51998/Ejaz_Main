@@ -88,8 +88,8 @@
     align-items: center;
     gap: 10px;
 
-    width: 85%;
-    margin: 20px auto 40px;
+    width: 100%;
+    margin: 20px auto 20px;
 
     padding: 14px 30px;
     border-radius: 50px;
