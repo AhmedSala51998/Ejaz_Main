@@ -4,7 +4,74 @@
     من نحن
 @endsection
 
+@section('styles')
+    <style>
+        body {
+            background-color: #fff;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #f4a835, #fff1db);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            z-index: 1;
+            position: relative;
+        }
+
+        .banner ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .banner ul li a {
+            color: #333;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .banner ul li a.active,
+        .banner ul li a:hover {
+            color: #fff;
+            background: #f4a835;
+            padding: 6px 14px;
+            border-radius: 12px;
+        }
+
+    </style>
+@endsection
+
 @section('content')
+    <!-- ✅ Banner -->
     <div class="banner">
         <h1>من نحن</h1>
         <ul>
@@ -86,7 +153,7 @@
             image.classList.add('rotate');
             setTimeout(() => {
                 image.classList.remove('rotate');
-            }, 1600);
+            }, 1600); // 1.6 ثانية نفس مدة الانيميشن
         }
     });
 </script>
