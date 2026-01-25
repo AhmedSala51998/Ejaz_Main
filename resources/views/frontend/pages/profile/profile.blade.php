@@ -189,7 +189,7 @@
                 #f4a835,
                 #ffd38a
             );
-        color:#111;
+        color:#FFF;
         box-shadow:0 12px 30px rgba(244,168,53,.45);
     }
 
