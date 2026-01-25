@@ -1415,9 +1415,9 @@ body[dir="rtl"] .info-label {
         </ul>
     </div>
     <section class="profile" style="margin-top:20px">
-        <div class="container">
+        <div class="container-fluid px-lg-5 px-3">
             <div class="row justify-content-center">
-                <div class="col-lg-9 p-2">
+                <div class="col-12 p-2">
                     <div class="col-lg-12 mb-3">
                         <div class="userHeaderPro">
 
