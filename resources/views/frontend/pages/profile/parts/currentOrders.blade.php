@@ -1,4 +1,4 @@
-<a href="{{route('all-workers')}}" class="newOrderBtn d-inline-flex align-items-center gap-2 mb-4">
+<a href="{{route('all-workers')}}" class="newOrderBtn">
     <i class="fa fa-file-plus fa-xl"></i>
     <p class="mb-0 fw-bold">{{ __('frontend.New Recruitment Request') }}</p>
 </a>
@@ -84,19 +84,36 @@
 }
 .newOrderBtn{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
     width: 65%;
     margin: 20px auto 40px;
-    justify-content: center;
+
+    padding: 14px 30px;
+    border-radius: 50px;
+
+    background: #f4a835;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+
+    box-shadow: 0 12px 30px rgba(244,168,53,.35);
+    transition: 0.3s ease;
+}
+
+.newOrderBtn:hover{
+    background-color: #e69e24;
+    color: #fff;
+    transform: translateY(-3px);
 }
 
 @media (max-width:768px){
     .newOrderBtn{
         width: 100%;
     }
-}
-.newOrderBtn{
-    box-shadow: 0 12px 30px rgba(244,168,53,.35);
-    font-size: 17px;
 }
 
 </style>

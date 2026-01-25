@@ -349,6 +349,10 @@
             justify-content:center;
         }
     }
+    .userHeaderPro{
+        width:100%;
+        box-sizing:border-box;
+    }
 </style>
 @endsection
 @section('content')
@@ -363,7 +367,7 @@
     <section class="profile profile-v2">
         <div class="container-fluid px-lg-5 px-3">
             <div class="row justify-content-center">
-                <div class="col-12 p-2">
+                <div class="col-12 px-2">
                     <div class="userHeaderPro">
 
                         <div class="userLeft">
