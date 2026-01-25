@@ -10,7 +10,7 @@
 
         <button id="load_more_history_orders_button" class="animatedLinkk loadMoreBtn">
                 {{__('frontend.load more')}}
-                    <i class="fa-regular fa-left-long ms-2"><span></span></i>
+                    <i class="fa fa-left-long ms-2"><span></span></i>
         </button>
 
     </div>
@@ -23,7 +23,6 @@
     </div>
 @endif
 <style>
-    /* زر تحميل المزيد */
     .loadMoreBtn {
         background: transparent;
         border: 2px solid #f4a835;

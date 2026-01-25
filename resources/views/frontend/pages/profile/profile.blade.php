@@ -122,7 +122,7 @@
         justify-content: flex-end; /* Align content to the right for RTL */
         font-size: 17px;
         background-color: rgba(244, 168, 53, 0.1) !important;
-        
+
     }
     .profileNavCol a i {
         margin-left: 12px; /* Space between icon and text for RTL */

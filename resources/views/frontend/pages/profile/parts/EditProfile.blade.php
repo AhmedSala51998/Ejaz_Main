@@ -339,13 +339,11 @@
         --main-orange-solid: #f4a835;
     }
 
-    /* كروت الخلفية */
     .editProfile {
         background-color: white;
         border: 2px solid var(--main-orange);
     }
 
-    /* عناوين البطاقات */
     .editProfile .head {
         border-color: var(--main-orange);
     }
@@ -353,7 +351,6 @@
         color: #FFF;
     }
 
-    /* الفورمات */
     .form-control,
     .select2-container--default .select2-selection--single {
         border: 2px solid rgba(244, 168, 53, 0.4);
@@ -366,7 +363,6 @@
         box-shadow: 0 0 0 0.25rem rgba(244, 168, 53, 0.25);
     }
 
-    /* زرار success */
     .btn-success {
         background-color: var(--main-orange-solid) !important;
         border-color: var(--main-orange-solid) !important;
@@ -379,7 +375,6 @@
 
 
 
-    /* Placeholder بديل الصورة */
     .profilePic .initials-placeholder {
         width: 150px;
         height: 150px;
@@ -411,7 +406,7 @@
     .initials-avatar {
     width: 140px;
     height: 140px;
-    background-color: #f4a83533; /* برتقالي شفاف */
+    background-color: #f4a83533;
     color: #fff;
     font-size: 36px;
     font-weight: bold;
@@ -521,12 +516,10 @@
     border: 2px dashed #f4a835;
     overflow: hidden;
 
-    /* هنا تحط الإعدادات الخاصة بالصورة */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 
-    /* التأثيرات */
     transition: background-image 0.5s ease-in-out, transform 0.3s ease;
 }
 
@@ -584,7 +577,7 @@
 .initials-text {
     font-size: 38px;
     font-weight: bold;
-    color: #CCC; /* ✅ لون أسود */
+    color: #CCC;
     z-index: 2;
     pointer-events: none;
 }
@@ -625,7 +618,7 @@
             $username = trim($user->name ?? '');
 
             if ($username === '') {
-                $initials = '??'; // اسم غير موجود
+                $initials = '??';
             } else {
                 $nameParts = preg_split('/\s+/', $username);
 
@@ -778,7 +771,6 @@
                 const preview = document.getElementById('avatarPreviewContainer');
                 preview.style.backgroundImage = `url('${e.target.result}')`;
 
-                // إخفاء الحروف والكاميرا
                 document.getElementById('avatarInitials').style.display = 'none';
                 preview.querySelector('.camera-icon').style.display = 'none';
             };
@@ -791,7 +783,6 @@
         preview.style.backgroundImage = `url('${e.target.result}')`;
         preview.style.animation = 'fadeInImage 0.6s ease-in-out';
 
-        // إخفاء الحروف والكاميرا
         document.getElementById('avatarInitials').style.display = 'none';
         preview.querySelector('.camera-icon').style.display = 'none';
     };

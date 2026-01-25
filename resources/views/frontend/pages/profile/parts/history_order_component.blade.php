@@ -13,7 +13,7 @@
                         </div>
                     @endforeach
                 </div>
-             
+
             </div>
         </div>
 
@@ -93,7 +93,7 @@
                         <i class="fas fa-file-alt me-2"></i> تفاصيل الطلب
                     </a>
                     <!--<button class="btn-contact-super-pro mt-3 animate__animated animate__fadeInUp">
-                        <i class="fas fa-headset me-2"></i> تواصل معنا
+                        <i class="fas fa-headset me-2"></i>
                     </button>-->
                 </div>
             </div>

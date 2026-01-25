@@ -4,7 +4,6 @@
     <p class="mb-0 fw-bold">{{ __('frontend.New Recruitment Request') }}</p>
 </a>
 
-<!-- الطلبات الحالية -->
 @if (isset($currentOrders) && count($currentOrders) > 0)
     <input type="hidden" value="{{$current_page}}" id="current_page_orders">
 
@@ -12,16 +11,14 @@
         @include('frontend.pages.profile.parts.current_order_component')
     </div>
 
-    <!-- زر تحميل المزيد -->
     <div style="{{ $currentOrders->currentPage() == $currentOrders->lastPage() ? 'display:none!important' : '' }}"
          class="d-flex align-items-center justify-content-center py-5">
         <button id="load_more_current_orders_button" class="loadMoreBtn">
             {{ __('frontend.load more') }}
-            <i class="fa-regular fa-left-long ms-2"><span></span></i>
+            <i class="fa fa-left-long ms-2"><span></span></i>
         </button>
     </div>
 @else
-    <!-- في حال عدم وجود طلبات -->
     <div class="d-flex align-items-center justify-content-center">
         <img src="{{ asset('frontend/img/no-order.png') }}"
              alt="no data for current orders"
@@ -29,7 +26,6 @@
     </div>
 @endif
 <style>
-    /* زر الطلب الجديد */
 .newOrderBtn {
     background: #f4a835;
     color: #fff;
@@ -46,7 +42,6 @@
     transform: translateY(-2px);
 }
 
-/* زر تحميل المزيد */
 .loadMoreBtn {
     background: transparent;
     border: 2px solid #f4a835;
@@ -65,13 +60,13 @@
 
 .newOrderBtn {
     display: inline-flex;
-    justify-content: center; /* يوسّط النص والأيقونة أفقياً */
+    justify-content: center;
     align-items: center;
     gap: 10px;
-    width: 100%;         /* يعرض كامل عرض الحاوية */
-    max-width: 650px;    /* ممكن تحدد أقصى عرض حسب الرغبة */
+    width: 100%;
+    max-width: 650px;
     padding: 14px 30px;
-    border-radius: 50px; /* لي شكل كير جدا */
+    border-radius: 50px;
     font-size: 18px;
     font-weight: 700;
     background: #f4a835;

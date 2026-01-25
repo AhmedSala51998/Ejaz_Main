@@ -4,7 +4,6 @@
 @endsection
 @section('styles')
 <style>
-/* ----- عام ----- */
 body, html {
   background: #f8f9fa; /* Lighter, modern background */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -420,7 +419,6 @@ body, html {
 }
 
 
-/* --- أنيميشنات --- */
 @keyframes slideInDown {
   0% {opacity: 0; transform: translateY(-50px);}
   100% {opacity: 1; transform: translateY(0);}
@@ -1195,29 +1193,26 @@ body[dir="rtl"] .info-label {
 }
 @media (max-width: 991px) { /* Adjust breakpoint for larger tablets */
     .userHeader {
-        flex-direction: column; /* اجعل العناصر تتكدس عمودياً */
-        /* align-items: flex-start;  ألغي هذا، نريد التوسيط */
+        flex-direction: column;
         padding: 30px;
-        justify-content: center; /* للتأكد من توسيط المحتوى بالكامل في المنتصف */
-        align-items: center; /* للتأكد من توسيط المحتوى بالكامل في المنتصف */
+        justify-content: center;
+        align-items: center;
     }
     .userHeader .control {
-        /* بما أنه position: absolute; هنا يمكنك تحديد مكانه بالضبط للموبايل */
-        /* إذا كنت تريدها تبقى في اليسار (من منظور LTR) أو اليمين (من منظور RTL) */
-        position: absolute; /* احتفظ بها absolute */
-        left: 20px; /* على بعد 20 بكسل من اليسار (للتصميم RTL سيكون على اليمين) */
-        right: unset; /* تأكد من عدم وجود right */
-        top: 20px; /* على بعد 20 بكسل من الأعلى */
-        transform: none; /* ألغي أي تحويلات سابقة للتوسيط العمودي */
-        margin: 0; /* أزل الهوامش */
+        position: absolute;
+        left: 20px;
+        right: unset;
+        top: 20px;
+        transform: none;
+        margin: 0;
     }
 
     .userInfo {
-        order: unset; /* قم بإلغاء الترتيب */
-        margin-bottom: 0; /* أزل المسافة السفلية إذا لم تعد هناك حاجة لها */
-        margin-left: 0; /* تأكد من إزالة أي هوامش تلقائية */
-        align-items: center; /* لمركزة النص داخل userInfo */
-        text-align: center; /* لضمان تمركز النص */
+        order: unset;
+        margin-bottom: 0;
+        margin-left: 0;
+        align-items: center;
+        text-align: center;
     }
     .userInfo h3 {
         font-size: 28px;
@@ -1226,7 +1221,6 @@ body[dir="rtl"] .info-label {
         font-size: 16px;
     }
 
-    /* ... (بقية الميديا كويري تبقى كما هي) ... */
 }
 
 @media (max-width: 576px) { /* Further adjustments for small mobiles */
@@ -1240,11 +1234,11 @@ body[dir="rtl"] .info-label {
         font-size: 14px;
     }
     .userHeader .control {
-        left: 15px; /* ضبط المسافة من اليسار على الشاشات الأصغر */
-        top: 15px; /* ضبط المسافة من الأعلى على الشاشات الأصغر */
-        width: 40px; /* تصغير حجم الزر قليلاً */
+        left: 15px;
+        top: 15px;
+        width: 40px;
         height: 40px;
-        font-size: 20px; /* تصغير حجم الأيقونة */
+        font-size: 20px;
     }
     .userHeader .control a {
         width: 40px;
@@ -1252,7 +1246,6 @@ body[dir="rtl"] .info-label {
         font-size: 20px;
     }
 
-    /* ... (بقية الميديا كويري تبقى كما هي) ... */
 }
 </style>
 @endsection
