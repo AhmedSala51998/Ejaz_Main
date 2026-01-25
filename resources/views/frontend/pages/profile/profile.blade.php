@@ -10,7 +10,7 @@
 
     .profile-v2{
         background:#FFF !important;
-        min-height:70vh;
+        min-height:40vh;
         padding:60px 0;
         font-family:'Tajawal',sans-serif;
     }
@@ -154,6 +154,49 @@
         .profile-v2 .profileContent{
             padding:35px;
         }
+    }
+
+    /* ===== Orange Glass Sidebar ===== */
+    .profile-v2 .profileNavCol{
+        background:
+            linear-gradient(
+                135deg,
+                rgba(244,168,53,.25),
+                rgba(255,255,255,.35)
+            );
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-radius:22px;
+        padding:20px;
+        border:1px solid rgba(244,168,53,.35);
+        box-shadow:
+            0 20px 40px rgba(244,168,53,.25),
+            inset 0 1px 0 rgba(255,255,255,.6);
+    }
+
+    /* Links */
+    .profile-v2 .profileNavCol a{
+        background:rgba(255,255,255,.45);
+        color:#92400e;
+        font-weight:700;
+    }
+
+    /* Hover */
+    .profile-v2 .profileNavCol a:hover{
+        background:rgba(244,168,53,.35);
+        color:#7c2d12;
+    }
+
+    /* Active */
+    .profile-v2 .profileNavCol a.active{
+        background:
+            linear-gradient(
+                135deg,
+                #f4a835,
+                #ffd38a
+            );
+        color:#111;
+        box-shadow:0 12px 30px rgba(244,168,53,.45);
     }
 
     .banner {
