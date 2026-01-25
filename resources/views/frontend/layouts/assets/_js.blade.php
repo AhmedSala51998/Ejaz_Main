@@ -11,6 +11,8 @@
 <script src="{{asset('frontend/js/dropify.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
 
 <script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/validation/toastr.min.js')}}"></script>
@@ -110,37 +112,5 @@ if (window.innerWidth > 768) {
         s.defer = true;
         document.body.appendChild(s);
     });
-}
-</script>
-<script>
-function loadLottie() {
-    if (window.lottie || window.innerWidth <= 768) return;
-
-    const s = document.createElement('script');
-    s.src = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js";
-    s.defer = true;
-    document.body.appendChild(s);
-}
-if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-            loadLottie();
-            observer.disconnect();
-        }
-    });
-    observer.observe(document.querySelector('.lottie'));
-}
-</script>
-<script>
-function loadSweetAlert(callback) {
-    if (window.Swal) {
-        callback && callback();
-        return;
-    }
-
-    const s = document.createElement('script');
-    s.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11";
-    s.onload = () => callback && callback();
-    document.body.appendChild(s);
 }
 </script>
