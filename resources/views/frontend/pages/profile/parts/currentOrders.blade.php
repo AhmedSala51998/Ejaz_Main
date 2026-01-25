@@ -83,15 +83,20 @@
     transform: translateY(-3px);
 }
 .newOrderBtn{
-    display: inline-flex;
-    min-width: 280px;
+    display: flex;
+    width: 65%;
+    margin: 20px auto 40px;
     justify-content: center;
 }
 
-@media (max-width: 768px){
+@media (max-width:768px){
     .newOrderBtn{
         width: 100%;
     }
+}
+.newOrderBtn{
+    box-shadow: 0 12px 30px rgba(244,168,53,.35);
+    font-size: 17px;
 }
 
 </style>

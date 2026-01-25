@@ -264,6 +264,91 @@
             font-size: 1.8rem;
         }
     }
+    /* ===== Pro User Header ===== */
+    .userHeaderPro{
+        background: linear-gradient(135deg,#f4a835,#ffd28a);
+        border-radius:26px;
+        padding:28px 32px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        box-shadow:0 25px 55px rgba(244,168,53,.35);
+    }
+
+    /* Left side */
+    .userLeft{
+        display:flex;
+        align-items:center;
+        gap:18px;
+    }
+
+    /* Avatar */
+    .userHeaderPro .avatar{
+        width:64px;
+        height:64px;
+        border-radius:50%;
+        background:#fff;
+        color:#f4a835;
+        font-size:30px;
+        font-weight:900;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 8px 20px rgba(0,0,0,.15);
+    }
+
+    /* Name + phone */
+    .userHeaderPro .userMeta h3{
+        margin:0;
+        font-size:22px;
+        font-weight:900;
+        color:#1f2937;
+    }
+
+    .userHeaderPro .userMeta span{
+        font-size:14px;
+        color:#374151;
+        font-weight:600;
+    }
+
+    /* Actions */
+    .userActions{
+        display:flex;
+        align-items:center;
+    }
+
+    /* Logout Button */
+    .logoutBtn{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        background:rgba(255,255,255,.9);
+        color:#92400e;
+        padding:12px 18px;
+        border-radius:14px;
+        font-weight:800;
+        transition:.3s ease;
+        box-shadow:0 6px 18px rgba(0,0,0,.12);
+    }
+
+    .logoutBtn i{
+        font-size:18px;
+    }
+
+    .logoutBtn:hover{
+        background:#fff;
+        transform:translateY(-2px);
+    }
+    @media(max-width:768px){
+        .userHeaderPro{
+            flex-direction:column;
+            gap:20px;
+            text-align:center;
+        }
+        .userLeft{
+            justify-content:center;
+        }
+    }
 </style>
 @endsection
 @section('content')
@@ -278,21 +363,27 @@
     <section class="profile profile-v2">
         <div class="container-fluid px-lg-5 px-3">
             <div class="row justify-content-center">
-                <div class="col-12 p-2"> {{-- Increased column width for better header display --}}
-                    <div class="userHeader">
-                        <div class="userInfo">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="userName">
-                                    <h3>{{$user->name}}</h3>
-                                    <p>{{$user->phone}}</p>
-                                </div>
+                <div class="col-12 p-2">
+                    <div class="userHeaderPro">
+
+                        <div class="userLeft">
+                            <div class="avatar">
+                                {{ mb_substr($user->name,0,1) }}
+                            </div>
+
+                            <div class="userMeta">
+                                <h3>{{$user->name}}</h3>
+                                <span>{{$user->phone}}</span>
                             </div>
                         </div>
-                        <div class="control">
-                            <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title="{{__('frontend.Logout')}}">
+
+                        <div class="userActions">
+                            <a href="{{route('auth.logout')}}" class="logoutBtn" title="{{__('frontend.Logout')}}">
                                 <i class="fas fa-power-off"></i>
+                                <span>تسجيل الخروج</span>
                             </a>
                         </div>
+
                     </div>
                 </div>
 
