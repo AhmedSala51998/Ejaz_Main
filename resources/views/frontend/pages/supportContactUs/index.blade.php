@@ -73,7 +73,7 @@
     .mapEarth,
     .contactForm {
         padding: 60px 0;
-        background: linear-gradient(135deg, #fff9f0, #fffdfc);
+        background: #FFF;
     }
 
     .title span {
