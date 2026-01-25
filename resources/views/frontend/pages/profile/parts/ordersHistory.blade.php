@@ -22,20 +22,3 @@
         <img style="width: 500px;height: 500px ; object-fit: contain;" src="{{asset('frontend/img/no-order.png')}}" alt="no data for current orders">
     </div>
 @endif
-<style>
-    .loadMoreBtn {
-        background: transparent;
-        border: 2px solid #f4a835;
-        color: #f4a835;
-        padding: 10px 25px;
-        font-weight: bold;
-        border-radius: 30px;
-        transition: 0.3s ease;
-        font-size: 16px;
-    }
-    .loadMoreBtn:hover {
-        background-color: #f4a835;
-        color: #fff;
-        transform: scale(1.03);
-    }
-</style>
