@@ -1,6 +1,9 @@
 
 {{--==============--}}
 <style>
+body{margin:0;font-family:Tajawal,sans-serif}
+.header{background:#fff}
+.hero{min-height:60vh}
 /* General Body & Typography */
 body {
     font-family: 'Rubik', sans-serif; /* A more modern and clean Arabic-friendly font */
