@@ -246,7 +246,23 @@
                 color: #6b7280;
                 margin-right: 4px;
             }
+            .price {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
 
+            .riyal-logo {
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .riyal-logo svg {
+                width: 60px;
+                height: auto;
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+            }
         </style>
 
 <script>
@@ -294,7 +310,20 @@
                                     </div>
 
                                     <h4>{{ $country->title }}</h4>
-                                    <h5>{{ $country->price }}  <span class="currency">ريال</span></h5>
+                                    <h5>{{ $country->price }}
+                                        <span class="riyal-logo">
+                                            <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+                                                <text x="60" y="28"
+                                                    text-anchor="middle"
+                                                    font-size="26"
+                                                    font-weight="800"
+                                                    font-family="Cairo, Tajawal, sans-serif"
+                                                    fill="#D89835">
+                                                    ريال
+                                                </text>
+                                            </svg>
+                                        </span>
+                                    </h5>
                                     <p>{{ $country->description }}</p>
                                     <a href="{{ route('all-workers', $country->id) }}">
                                         اطلب الآن
