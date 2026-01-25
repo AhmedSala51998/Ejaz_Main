@@ -9,8 +9,8 @@
     ======================= */
 
     .profile-v2{
-        background:#f4f6f8 !important;
-        min-height:100vh;
+        background:#FFF !important;
+        min-height:70vh;
         padding:60px 0;
         font-family:'Tajawal',sans-serif;
     }
