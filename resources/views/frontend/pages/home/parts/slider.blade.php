@@ -237,7 +237,7 @@ canvas {
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
                 <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                    <canvas id="sphere-canvas" aria-hidden="true"
+                    <canvas id="sphere-canvas" width="600" height="600"
                             style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                 </div>
 
@@ -286,7 +286,7 @@ canvas {
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
 
                     <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                        <canvas id="sphere-canvas" aria-hidden="true"
+                        <canvas id="sphere-canvas" width="600" height="600"
                                 style="width:100%; height:100%; display:block; background:transparent;"></canvas>
                     </div>
 
@@ -359,25 +359,8 @@ $countryMap = [
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
 
-let W, H, R;
-
-function resizeCanvas() {
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.getBoundingClientRect();
-
-  canvas.width  = rect.width  * dpr;
-  canvas.height = rect.height * dpr;
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  W = rect.width;
-  H = rect.height;
-  R = Math.min(W, H) * 0.48;
-}
-
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
+const W = canvas.width;
+const H = canvas.height;
 const R = Math.min(W, H) * 0.48;
 
 let angleX = 0, angleY = 0;
