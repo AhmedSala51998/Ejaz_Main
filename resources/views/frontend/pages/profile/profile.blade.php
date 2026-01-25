@@ -11,7 +11,7 @@
     .profile-v2{
         background:#FFF !important;
         padding:60px 0;
-        padding-top: -30px;
+        margin-top:-70px !important;
         font-family:'Tajawal',sans-serif;
     }
 
@@ -278,7 +278,7 @@
     <section class="profile profile-v2">
         <div class="container-fluid px-lg-5 px-3">
             <div class="row justify-content-center">
-                <div class="col-lg-10 p-2"> {{-- Increased column width for better header display --}}
+                <div class="col-12 p-2"> {{-- Increased column width for better header display --}}
                     <div class="userHeader">
                         <div class="userInfo">
                             <div class="d-flex flex-wrap align-items-center">
@@ -296,7 +296,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-10 p-2"> {{-- Wrapped navigation and content in a single row for better alignment --}}
+                <div class="col-12 p-2"> {{-- Wrapped navigation and content in a single row for better alignment --}}
                     <div class="row">
                         <div class="col-lg-3"> {{-- Dedicated column for navigation --}}
                             <div class="profileNavCol">
