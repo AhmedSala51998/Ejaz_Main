@@ -89,37 +89,34 @@
             }
         }
 
-/* شكل اللودر الدائري */
-.spinner-border-dotted {
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 3px dotted #fff;
-    border-radius: 50%;
-    border-top-color: transparent;
-    animation: spin 0.8s linear infinite;
-    display: inline-block;
-}
+        .spinner-border-dotted {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 3px dotted #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
 
-/* أنيميشن الدوران */
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-/* الزر أثناء التحميل */
-.loading-btn {
-    width: 3rem !important;
-    height: 3rem !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
-    background-color: #f4a835 !important;
-    color: transparent !important;
-    position: relative;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-}
+        .loading-btn {
+            width: 3rem !important;
+            height: 3rem !important;
+            padding: 0 !important;
+            border-radius: 50% !important;
+            background-color: #f4a835 !important;
+            color: transparent !important;
+            position: relative;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
 
 
 
@@ -160,7 +157,7 @@
                             <input id="track" type="text" name="code" class="form-control form-control-lg rounded-pill" placeholder="ادخل هنا" required>
                         </div>
                         <div class="d-grid">
-                            <button class="btn btn-warning btn-lg rounded-pill" id="CompleteRegisterr" type="submit">تحقق</button>
+                            <button style="background-color: #ff8c00 !important;color#FFF !important" class="btn btn-warning btn-lg rounded-pill" id="CompleteRegisterr" type="submit">تحقق</button>
                         </div>
                     </form>
                 </div>
