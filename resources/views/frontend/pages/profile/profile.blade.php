@@ -11,7 +11,7 @@
     .profile-v2{
         background:#FFF !important;
         padding:60px 0;
-        margin-top:-50px !important;
+        margin-top:-30px !important;
         font-family:'Tajawal',sans-serif;
     }
 
