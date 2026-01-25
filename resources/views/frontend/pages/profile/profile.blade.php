@@ -10,8 +10,8 @@
 
     .profile-v2{
         background:#FFF !important;
-        min-height:-40vh;
         padding:60px 0;
+        padding-top: -30px;
         font-family:'Tajawal',sans-serif;
     }
 
@@ -276,7 +276,7 @@
         </ul>
     </div>
     <section class="profile profile-v2">
-        <div class="container">
+        <div class="container-fluid px-lg-5 px-3">
             <div class="row justify-content-center">
                 <div class="col-lg-10 p-2"> {{-- Increased column width for better header display --}}
                     <div class="userHeader">
