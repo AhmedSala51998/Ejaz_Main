@@ -1,8 +1,15 @@
-<script src="{{asset('frontend/js/jquery.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/jquery.min.js')}}"></script>
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
-<script src="{{asset('frontend/js/Custom.js')}}" defer></script>
+<script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/aos.js')}}" defer></script>
+<script src="{{asset('frontend/js/odometer.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/intro.js')}}" defer></script>
+<script src="{{asset('frontend/js/wow.js')}}" defer></script>
+<script src="{{asset('frontend/js/particles.js')}}" defer></script>
+<script src="{{asset('frontend/js/dropify.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
