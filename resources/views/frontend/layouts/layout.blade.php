@@ -2,27 +2,6 @@
 <html>
 
 <head>
-    <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
-    <script>
-    let hotjarLoaded = false;
-
-    function loadHotjar() {
-    if (hotjarLoaded) return;
-    hotjarLoaded = true;
-
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:4969317,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    }
-
-    window.addEventListener('scroll', loadHotjar, { once: true });
-    window.addEventListener('touchstart', loadHotjar, { once: true });
-    </script>
 
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -95,72 +74,6 @@
             position: relative;
             overflow: hidden;
             border-radius: 16px;
-        }
-
-        /* Loader */
-        .loader-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: #fffefc;
-            z-index: 10002;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            gap: 10px;
-        }
-
-        .square {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f4a835, #e67e22);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(244, 168, 53, 0.7);
-            animation: pulseMove 2.4s ease-in-out infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: 900;
-            font-size: 48px;
-            user-select: none;
-            cursor: default;
-        }
-
-        .square:nth-child(1) { animation-delay: 0s; }
-        .square:nth-child(2) { animation-delay: 0.3s; }
-        .square:nth-child(3) { animation-delay: 0.6s; }
-        .square:nth-child(4) { animation-delay: 0.9s; }
-        .square:nth-child(5) { animation-delay: 1.2s; }
-
-        @keyframes pulseMove {
-            0%, 100% {
-            transform: translateY(0) scale(1);
-            box-shadow: 0 4px 12px rgba(244, 168, 53, 0.7);
-            opacity: 1;
-            }
-            50% {
-            transform: translateY(-15px) scale(1.15);
-            box-shadow: 0 8px 25px rgba(244, 168, 53, 1);
-            opacity: 0.85;
-            }
-        }
-
-        .cute-alert .alert-container.success {
-            background-color: #f4a835 !important;
-            color: #fff !important;
-        }
-
-        .cute-alert .alert-title {
-            color: #fff !important;
-        }
-
-        .cute-alert .alert-button {
-            background-color: #fff !important;
-            color: #f4a835 !important;
-            border-radius: 10px;
         }
 
         /*********************************/
@@ -304,11 +217,6 @@
                 backdrop-filter: none;
             }
         }
-        @media (max-width: 768px) {
-            .loader-wrapper {
-                display: none !important;
-            }
-        }
     </style>
 
 </head>
@@ -324,13 +232,6 @@
     <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
     <div class="spinner"></div>
 </div>
-<!--<div class="loader-wrapper" aria-label="لودر لوجو إيجاز">
-  <div class="square">إ</div>
-  <div class="square">ي</div>
-  <div class="square">ج</div>
-  <div class="square">ا</div>
-  <div class="square">ز</div>
-</div>-->
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
 <!-- ================ /Header ================= -->
@@ -660,34 +561,5 @@
 
     </div>
 </div>
-<script>
-(function () {
-
-  let zohoLoaded = false;
-
-  function loadZoho() {
-    if (zohoLoaded) return;
-    zohoLoaded = true;
-
-    window.$zoho = window.$zoho || {};
-    window.$zoho.salesiq = window.$zoho.salesiq || {
-      ready: function () {}
-    };
-
-    const s = document.createElement('script');
-    s.id = 'zsiqscript';
-    s.src = 'https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c';
-    s.defer = true;
-
-    document.body.appendChild(s);
-  }
-
-  window.addEventListener('scroll', loadZoho, { once: true, passive: true });
-  window.addEventListener('touchstart', loadZoho, { once: true, passive: true });
-  window.addEventListener('mousemove', loadZoho, { once: true });
-
-})();
-</script>
 </body>
-<!--@toastr_render-->
 </html>
