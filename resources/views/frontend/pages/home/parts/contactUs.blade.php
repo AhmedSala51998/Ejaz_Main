@@ -250,6 +250,26 @@
     textarea.is-invalid + .invalid-feedback {
      display: block;
     }
+    @media (max-width: 768px) {
+        .contact-container,
+        .send-btn,
+        .info-icon {
+            box-shadow: none !important;
+        }
+    }
+    @media (max-width: 768px) {
+        .info-item:hover,
+        .info-item:hover .info-icon,
+        .send-btn:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+    }
+    @media (max-width: 768px) {
+        #contactUs {
+            background: #fffdf9;
+        }
+    }
 
 </style>
 

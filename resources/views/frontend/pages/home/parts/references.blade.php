@@ -203,23 +203,43 @@
     font-size: 1.2rem; /* Slightly larger */
     margin-top: 10px;
 }
+@media (max-width: 768px) {
+  .referenceLogo {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,.08);
+  }
+
+  .referenceLogo .shine {
+    display: none;
+  }
+
+  .referenceLogo:hover {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine {
+    animation: none !important;
+  }
+}
+
 </style>
 
 <script>
-  var swiper = new Swiper(".referencesSlider", {
-    loop: true,
-    spaceBetween: 45,
+    var swiper = new Swiper(".referencesSlider", {
+    loop: window.innerWidth > 768,
+    speed: window.innerWidth > 768 ? 900 : 400,
+    spaceBetween: 25,
     slidesPerView: 3,
-    speed: 900,
-    grabCursor: true,
     pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
+        el: ".swiper-pagination",
+        clickable: true,
     },
     breakpoints: {
-      0: { slidesPerView: 1 },
-      576: { slidesPerView: 2 },
-      992: { slidesPerView: 3 },
+        0: { slidesPerView: 1 },
+        576: { slidesPerView: 2 },
+        992: { slidesPerView: 3 },
     },
-  });
+    });
 </script>

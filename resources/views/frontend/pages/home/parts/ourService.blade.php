@@ -47,6 +47,18 @@
     .service-card p {
         color: var(--gray-dark);
     }
+    @media (hover: hover) {
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.07);
+            border-color: var(--orange-main);
+        }
+    }
+    @media (max-width: 767px) {
+        .service-card {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+    }
 </style>
 
 @if (count($ourServices)>0)
@@ -65,7 +77,7 @@
                     <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
                         <div class="mb-3">
 
-                             <img src="{{ get_file($service->image) }}" alt="{{ $service->title }}" class="img-fluid" style="height: 60px;">
+                             <img src="{{ get_file($service->image) }}" alt="{{ $service->title }}" class="img-fluid" loading="lazy" width="60" height="60" style="height: 60px;">
 
 
                         </div>

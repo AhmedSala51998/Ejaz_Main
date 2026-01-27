@@ -245,7 +245,28 @@ body {
         font-size: 0.95rem;
     }
 }
+@media (max-width: 991px) {
+    .customer-service-section {
+        animation: none;
+        background: #FFF8EE;
+    }
 
+    .service-card {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: #ffffff;
+    }
+}
+@media (max-width: 767px) {
+    .customer-service-section::before {
+        display: none;
+    }
+}
+@media (hover: hover) {
+    .service-card:hover {
+        transform: translateY(-8px) scale(1.02);
+    }
+}
 </style>
 
 @if (count($admins) > 0)
@@ -262,7 +283,7 @@ body {
                 <div class="col-lg-3 col-md-6 col-sm-10"> {{-- Added col-sm-10 for better mobile spacing --}}
                     <div class="service-card shadow-sm h-100">
                         <div class="icon-container">
-                            <img src="{{ asset('frontend/img/customer-service.png') }}" alt="خدمة العملاء">
+                            <img src="{{ asset('frontend/img/customer-service.png') }}"  loading="lazy" width="48" height="48" alt="خدمة العملاء">
                         </div>
                         <h5>{{ $admin->name }}</h5>
                         <p>نخدمكم على مدار <strong>24/7</strong></p>

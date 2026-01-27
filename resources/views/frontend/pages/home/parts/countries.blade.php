@@ -8,7 +8,6 @@
     --border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* الخلفية */
 .countries {
     background: radial-gradient(circle at center, #fef6ea, #fff);
     padding: 60px 0;
@@ -36,7 +35,6 @@
     gap: 30px;
 }
 
-/* كارت الدولة */
 .country {
     position: relative;
     background: var(--card-bg);
@@ -55,7 +53,6 @@
     box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
 }
 
-/* شعار الدولة */
 .flag-wrapper {
     position: absolute;
     top: 0;
@@ -72,7 +69,6 @@
     opacity: 1;
 }
 
-/* حركة الشعار مرة واحدة */
 .animate-flag-once {
     animation: flag-move-in 1.5s ease-out forwards;
 }
@@ -103,7 +99,6 @@
     border-radius: 0;
 }
 
-/* محتوى البطاقة */
 .country h4 {
     font-size: 1.3rem;
     font-weight: bold;
@@ -224,15 +219,39 @@
     height: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
 }
+.country {
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+@media (min-width: 992px) {
+    .country {
+        backdrop-filter: blur(6px);
+    }
+}
+.country a {
+    will-change: transform;
+}
+.country a:hover {
+    transform: translateY(-2px);
+}
 </style>
 
 <script>
-    window.addEventListener("DOMContentLoaded", function () {
-        const flags = document.querySelectorAll(".flag-wrapper");
-        flags.forEach(flag => {
-            flag.classList.add("animate-flag-once");
+document.addEventListener("DOMContentLoaded", () => {
+    const flags = document.querySelectorAll(".flag-wrapper");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("animate-flag-once");
+                observer.unobserve(entry.target);
+            }
         });
-    });
+    }, { threshold: 0.3 });
+
+    flags.forEach(flag => observer.observe(flag));
+});
 </script>
 
 @if (count($countries)>0)
@@ -249,7 +268,7 @@
 
                     <div class="flag-wrapper">
 
-                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
+                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}" loading="lazy" width="120" height="120">
 
 
                     </div>

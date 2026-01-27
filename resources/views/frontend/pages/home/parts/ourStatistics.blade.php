@@ -93,6 +93,18 @@
     flex: 0 0 100%;
   }
 }
+@media (max-width: 767px) {
+    .circleBlur,
+    .circleBlur2 {
+        display: none;
+    }
+}
+@media (hover: hover) {
+    .statistics .specifications:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+}
 
 </style>
 
@@ -160,6 +172,12 @@
         </div>
     </section>
 @endif
-
+<script>
+    if (window.innerWidth > 768) {
+        document.querySelectorAll('.odometer').forEach(el => {
+            el.innerHTML = el.dataset.count;
+        });
+    }
+</script>
 
 
