@@ -2,6 +2,27 @@
 <html>
 
 <head>
+    <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
+    <script>
+    let hotjarLoaded = false;
+
+    function loadHotjar() {
+    if (hotjarLoaded) return;
+    hotjarLoaded = true;
+
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:4969317,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    }
+
+    window.addEventListener('scroll', loadHotjar, { once: true });
+    window.addEventListener('touchstart', loadHotjar, { once: true });
+    </script>
 
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -561,5 +582,33 @@
 
     </div>
 </div>
+<script>
+(function () {
+
+  let zohoLoaded = false;
+
+  function loadZoho() {
+    if (zohoLoaded) return;
+    zohoLoaded = true;
+
+    window.$zoho = window.$zoho || {};
+    window.$zoho.salesiq = window.$zoho.salesiq || {
+      ready: function () {}
+    };
+
+    const s = document.createElement('script');
+    s.id = 'zsiqscript';
+    s.src = 'https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c';
+    s.defer = true;
+
+    document.body.appendChild(s);
+  }
+
+  window.addEventListener('scroll', loadZoho, { once: true, passive: true });
+  window.addEventListener('touchstart', loadZoho, { once: true, passive: true });
+  window.addEventListener('mousemove', loadZoho, { once: true });
+
+})();
+</script>
 </body>
 </html>
