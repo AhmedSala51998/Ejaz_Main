@@ -349,28 +349,6 @@
         </div>
     </div>
 
-    <!-- ======= City Modal ======= -->
-    <div id="cityModal" hidden>
-    <div class="city-modal-content">
-        <div class="cards">
-        <div class="card" data-branch="jeddah">
-            <i class="fas fa-city"></i>
-            <span>جدة</span>
-        </div>
-
-        <div class="card" data-branch="yanbu">
-            <i class="fas fa-water"></i>
-            <span>ينبع</span>
-        </div>
-
-        <div class="card" data-branch="riyadh">
-            <i class="fas fa-building"></i>
-            <span>الرياض</span>
-        </div>
-        </div>
-    </div>
-    </div>
-
 
 </content>
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
