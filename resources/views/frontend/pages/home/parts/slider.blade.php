@@ -258,14 +258,6 @@ canvas {
                             </canvas>
                         </div>
                     @else
-                        {{-- MOBILE FALLBACK --}}
-                        <!--<img src="/images/globe-static.webp"
-                            alt="الدول المتاحة للاستقدام"
-                            width="360"
-                            height="360"
-                            loading="lazy"
-                            decoding="async"
-                            style="max-width:100%; display:block; margin:auto;">-->
                     @endif
 
             </div>
@@ -328,14 +320,6 @@ canvas {
                                 </canvas>
                             </div>
                         @else
-                            {{-- MOBILE FALLBACK --}}
-                            <!--<img src="/images/globe-static.webp"
-                                alt="الدول المتاحة للاستقدام"
-                                width="360"
-                                height="360"
-                                loading="lazy"
-                                decoding="async"
-                                style="max-width:100%; display:block; margin:auto;">-->
                         @endif
 
                 </div>

@@ -1,8 +1,8 @@
 <link rel="icon" type="image/x-icon" href="{{$settings->tap_logo ? get_file($settings->tap_logo) : asset('frontend/img/fav.svg')}}">
 
 
-<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
-<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" media="print" onload="this.media='all'">
 
 <link rel="preload" href="{{asset('frontend/css/fontawesome.min.css')}}" as="style" onload="this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -45,6 +45,10 @@
 
 
 <style>
+/* Critical CSS */
+body { margin:0; font-family: 'YourFont', sans-serif; }
+.hero { min-height: 400px; display:flex; justify-content:center; align-items:center; background:#fff; }
+.animatedLinkk { background:#D89835; color:white; padding:10px 22px; border-radius:50px; }
 .form-error { color: red; font-weight: normal; font-size: smaller; }
 input.valid, textarea.valid { border: 1px solid green; }
 
