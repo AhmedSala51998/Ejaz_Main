@@ -349,6 +349,28 @@
         </div>
     </div>
 
+    <!-- ======= City Modal ======= -->
+    <div id="cityModal" hidden>
+    <div class="city-modal-content">
+        <div class="cards">
+        <div class="card" data-branch="jeddah">
+            <i class="fas fa-city"></i>
+            <span>جدة</span>
+        </div>
+
+        <div class="card" data-branch="yanbu">
+            <i class="fas fa-water"></i>
+            <span>ينبع</span>
+        </div>
+
+        <div class="card" data-branch="riyadh">
+            <i class="fas fa-building"></i>
+            <span>الرياض</span>
+        </div>
+        </div>
+    </div>
+    </div>
+
 
 </content>
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
@@ -376,8 +398,6 @@
 </script>
 
 @yield('js')
-
-<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 <script>
 
     var cv_loader = ` <div class="linear-background"></div>`;
@@ -457,8 +477,6 @@
                 ob.html(`{{__('frontend.Recruitment Request')}} <i class="fa-solid fa-briefcase ms-2"></i>`);
 
                 let orderCode = data.order_code || '';
-                let sound = document.getElementById('successSound');
-                if (sound) sound.play();
 
                 Swal.fire({
                     title: '<span style="color:#f4a835; font-weight:bold;">🎉 {{__('frontend.Congratulation')}}</span>',
@@ -526,54 +544,6 @@
 
 
     });
-</script>
-
-@if(LaravelLocalization::getCurrentLocale() == 'ar')
-    <script src="{{asset('frontend/jQuery-Form-Validator/form-validator/lang/ar.js')}}"></script>
-@else
-    <script src="{{asset('frontend/jQuery-Form-Validator/form-validator/jquery.form-validator.js')}}"></script>
-@endif
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
-<script src="{{asset('frontend')}}/cute-alert-master/cute-alert.js"></script>
-
-<script>
-    $.validate({
-        ignore: 'input[type=hidden]',
-        modules: 'date, security',
-        lang: "{{ LaravelLocalization::getCurrentLocale() }}",
-    });
-
-</script>
-<script>
-window.addEventListener('load', () => {
-
-  const loader = document.querySelector('.loader-wrapper');
-  const globe  = document.getElementById('globe-container');
-  const bubble = document.getElementById('saudi-bubble');
-  const ramadanDecor = document.querySelectorAll(
-    '.ramadan-svg-decor, .ramadan-top-decor'
-  );
-
-  if (loader) {
-    loader.style.transition = 'opacity 0.3s ease';
-    loader.style.opacity = '0';
-
-    setTimeout(() => {
-      loader.style.display = 'none';
-
-      // mark page as loaded
-      document.body.classList.add('page-loaded');
-
-      // show elements
-      ramadanDecor.forEach(el => el.classList.add('ramadan-visible'));
-      globe?.classList.add('globe-visible');
-      bubble?.classList.add('globe-visible');
-
-    }, 300);
-  }
-
-});
 </script>
 <script>
 (() => {
