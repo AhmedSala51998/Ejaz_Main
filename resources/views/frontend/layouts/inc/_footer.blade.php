@@ -137,21 +137,21 @@
                 <h3>مزيد من الدعم</h3>
                 <ul class="connect">
                     @if(Cookie::get('branch') == 'yanbu')
-                      <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                      <li><i class="fab fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
                     @elseif(Cookie::get('branch') == 'jeddah')
-                      <li><i class="fa-light fa-location-dot"></i> الأمير فيصل، حي الخالدية، جدة 23423</li>
+                      <li><i class="fab fa-location-dot"></i> الأمير فيصل، حي الخالدية، جدة 23423</li>
                     @elseif(Cookie::get('branch') == 'riyadh')
-                        <li><i class="fa-light fa-location-dot"></i> 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</li>
+                        <li><i class="fab fa-location-dot"></i> 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</li>
                     @else
-                        <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                        <li><i class="fab fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
                     @endif
                     @if($settings->callNumber)
                         <li><i class="fa-light fa-phone"></i> <a href="tel:{{$settings->callNumber}}">{{$settings->callNumber}}</a></li>
                     @endif
-                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}">{{$settings->whatsappNumber}}</a></li>
-                    <li><i class="fa-light fa-phone-office"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone1}}">{{$settings->phone1}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone2}}">{{$settings->phone2}}</a></li>
-                    <li><i class="fa-light fa-phone-plus"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone3}}">{{$settings->phone3}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone4}}">{{$settings->phone4}}</a></li>
-                    <li><i class="fa-light fa-envelope"></i> <a href="mailto:{{$settings->email1}}">{{$settings->email1}}</a></li>
+                    <li><i class="fab fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}">{{$settings->whatsappNumber}}</a></li>
+                    <li><i class="fab fa-phone-office"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone1}}">{{$settings->phone1}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone2}}">{{$settings->phone2}}</a></li>
+                    <li><i class="fab fa-phone-plus"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone3}}">{{$settings->phone3}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone4}}">{{$settings->phone4}}</a></li>
+                    <li><i class="fab fa-envelope"></i> <a href="mailto:{{$settings->email1}}">{{$settings->email1}}</a></li>
                 </ul>
                 <ul class="social">
                     @if($settings->facebook)
