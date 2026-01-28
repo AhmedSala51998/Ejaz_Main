@@ -173,7 +173,7 @@
         box-shadow: 0 15px 35px rgba(255,136,0,.4);
         }
         .card i {
-        font-size: 64px;
+        font-size: 44px;
         margin-bottom: 10px;
         }
 
@@ -276,17 +276,17 @@
     <div class="city-modal-content">
         <div class="cards">
         <div class="card" data-branch="jeddah">
-            <i class="fas fa-city"></i>
+            <i style="font-size:44px !important" class="fas fa-city"></i>
             <span>جدة</span>
         </div>
 
         <div class="card" data-branch="yanbu">
-            <i class="fas fa-water"></i>
+            <i style="font-size:44px !important" class="fas fa-water"></i>
             <span>ينبع</span>
         </div>
 
         <div class="card" data-branch="riyadh">
-            <i class="fas fa-building"></i>
+            <i style="font-size:44px !important" class="fas fa-building"></i>
             <span>الرياض</span>
         </div>
         </div>

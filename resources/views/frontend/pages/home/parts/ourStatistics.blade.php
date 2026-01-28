@@ -149,7 +149,7 @@
                 </div>
                 <div class="col-6 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
-                        <i class="fa fa-user"></i>
+                        <i class="fas fa-building"></i>
                         <h1 class="odometer" data-count="812">00</h1>
                         <h6> زوارنا </h6>
                     </div>
