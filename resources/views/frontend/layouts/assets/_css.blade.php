@@ -34,15 +34,6 @@
 </noscript>
 
 <link rel="preload"
-      href="{{asset('frontend/css/all.min.css')}}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<noscript>
-  <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
-</noscript>
-
-<link rel="preload"
       as="style"
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap"
       onload="this.onload=null;this.rel='stylesheet'">
