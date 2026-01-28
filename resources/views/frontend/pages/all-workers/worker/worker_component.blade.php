@@ -1,4 +1,6 @@
 
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" as="style">
+
 <style>
 /* ================== CV CARD ================== */
 .cv-card {
@@ -234,6 +236,7 @@
 }
 
 </style>
+
 <div class="cv-card">
 
 
@@ -339,6 +342,8 @@
 
 </div>
 
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     Fancybox.bind("[data-fancybox]", {
