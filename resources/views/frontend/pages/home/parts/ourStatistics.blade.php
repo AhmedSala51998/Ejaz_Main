@@ -149,14 +149,14 @@
                 </div>
                 <div class="col-6 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
-                        <i class="fa-solid fa-buildings"></i>
+                        <i class="fa-solid fa-building"></i>
                         <h1 class="odometer" data-count="812">00</h1>
                         <h6> زوارنا </h6>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
-                        <i class="fa-solid fa-user-headset"></i>
+                        <i class="fa-solid fa-headset"></i>
                         <h1 class="odometer" data-count="793">00</h1>
                         <h6> خدمة العملاء </h6>
                     </div>

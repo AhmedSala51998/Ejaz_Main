@@ -146,7 +146,7 @@
                         <li><i class="fa-solid fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
                     @endif
                     @if($settings->callNumber)
-                        <li><i class="fa-light fa-phone"></i> <a href="tel:{{$settings->callNumber}}">{{$settings->callNumber}}</a></li>
+                        <li><i class="fa-solid fa-phone"></i> <a href="tel:{{$settings->callNumber}}">{{$settings->callNumber}}</a></li>
                     @endif
                     <li><i class="fab fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}">{{$settings->whatsappNumber}}</a></li>
                     <li><i class="fa-solid fa-phone"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone1}}">{{$settings->phone1}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone2}}">{{$settings->phone2}}</a></li>

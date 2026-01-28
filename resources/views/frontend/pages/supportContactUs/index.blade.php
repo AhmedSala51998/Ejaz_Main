@@ -756,7 +756,7 @@
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">
-                                    <span><i class="fa-solid fa-message-question"></i></span>
+                                    <span><i class="fa fa-message-question"></i></span>
                                     <p class="ms-3">
                                         الشكاوي والاقتراحات :
                                         <a href="tel:{{$settings->phone1}}">{{$settings->phone1}}</a>
