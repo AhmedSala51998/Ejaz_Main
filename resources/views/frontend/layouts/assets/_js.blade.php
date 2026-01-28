@@ -1,6 +1,6 @@
 <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
-<script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
