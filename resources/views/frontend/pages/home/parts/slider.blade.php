@@ -337,7 +337,7 @@ canvas {
                                         </p>
                                         <a href="{{route('all-workers')}}" class="animatedLinkk">
                                             طلب استقدام
-                                            <i class="fa-solid fa-left-long ms-2"><span></span></i>
+                                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
                                     </div>
                                 </div>
@@ -348,7 +348,7 @@ canvas {
                                         <p class="hint" style="color:#D89835">تعرف علي خدمتنا التي نقدمها لك</p>
                                         <a href="{{route('all-workers')}}" class="animatedLinkk">
                                             طلب استقدام
-                                            <i class="fa-solid fa-left-long ms-2"><span></span></i>
+                                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
                                     </div>
                                 </div>
@@ -362,7 +362,7 @@ canvas {
                                         </p>
                                         <a href="{{route('all-workers')}}" class="animatedLinkk">
                                             طلب استقدام
-                                            <i class="fa-solid fa-left-long ms-2"><span></span></i>
+                                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
                                     </div>
                                 </div>
