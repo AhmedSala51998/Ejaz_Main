@@ -289,7 +289,7 @@ body {
                         <p>نخدمكم على مدار <strong>24/7</strong></p>
                         <div class="d-grid gap-2">
                             <a href="https://api.whatsapp.com/send?phone={{ $admin->phone }}" target="_blank" class="btn btn-whatsapp">
-                                <i class="fa fa-whatsapp me-1"></i> واتساب
+                                <i class="fab fa-whatsapp me-1"></i> واتساب
                             </a>
                             <a href="tel:{{ $admin->phone }}" class="btn btn-call">
                                 <i class="fa fa-phone me-1"></i> اتصال

@@ -43,7 +43,7 @@
 }
 
 .statistics .specifications i {
-    font-size: 40px;
+    font-size: 44px;
     color: #ff9800;
     margin-bottom: 20px;
     display: block;
