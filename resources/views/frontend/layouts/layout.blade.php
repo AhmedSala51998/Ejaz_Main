@@ -173,7 +173,7 @@
         box-shadow: 0 15px 35px rgba(255,136,0,.4);
         }
         .card i {
-        font-size: 44px;
+        font-size: 64px;
         margin-bottom: 10px;
         }
 
