@@ -1,5 +1,5 @@
 <a href="{{route('all-workers')}}" class="newOrderBtn">
-    <i class="fa fa-arrow-left fa-xl"></i>
+    <i class="fa fa-arrow-right fa-xl"></i>
     <p class="mb-0 fw-bold">{{ __('frontend.New Recruitment Request') }}</p>
 </a>
 
@@ -14,7 +14,7 @@
          class="d-flex align-items-center justify-content-center py-5">
         <button id="load_more_current_orders_button" class="loadMoreBtn">
             {{ __('frontend.load more') }}
-            <i class="fa fa-left-long ms-2"><span></span></i>
+            <i class="fa fa-arrow-right ms-2"><span></span></i>
         </button>
     </div>
 @else

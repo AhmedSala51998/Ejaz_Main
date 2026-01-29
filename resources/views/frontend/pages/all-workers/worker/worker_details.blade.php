@@ -325,7 +325,7 @@
                 <div class="pt-4 p-2 text-center">
                     <button attr-id="{{$cv->id}}" class="animatedLinkk Recruitment_Request">
                         {{__('frontend.Recruitment Request')}}
-                        <i class="fa-regular fa-left-long ms-2"></i>
+                        <i class="fa fa-arrow-right ms-2"></i>
                     </button>
                 </div>
             </div>

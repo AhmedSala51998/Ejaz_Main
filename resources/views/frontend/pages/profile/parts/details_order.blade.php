@@ -1550,13 +1550,13 @@ body[dir="rtl"] .info-label {
                                 </div>
                                 <div class="col-6 col-md-3 p-1">
                                     <a class="contact" href="https://api.whatsapp.com/send?phone={{$order->admin->whats_up_number}}" target="_blank">
-                                        <i class="me-2 fa-brands fa-whatsapp-square"></i>
+                                        <i style="font-size:30px !important" class="me-2 fa-brands fa-whatsapp-square"></i>
                                         <p>تواصل عبر الواتس اب</p>
                                     </a>
                                 </div>
                                 <div class="col-6 col-md-3 p-1">
                                     <a class="contact" href="tel:{{$order->admin->phone}}" target="_blank">
-                                        <i class="me-2 fa-solid fa-square-phone"></i>
+                                        <i style="font-size:30px !important" class="me-2 fa-solid fa-square-phone"></i>
                                         <p>تواصل عبر الهاتف </p>
                                     </a>
                                 </div>

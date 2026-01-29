@@ -27,7 +27,7 @@
                 <ul class="order-info-list-super-pro">
                     <li>
                         <div class="info-item-super">
-                            <span class="icon-wrap-super"><i class="fa fa-globe text-orange-gradient"></i></span>
+                            <span class="icon-wrap-super"><i class="fa-solid fa-flag text-orange-gradient"></i></span>
                             <div>
                                 <h6 class="text-orange-dark-title">{{__('frontend.Nationality')}}:</h6>
                                 <p>{{$orderHistory->biography->nationalitie? $orderHistory->biography->nationalitie->title : "غير متاح"}}</p>
@@ -36,7 +36,7 @@
                     </li>
                     <li>
                         <div class="info-item-super">
-                            <span class="icon-wrap-super"><i class="fa fa-user text-orange-gradient"></i></span>
+                            <span class="icon-wrap-super"><i class="fa-solid fa-user text-orange-gradient"></i></span>
                             <div>
                                 <h6 class="text-orange-dark-title">{{__('frontend.Occupation')}}:</h6>
                                 <p>{{$orderHistory->biography->job? $orderHistory->biography->job->title : "غير متاح"}}</p>
