@@ -14,6 +14,7 @@
 </noscript>
 
 <link rel="preload" href="{{asset('frontend/css/fontawesome.min.css')}}" as="style" onload="this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/animate.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/aos.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/dropify.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -27,6 +28,7 @@
 
 
 <noscript>
+  <link rel="stylesheet" href="{{asset('frontend/css/swiper-bundle.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/animate.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/aos.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/dropify.min.css')}}">
