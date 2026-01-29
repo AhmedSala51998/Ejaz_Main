@@ -28,23 +28,29 @@
 
             </div>
             <div class="col-md-5 order-md-1 p-1">
-                <!-- main slider (STATIC - Swiper Disabled) -->
-                <div class="mainSlider staticHero">
-                    <div class="mainSlideItem">
-                        <div class="info">
-                            <h1 class="sliderTitle" style="color:#D89835">
-                                {{ $sliders[0]->title }}
-                            </h1>
+                <!-- main slider -->
+                <!-- main slider (STATIC - Swiper REMOVED) -->
+                <div class="mainSlider">
+                    <div class="mainSliderContainer">
+                        <!-- main slide -->
+                        @foreach($sliders as $slider)
+                            <div class="mainSlideItem">
+                                <div class="info">
+                                    <h1 class="sliderTitle" style="color:#D89835">
+                                        {{$slider->title}}
+                                    </h1>
 
-                            <p class="hint" style="color:#D89835">
-                                {{ $sliders[0]->desc }}
-                            </p>
+                                    <p class="hint" style="color:#D89835">
+                                        {{$slider->desc}}
+                                    </p>
 
-                            <a href="{{route('all-workers')}}" class="animatedLinkk">
-                                طلب استقدام
-                                <i class="fa fa-arrow-left ms-2"><span></span></i>
-                            </a>
-                        </div>
+                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                        طلب استقدام
+                                        <i class="fa fa-arrow-left ms-2"><span></span></i>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -385,31 +391,3 @@ function draw(){
 }
 </script>
 @endif
-<script>
-requestIdleCallback(() => {
-    const hero = document.querySelector('.staticHero');
-    hero.classList.add('swiper', 'mainSliderContainer');
-
-    hero.innerHTML = `
-        <div class="swiper-wrapper">
-            @foreach($sliders as $slider)
-            <div class="swiper-slide mainSlideItem">
-                <div class="info">
-                    <h1 class="sliderTitle" style="color:#D89835">{{ $slider->title }}</h1>
-                    <p class="hint" style="color:#D89835">{{ $slider->desc }}</p>
-                    <a href="{{route('all-workers')}}" class="animatedLinkk">
-                        طلب استقدام
-                        <i class="fa fa-arrow-left ms-2"></i>
-                    </a>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    `;
-
-    new Swiper('.staticHero', {
-        loop: true,
-        autoplay: { delay: 4000 },
-    });
-});
-</script>
