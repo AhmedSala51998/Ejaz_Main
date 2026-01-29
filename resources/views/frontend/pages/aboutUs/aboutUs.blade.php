@@ -97,24 +97,24 @@
 
                     <ul class="description-list list-unstyled">
                         <li>
-                            <i class="fa-solid fa-circle-check"></i>
+                            <i style="font-size: 34px !important;color:#d97706 !important;margin-left:5px !important" class="fa-solid fa-circle-check"></i>
                             خدمة عملاء مميزة على مدار اليوم
 
                         </li>
                         <li>
-                            <i class="fa-solid fa-circle-check"></i>
+                            <i style="font-size: 34px !important;color:#d97706 !important;margin-left:5px !important" class="fa-solid fa-circle-check"></i>
                             مرخصين من وزارة الموارد البشرية ومتواجدون في منصة مساند
                         </li>
                         <li>
-                            <i class="fa-solid fa-circle-check"></i>
+                            <i style="font-size: 34px !important;color:#d97706 !important;margin-left:5px !important" class="fa-solid fa-circle-check"></i>
                             ضمان العمالة 3 أشهر
                         </li>
                         <li>
-                            <i class="fa-solid fa-circle-check"></i>
+                            <i style="font-size: 34px !important;color:#d97706 !important;margin-left:5px !important" class="fa-solid fa-circle-check"></i>
                             نلتزم بتقديم خدمات استقدام عالية الجودة بمستوى عالٍ من الاحترافية
                         </li>
                         <li>
-                            <i class="fa-solid fa-circle-check"></i>
+                            <i style="font-size: 34px !important;color:#d97706 !important;margin-left:5px !important" class="fa-solid fa-circle-check"></i>
                             سرعه الانجاز والتواصل الفعال خلال مده العقد معك
 
                         </li>
