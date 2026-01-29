@@ -28,32 +28,31 @@
 
             </div>
             <div class="col-md-5 order-md-1 p-1">
-                <!-- main slider -->
-                <div class="mainSlider swiperContainer">
-                    <div class="swiper mainSliderContainer">
-                        <div class="swiper-wrapper">
-                            <!-- swiper-slide -->
-                            @foreach($sliders as $slider)
+                <!-- main hero (STATIC - first item only) -->
 
-                            <div class="swiper-slide mainSlideItem">
-                                <div class="info">
-                                    <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
-                                    <p class="hint" style="color:#D89835">
-                                        {{$slider->desc}}
-                                    </p>
+                @if(count($sliders) > 0)
+                    @php $slider = $sliders[0]; @endphp
 
-                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
-                                        طلب استقدام
+                    <div class="mainSlider">
+                        <div class="mainSlideItem">
+                            <div class="info">
+                                <h1 class="sliderTitle" style="color:#D89835">
+                                    {{ $slider->title }}
+                                </h1>
 
-                                        <i class="fa fa-arrow-left ms-2"><span></span></i>
-                                    </a>
-                                </div>
+                                <p class="hint" style="color:#D89835">
+                                    {{ $slider->desc }}
+                                </p>
+
+                                <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                    طلب استقدام
+                                    <i class="fa fa-arrow-left ms-2"><span></span></i>
+                                </a>
                             </div>
-                            @endforeach
-
                         </div>
                     </div>
-                </div>
+                @endif
+
             </div>
         </div>
     </div>
