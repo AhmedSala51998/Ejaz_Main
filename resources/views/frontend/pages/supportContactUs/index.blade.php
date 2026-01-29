@@ -704,7 +704,7 @@
                         <div class="companyInfo ">
                             <ul>
                                 <li class="" data-aos="fade-up">
-                                    <span><i class="fa-solid fa-map-location"></i></span>
+                                    <span><i style="color: #ff9800 !important;" class="fa-solid fa-map-location"></i></span>
                                     @if(Cookie::get('branch') == 'yanbu')
                                       <p class="ms-3">
                                             فروعنا :
@@ -744,7 +744,7 @@
                                       @endif
                                 </li>
                                 <li class="" data-aos="fade-up">
-                                    <span><i class="fa-solid fa-phone"></i></span>
+                                    <span><i style="color: #ff9800 !important;" class="fa-solid fa-phone"></i></span>
                                     <p class="ms-3">
                                         المبيعات :
                                         <a href="tel:{{$settings->callNumber ?? '+966 0123456789'}}"> {{$settings->callNumber ?? '+966 0123456789'}} </a>
@@ -756,14 +756,14 @@
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">
-                                    <span><i class="fas fa-question"></i></span>
+                                    <span><i style="color: #ff9800 !important;" class="fas fa-question"></i></span>
                                     <p class="ms-3">
                                         الشكاوي والاقتراحات :
                                         <a href="tel:{{$settings->phone1}}">{{$settings->phone1}}</a>
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">
-                                    <span><i class="fas fa-envelope"></i></span>
+                                    <span><i style="color: #ff9800 !important;" class="fas fa-envelope"></i></span>
                                     <p class="ms-3">
                                         البريد الالكتروني :
                                         <a href="mailto:{{$settings->email1}}">{{$settings->email1}}</a>

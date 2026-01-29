@@ -43,10 +43,11 @@
 }
 
 .statistics .specifications i {
-    font-size: 44px;
-    color: #ff9800;
+    font-size: 44px !important;
+    color: #ff9800 !important;
     margin-bottom: 20px;
     display: block;
+    margin-left:5px !important;
 }
 
 .statistics .specifications h1 {
@@ -92,6 +93,13 @@
     max-width: 100%;
     flex: 0 0 100%;
   }
+    .statistics .specifications i {
+        font-size: 44px !important;
+        color: #ff9800 !important;
+        margin-bottom: 20px;
+        display: block;
+        margin-left:0 !important;
+    }
 }
 @media (max-width: 767px) {
     .circleBlur,
@@ -121,7 +129,7 @@
                 @foreach($statistics as $statistic)
                 <div class="col-12 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
-                        <i style="font-size: 44px !important;color:#d97706 !important" class="fa {{$statistic->icon}}"></i>
+                        <i class="fa {{$statistic->icon}}"></i>
                         <h1 class="odometer" data-count="{{$statistic->number}}">00</h1>
                         <h6> {{$statistic->title}} </h6>
                     </div>
