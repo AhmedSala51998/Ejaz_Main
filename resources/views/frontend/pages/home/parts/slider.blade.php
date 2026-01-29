@@ -28,30 +28,29 @@
 
             </div>
             <div class="col-md-5 order-md-1 p-1">
-                <!-- main slider -->
-                <div class="mainSlider swiperContainer">
-                    <div class="swiper mainSliderContainer">
-                        <div class="swiper-wrapper">
-                            <!-- swiper-slide -->
-                            @foreach($sliders as $slider)
+                <!-- main slider (STATIC, first item only, Swiper removed) -->
+                <div class="mainSlider">
+                    <div class="mainSliderContainer">
+                        @if($sliders->count() > 0)
+                            @php $slider = $sliders->first(); @endphp
 
-                            <div class="swiper-slide mainSlideItem">
+                            <div class="mainSlideItem">
                                 <div class="info">
-                                    <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
+                                    <h1 class="sliderTitle" style="color:#D89835">
+                                        {{ $slider->title }}
+                                    </h1>
+
                                     <p class="hint" style="color:#D89835">
-                                        {{$slider->desc}}
+                                        {{ $slider->desc }}
                                     </p>
 
                                     <a href="{{route('all-workers')}}" class="animatedLinkk">
                                         طلب استقدام
-
                                         <i class="fa fa-arrow-left ms-2"><span></span></i>
                                     </a>
                                 </div>
                             </div>
-                            @endforeach
-
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
