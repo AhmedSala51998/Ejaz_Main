@@ -29,31 +29,7 @@
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
-                <div class="mainSlider swiperContainer">
-                    <div class="swiper mainSliderContainer">
-                        <div class="swiper-wrapper">
-                            <!-- swiper-slide -->
-                            @foreach($sliders as $slider)
 
-                            <div class="swiper-slide mainSlideItem">
-                                <div class="info">
-                                    <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
-                                    <p class="hint" style="color:#D89835">
-                                        {{$slider->desc}}
-                                    </p>
-
-                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
-                                        طلب استقدام
-
-                                        <i class="fa fa-arrow-left ms-2"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
