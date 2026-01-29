@@ -32,27 +32,24 @@
                 <div class="mainSlider swiperContainer">
                     <div class="swiper mainSliderContainer">
                         <div class="swiper-wrapper">
+                            <!-- swiper-slide -->
+                            @foreach($sliders as $slider)
 
-                            @if($sliders->count() > 0)
-                                @php $slider = $sliders->first(); @endphp
+                            <div class="swiper-slide mainSlideItem">
+                                <div class="info">
+                                    <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
+                                    <p class="hint" style="color:#D89835">
+                                        {{$slider->desc}}
+                                    </p>
 
-                                <div class="swiper-slide mainSlideItem">
-                                    <div class="info">
-                                        <h1 class="sliderTitle" style="color:#D89835">
-                                            {{ $slider->title }}
-                                        </h1>
+                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                        طلب استقدام
 
-                                        <p class="hint" style="color:#D89835">
-                                            {{ $slider->desc }}
-                                        </p>
-
-                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
-                                            طلب استقدام
-                                            <i class="fa fa-arrow-left ms-2"><span></span></i>
-                                        </a>
-                                    </div>
+                                        <i class="fa fa-arrow-left ms-2"><span></span></i>
+                                    </a>
                                 </div>
-                            @endif
+                            </div>
+                            @endforeach
 
                         </div>
                     </div>
