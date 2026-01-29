@@ -1,5 +1,5 @@
 <a href="{{route('all-workers')}}" class="newOrderBtn">
-    <i class="fa fa-file-plus fa-xl"></i>
+    <i class="fa fa-arrow-left fa-xl"></i>
     <p class="mb-0 fw-bold">{{ __('frontend.New Recruitment Request') }}</p>
 </a>
 

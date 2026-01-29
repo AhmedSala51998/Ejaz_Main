@@ -392,19 +392,19 @@
                         <div class="col-lg-3"> {{-- Dedicated column for navigation --}}
                             <div class="profileNavCol">
                                 <a href="{{route('profile.CurrentOrders')}}" id="activeButton" class="change_part_of_profile">
-                                    <i class="fa-solid fa-user-hair-mullet"></i> طلبات الاستقدام
+                                    <i style="font-size:30px !important" class="fa-solid fa-clipboard-list"></i> طلبات الاستقدام
                                 </a>
                                 <a href="{{route('profile.OrdersHistory')}}" class="change_part_of_profile">
-                                    <i class="fa-solid fa-user-headset"></i> سجل الطلبات
+                                    <i style="font-size:30px !important" class="fa-solid fa-folder-open"></i> سجل الطلبات
                                 </a>
                                 <a href="{{route('profile.Notifications')}}" class="change_part_of_profile">
-                                    <i class="fas fa-bell"></i> الاشعارات
+                                    <i style="font-size:30px !important" class="fas fa-bell"></i> الاشعارات
                                 </a>
                                 <a href="{{route('profile.editProfile')}}" class="change_part_of_profile">
-                                    <i class="fas fa-cog"></i> اعدادات الحساب
+                                    <i style="font-size:30px !important" class="fas fa-cog"></i> اعدادات الحساب
                                 </a>
                                 <a href="{{route('auth.logout')}}">
-                                    <i class="fas fa-power-off"></i> {{__('frontend.Logout')}}
+                                    <i style="font-size:30px !important" class="fas fa-power-off"></i> {{__('frontend.Logout')}}
                                 </a>
                             </div>
                         </div>
