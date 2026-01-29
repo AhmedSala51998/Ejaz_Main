@@ -121,7 +121,7 @@
                 @foreach($statistics as $statistic)
                 <div class="col-12 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
-                        <i class="fa {{$statistic->icon}}"></i>
+                        <i style="font-size: 44px !important;color:#d97706 !important" class="fa {{$statistic->icon}}"></i>
                         <h1 class="odometer" data-count="{{$statistic->number}}">00</h1>
                         <h6> {{$statistic->title}} </h6>
                     </div>
