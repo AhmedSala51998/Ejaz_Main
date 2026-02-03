@@ -160,6 +160,16 @@ const canvas = document.getElementById('sphere-canvas');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
+  function resizeCanvas() {
+    const wrapper = canvas.parentElement;
+    const size = Math.min(wrapper.clientWidth, 600);
+    canvas.width  = size;
+    canvas.height = size;
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
 if (typeof topojson === "undefined") {
     console.error("TopoJSON not loaded");
     return;
@@ -177,7 +187,6 @@ let velocityX = 0, velocityY = 0;
 let features = [];
 
 const targetCountries = {};
-const arabicNames = {};
 
 @foreach($countries as $c)
   @if(isset($countryMap[$c->country_name]))
@@ -187,8 +196,6 @@ const arabicNames = {};
     };
   @endif
 @endforeach
-
-let dataReady = false;
 
 let dataReady = false;
 
