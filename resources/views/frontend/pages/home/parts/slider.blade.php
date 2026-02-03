@@ -143,20 +143,21 @@
 @if(!$isMobile)
 @php
 $countryMap = [
-    "الهند" => "India",
-    "بروندي" => "Burundi",
-    "الفلبين" => "Philippines",
-    "سريلانكا" => "Sri Lanka",
-    "اثيوبيا" => "Ethiopia",
-    "اوغندا" => "Uganda",
-    "كينيا" => "Kenya",
-    "بنجلاديش" => "Bangladesh",
+  "الهند" => 356,
+  "بروندي" => 108,
+  "الفلبين" => 608,
+  "سريلانكا" => 144,
+  "اثيوبيا" => 231,
+  "اوغندا" => 800,
+  "كينيا" => 404,
+  "بنجلاديش" => 50,
 ];
 @endphp
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 const canvas = document.getElementById('sphere-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
 if (typeof topojson === "undefined") {
@@ -179,35 +180,41 @@ const targetCountries = {};
 const arabicNames = {};
 
 @foreach($countries as $c)
-    @if(isset($countryMap[$c->country_name]))
-        targetCountries["{{ $countryMap[$c->country_name] }}"] = {
-            price: "{{ number_format($c->price,0) }} ريال"
-        };
-
-        arabicNames["{{ $countryMap[$c->country_name] }}"] = "{{ $c->country_name }}";
-    @endif
+  @if(isset($countryMap[$c->country_name]))
+    targetCountries[{{ $countryMap[$c->country_name] }}] = {
+      price: "{{ number_format($c->price,0) }} ريال",
+      nameAr: "{{ $c->country_name }}"
+    };
+  @endif
 @endforeach
+
+let dataReady = false;
+
+let dataReady = false;
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
+
     features = topojson.feature(world, world.objects.countries).features;
 
     features.forEach(f => {
-      const name = f.properties.name;
-      if (!targetCountries[name]) return;
+      const id = +f.id;
+      if (!targetCountries[id]) return;
 
       let coords;
-      if (f.geometry.type === "Polygon") coords = f.geometry.coordinates[0];
-      else coords = f.geometry.coordinates[0][0];
+      if (f.geometry.type === "Polygon")
+        coords = f.geometry.coordinates[0];
+      else
+        coords = f.geometry.coordinates[0][0];
 
       const [lat, lon] = getCentroid(coords);
-      targetCountries[name].lat = lat;
-      targetCountries[name].lon = lon;
+      targetCountries[id].lat = lat;
+      targetCountries[id].lon = lon;
     });
 
+    dataReady = true;
     requestAnimationFrame(draw);
-
   });
 
 function getCentroid(coords) {
@@ -356,10 +363,10 @@ function draw(){
   });
 
   const t = performance.now();
-  Object.keys(targetCountries).forEach(name => {
-    const c = targetCountries[name];
-    if(!c.lat) return;
-    const p = project(c.lat,c.lon);
+    Object.values(targetCountries).forEach(c => {
+    if (!c.lat) return;
+
+    const p = project(c.lat, c.lon);
     if (p.z < 0) return;
 
     drawWaterRipple(p.x, p.y, p.z, t);
@@ -368,25 +375,13 @@ function draw(){
     const bubbleBaseY = p.y - 20;
     const bubbleY = bubbleBaseY - float * 14;
 
-    const text = `${c.price} - ${arabicNames[name]}`;
+    const text = `${c.price} - ${c.nameAr}`;
     const scale = 0.95 + float * 0.05;
     const alpha = 0.95;
 
-    drawChatBubble(
-    p.x,
-    bubbleY,
-    text,
-    alpha,
-    scale
-    );
-
-    drawArrowAttached(
-    p.x,
-    bubbleY,
-    scale,
-    alpha
-    );
-  });
+    drawChatBubble(p.x, bubbleY, text, alpha, scale);
+    drawArrowAttached(p.x, bubbleY, scale, alpha);
+    });
 
   if(!isDragging){
     velocityX *= 0.95;
