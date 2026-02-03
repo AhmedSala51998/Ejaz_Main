@@ -153,7 +153,7 @@ $countryMap = [
   "بنجلاديش" => 50,
 ];
 @endphp
-<script src="https://unpkg.com/topojson-client@3"></script>
+<script defer src="https://unpkg.com/topojson-client@3"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 const canvas = document.getElementById('sphere-canvas');
