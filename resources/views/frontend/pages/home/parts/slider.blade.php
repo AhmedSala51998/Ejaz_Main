@@ -153,10 +153,16 @@ $countryMap = [
     "بنجلاديش" => "Bangladesh",
 ];
 @endphp
-<script defer src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
 <script>
+document.addEventListener("DOMContentLoaded", function () {
 const canvas = document.getElementById('sphere-canvas');
 const ctx = canvas.getContext('2d');
+
+if (typeof topojson === "undefined") {
+    console.error("TopoJSON not loaded");
+    return;
+}
 
 const W = canvas.width;
 const H = canvas.height;
@@ -182,26 +188,14 @@ const arabicNames = {};
     @endif
 @endforeach
 
+let dataReady = false;
+
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
     features = topojson.feature(world, world.objects.countries).features;
-
-    features.forEach(f => {
-      const name = f.properties.name;
-      if (!targetCountries[name]) return;
-
-      let coords;
-      if (f.geometry.type === "Polygon") coords = f.geometry.coordinates[0];
-      else coords = f.geometry.coordinates[0][0];
-
-      const [lat, lon] = getCentroid(coords);
-      targetCountries[name].lat = lat;
-      targetCountries[name].lon = lon;
-    });
-
+    dataReady = true;
     requestAnimationFrame(draw);
-
   });
 
 function getCentroid(coords) {
@@ -338,6 +332,7 @@ window.addEventListener('mousemove', e=>{
 });
 
 function draw(){
+  if (!dataReady) return;
   ctx.clearRect(0,0,W,H);
   drawSphereOutline();
 
@@ -390,5 +385,6 @@ function draw(){
 
   requestAnimationFrame(draw);
 }
+});
 </script>
 @endif
