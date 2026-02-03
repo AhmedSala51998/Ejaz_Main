@@ -188,14 +188,26 @@ const arabicNames = {};
     @endif
 @endforeach
 
-let dataReady = false;
-
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
     features = topojson.feature(world, world.objects.countries).features;
-    dataReady = true;
+
+    features.forEach(f => {
+      const name = f.properties.name;
+      if (!targetCountries[name]) return;
+
+      let coords;
+      if (f.geometry.type === "Polygon") coords = f.geometry.coordinates[0];
+      else coords = f.geometry.coordinates[0][0];
+
+      const [lat, lon] = getCentroid(coords);
+      targetCountries[name].lat = lat;
+      targetCountries[name].lon = lon;
+    });
+
     requestAnimationFrame(draw);
+
   });
 
 function getCentroid(coords) {
