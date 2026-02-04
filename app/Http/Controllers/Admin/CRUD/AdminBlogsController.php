@@ -95,11 +95,6 @@ class AdminBlogsController extends Controller
             Blog::where('is_featured', 1)->update(['is_featured' => 0]);
         }
 
-        if (!$request->has('is_featured') && $blog->featured_image) {
-            unlink(public_path($blog->featured_image));
-            $blog->featured_image = null;
-        }
-
         $imagePath = null;
         $secondImagePath = null;
         $featuredImagePath = null;
