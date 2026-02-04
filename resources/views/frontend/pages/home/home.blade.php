@@ -5,6 +5,53 @@
 @endsection
 
 @section('styles')
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+        "@type": "WebSite",
+        "@id": "{{ url('/') }}#website",
+        "url": "{{ url('/') }}",
+        "name": "{{ config('app.name') }}",
+        "description": "شركة إيجاز للاستقدام – خدمات استقدام العمالة المنزلية داخل المملكة العربية السعودية",
+        "publisher": {
+            "@id": "{{ url('/') }}#organization"
+        },
+        "hasPart": {
+            "@type": "SiteNavigationElement",
+            "name": [
+            "الرئيسية",
+            "طلب استقدام"
+            "من نحن",
+            "خدمات الاستقدام",
+            "المدونة",
+            "اتصل بنا"
+            ],
+            "url": [
+            "{{ url('/') }}",
+            "{{ url('/all-workers') }}",
+            "{{ url('/about') }}",
+            "{{ url('/services') }}",
+            "{{ url('/blog') }}",
+            "{{ url('/contact') }}"
+            ]
+        }
+        },
+        {
+        "@type": "Organization",
+        "@id": "{{ url('/') }}#organization",
+        "name": "{{ config('app.name') }}",
+        "url": "{{ url('/') }}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ asset('frontend/img/logo.png') }}"
+        }
+        }
+    ]
+    }
+    </script>
     <style>
     </style>
 @endsection

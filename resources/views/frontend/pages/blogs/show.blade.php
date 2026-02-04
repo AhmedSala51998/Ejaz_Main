@@ -5,6 +5,40 @@
 @endsection
 
 @section('styles')
+
+@isset($blog)
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ url()->current() }}"
+  },
+  "headline": "{{ $blog->title }}",
+  "description": "{{ $blog->excerpt ?? Str::limit(strip_tags($blog->content), 160) }}",
+  "image": [
+    "{{ asset($blog->image) }}"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "{{ config('app.name') }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ config('app.name') }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ asset('frontend/img/logo.png') }}"
+    }
+  },
+  "datePublished": "{{ $blog->created_at->toIso8601String() }}",
+  "dateModified": "{{ $blog->updated_at->toIso8601String() }}"
+}
+</script>
+@endisset
+
+
 <style>
 :root{
     --orange:#D89835;
