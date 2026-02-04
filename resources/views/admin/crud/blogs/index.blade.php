@@ -184,7 +184,9 @@
 <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-
+<script>
+    CKEDITOR.config.versionCheck = false;
+</script>
 <script>
 let table = $('#Datatable').DataTable({
     processing:true,
