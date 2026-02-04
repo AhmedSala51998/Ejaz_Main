@@ -118,10 +118,3 @@
 <script>
     $('.dropify').dropify();
 </script>
-<script>
-document.getElementById('Form').addEventListener('submit', function () {
-    if (CKEDITOR.instances.editor) {
-        CKEDITOR.instances.editor.updateElement();
-    }
-});
-</script>
