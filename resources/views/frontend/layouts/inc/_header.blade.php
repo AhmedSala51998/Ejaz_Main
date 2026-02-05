@@ -507,6 +507,7 @@ body.sticky-header-active {
                     <li><a class="navLink {{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view')}}"> تتبع طلبك</a></li>
                     <li><a class="navLink {{ Request::routeIs('blog.index') ? 'active' : '' }}" href="{{route('blog.index')}}"> المدونة </a></li>
                     <li><a class="navLink {{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}"> تواصل معنا</a></li>
+                    <li><a class="navLink {{ Request::routeIs('frontend.frequently-questions') ? 'active' : '' }}" href="{{route('frontend.frequently-questions')}}">الأسئلة الشائعة</a></li>
 
                     @auth()
                         <li class="dropdownWrapper d-none d-lg-block">
@@ -563,6 +564,7 @@ body.sticky-header-active {
         <li><a class="{{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view')}}">تتبع الطلب</a></li>
         <li><a class="{{ Request::routeIs('blog.index') ? 'active' : '' }}" href="{{route('blog.index')}}">المدونة</a></li>
         <li><a class="{{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}">تواصل معنا</a></li>
+        <li><a class="{{ Request::routeIs('frontend.frequently-questions') ? 'active' : '' }}" href="{{route('frontend.frequently-questions')}}">الأسئلة الشائعة</a></li>
         @auth()
             <li class="dropdownWrapper d-block d-lg-none">
                 <a class="navLink dropdownToggle {{ Request::routeIs(['auth.profile', 'auth.notifications', 'auth.settings']) ? 'active' : '' }}" href="javascript:void(0);">

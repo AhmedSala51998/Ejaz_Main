@@ -358,28 +358,8 @@
 {{--    });--}}
 {{--</script>--}}
 <div class="floating-container">
-    <div class="floating-button"><i class="fa-solid fa-circle-question"></i></div>
-    <div class="element-container">
-
-        <!-- FAQ -->
-        <span class="float-element tooltip-left">
-            <a style="color:#FFF !important" href="{{ route('frontend.supports') }}">
-                <i class="fa-solid fa-circle-question"></i>
-            </a>
-        </span>
-
-    </div>
-</div>
-<div class="floating-container">
     <div class="floating-button"><i class="fa-solid fa-headset"></i></div>
     <div class="element-container">
-
-        <!-- FAQ -->
-        <span class="float-element tooltip-left">
-            <a href="{{ route('frontend.supports') }}">
-                <i class="fa-solid fa-circle-question"></i>
-            </a>
-        </span>
 
         <a  href="tel:{{$settings->callNumber}}" target="_blank">
           <span class="float-element tooltip-left">

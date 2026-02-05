@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    الاسئلة الشائعة
+    الأسئلة الشائعة
 @endsection
 
 @section('styles')
@@ -102,15 +102,6 @@ body{
 }
 
 /* ===== FAQ Container ===== */
-.supportFaq{
-    background:rgba(255,255,255,.2);
-    backdrop-filter:blur(16px);
-    border-radius:25px;
-    padding:30px;
-    border:1px solid rgba(244,168,53,.35);
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
-    min-height:300px;
-}
 
 /* ===== FAQ Item ===== */
 .supportFaq .accordion-item,
@@ -177,10 +168,10 @@ body{
     <content>
         <!-- ================ banner ================= -->
         <div class="banner">
-            <h1> الاسئلة الشائعة </h1>
+            <h1> الأسئلة الشائعة </h1>
             <ul>
                 <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-                <li> <a href="#!" class="active">  الاسئلة الشائعة  </a> </li>
+                <li> <a href="#!" class="active">  الأسئلة الشائعة  </a> </li>
             </ul>
         </div>
         <!-- ================  / banner ================= -->
@@ -191,7 +182,7 @@ body{
                 <div class="row">
                     <div class="col-md-12 p-2">
                         <!-- faq -->
-                        <div class="" id="container-question">
+                        <div class="supportFaq" id="container-question">
                         @include('frontend.pages.support.parts.questions')
                         </div>
                     </div>

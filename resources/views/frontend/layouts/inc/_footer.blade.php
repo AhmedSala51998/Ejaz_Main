@@ -118,6 +118,7 @@
                     @guest
                         <li><a href="{{route('auth.login')}}">{{__('frontend.Login')}}</a></li>
                     @endguest
+                    <li><a href="{{route('frontend.frequently-questions')}}">الأسئلة الشائعة</a></li>
                 </ul>
             </div>
 
