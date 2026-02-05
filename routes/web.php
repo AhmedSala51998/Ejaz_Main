@@ -255,7 +255,7 @@ Route::group(
 
     ## support
 
-    Route::get('frequently-questions',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.frequently-questions');
+    Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
 
 
     ## contactUs Support
