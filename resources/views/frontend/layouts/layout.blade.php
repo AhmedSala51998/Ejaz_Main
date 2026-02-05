@@ -363,8 +363,8 @@
 
         <!-- FAQ -->
         <span class="float-element tooltip-left">
-            <a href="{{ route('frontend.frequently-questions') }}">
-                <i style="color:#FFF !important" class="fa-solid fa-circle-question"></i>
+            <a href="{{ route('frontend.supports') }}">
+                <i class="fa-solid fa-circle-question"></i>
             </a>
         </span>
 
