@@ -209,7 +209,7 @@ body{
 
                 $.ajax({
                     type:'GET',
-                    url:"{{route('frontend.supports')}}",
+                    url:"{{route('frontend.frequently-questions')}}",
                     data:{
 
                     },
