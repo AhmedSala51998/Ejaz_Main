@@ -61,12 +61,12 @@
 /* Open State */
 .accordion-button:not(.collapsed) {
     background: linear-gradient(135deg,#f4a835,#ffb23c);
-    color: #fff;
+    color: #fff !important;
 }
 
 .accordion-button:not(.collapsed) .icon {
     transform: rotate(180deg);
-    color: #fff;
+    color: #fff !important;
 }
 
 /* Body */
