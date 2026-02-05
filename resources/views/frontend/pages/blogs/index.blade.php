@@ -353,6 +353,152 @@ body {
 .mag-card:hover {
     transform: translateY(-4px);
 }
+
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 25px 0;
+    flex-wrap: wrap;
+}
+
+.custom-pagination .page-item {
+    transition: transform 0.2s ease;
+}
+
+.custom-pagination .page-item:hover {
+    transform: translateY(-2px);
+}
+
+.custom-pagination .page-link {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #f4a835;
+    color: #f4a835;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 16px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);*/
+    box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
+    transition: all 0.3s ease;
+}
+
+.custom-pagination .page-link:hover {
+    background: #f4a835;
+    color: white;
+    border-color: #f4a835;
+}
+
+.custom-pagination .active_ejaz .page-link {
+    background-color: #f4a835 !important;
+    color: white;
+    border-color: #f4a835;
+    pointer-events: none;
+    box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
+}
+.custom-pagination .page-item.active_ejaz .page-link {
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    outline: none !important;
+    border-bottom: none !important;
+    border-image: none !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+}
+.page-link {
+    box-shadow: none !important;
+}
+
+.page-item.active .page-link::after,
+.page-item.active .page-link::before {
+    display: none !important;
+    box-shadow: none !important;
+}
+.custom-pagination .page-item.active_ejaz .page-link {
+    background-color: #f4a835 !important;
+    color: white !important;
+    border: 1px solid #f4a835 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
+    border-bottom: none !important;
+}
+
+.custom-pagination .page-item.active_ejaz .page-link::before,
+.custom-pagination .page-item.active_ejaz .page-link::after {
+    display: none !important;
+    content: none !important;
+    box-shadow: none !important;
+}
+
+.custom-pagination .page-item.actiactive_ejazve .page-link,
+.custom-pagination .page-link:focus {
+    background-color: #f4a835 !important;
+    color: white !important;
+    border: 1px solid #f4a835 !important;
+    border-radius: 12px !important;
+
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+
+    outline: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+.custom-pagination .page-item.active_ejaz .page-link,
+.custom-pagination .page-item.active_ejaz .page-link:focus,
+.custom-pagination .page-item.active_ejaz .page-link:active,
+.custom-pagination .page-link:focus,
+.custom-pagination .page-link:active {
+    background-color: #f4a835 !important;
+    color: white !important;
+    border: 1px solid #f4a835 !important;
+    border-radius: 12px !important;
+
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    text-shadow: none !important;
+    outline: none !important;
+    filter: none !important;
+}
+
+.custom-pagination .page-item.active_ejaz span.page-link {
+    background-color: #f4a835 !important;
+    color: white !important;
+    border: 1px solid #f4a835 !important;
+    border-radius: 12px !important;
+
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.custom-pagination .page-item.active_ejaz .page-link {
+    box-shadow: none !important;
+    outline: none !important;
+    background-clip: padding-box !important;
+    background-origin: border-box !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}
+
+.custom-pagination .page-item.active_ejaz .page-link:focus-visible,
+.custom-pagination .page-item.active_ejaz .page-link:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.custom-pagination .page-item.active_ejaz .page-link {
+    border-radius: 12px !important;
+    background-color: #f4a835 !important;
+    border: 1px solid #f4a835 !important;
+    color: white !important;
+    box-shadow: none !important;
+
+}
 </style>
 @endsection
 
