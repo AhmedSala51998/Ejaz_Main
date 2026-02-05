@@ -12,7 +12,7 @@ class SupportFrontController extends Controller
 
     public function supports(Request $request)
     {
-        $questions = FrequentlyQuestion::latest()->paginate(10);
+        $questions = FrequentlyQuestion::latest()->paginate(9);
 
         if ($request->ajax()) {
             $html = view(

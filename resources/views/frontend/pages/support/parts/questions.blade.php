@@ -17,6 +17,14 @@
     @endforelse
 </div>
 
+@if ($questions instanceof \Illuminate\Pagination\LengthAwarePaginator)
+    <div class="col-12 mt-4">
+        <div class="d-flex justify-content-center">
+            {{ $questions->appends(request()->except('page'))->links('vendor.pagination.custom') }}
+        </div>
+    </div>
+@endif
+
 <style>
 #faqAccordion {
     display: flex;
@@ -96,5 +104,14 @@
         padding: 18px;
         font-size: 15px;
     }
+}
+
+.accordion-button::after {
+    filter: invert(0);
+    transition: transform .35s ease, filter .35s ease;
+}
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+    transform: rotate(180deg);
 }
 </style>
