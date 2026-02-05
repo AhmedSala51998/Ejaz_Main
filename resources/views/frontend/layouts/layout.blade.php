@@ -48,6 +48,11 @@
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
 <!-- end custom cursor  -->
+<!-- loader -->
+<div class="loader">
+    <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
+    <div class="spinner"></div>
+</div>
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
 <!-- ================ /Header ================= -->
