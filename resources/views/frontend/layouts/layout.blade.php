@@ -381,10 +381,9 @@
          </span>
 
         <span class="float-element">
-                    <a href="mailto::{{$settings->email1}}" target="_blank" >
-
-          <i style="color: white" class="fa-solid fa-envelope"></i>
-                         </a>
+            <a href="mailto:{{$settings->email1}}" target="_blank">
+                <i style="color: white" class="fa-solid fa-envelope"></i>
+            </a>
         </span>
 
     </div>
