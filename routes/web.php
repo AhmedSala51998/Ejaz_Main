@@ -253,11 +253,6 @@ Route::group(
     Route::get('musanedInitiative',[\App\Http\Controllers\Frontend\MusanedInitiative\MusanedInitiativeFrontController::class,'index'])->name('frontend.musande');
 
 
-
-    ### blogs
-
-    Route::get('blogs',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'blogs'])->name('frontend.blogs');
-
     ## support
 
     Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
