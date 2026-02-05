@@ -182,7 +182,7 @@ body{
                 <div class="row">
                     <div class="col-md-12 p-2">
                         <!-- faq -->
-                        <div class="supportFaq" id="container-question">
+                        <div class="" id="container-question">
                         @include('frontend.pages.support.parts.questions')
                         </div>
                     </div>
