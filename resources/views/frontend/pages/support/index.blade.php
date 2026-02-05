@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    مركز  المساعدة
+    الاسئلة الشائعة
 @endsection
 
 @section('styles')
@@ -177,10 +177,10 @@ body{
     <content>
         <!-- ================ banner ================= -->
         <div class="banner">
-            <h1>  مركز  المساعدة  </h1>
+            <h1> الاسئلة الشائعة </h1>
             <ul>
                 <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-                <li> <a href="#!" class="active">  مركز  المساعدة  </a> </li>
+                <li> <a href="#!" class="active">  الاسئلة الشائعة  </a> </li>
             </ul>
         </div>
         <!-- ================  / banner ================= -->
@@ -191,7 +191,7 @@ body{
                 <div class="row">
                     <div class="col-md-12 p-2">
                         <!-- faq -->
-                        <div class="supportFaq bg-white" id="container-question">
+                        <div class="" id="container-question">
                         @include('frontend.pages.support.parts.questions')
                         </div>
                     </div>

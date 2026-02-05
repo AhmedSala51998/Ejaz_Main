@@ -4,7 +4,6 @@
         <h2 class="accordion-header">
             <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#question{{ $question->id }}">
                 {{ $question->title }}
-                <span class="icon">▼</span>
             </button>
         </h2>
         <div id="question{{ $question->id }}" class="accordion-collapse collapse">
