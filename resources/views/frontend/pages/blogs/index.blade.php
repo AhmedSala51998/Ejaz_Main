@@ -574,9 +574,13 @@ body {
                     </section>
                 @endif
 
-                <div class="mt-5">
-                    {{ $blogs->links() }}
-                </div>
+                @if ($blogs instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    <div class="col-12 mt-5">
+                        <div class="d-flex justify-content-center">
+                            {{ $blogs->appends(request()->except('page'))->links('vendor.pagination.custom') }}
+                        </div>
+                    </div>
+                @endif
 
             @else
 
