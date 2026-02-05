@@ -358,10 +358,7 @@
 {{--    });--}}
 {{--</script>--}}
 <div class="floating-container">
-    <div class="floating-button">
-        <i class="fa-solid fa-headset"></i>
-    </div>
-
+    <div class="floating-button"><i class="fa-solid fa-headset"></i></div>
     <div class="element-container">
 
         <!-- FAQ -->
@@ -371,25 +368,23 @@
             </a>
         </span>
 
-        <!-- Call -->
-        <a href="tel:{{$settings->callNumber}}" target="_blank">
-            <span class="float-element tooltip-left">
-                <i class="fa-solid fa-phone"></i>
-            </span>
+        <a  href="tel:{{$settings->callNumber}}" target="_blank">
+          <span class="float-element tooltip-left">
+              <i class="fa-solid fa-phone"></i>
+          </span>
         </a>
 
-        <!-- WhatsApp -->
-        <span class="float-element">
-            <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
-                <i style="color:white" class="fa-brands fa-whatsapp"></i>
-            </a>
-        </span>
+         <span class="float-element">
+             <a  href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
+          <i style="color: white" class="fa-brands fa-whatsapp"></i>
+                  </a>
+         </span>
 
-        <!-- Email -->
         <span class="float-element">
-            <a href="mailto:{{$settings->email1}}" target="_blank">
-                <i style="color:white" class="fa-solid fa-envelope"></i>
-            </a>
+                    <a href="mailto::{{$settings->email1}}" target="_blank" >
+
+          <i style="color: white" class="fa-solid fa-envelope"></i>
+                         </a>
         </span>
 
     </div>
