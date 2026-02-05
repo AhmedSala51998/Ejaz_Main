@@ -189,27 +189,7 @@ body{
         <section class="supportPage">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 p-2">
-                        <!-- trending  -->
-                        <div class="trending">
-
-                            <div class="headTitle text-start " data-aos=" fade-up">
-                                <h1> موضوعات شائعة </h1>
-                            </div>
-                            <ul>
-                                <ul>
-                                    <li class="" data-aos=" fade-up active"> <a data-text="questions" class="subjectTextShow" href="">الاسئلة الشائعة</a> </li>
-                                </ul>
-                                @forelse($subjects as $subject)
-                                <li class="" data-aos=" fade-up"> <a data-text="{{$subject->desc}}" class="subjectTextShow" href="">{{$subject->title}}</a> </li>
-                                @empty
-                                    <li class="" data-aos=" fade-up"> <a href=""> لايوجد مواضيع شائعة </a> </li>
-                                @endforelse
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-8 p-2">
+                    <div class="col-md-12 p-2">
                         <!-- faq -->
                         <div class="supportFaq bg-white" id="container-question">
                         @include('frontend.pages.support.parts.questions')
