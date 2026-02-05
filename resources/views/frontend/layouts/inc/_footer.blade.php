@@ -129,7 +129,6 @@
                     <li><a href="{{route('frontend.aboutUs')}}">من نحن</a></li>
                     <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
                     <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
-                    <!--<li><a href="{{route('frontend.supports')}}">{{__('frontend.faq')}}</a></li>-->
                     <li><a href="{{route('frontend.supports.contactUs')}}">{{__('frontend.contactUs')}}</a></li>
                 </ul>
             </div>
