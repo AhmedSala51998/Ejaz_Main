@@ -20,10 +20,12 @@ class BlogController extends Controller
     public function show($slug)
     {
         $blog = Blog::where('slug', $slug)
-            ->with(['faqs' => function ($q) {
-                $q->where('status', 1);
-            }])
-            ->firstOrFail();
+        ->with(['faqs' => function ($q) {
+            $q->where('status', 1)
+              ->orderBy('id','asc')
+              ->paginate(2);
+        }])
+        ->firstOrFail();
 
         $sessionKey = 'blog_viewed_' . $blog->id;
 
