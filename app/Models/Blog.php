@@ -13,4 +13,9 @@ class Blog extends Model
 
     protected $guarded = [];
 
+    public function faqs()
+    {
+        return $this->hasMany(BlogFaq::class);
+    }
+
 }

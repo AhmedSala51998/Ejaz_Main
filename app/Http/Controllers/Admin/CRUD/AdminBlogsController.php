@@ -64,6 +64,9 @@ class AdminBlogsController extends Controller
                     return "
                         <button class='btn btn-info editButton' id='{$row->id}'><i class='fa fa-edit'></i></button>
                         <button class='btn btn-danger delete' id='{$row->id}'><i class='fa fa-trash'></i></button>
+                        <a href='".route('blogs.faqs.index',$row->id)."' class='btn btn-warning'>
+                            <i class='fa fa-question-circle'></i>
+                        </a>
                     ";
                 })
                 ->rawColumns(['image','second_image','featured_image','status','actions','featured','delete_all'])

@@ -37,7 +37,26 @@
 }
 </script>
 @endisset
-
+@if($blog->faqs->count())
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    @foreach($blog->faqs as $faq)
+    {
+      "@type": "Question",
+      "name": "{{ $faq->question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ strip_tags($faq->answer) }}"
+      }
+    }@if(!$loop->last),@endif
+    @endforeach
+  ]
+}
+</script>
+@endif
 
 <style>
 :root{
@@ -292,6 +311,28 @@ body{
     font-size:.85rem;
     color:var(--muted);
 }
+#faqAccordion .accordion-item{
+    border:none;
+    border-radius:20px;
+    margin-bottom:15px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+#faqAccordion .accordion-button{
+    font-weight:800;
+    background:#fff;
+    border-radius:20px;
+}
+
+#faqAccordion .accordion-button:not(.collapsed){
+    background:linear-gradient(135deg,#D89835,#f3c26f);
+    color:#fff;
+}
+
+#faqAccordion .accordion-body{
+    line-height:1.9;
+    color:#555;
+}
 </style>
 @endsection
 
@@ -328,6 +369,35 @@ body{
             <div class="article-content">
                 {!! $blog->content !!}
             </div>
+            @if($blog->faqs->count())
+            <section class="mt-5">
+                <h2 class="mb-4 fw-bold" style="color:#D89835">
+                    الأسئلة الشائعة
+                </h2>
+
+                <div class="accordion" id="faqAccordion">
+                    @foreach($blog->faqs as $faq)
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faq{{ $faq->id }}">
+                                {{ $faq->question }}
+                            </button>
+                        </h2>
+
+                        <div id="faq{{ $faq->id }}"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                {!! nl2br(e($faq->answer)) !!}
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </section>
+            @endif
         </article>
 
         {{-- SIDEBAR --}}

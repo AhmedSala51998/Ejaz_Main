@@ -143,6 +143,19 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('blogs/bulk-toggle', 'AdminBlogsController@bulkToggle')
                   ->name('blogs.bulk.toggle');
 
+            Route::prefix('blogs/{blog}')->group(function () {
+                Route::get('faqs', 'BlogFaqController@index')->name('blogs.faqs.index');
+                Route::get('faqs/create', 'BlogFaqController@create')->name('blogs.faqs.create');
+                Route::post('faqs', 'BlogFaqController@store')->name('blogs.faqs.store');
+                Route::get('faqs/{faq}/edit', 'BlogFaqController@edit')->name('blogs.faqs.edit');
+                Route::put('faqs/{faq}', 'BlogFaqController@update')->name('blogs.faqs.update');
+                Route::delete('faqs/{faq}', 'BlogFaqController@destroy')->name('blogs.faqs.destroy');
+
+                // Bulk actions
+                Route::delete('faqs/bulk/delete', 'BlogFaqController@bulkDelete')->name('blogs.faqs.bulk.delete');
+                Route::post('faqs/bulk/toggle', 'BlogFaqController@bulkToggle')->name('blogs.faqs.bulk.toggle');
+            });
+
 
             // مكاتب الاستقدام
             Route::resource('recruitment-offices', 'AdminRecruitmentOfficesController');
