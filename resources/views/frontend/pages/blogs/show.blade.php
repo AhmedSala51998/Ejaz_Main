@@ -313,7 +313,7 @@ body{
 }
 
 /* ===== GENERAL ===== */
-.faq-section {
+.blog-faq-section {
     padding: 60px 20px;
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
     border-radius: 40px;
@@ -321,7 +321,8 @@ body{
     margin: 10px auto;
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
-.faq-main-title {
+
+.blog-faq-section .faq-main-title {
     text-align: center;
     font-size: 2.8rem;
     font-weight: 900;
@@ -329,7 +330,8 @@ body{
     margin-bottom: 50px;
     position: relative;
 }
-.faq-main-title::after {
+
+.blog-faq-section .faq-main-title::after {
     content: '';
     width: 80px;
     height: 5px;
@@ -339,15 +341,13 @@ body{
     margin: 15px auto 0;
 }
 
-/* ===== FAQ CARDS GRID ===== */
-.faq-cards {
+.blog-faq-section .faq-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
 }
 
-/* ===== SINGLE CARD ===== */
-.faq-card {
+.blog-faq-section .faq-card {
     background: #fff;
     border-radius: 30px;
     overflow: hidden;
@@ -355,13 +355,13 @@ body{
     transition: transform 0.4s, box-shadow 0.4s;
     cursor: pointer;
 }
-.faq-card:hover {
+
+.blog-faq-section .faq-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 }
 
-/* ===== HEADER ===== */
-.faq-header {
+.blog-faq-section .faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -372,13 +372,15 @@ body{
     color: #fff;
     position: relative;
 }
-.faq-toggle {
+
+.blog-faq-section .faq-toggle {
     width: 22px;
     height: 22px;
     position: relative;
     transition: transform 0.5s;
 }
-.faq-toggle span {
+
+.blog-faq-section .faq-toggle span {
     position: absolute;
     height: 2px;
     width: 100%;
@@ -388,12 +390,12 @@ body{
     transform: translateY(-50%);
     transition: all 0.4s ease;
 }
-.faq-toggle span:last-child {
+
+.blog-faq-section .faq-toggle span:last-child {
     transform: rotate(90deg);
 }
 
-/* ===== BODY ===== */
-.faq-body {
+.blog-faq-section .faq-body {
     max-height: 0;
     overflow: hidden;
     padding: 0 40px;
@@ -401,28 +403,29 @@ body{
     color: #333;
     transition: max-height 0.6s ease, padding 0.6s ease;
 }
-.faq-body p {
+
+.blog-faq-section .faq-body p {
     padding: 30px 0;
     line-height: 1.8;
 }
 
-/* ===== OPEN STATE ===== */
-.faq-card.open .faq-body {
+.blog-faq-section .faq-card.open .faq-body {
     max-height: 500px;
     padding: 20px 30px;
 }
-.faq-card.open .faq-toggle span:first-child {
+
+.blog-faq-section .faq-card.open .faq-toggle span:first-child {
     transform: rotate(45deg);
 }
-.faq-card.open .faq-toggle span:last-child {
+
+.blog-faq-section .faq-card.open .faq-toggle span:last-child {
     transform: rotate(-45deg);
 }
 
-/* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-    .faq-main-title { font-size:2rem; }
-    .faq-header { font-size:1rem; padding:20px; }
-    .faq-body { padding:15px 20px; }
+    .blog-faq-section .faq-main-title { font-size:2rem; }
+    .blog-faq-section .faq-header { font-size:1rem; padding:20px; }
+    .blog-faq-section .faq-body { padding:15px 20px; }
 }
 </style>
 @endsection
@@ -461,7 +464,7 @@ body{
                 {!! $blog->content !!}
             </div>
             @if($blog->faqs->count())
-            <section class="faq-section">
+            <section class="faq-section blog-faq-section">
                 <h2 class="faq-main-title">الأسئلة الشائعة</h2>
                 <div class="faq-cards">
                     @foreach($blog->faqs as $faq)
