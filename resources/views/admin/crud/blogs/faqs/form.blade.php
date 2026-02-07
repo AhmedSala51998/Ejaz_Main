@@ -9,7 +9,7 @@
 
     <div class="form-group">
         <label>الإجابة</label>
-        <textarea name="answer" class="form-control" rows="5" required>{{ $faq->answer ?? '' }}</textarea>
+        <textarea id="faqEditor" name="answer" class="form-control" rows="5" required>{{ $faq->answer ?? '' }}</textarea>
     </div>
 
     <div class="form-group">
@@ -20,3 +20,16 @@
         </select>
     </div>
 </form>
+<script>
+    function initFormPlugins() {
+        if (CKEDITOR.instances.faqEditor) CKEDITOR.instances.faqEditor.destroy(true);
+        CKEDITOR.replace('faqEditor', {
+            language:'ar',
+            height:250,
+            removePlugins:'elementspath',
+            resize_enabled:false
+        });
+
+        if ($('.dropify').length) $('.dropify').dropify();
+    }
+</script>
