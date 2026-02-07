@@ -311,27 +311,79 @@ body{
     font-size:.85rem;
     color:var(--muted);
 }
-#faqAccordion .accordion-item{
-    border:none;
-    border-radius:20px;
-    margin-bottom:15px;
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
+/* ===== FAQ Accordion ===== */
+#faqAccordion {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-#faqAccordion .accordion-button{
-    font-weight:800;
-    background:#fff;
-    border-radius:20px;
+#faqAccordion .accordion-item {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-#faqAccordion .accordion-button:not(.collapsed){
-    background:linear-gradient(135deg,#D89835,#f3c26f);
-    color:#fff;
+#faqAccordion .accordion-header {
+    margin: 0;
 }
 
-#faqAccordion .accordion-body{
-    line-height:1.9;
-    color:#555;
+#faqAccordion .accordion-button {
+    font-weight: 700;
+    background: #fff;
+    color: #222;
+    border: none;
+    border-radius: 0;
+    padding: 18px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
+}
+
+/* السهم */
+#faqAccordion .accordion-button::after {
+    content: "\f107"; /* FontAwesome down arrow */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    color: #D89835;
+}
+
+#faqAccordion .accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, #D89835, #f3c26f);
+    color: #fff;
+}
+
+#faqAccordion .accordion-button:not(.collapsed)::after {
+    transform: rotate(180deg);
+    color: #fff;
+}
+
+#faqAccordion .accordion-body {
+    background: #fff;
+    padding: 18px 20px;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    transition: all 0.3s ease;
+}
+
+@media(max-width:768px){
+    #faqAccordion .accordion-button {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+
+    #faqAccordion .accordion-body {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
 }
 </style>
 @endsection
@@ -371,23 +423,26 @@ body{
             </div>
             @if($blog->faqs->count())
             <section class="mt-5">
-                <h2 class="mb-4 fw-bold" style="color:#D89835">
+                <h2 class="mb-4 fw-bold" style="color:#D89835; font-size:1.8rem;">
                     الأسئلة الشائعة
                 </h2>
 
                 <div class="accordion" id="faqAccordion">
                     @foreach($blog->faqs as $faq)
                     <div class="accordion-item">
-                        <h2 class="accordion-header">
+                        <h2 class="accordion-header" id="heading{{ $faq->id }}">
                             <button class="accordion-button collapsed"
+                                    type="button"
                                     data-bs-toggle="collapse"
-                                    data-bs-target="#faq{{ $faq->id }}">
+                                    data-bs-target="#faq{{ $faq->id }}"
+                                    aria-expanded="false"
+                                    aria-controls="faq{{ $faq->id }}">
                                 {{ $faq->question }}
                             </button>
                         </h2>
-
                         <div id="faq{{ $faq->id }}"
                             class="accordion-collapse collapse"
+                            aria-labelledby="heading{{ $faq->id }}"
                             data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
                                 {!! nl2br(e($faq->answer)) !!}
