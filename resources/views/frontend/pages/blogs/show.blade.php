@@ -410,6 +410,119 @@ body{
     color: #333;
     transition: max-height 0.5s ease;
 }
+
+/* ===== GENERAL ===== */
+.faq-section {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #fff5e6, #ffe8b3);
+    border-radius: 40px;
+    max-width: 1200px;
+    margin: 50px auto;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+}
+.faq-main-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #D89835;
+    margin-bottom: 50px;
+    position: relative;
+}
+.faq-main-title::after {
+    content: '';
+    width: 80px;
+    height: 5px;
+    background: #f4a835;
+    border-radius: 5px;
+    display: block;
+    margin: 15px auto 0;
+}
+
+/* ===== FAQ CARDS GRID ===== */
+.faq-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+/* ===== SINGLE CARD ===== */
+.faq-card {
+    background: #fff;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+    transition: transform 0.4s, box-shadow 0.4s;
+    cursor: pointer;
+}
+.faq-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+}
+
+/* ===== HEADER ===== */
+.faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    background: linear-gradient(135deg, #f4a835, #ffdb84);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #fff;
+    position: relative;
+}
+.faq-toggle {
+    width: 22px;
+    height: 22px;
+    position: relative;
+    transition: transform 0.5s;
+}
+.faq-toggle span {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: #fff;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: all 0.4s ease;
+}
+.faq-toggle span:last-child {
+    transform: rotate(90deg);
+}
+
+/* ===== BODY ===== */
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 30px;
+    background: #fff8f0;
+    color: #333;
+    transition: max-height 0.6s ease, padding 0.6s ease;
+}
+.faq-body p {
+    padding: 20px 0;
+    line-height: 1.8;
+}
+
+/* ===== OPEN STATE ===== */
+.faq-card.open .faq-body {
+    max-height: 500px;
+    padding: 20px 30px;
+}
+.faq-card.open .faq-toggle span:first-child {
+    transform: rotate(45deg);
+}
+.faq-card.open .faq-toggle span:last-child {
+    transform: rotate(-45deg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .faq-main-title { font-size:2rem; }
+    .faq-header { font-size:1rem; padding:20px; }
+    .faq-body { padding:15px 20px; }
+}
 </style>
 @endsection
 
@@ -447,18 +560,19 @@ body{
                 {!! $blog->content !!}
             </div>
             @if($blog->faqs->count())
-            <section class="mt-1">
-                <h2 class="faq-title">الأسئلة الشائعة</h2>
-                <div class="faq-grid">
+            <section class="faq-section">
+                <h2 class="faq-main-title">الأسئلة الشائعة</h2>
+                <div class="faq-cards">
                     @foreach($blog->faqs as $faq)
-                    <div class="faq-item">
-                        <button class="faq-btn">
-                            <span>{{ $faq->question }}</span>
-                            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24">
-                                <path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </button>
-                        <div class="faq-content">
+                    <div class="faq-card">
+                        <div class="faq-header">
+                            <h3>{{ $faq->question }}</h3>
+                            <div class="faq-toggle">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="faq-body">
                             <p>{!! nl2br(e($faq->answer)) !!}</p>
                         </div>
                     </div>
@@ -496,27 +610,25 @@ body{
 </section>
 @endsection
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const faqItems = document.querySelectorAll('.faq-item');
+document.addEventListener('DOMContentLoaded', () => {
+    const faqCards = document.querySelectorAll('.faq-card');
 
-    faqItems.forEach(item => {
-        const btn = item.querySelector('.faq-btn');
-        const content = item.querySelector('.faq-content');
+    faqCards.forEach(card => {
+        const header = card.querySelector('.faq-header');
+        header.addEventListener('click', () => {
+            const isOpen = card.classList.contains('open');
 
-        btn.addEventListener('click', () => {
-            const isOpen = item.classList.contains('open');
+            // Close all other cards
+            faqCards.forEach(c => {
+                c.classList.remove('open');
+                c.querySelector('.faq-body').style.maxHeight = null;
+            });
 
-            if (isOpen) {
-                item.classList.remove('open');
-                content.style.maxHeight = null;
-            } else {
-                // Close other open items (accordion behavior)
-                faqItems.forEach(i => {
-                    i.classList.remove('open');
-                    i.querySelector('.faq-content').style.maxHeight = null;
-                });
-                item.classList.add('open');
-                content.style.maxHeight = content.scrollHeight + "px";
+            // Toggle current card
+            if (!isOpen) {
+                card.classList.add('open');
+                const body = card.querySelector('.faq-body');
+                body.style.maxHeight = body.scrollHeight + 'px';
             }
         });
     });
