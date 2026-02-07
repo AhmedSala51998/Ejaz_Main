@@ -446,6 +446,7 @@ body{
             <div class="article-content">
                 {!! $blog->content !!}
             </div>
+            @if($blog->faqs->count())
             <section class="mt-1">
                 <h2 class="faq-title">الأسئلة الشائعة</h2>
                 <div class="faq-grid">
@@ -464,6 +465,7 @@ body{
                     @endforeach
                 </div>
             </section>
+            @endif
         </article>
 
         {{-- SIDEBAR --}}
