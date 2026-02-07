@@ -312,135 +312,104 @@ body{
     color:var(--muted);
 }
 
-/* ===== GENERAL ===== */
-/* ===== FAQ SECTION (Scoped) ===== */
-.blog-faq-section {
-    position: relative;
-    z-index: 1;
-    padding: 60px 20px;
-    background: linear-gradient(135deg, #fff5e6, #ffe8b3);
-    border-radius: 40px;
-    max-width: 1200px;
-    margin: 10px auto;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+/* ===== MODERN FAQ SECTION ===== */
+.modern-faq-section {
+    padding: 80px 15px;
+    background: #f7f7f7;
 }
 
-
-.blog-faq-section * {
-    box-sizing: border-box;
-}
-
-/* ===== MAIN TITLE ===== */
-.blog-faq-section .faq-main-title {
-    text-align: center;
-    font-size: 2.8rem;
-    font-weight: 900;
-    color: #D89835;
-    margin-bottom: 50px;
-    position: relative;
-}
-
-.blog-faq-section .faq-main-title::after {
-    content: '';
-    width: 80px;
-    height: 5px;
-    background: #f4a835;
-    border-radius: 5px;
-    display: block;
-    margin: 15px auto 0;
-}
-
-/* ===== FAQ CARDS GRID ===== */
-.blog-faq-section .faq-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 25px;
-}
-
-/* ===== SINGLE CARD ===== */
-.blog-faq-section .faq-card {
+.modern-faq-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 25px;
     background: #fff;
-    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    padding: 50px 30px;
+}
+
+.modern-faq-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #FF6B35;
+    margin-bottom: 50px;
+}
+
+/* ===== FAQ ITEM ===== */
+.modern-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modern-faq-item {
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 20px 45px rgba(0,0,0,0.08);
-    transition: transform 0.4s, box-shadow 0.4s;
-    cursor: pointer;
+    background: linear-gradient(145deg, #fff, #ffece1);
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
-.blog-faq-section .faq-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+.modern-faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
 }
 
-/* ===== HEADER ===== */
-.blog-faq-section .faq-header {
+/* ===== QUESTION BUTTON ===== */
+.modern-faq-question {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 30px;
-    background: linear-gradient(135deg, #f4a835, #ffdb84);
-    font-weight: 800;
-    font-size: 1.15rem;
-    color: #fff;
-    position: relative;
-}
-
-.blog-faq-section .faq-toggle {
-    width: 22px;
-    height: 22px;
-    position: relative;
-    transition: transform 0.5s;
-}
-
-.blog-faq-section .faq-toggle span {
-    position: absolute;
-    height: 2px;
     width: 100%;
-    background: #fff;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    transition: all 0.4s ease;
+    background: transparent;
+    border: none;
+    padding: 25px 30px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.blog-faq-section .faq-toggle span:last-child {
-    transform: rotate(90deg);
+.modern-faq-question:hover {
+    background: rgba(255,107,53,0.05);
 }
 
-/* ===== BODY ===== */
-.blog-faq-section .faq-body {
+/* ===== ARROW ICON ===== */
+.arrow-icon {
+    transition: transform 0.4s ease;
+    font-size: 1.2rem;
+}
+
+/* ===== ANSWER ===== */
+.modern-faq-answer {
     max-height: 0;
     overflow: hidden;
-    padding: 0 40px;
-    background: #fff8f0;
-    color: #333;
-    transition: max-height 0.6s ease, padding 0.6s ease;
+    padding: 0 30px;
+    background: #fff4ee;
+    color: #555;
+    transition: all 0.5s ease;
 }
 
-.blog-faq-section .faq-body p {
-    padding: 30px 0;
-    line-height: 1.8;
+.modern-faq-answer p {
+    padding: 20px 0;
+    line-height: 1.7;
 }
 
 /* ===== OPEN STATE ===== */
-.blog-faq-section .faq-card.open .faq-body {
-    max-height: 500px;
-    padding: 20px 30px;
+.modern-faq-item.open .modern-faq-answer {
+    max-height: 1000px;
 }
 
-.blog-faq-section .faq-card.open .faq-toggle span:first-child {
-    transform: rotate(45deg);
-}
-
-.blog-faq-section .faq-card.open .faq-toggle span:last-child {
-    transform: rotate(-45deg);
+.modern-faq-item.open .arrow-icon {
+    transform: rotate(180deg);
 }
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-    .blog-faq-section .faq-main-title { font-size:2rem; }
-    .blog-faq-section .faq-header { font-size:1rem; padding:20px; }
-    .blog-faq-section .faq-body { padding:15px 20px; }
+    .modern-faq-title { font-size:2rem; }
+    .modern-faq-question { font-size:1rem; padding:20px; }
+    .modern-faq-answer { padding:15px 20px; }
 }
 </style>
 @endsection
@@ -479,26 +448,26 @@ body{
                 {!! $blog->content !!}
             </div>
             @if($blog->faqs->count())
-            <section class="faq-section blog-faq-section">
-                <h2 class="faq-main-title">الأسئلة الشائعة</h2>
-                <div class="faq-cards">
-                    @foreach($blog->faqs as $faq)
-                    <div class="faq-card">
-                        <div class="faq-header">
-                            <h3>{{ $faq->question }}</h3>
-                            <div class="faq-toggle">
-                                <span></span>
-                                <span></span>
+            <section class="modern-faq-section">
+                <div class="modern-faq-wrapper">
+                    <h2 class="modern-faq-title">الأسئلة الشائعة</h2>
+                    <div class="modern-faq-list">
+                        @foreach($blog->faqs as $faq)
+                        <div class="modern-faq-item">
+                            <button class="modern-faq-question">
+                                <span>{{ $faq->question }}</span>
+                                <i class="arrow-icon">&#9662;</i>
+                            </button>
+                            <div class="modern-faq-answer">
+                                <p>{!! nl2br(e($faq->answer)) !!}</p>
                             </div>
                         </div>
-                        <div class="faq-body">
-                            <p>{!! nl2br(e($faq->answer)) !!}</p>
-                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
             </section>
             @endif
+
         </article>
 
         {{-- SIDEBAR --}}
@@ -530,23 +499,10 @@ body{
 @endsection
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const faqCards = document.querySelectorAll('.faq-card');
-
-    faqCards.forEach(card => {
-        const header = card.querySelector('.faq-header');
-        header.addEventListener('click', () => {
-            const isOpen = card.classList.contains('open');
-
-            faqCards.forEach(c => {
-                c.classList.remove('open');
-                c.querySelector('.faq-body').style.maxHeight = null;
-            });
-
-            if (!isOpen) {
-                card.classList.add('open');
-                const body = card.querySelector('.faq-body');
-                body.style.maxHeight = body.scrollHeight + 'px';
-            }
+    document.querySelectorAll('.modern-faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.parentElement;
+            item.classList.toggle('open');
         });
     });
 });
