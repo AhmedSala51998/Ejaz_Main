@@ -312,30 +312,29 @@ body{
     color:var(--muted);
 }
 
-/* ===== MODERN FAQ SECTION ===== */
+/* ===== MODERN FAQ REWORK ===== */
 .modern-faq-section {
     padding: 80px 15px;
-    background: #fff5eb; /* خلفية عامة فاتحة برتقالية */
+    background: #fff5eb;
 }
 
 .modern-faq-wrapper {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     border-radius: 25px;
-    background: rgba(255,165,0,0.05); /* برتقالي شفاف */
+    background: rgba(255,165,0,0.05);
+    padding: 40px 30px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-    padding: 50px 30px;
 }
 
 .modern-faq-title {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 900;
-    color: #FF8C00; /* برتقالي للعناوين */
+    color: #FF8C00;
     margin-bottom: 50px;
 }
 
-/* ===== FAQ ITEM ===== */
 .modern-faq-list {
     display: flex;
     flex-direction: column;
@@ -343,75 +342,66 @@ body{
 }
 
 .modern-faq-item {
-    border-radius: 15px;
+    background: rgba(255,165,0,0.1);
+    border-radius: 20px;
     overflow: hidden;
-    background: rgba(255,165,0,0.1); /* برتقالي شفاف للبطاقات */
-    transition: all 0.4s ease;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modern-faq-item:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
-/* ===== QUESTION BUTTON ===== */
-.modern-faq-question {
+.modern-faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 25px 30px;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #333;
+    padding: 20px 25px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: rgba(255,140,0,0.05);
     transition: background 0.3s ease;
 }
 
-.modern-faq-question:hover {
-    background: rgba(255,140,0,0.05);
+.modern-faq-header:hover {
+    background: rgba(255,140,0,0.1);
 }
 
-/* ===== ARROW ICON ===== */
-.arrow-icon {
+.faq-arrow {
+    font-size: 1.4rem;
     transition: transform 0.4s ease;
-    font-size: 1.2rem;
-    order: 2; /* نخلي الأيقونة بعد النص (يمين) */
-    margin-left: 15px; /* مسافة بسيطة عن النص */
+    color: #FF8C00;
 }
 
-/* ===== ANSWER ===== */
-.modern-faq-answer {
+.modern-faq-body {
     max-height: 0;
     overflow: hidden;
-    padding: 0 30px;
-    background: rgba(255,165,0,0.05); /* برتقالي شفاف للجواب */
-    color: #555;
-    transition: all 0.5s ease;
+    transition: max-height 0.5s ease, padding 0.4s ease;
+    background: rgba(255,165,0,0.05);
 }
 
-.modern-faq-answer p {
-    padding: 20px 0;
+.modern-faq-body p {
+    padding: 20px 25px;
     line-height: 1.7;
+    color: #444;
+    margin: 0;
 }
 
-/* ===== OPEN STATE ===== */
-.modern-faq-item.open .modern-faq-answer {
-    max-height: 1000px;
+.modern-faq-item.open .modern-faq-body {
+    max-height: 500px;
 }
 
-.modern-faq-item.open .arrow-icon {
-    transform: rotate(180deg);
+.modern-faq-item.open .faq-arrow {
+    transform: rotate(90deg);
 }
 
-/* ===== RESPONSIVE ===== */
 @media(max-width:768px){
     .modern-faq-title { font-size:2rem; }
-    .modern-faq-question { font-size:1rem; padding:20px; }
-    .modern-faq-answer { padding:15px 20px; }
+    .modern-faq-header { font-size:1rem; padding:15px 20px; }
+    .modern-faq-body p { padding:15px 20px; }
 }
 </style>
 @endsection
@@ -456,11 +446,11 @@ body{
                     <div class="modern-faq-list">
                         @foreach($blog->faqs as $faq)
                         <div class="modern-faq-item">
-                            <button class="modern-faq-question">
-                                <span>{{ $faq->question }}</span>
-                                <i class="arrow-icon">&#9662;</i>
-                            </button>
-                            <div class="modern-faq-answer">
+                            <div class="modern-faq-header">
+                                <h3>{{ $faq->question }}</h3>
+                                <span class="faq-arrow">&#9656;</span>
+                            </div>
+                            <div class="modern-faq-body">
                                 <p>{!! nl2br(e($faq->answer)) !!}</p>
                             </div>
                         </div>
@@ -469,7 +459,6 @@ body{
                 </div>
             </section>
             @endif
-
         </article>
 
         {{-- SIDEBAR --}}
@@ -501,11 +490,17 @@ body{
 @endsection
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.modern-faq-question').forEach(button => {
-        button.addEventListener('click', () => {
-            const item = button.parentElement;
+    const items = document.querySelectorAll('.modern-faq-item');
+
+    items.forEach(item => {
+        const header = item.querySelector('.modern-faq-header');
+        header.addEventListener('click', () => {
+            items.forEach(i => {
+                if(i !== item) i.classList.remove('open');
+            });
             item.classList.toggle('open');
         });
     });
 });
+
 </script>
