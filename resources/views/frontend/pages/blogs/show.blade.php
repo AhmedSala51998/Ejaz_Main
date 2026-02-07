@@ -311,94 +311,73 @@ body{
     font-size:.85rem;
     color:var(--muted);
 }
+/* ===== FAQ NEW DESIGN ===== */
 .faq-title {
-    color: #D89835;
-    font-weight: 900;
-    font-size: 2rem;
-    margin-bottom: 30px;
     text-align: center;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--orange);
+    margin-bottom: 40px;
 }
 
-.faq-container {
+.faq-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
 }
 
-.faq-card {
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+.faq-item {
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f4a835, #fbe5c5);
     overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.07);
     transition: transform 0.3s, box-shadow 0.3s;
-    margin-bottom: 20px;
-}
-.faq-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.1);
 }
 
-.faq-question {
+.faq-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+}
+
+.faq-btn {
+    width: 100%;
+    padding: 20px 25px;
+    background: transparent;
+    border: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 25px;
     font-weight: 800;
     font-size: 1.1rem;
     cursor: pointer;
-    background: linear-gradient(135deg,#fdf1e0,#f4a835);
     color: #fff;
-    transition: background 0.3s;
 }
 
-.faq-question:hover {
-    background: linear-gradient(135deg,#D89835,#c8812a);
+.faq-icon {
+    transition: transform 0.4s ease;
 }
 
-.faq-toggle {
-    font-size: 1.5rem;
-    transition: transform 0.3s;
-}
-
-.faq-answer {
-    padding: 0 25px 20px 25px;
-    display: none;
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: #555;
-}
-.faq-card.open .faq-answer {
-    display: block;
-}
-
-.faq-card.open .faq-toggle {
-    transform: rotate(45deg);
-}
-.faq-question {
-    padding: 20px 30px;
-}
-
-.faq-answer {
-    padding: 15px 30px 25px 30px;
-}
-.faq-answer {
+.faq-content {
     max-height: 0;
     overflow: hidden;
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    padding: 0 25px;
     transition: max-height 0.5s ease, padding 0.5s ease;
-    font-size: 0.95rem;
+}
+
+.faq-content p {
+    margin: 15px 0;
     line-height: 1.8;
-    color: #555;
-    padding: 0 30px;
 }
 
-.faq-card.open .faq-answer {
+.faq-item.open .faq-content {
+    padding: 15px 25px 25px 25px;
     max-height: 500px;
-    padding: 15px 30px 25px 30px;
 }
 
-.faq-card.open .faq-toggle {
+.faq-item.open .faq-icon {
     transform: rotate(45deg);
-    transition: transform 0.5s ease;
 }
 </style>
 @endsection
@@ -436,24 +415,24 @@ body{
             <div class="article-content">
                 {!! $blog->content !!}
             </div>
-            @if($blog->faqs->count())
             <section class="mt-1">
                 <h2 class="faq-title">الأسئلة الشائعة</h2>
-                <div class="faq-container">
+                <div class="faq-grid">
                     @foreach($blog->faqs as $faq)
-                    <div class="faq-card">
-                        <div class="faq-question">
+                    <div class="faq-item">
+                        <button class="faq-btn">
                             <span>{{ $faq->question }}</span>
-                            <div class="faq-toggle">+</div>
-                        </div>
-                        <div class="faq-answer">
-                            {!! nl2br(e($faq->answer)) !!}
+                            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24">
+                                <path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <div class="faq-content">
+                            <p>{!! nl2br(e($faq->answer)) !!}</p>
                         </div>
                     </div>
                     @endforeach
                 </div>
             </section>
-            @endif
         </article>
 
         {{-- SIDEBAR --}}
@@ -485,22 +464,28 @@ body{
 @endsection
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.faq-card').forEach(card => {
-        const question = card.querySelector('.faq-question');
-        const answer = card.querySelector('.faq-answer');
+    const faqItems = document.querySelectorAll('.faq-item');
 
-        question.addEventListener('click', () => {
-            const isOpen = card.classList.contains('open');
+    faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-btn');
+        const content = item.querySelector('.faq-content');
+
+        btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
 
             if (isOpen) {
-                answer.style.maxHeight = "0";
-                card.classList.remove('open');
+                item.classList.remove('open');
+                content.style.maxHeight = null;
             } else {
-                answer.style.maxHeight = answer.scrollHeight + "px";
-                card.classList.add('open');
+                // Close other open items (accordion behavior)
+                faqItems.forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.faq-content').style.maxHeight = null;
+                });
+                item.classList.add('open');
+                content.style.maxHeight = content.scrollHeight + "px";
             }
         });
     });
 });
 </script>
-
