@@ -372,7 +372,6 @@ body{
 }
 
 .faq-item.open .faq-content {
-    padding: 15px 25px 25px 25px;
     max-height: 500px;
 }
 
