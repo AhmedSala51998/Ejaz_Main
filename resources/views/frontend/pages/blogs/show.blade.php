@@ -322,11 +322,22 @@ body{
     font-weight:800;
     background:#fff;
     border-radius:20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+#faqAccordion .accordion-button::after {
+    font-size: 18px;
+    color: #D89835;
+    transition: color 0.3s, transform 0.3s;
 }
 
 #faqAccordion .accordion-button:not(.collapsed){
     background:linear-gradient(135deg,#D89835,#f3c26f);
     color:#fff !important;
+}
+
+#faqAccordion .accordion-button:not(.collapsed)::after {
+    color: #fff;
 }
 
 #faqAccordion .accordion-body{
@@ -370,7 +381,7 @@ body{
                 {!! $blog->content !!}
             </div>
             @if($blog->faqs->count())
-            <section class="mt-5">
+            <section class="mt-2">
                 <h2 class="mb-4 fw-bold" style="color:#D89835">
                     الأسئلة الشائعة
                 </h2>
