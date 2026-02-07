@@ -396,13 +396,13 @@ body{
 .faq-body {
     max-height: 0;
     overflow: hidden;
-    padding: 0 30px;
+    padding: 0 20px;
     background: #fff8f0;
     color: #333;
     transition: max-height 0.6s ease, padding 0.6s ease;
 }
 .faq-body p {
-    padding: 20px 0;
+    padding: 10px 0;
     line-height: 1.8;
 }
 
