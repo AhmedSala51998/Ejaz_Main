@@ -312,7 +312,7 @@ body{
     color:var(--muted);
 }
 
-/* ===== FAQ SECTION ONLY ===== */
+/* ===== GENERAL ===== */
 .faq-section {
     padding: 60px 20px;
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
@@ -321,9 +321,7 @@ body{
     margin: 10px auto;
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
-
-/* ===== MAIN TITLE ===== */
-.faq-section .faq-main-title {
+.faq-main-title {
     text-align: center;
     font-size: 2.8rem;
     font-weight: 900;
@@ -331,7 +329,7 @@ body{
     margin-bottom: 50px;
     position: relative;
 }
-.faq-section .faq-main-title::after {
+.faq-main-title::after {
     content: '';
     width: 80px;
     height: 5px;
@@ -342,14 +340,14 @@ body{
 }
 
 /* ===== FAQ CARDS GRID ===== */
-.faq-section .faq-cards {
+.faq-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
 }
 
 /* ===== SINGLE CARD ===== */
-.faq-section .faq-card {
+.faq-card {
     background: #fff;
     border-radius: 30px;
     overflow: hidden;
@@ -357,13 +355,13 @@ body{
     transition: transform 0.4s, box-shadow 0.4s;
     cursor: pointer;
 }
-.faq-section .faq-card:hover {
+.faq-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 }
 
 /* ===== HEADER ===== */
-.faq-section .faq-header {
+.faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -374,13 +372,13 @@ body{
     color: #fff;
     position: relative;
 }
-.faq-section .faq-toggle {
+.faq-toggle {
     width: 22px;
     height: 22px;
     position: relative;
     transition: transform 0.5s;
 }
-.faq-section .faq-toggle span {
+.faq-toggle span {
     position: absolute;
     height: 2px;
     width: 100%;
@@ -390,12 +388,12 @@ body{
     transform: translateY(-50%);
     transition: all 0.4s ease;
 }
-.faq-section .faq-toggle span:last-child {
+.faq-toggle span:last-child {
     transform: rotate(90deg);
 }
 
 /* ===== BODY ===== */
-.faq-section .faq-body {
+.faq-body {
     max-height: 0;
     overflow: hidden;
     padding: 0 40px;
@@ -403,46 +401,111 @@ body{
     color: #333;
     transition: max-height 0.6s ease, padding 0.6s ease;
 }
-.faq-section .faq-body p {
+.faq-body p {
     padding: 30px 0;
     line-height: 1.8;
 }
 
 /* ===== OPEN STATE ===== */
-.faq-section .faq-card.open .faq-body {
+.faq-card.open .faq-body {
     max-height: 500px;
     padding: 20px 30px;
 }
-.faq-section .faq-card.open .faq-toggle span:first-child {
+.faq-card.open .faq-toggle span:first-child {
     transform: rotate(45deg);
 }
-.faq-section .faq-card.open .faq-toggle span:last-child {
+.faq-card.open .faq-toggle span:last-child {
     transform: rotate(-45deg);
 }
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-    .faq-section .faq-main-title { font-size:2rem; }
-    .faq-section .faq-header { font-size:1rem; padding:20px; }
-    .faq-section .faq-body { padding:15px 20px; }
+    .faq-main-title { font-size:2rem; }
+    .faq-header { font-size:1rem; padding:20px; }
+    .faq-body { padding:15px 20px; }
 }
-
-/* ===== FLOATING BUTTONS FIX ===== */
 .floating-container {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    width: 100px;
+    height: 100px;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 8px;
+
 }
-.floating-button, .float-element {
+.floating-container:hover {
+    height: 300px;
+}
+.floating-container:hover .floating-button {
+    box-shadow: 0 10px 25px rgba(18, 41, 71, 0.83);
+    -webkit-transform: translatey(5px);
+    transform: translatey(5px);
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.floating-container:hover .element-container .float-element:nth-child(1) {
+    -webkit-animation: come-in 0.4s forwards 0.2s;
+    animation: come-in 0.4s forwards 0.2s;
+}
+.floating-container:hover .element-container .float-element:nth-child(2) {
+    -webkit-animation: come-in 0.4s forwards 0.4s;
+    animation: come-in 0.4s forwards 0.4s;
+}
+.floating-container:hover .element-container .float-element:nth-child(3) {
+    -webkit-animation: come-in 0.4s forwards 0.6s;
+    animation: come-in 0.4s forwards 0.6s;
+}
+.floating-container .floating-button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #231F20;
+    bottom: 0;
+    border-radius: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: white;
+    line-height: 60px;
+    text-align: center;
+    font-size: 27px;
+    z-index: 100;
+    box-shadow: 0 10px 25px -5px rgba(209, 217, 230, 0.47);
     cursor: pointer;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
 }
-.floating-button i, .float-element i {
-    font-size: 20px;
-    color: white !important;
+.floating-container .float-element {
+    position: relative;
+    display: block;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 15px auto;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    line-height: 50px;
+    z-index: 0;
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
+}
+.floating-container .float-element .material-icons {
+    vertical-align: middle;
+    font-size: 16px;
+}
+.floating-container .float-element:nth-child(1) {
+    background: rgba(18, 41, 71, 0.83);
+    box-shadow: 0 20px 20px -10px rgba(18, 41, 71, 0.83);
+}
+.floating-container .float-element:nth-child(2) {
+    background: #4CAF50;
+    box-shadow: 0 20px 20px -10px rgba(76, 175, 80, 0.5);
+}
+.floating-container .float-element:nth-child(3) {
+    background: rgba(230, 198, 136, 0.86);
+    box-shadow: 0 20px 20px -10px rgba(230, 198, 136, 0.86);
 }
 </style>
 @endsection
