@@ -331,8 +331,8 @@ body{
     box-shadow: 0 15px 35px rgba(0,0,0,0.08);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
 }
-
 .faq-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 25px 50px rgba(0,0,0,0.1);
@@ -374,6 +374,14 @@ body{
 .faq-card.open .faq-toggle {
     transform: rotate(45deg);
 }
+.faq-question {
+    padding: 20px 30px;
+}
+
+.faq-answer {
+    padding: 15px 30px 25px 30px;
+}
+
 </style>
 @endsection
 
@@ -458,9 +466,12 @@ body{
 </section>
 @endsection
 <script>
-document.querySelectorAll('.faq-card').forEach(card => {
-    card.querySelector('.faq-question').addEventListener('click', () => {
-        card.classList.toggle('open');
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.faq-card').forEach(card => {
+        card.querySelector('.faq-question').addEventListener('click', () => {
+            card.classList.toggle('open');
+        });
     });
 });
 </script>
+
