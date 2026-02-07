@@ -313,6 +313,7 @@ body{
 }
 
 /* ===== GENERAL ===== */
+/* ===== FAQ SECTION (Scoped) ===== */
 .blog-faq-section {
     padding: 60px 20px;
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
@@ -322,6 +323,11 @@ body{
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
 
+.blog-faq-section * {
+    box-sizing: border-box;
+}
+
+/* ===== MAIN TITLE ===== */
 .blog-faq-section .faq-main-title {
     text-align: center;
     font-size: 2.8rem;
@@ -341,12 +347,14 @@ body{
     margin: 15px auto 0;
 }
 
+/* ===== FAQ CARDS GRID ===== */
 .blog-faq-section .faq-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
 }
 
+/* ===== SINGLE CARD ===== */
 .blog-faq-section .faq-card {
     background: #fff;
     border-radius: 30px;
@@ -361,6 +369,7 @@ body{
     box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 }
 
+/* ===== HEADER ===== */
 .blog-faq-section .faq-header {
     display: flex;
     justify-content: space-between;
@@ -395,6 +404,7 @@ body{
     transform: rotate(90deg);
 }
 
+/* ===== BODY ===== */
 .blog-faq-section .faq-body {
     max-height: 0;
     overflow: hidden;
@@ -409,6 +419,7 @@ body{
     line-height: 1.8;
 }
 
+/* ===== OPEN STATE ===== */
 .blog-faq-section .faq-card.open .faq-body {
     max-height: 500px;
     padding: 20px 30px;
@@ -422,6 +433,7 @@ body{
     transform: rotate(-45deg);
 }
 
+/* ===== RESPONSIVE ===== */
 @media(max-width:768px){
     .blog-faq-section .faq-main-title { font-size:2rem; }
     .blog-faq-section .faq-header { font-size:1rem; padding:20px; }
