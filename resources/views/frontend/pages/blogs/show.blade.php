@@ -314,22 +314,19 @@ body{
 
 /* ===== GENERAL ===== */
 .faq-section {
-    padding: 50px 20px;
+    padding: 60px 20px;
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
     border-radius: 40px;
     max-width: 1200px;
-    margin: -10px auto 0;
+    margin: 10px auto;
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-    overflow: visible;
-    position: relative;
-    z-index: 1;
 }
 .faq-main-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 900;
     color: #D89835;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     position: relative;
 }
 .faq-main-title::after {
@@ -345,7 +342,7 @@ body{
 /* ===== FAQ CARDS GRID ===== */
 .faq-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
 }
 
@@ -353,7 +350,7 @@ body{
 .faq-card {
     background: #fff;
     border-radius: 30px;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 20px 45px rgba(0,0,0,0.08);
     transition: transform 0.4s, box-shadow 0.4s;
     cursor: pointer;
@@ -380,7 +377,6 @@ body{
     height: 22px;
     position: relative;
     transition: transform 0.5s;
-    flex-shrink: 0;
 }
 .faq-toggle span {
     position: absolute;
@@ -428,13 +424,17 @@ body{
     .faq-header { font-size:1rem; padding:20px; }
     .faq-body { padding:15px 20px; }
 }
-
-/* ===== FLOATING ELEMENTS FIX ===== */
 .floating-container {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    left: 20px;
     z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.floating-button, .float-element {
+    cursor: pointer;
 }
 </style>
 @endsection
@@ -472,9 +472,8 @@ body{
             <div class="article-content">
                 {!! $blog->content !!}
             </div>
-
             @if($blog->faqs->count())
-            <section class="faq-section mt-1">
+            <section class="faq-section">
                 <h2 class="faq-main-title">الأسئلة الشائعة</h2>
                 <div class="faq-cards">
                     @foreach($blog->faqs as $faq)
