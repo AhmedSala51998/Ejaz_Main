@@ -428,10 +428,21 @@ body{
     position: fixed;
     width: 100px;
     height: 100px;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: 1000;
+}
 
+.floating-container:hover {
+    height: 300px;
+}
+
+.floating-container:hover .floating-button {
+    box-shadow: 0 10px 25px rgba(18, 41, 71, 0.83);
+    transform: translateY(5px);
+    transition: all 0.3s;
 }
 .floating-container:hover {
     height: 300px;
@@ -485,7 +496,7 @@ body{
     color: white;
     font-weight: 500;
     text-align: center;
-    line-height: 10px;
+    line-height: 50px;
     z-index: 0;
     opacity: 0;
     -webkit-transform: translateY(100px);
