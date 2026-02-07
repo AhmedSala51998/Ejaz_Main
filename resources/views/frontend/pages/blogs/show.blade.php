@@ -381,7 +381,25 @@ body{
 .faq-answer {
     padding: 15px 30px 25px 30px;
 }
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #555;
+    padding: 0 30px;
+}
 
+.faq-card.open .faq-answer {
+    max-height: 500px;
+    padding: 15px 30px 25px 30px;
+}
+
+.faq-card.open .faq-toggle {
+    transform: rotate(45deg);
+    transition: transform 0.5s ease;
+}
 </style>
 @endsection
 
@@ -468,8 +486,17 @@ body{
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.faq-card').forEach(card => {
-        card.querySelector('.faq-question').addEventListener('click', () => {
+        const question = card.querySelector('.faq-question');
+        const answer = card.querySelector('.faq-answer');
+
+        question.addEventListener('click', () => {
             card.classList.toggle('open');
+
+            if(card.classList.contains('open')) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                answer.style.maxHeight = "0";
+            }
         });
     });
 });
