@@ -385,6 +385,39 @@ body{
         font-size: 0.95rem;
     }
 }
+#faqAccordion .accordion-button {
+    font-weight: 700;
+    background: #fff;
+    color: #222;
+    border: none;
+    border-radius: 20px;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+#faqAccordion .accordion-button::after {
+    content: "\f107"; /* FontAwesome down arrow */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 18px;
+    transition: transform 0.3s, color 0.3s;
+    color: #D89835;
+}
+
+#faqAccordion .accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg,#D89835,#f3c26f);
+    color: #fff;
+}
+
+#faqAccordion .accordion-button:not(.collapsed)::after {
+    transform: rotate(180deg);
+    color: #fff;
+}
+
 </style>
 @endsection
 
