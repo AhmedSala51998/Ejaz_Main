@@ -24,7 +24,7 @@ class BlogController extends Controller
         $faqs = $blog->faqs()
             ->where('status', 1)
             ->orderBy('id', 'asc')
-            ->paginate(2);
+            ->paginate(5);
 
         $sessionKey = 'blog_viewed_' . $blog->id;
         if (!session()->has($sessionKey)) {

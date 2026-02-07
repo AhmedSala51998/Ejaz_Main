@@ -669,7 +669,6 @@ body{
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#faq{{ $faq->id }}">
                                     {{ $faq->question }}
-                                    <span class="icon">&#9662;</span>
                                 </button>
                             </h2>
                             <div id="faq{{ $faq->id }}" class="accordion-collapse collapse">
