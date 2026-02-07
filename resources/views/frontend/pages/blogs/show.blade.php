@@ -315,14 +315,14 @@ body{
 /* ===== MODERN FAQ SECTION ===== */
 .modern-faq-section {
     padding: 80px 15px;
-    background: #f7f7f7;
+    background: #fff5eb; /* خلفية عامة فاتحة برتقالية */
 }
 
 .modern-faq-wrapper {
     max-width: 1000px;
     margin: 0 auto;
     border-radius: 25px;
-    background: #fff;
+    background: rgba(255,165,0,0.05); /* برتقالي شفاف */
     box-shadow: 0 20px 50px rgba(0,0,0,0.05);
     padding: 50px 30px;
 }
@@ -331,7 +331,7 @@ body{
     text-align: center;
     font-size: 2.5rem;
     font-weight: 900;
-    color: #FF6B35;
+    color: #FF8C00; /* برتقالي للعناوين */
     margin-bottom: 50px;
 }
 
@@ -345,7 +345,7 @@ body{
 .modern-faq-item {
     border-radius: 15px;
     overflow: hidden;
-    background: linear-gradient(145deg, #fff, #ffece1);
+    background: rgba(255,165,0,0.1); /* برتقالي شفاف للبطاقات */
     transition: all 0.4s ease;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
@@ -372,13 +372,15 @@ body{
 }
 
 .modern-faq-question:hover {
-    background: rgba(255,107,53,0.05);
+    background: rgba(255,140,0,0.05);
 }
 
 /* ===== ARROW ICON ===== */
 .arrow-icon {
     transition: transform 0.4s ease;
     font-size: 1.2rem;
+    order: 2; /* نخلي الأيقونة بعد النص (يمين) */
+    margin-left: 15px; /* مسافة بسيطة عن النص */
 }
 
 /* ===== ANSWER ===== */
@@ -386,7 +388,7 @@ body{
     max-height: 0;
     overflow: hidden;
     padding: 0 30px;
-    background: #fff4ee;
+    background: rgba(255,165,0,0.05); /* برتقالي شفاف للجواب */
     color: #555;
     transition: all 0.5s ease;
 }
