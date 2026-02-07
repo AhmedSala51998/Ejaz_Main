@@ -312,7 +312,7 @@ body{
     color:var(--muted);
 }
 
-/* ===== GENERAL ===== */
+/* ===== FAQ SECTION ONLY ===== */
 .faq-section {
     padding: 60px 20px;
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
@@ -321,7 +321,9 @@ body{
     margin: 10px auto;
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
-.faq-main-title {
+
+/* ===== MAIN TITLE ===== */
+.faq-section .faq-main-title {
     text-align: center;
     font-size: 2.8rem;
     font-weight: 900;
@@ -329,7 +331,7 @@ body{
     margin-bottom: 50px;
     position: relative;
 }
-.faq-main-title::after {
+.faq-section .faq-main-title::after {
     content: '';
     width: 80px;
     height: 5px;
@@ -340,14 +342,14 @@ body{
 }
 
 /* ===== FAQ CARDS GRID ===== */
-.faq-cards {
+.faq-section .faq-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
 }
 
 /* ===== SINGLE CARD ===== */
-.faq-card {
+.faq-section .faq-card {
     background: #fff;
     border-radius: 30px;
     overflow: hidden;
@@ -355,13 +357,13 @@ body{
     transition: transform 0.4s, box-shadow 0.4s;
     cursor: pointer;
 }
-.faq-card:hover {
+.faq-section .faq-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 }
 
 /* ===== HEADER ===== */
-.faq-header {
+.faq-section .faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -372,13 +374,13 @@ body{
     color: #fff;
     position: relative;
 }
-.faq-toggle {
+.faq-section .faq-toggle {
     width: 22px;
     height: 22px;
     position: relative;
     transition: transform 0.5s;
 }
-.faq-toggle span {
+.faq-section .faq-toggle span {
     position: absolute;
     height: 2px;
     width: 100%;
@@ -388,46 +390,48 @@ body{
     transform: translateY(-50%);
     transition: all 0.4s ease;
 }
-.faq-toggle span:last-child {
+.faq-section .faq-toggle span:last-child {
     transform: rotate(90deg);
 }
 
 /* ===== BODY ===== */
-.faq-body {
+.faq-section .faq-body {
     max-height: 0;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 0 40px;
     background: #fff8f0;
     color: #333;
     transition: max-height 0.6s ease, padding 0.6s ease;
 }
-.faq-body p {
-    padding: 10px 0;
+.faq-section .faq-body p {
+    padding: 30px 0;
     line-height: 1.8;
 }
 
 /* ===== OPEN STATE ===== */
-.faq-card.open .faq-body {
+.faq-section .faq-card.open .faq-body {
     max-height: 500px;
     padding: 20px 30px;
 }
-.faq-card.open .faq-toggle span:first-child {
+.faq-section .faq-card.open .faq-toggle span:first-child {
     transform: rotate(45deg);
 }
-.faq-card.open .faq-toggle span:last-child {
+.faq-section .faq-card.open .faq-toggle span:last-child {
     transform: rotate(-45deg);
 }
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-    .faq-main-title { font-size:2rem; }
-    .faq-header { font-size:1rem; padding:20px; }
-    .faq-body { padding:15px 20px; }
+    .faq-section .faq-main-title { font-size:2rem; }
+    .faq-section .faq-header { font-size:1rem; padding:20px; }
+    .faq-section .faq-body { padding:15px 20px; }
 }
+
+/* ===== FLOATING BUTTONS FIX ===== */
 .floating-container {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -435,6 +439,10 @@ body{
 }
 .floating-button, .float-element {
     cursor: pointer;
+}
+.floating-button i, .float-element i {
+    font-size: 20px;
+    color: white !important;
 }
 </style>
 @endsection
