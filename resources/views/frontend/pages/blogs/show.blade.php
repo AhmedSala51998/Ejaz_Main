@@ -311,38 +311,68 @@ body{
     font-size:.85rem;
     color:var(--muted);
 }
-#faqAccordion .accordion-item{
-    border:none;
-    border-radius:20px;
-    margin-bottom:15px;
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
-}
-
-#faqAccordion .accordion-button{
-    font-weight:800;
-    background:#fff;
-    border-radius:20px;
-    transition: background 0.3s, color 0.3s;
-}
-
-#faqAccordion .accordion-button::after {
-    font-size: 18px;
+.faq-title {
     color: #D89835;
-    transition: color 0.3s, transform 0.3s;
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-#faqAccordion .accordion-button:not(.collapsed){
-    background:linear-gradient(135deg,#D89835,#f3c26f);
-    color:#fff !important;
+.faq-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-#faqAccordion .accordion-button:not(.collapsed)::after {
+.faq-card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.faq-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: linear-gradient(135deg,#fdf1e0,#f4a835);
     color: #fff;
+    transition: background 0.3s;
 }
 
-#faqAccordion .accordion-body{
-    line-height:1.9;
-    color:#555;
+.faq-question:hover {
+    background: linear-gradient(135deg,#D89835,#c8812a);
+}
+
+.faq-toggle {
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.faq-answer {
+    padding: 0 25px 20px 25px;
+    display: none;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #555;
+}
+.faq-card.open .faq-answer {
+    display: block;
+}
+
+.faq-card.open .faq-toggle {
+    transform: rotate(45deg);
 }
 </style>
 @endsection
@@ -381,28 +411,17 @@ body{
                 {!! $blog->content !!}
             </div>
             @if($blog->faqs->count())
-            <section class="mt-2">
-                <h2 class="mb-4 fw-bold" style="color:#D89835">
-                    الأسئلة الشائعة
-                </h2>
-
-                <div class="accordion" id="faqAccordion">
+            <section class="mt-5">
+                <h2 class="faq-title">الأسئلة الشائعة</h2>
+                <div class="faq-container">
                     @foreach($blog->faqs as $faq)
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#faq{{ $faq->id }}">
-                                {{ $faq->question }}
-                            </button>
-                        </h2>
-
-                        <div id="faq{{ $faq->id }}"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                {!! nl2br(e($faq->answer)) !!}
-                            </div>
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <span>{{ $faq->question }}</span>
+                            <div class="faq-toggle">+</div>
+                        </div>
+                        <div class="faq-answer">
+                            {!! nl2br(e($faq->answer)) !!}
                         </div>
                     </div>
                     @endforeach
@@ -438,3 +457,10 @@ body{
     </div>
 </section>
 @endsection
+<script>
+document.querySelectorAll('.faq-card').forEach(card => {
+    card.querySelector('.faq-question').addEventListener('click', () => {
+        card.classList.toggle('open');
+    });
+});
+</script>
