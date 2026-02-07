@@ -485,7 +485,7 @@ body{
     color: white;
     font-weight: 500;
     text-align: center;
-    line-height: 50px;
+    line-height: 10px;
     z-index: 0;
     opacity: 0;
     -webkit-transform: translateY(100px);
