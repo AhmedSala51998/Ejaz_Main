@@ -588,6 +588,40 @@ body{
     box-shadow: none !important;
 
 }
+.modern-faq-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #f4a835;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 8px rgba(244,168,53,0.3);
+    position: relative;
+}
+
+.modern-faq-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg,#f4a835,#ffb23c);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .modern-faq-title {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width:575px){
+    .modern-faq-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+}
 </style>
 @endsection
 
@@ -629,7 +663,7 @@ body{
                     <h2 class="modern-faq-title">الأسئلة الشائعة</h2>
 
                     <div class="accordion supportFaq" id="faqAccordion">
-                        @forelse($blog->faqs as $faq)
+                        @forelse($faqs as $faq)
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -650,14 +684,13 @@ body{
                     </div>
 
                     {{-- Pagination --}}
-                    @if ($blog->faqs instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    @if ($faqs instanceof \Illuminate\Pagination\LengthAwarePaginator)
                     <div class="col-12 mt-4">
                         <div class="d-flex justify-content-center">
-                            {{ $blog->faqs->appends(request()->except('page'))->links('vendor.pagination.custom') }}
+                            {{ $faqs->appends(request()->except('page'))->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                     @endif
-
                 </div>
             </section>
         </article>
