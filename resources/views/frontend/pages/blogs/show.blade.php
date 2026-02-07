@@ -312,96 +312,136 @@ body{
     color:var(--muted);
 }
 
-/* ===== MODERN FAQ REWORK ===== */
-.modern-faq-section {
-    padding: 80px 15px;
-    background: #fff5eb;
-}
-
-.modern-faq-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    border-radius: 25px;
-    background: rgba(255,165,0,0.05);
-    padding: 40px 30px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-}
-
-.modern-faq-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #FF8C00;
-    margin-bottom: 50px;
-}
-
-.modern-faq-list {
+#faqAccordion {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.modern-faq-item {
-    background: rgba(255,165,0,0.1);
+/* Accordion Item */
+.accordion-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
     border-radius: 20px;
+    border: 1px solid rgba(244, 168, 53, 0.35);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.modern-faq-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+.accordion-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(244, 168, 53, 0.3);
 }
 
-.modern-faq-header {
+/* Button */
+.accordion-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: transparent;
+    font-weight: 800;
+    font-size: 18px;
+    color: #333;
     padding: 20px 25px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1.1rem;
-    background: rgba(255,140,0,0.05);
-    transition: background 0.3s ease;
+    border: none;
+    transition: all 0.35s ease;
 }
 
-.modern-faq-header:hover {
-    background: rgba(255,140,0,0.1);
+.accordion-button .icon {
+    transition: transform 0.35s ease, color 0.35s ease;
 }
 
-.faq-arrow {
-    font-size: 1.4rem;
-    transition: transform 0.4s ease;
-    color: #FF8C00;
+/* Open State */
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg,#f4a835,#ffb23c);
+    color: #fff !important;
 }
 
-.modern-faq-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, padding 0.4s ease;
-    background: rgba(255,165,0,0.05);
+.accordion-button:not(.collapsed) .icon {
+    transform: rotate(180deg);
+    color: #fff !important;
 }
 
-.modern-faq-body p {
-    padding: 20px 25px;
-    line-height: 1.7;
-    color: #444;
-    margin: 0;
+/* Body */
+.accordion-body {
+    background: #fff;
+    padding: 22px;
+    font-size: 16px;
+    line-height: 1.9;
+    color: #555;
+    border-top: 1px dashed rgba(244, 168, 53, 0.3);
+    animation: fadeAnswer 0.4s ease;
 }
 
-.modern-faq-item.open .modern-faq-body {
-    max-height: 500px;
+/* Animation */
+@keyframes fadeAnswer {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.modern-faq-item.open .faq-arrow {
-    transform: rotate(90deg);
+/* Mobile */
+@media(max-width:575px){
+    .accordion-button {
+        font-size: 16px;
+        padding: 15px 18px;
+    }
+    .accordion-body {
+        padding: 18px;
+        font-size: 15px;
+    }
 }
 
-@media(max-width:768px){
-    .modern-faq-title { font-size:2rem; }
-    .modern-faq-header { font-size:1rem; padding:15px 20px; }
-    .modern-faq-body p { padding:15px 20px; }
+.accordion-button::after {
+    filter: invert(0);
+    transition: transform .35s ease, filter .35s ease;
+}
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+    transform: rotate(180deg);
+}
+
+/* Pagination */
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 25px 0;
+    flex-wrap: wrap;
+}
+
+.custom-pagination .page-item {
+    transition: transform 0.2s ease;
+}
+
+.custom-pagination .page-item:hover {
+    transform: translateY(-2px);
+}
+
+.custom-pagination .page-link {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #f4a835;
+    color: #f4a835;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
+    transition: all 0.3s ease;
+}
+
+.custom-pagination .page-link:hover {
+    background: #f4a835;
+    color: white;
+    border-color: #f4a835;
+}
+
+.custom-pagination .active_ejaz .page-link {
+    background-color: #f4a835 !important;
+    color: white;
+    border-color: #f4a835;
+    pointer-events: none;
+    box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
 }
 </style>
 @endsection
@@ -439,25 +479,32 @@ body{
             <div class="article-content">
                 {!! $blog->content !!}
             </div>
-            @if($blog->faqs->count())
-            <section class="modern-faq-section">
-                <div class="modern-faq-wrapper">
-                    <h2 class="modern-faq-title">الأسئلة الشائعة</h2>
-                    <div class="modern-faq-list">
-                        @foreach($blog->faqs as $faq)
-                        <div class="modern-faq-item">
-                            <div class="modern-faq-header">
-                                <h3>{{ $faq->question }}</h3>
-                                <span class="faq-arrow">&#9656;</span>
-                            </div>
-                            <div class="modern-faq-body">
-                                <p>{!! nl2br(e($faq->answer)) !!}</p>
-                            </div>
+            <div class="accordion supportFaq" id="faqAccordion">
+                @forelse($blog->faqs as $faq)
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq{{ $faq->id }}">
+                            {{ $faq->question }}
+                            <span class="icon">&#9662;</span>
+                        </button>
+                    </h2>
+                    <div id="faq{{ $faq->id }}" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            {!! $faq->answer !!}
                         </div>
-                        @endforeach
                     </div>
                 </div>
-            </section>
+                @empty
+                <p class="text-center">لا توجد أسئلة حالياً</p>
+                @endforelse
+            </div>
+            @if ($blog->faqs instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                <div class="col-12 mt-4">
+                    <div class="d-flex justify-content-center">
+                        {{ $blog->faqs->appends(request()->except('page'))->links('vendor.pagination.custom') }}
+                    </div>
+                </div>
             @endif
         </article>
 
@@ -490,17 +537,13 @@ body{
 @endsection
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const items = document.querySelectorAll('.modern-faq-item');
-
-    items.forEach(item => {
-        const header = item.querySelector('.modern-faq-header');
-        header.addEventListener('click', () => {
-            items.forEach(i => {
-                if(i !== item) i.classList.remove('open');
+    const faqButtons = document.querySelectorAll('#faqAccordion .accordion-button');
+    faqButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            faqButtons.forEach(b => {
+                if(b !== btn) b.classList.add('collapsed');
             });
-            item.classList.toggle('open');
         });
     });
 });
-
 </script>
