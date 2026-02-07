@@ -419,7 +419,7 @@ body{
                 {!! $blog->content !!}
             </div>
             @if($blog->faqs->count())
-            <section class="mt-5">
+            <section class="mt-1">
                 <h2 class="faq-title">الأسئلة الشائعة</h2>
                 <div class="faq-container">
                     @foreach($blog->faqs as $faq)
