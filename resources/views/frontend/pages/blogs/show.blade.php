@@ -490,12 +490,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const answer = card.querySelector('.faq-answer');
 
         question.addEventListener('click', () => {
-            card.classList.toggle('open');
+            const isOpen = card.classList.contains('open');
 
-            if(card.classList.contains('open')) {
-                answer.style.maxHeight = answer.scrollHeight + "px";
-            } else {
+            if (isOpen) {
                 answer.style.maxHeight = "0";
+                card.classList.remove('open');
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                card.classList.add('open');
             }
         });
     });
