@@ -378,6 +378,38 @@ body{
 .faq-item.open .faq-icon {
     transform: rotate(45deg);
 }
+.faq-item {
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f4a835, #fbe5c5);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-btn {
+    width: 100%;
+    padding: 20px 25px;
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    transition: max-height 0.5s ease;
+}
 </style>
 @endsection
 
