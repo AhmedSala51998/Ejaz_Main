@@ -417,7 +417,7 @@ body{
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
     border-radius: 40px;
     max-width: 1200px;
-    margin: 50px auto;
+    margin: 10px auto;
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
 .faq-main-title {
