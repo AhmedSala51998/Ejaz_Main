@@ -198,9 +198,9 @@
         }
         .floating-container .element-container {
             display: flex;
-            flex-direction: column; /* أو row حسب تصميمك */
-            gap: 10px; /* مسافة بين الأيقونات */
-            position: absolute; /* أو relative حسب تصميمك */
+            flex-direction: column;
+            gap: 10px;
+            position: absolute;
         }
         .floating-container .float-element i {
             z-index: 10;

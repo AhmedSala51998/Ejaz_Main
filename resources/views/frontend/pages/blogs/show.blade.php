@@ -315,6 +315,8 @@ body{
 /* ===== GENERAL ===== */
 /* ===== FAQ SECTION (Scoped) ===== */
 .blog-faq-section {
+    position: relative;
+    z-index: 1;
     padding: 60px 20px;
     background: linear-gradient(135deg, #fff5e6, #ffe8b3);
     border-radius: 40px;
@@ -322,6 +324,7 @@ body{
     margin: 10px auto;
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
+
 
 .blog-faq-section * {
     box-sizing: border-box;

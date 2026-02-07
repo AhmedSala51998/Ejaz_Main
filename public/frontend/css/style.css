@@ -5870,6 +5870,7 @@ p {
     bottom: 0;
     left: 0;
     margin-bottom: 8px;
+    z-index: 9999;
 
 }
 .floating-container:hover {
@@ -8148,4 +8149,46 @@ p {
 .pagination-outer .pagination-style1 ul li:hover a{
     background-color: #e79124;
     color: #fff;
+}
+.floating-container {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+}
+
+.floating-button,
+.float-element {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #D89835;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(216,152,53,.45);
+    transition: transform 0.3s;
+}
+
+.floating-button:hover,
+.float-element:hover {
+    transform: scale(1.1);
+}
+
+.element-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.float-element i {
+    pointer-events: none;
 }
