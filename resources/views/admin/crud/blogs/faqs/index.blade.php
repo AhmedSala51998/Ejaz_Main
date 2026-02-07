@@ -81,8 +81,11 @@
 <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('dashboard/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <script>
+CKEDITOR.config.versionCheck = false;
+
 let table = $('#faqTable').DataTable({
     processing:true,
     serverSide:true,
@@ -97,12 +100,21 @@ let table = $('#faqTable').DataTable({
     ]
 });
 
+/* INIT Plugins */
+function initFormPlugins() {
+    if (CKEDITOR.instances.faqEditor) CKEDITOR.instances.faqEditor.destroy(true);
+    CKEDITOR.replace('faqEditor', { language:'ar', height:250, removePlugins:'elementspath', resize_enabled:false });
+
+    if ($('.dropify').length) $('.dropify').dropify();
+}
+
 /* ADD FAQ */
 $('#addFaqButton').click(function(){
     $.get("{{ route('blogs.faqs.create', $blog->id) }}", function(res){
         $('#faq-form-container').html(res.html);
         $('#faqModalLabel').text('إضافة سؤال');
         $('#faqModal').modal('show');
+        initFormPlugins();
     });
 });
 
@@ -114,6 +126,7 @@ $(document).on('click','.editFaq',function(){
         $('#faq-form-container').html(res.html);
         $('#faqModalLabel').text('تعديل سؤال');
         $('#faqModal').modal('show');
+        initFormPlugins();
     });
 });
 
@@ -133,7 +146,10 @@ $(document).on('click','.deleteFaq',function(){
                 url:"{{ url('admin/blogs/'.$blog->id.'/faqs') }}/"+id,
                 type:'DELETE',
                 data:{_token:'{{ csrf_token() }}'},
-                success:function(){ table.ajax.reload(); Swal.fire('تم الحذف!','','success'); }
+                success:function(){
+                    table.ajax.reload();
+                    Swal.fire('تم الحذف!','','success');
+                }
             });
         }
     });
@@ -142,25 +158,39 @@ $(document).on('click','.deleteFaq',function(){
 /* SUBMIT FORM */
 $(document).on('submit','#FaqForm',function(e){
     e.preventDefault();
-    let formData = $(this).serialize();
+    let formData = new FormData(this);
     let action = $(this).attr('action');
-    $.post(action, formData, function(){
-        $('#faqModal').modal('hide');
-        table.ajax.reload();
+
+    $.ajax({
+        url: action,
+        type:'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success:function(){
+            $('#faqModal').modal('hide');
+            table.ajax.reload();
+        }
     });
 });
 
 /* Checkbox logic */
-$(document).on('click','#checkAll',function(){
-    let checked = $(this).is(':checked');
-    $('.delete-all').prop('checked', checked);
-    if(checked) $("#bulk_delete, #bulk_toggle").show();
-    else $("#bulk_delete, #bulk_toggle").hide();
+function updateBulkActions() {
+    let checked = $('.delete-all:checked');
+    if (checked.length === 0) {
+        $('#bulk_delete, #bulk_toggle').hide();
+        return;
+    }
+    $('#bulk_delete, #bulk_toggle').show();
+}
+
+$(document).on('change','#checkAll',function(){
+    $('.delete-all').prop('checked', this.checked);
+    updateBulkActions();
 });
 
-$(document).on('click','.delete-all',function(){
-    if($('.delete-all:checked').length>0) $("#bulk_delete, #bulk_toggle").show();
-    else $("#bulk_delete, #bulk_toggle").hide();
+$(document).on('change','.delete-all',function(){
+    updateBulkActions();
 });
 
 /* Bulk delete */
@@ -179,8 +209,13 @@ $(document).on('click','#bulk_delete',function(){
                 $.ajax({
                     url:"{{ route('blogs.faqs.bulk.delete', $blog->id) }}",
                     type:'DELETE',
-                    data:{_token:'{{ csrf_token() }}',ids:ids},
-                    success:function(){ table.ajax.reload(); Swal.fire('تم الحذف!','','success'); }
+                    data:{_token:'{{ csrf_token() }}', ids:ids},
+                    success:function(){
+                        table.ajax.reload();
+                        $('#checkAll').prop('checked', false);
+                        $('#bulk_delete, #bulk_toggle').hide();
+                        Swal.fire('تم الحذف!','','success');
+                    }
                 });
             }
         });
@@ -192,8 +227,10 @@ $(document).on('click','#bulk_toggle',function(){
     let ids = [];
     $('.delete-all:checked').each(function(){ ids.push($(this).val()) });
     if(ids.length){
-        $.post("{{ route('blogs.faqs.bulk.toggle', $blog->id) }}",{_token:'{{ csrf_token() }}',ids:ids},function(){
+        $.post("{{ route('blogs.faqs.bulk.toggle', $blog->id) }}",{_token:'{{ csrf_token() }}', ids:ids}, function(){
             table.ajax.reload();
+            $('#checkAll').prop('checked', false);
+            $('#bulk_delete, #bulk_toggle').hide();
         });
     }
 });
