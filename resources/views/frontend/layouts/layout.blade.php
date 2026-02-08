@@ -159,44 +159,6 @@
         visibility: visible;
         }
 
-
-        /* Globe hidden visually but still measurable */
-        #globe-container {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .6s ease;
-        }
-
-        #globe-container.globe-visible {
-        opacity: 1;
-        pointer-events: auto;
-        }
-
-        /* Bubble */
-        #saudi-bubble {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .4s ease;
-        }
-
-        #saudi-bubble.globe-visible {
-        opacity: 1;
-        }
-
-        /* Hide header until loader finishes */
-        .main-header {
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-        }
-
-        /* Show header after page load */
-        body.page-loaded .main-header {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-        }
-
     </style>
 </head>
 
