@@ -31,17 +31,6 @@
         <polygon fill="#7cb342"/>
     </g>
 
-    <!-- Stars -->
-    <g fill="#f7c400">
-      <circle cx="350" cy="55" r="4"/>
-      <circle cx="520" cy="45" r="3"/>
-      <circle cx="690" cy="55" r="4"/>
-      <circle cx="860" cy="45" r="3"/>
-      <circle cx="1030" cy="55" r="4"/>
-      <circle cx="1200" cy="45" r="3"/>
-      <circle cx="1370" cy="55" r="4"/>
-    </g>
-
   </svg>
 </div>
 <!-- RAMADAN DECOR -->
@@ -60,29 +49,6 @@
           fill="#ffd27d" opacity=".85"/>
     <path d="M45 165 H115 L100 195 H60 Z"
           fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
-  </svg>
-
-  <svg class="moon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <radialGradient id="moonGlow">
-        <stop offset="0%" stop-color="#fff7d6"/>
-        <stop offset="100%" stop-color="#f4a835"/>
-        </radialGradient>
-
-        <mask id="crescentMask">
-        <rect width="120" height="120" fill="black"/>
-        <circle cx="60" cy="60" r="40" fill="white"/>
-        <circle cx="72" cy="52" r="40" fill="black"/>
-        </mask>
-    </defs>
-
-    <circle
-        cx="60"
-        cy="60"
-        r="40"
-        fill="url(#moonGlow)"
-        mask="url(#crescentMask)"
-    />
   </svg>
 
   <svg class="lantern right" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
