@@ -18,6 +18,7 @@ body {
     z-index: 10001;
     transition: all 0.3s ease-in-out; /* Smooth transition for sticky and background changes */
     border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Very light border-bottom */
+    overflow: visible;
 }
 
 /* Header Background for Homepage (Vertical Gradient) */

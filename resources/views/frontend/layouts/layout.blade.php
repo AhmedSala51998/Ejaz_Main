@@ -53,15 +53,15 @@
     <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
     <div class="spinner"></div>
 </div>
-<!-- ================ Ramadan Decoration ================= -->
-@include('frontend.layouts.ramadan_decor.ramadan_decoration')
-<!-- ================ /Ramadan Decoration ================= -->
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
 <!-- ================ /Header ================= -->
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
 <!--((((((((((((((((((( content )))))))))))))))))))-->
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
+<!-- ================ Ramadan Decoration ================= -->
+@include('frontend.layouts.ramadan_decor.ramadan_decoration')
+<!-- ================ /Ramadan Decoration ================= -->
 <content>
 
     @yield('content')
@@ -395,9 +395,6 @@ flags.forEach((flag, i) => {
   const pathLength = rope.getTotalLength();
   const point = rope.getPointAtLength((x / 1920) * pathLength);
   const y = point.y;
-
-  const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
-  flag.setAttribute('points', points);
 
   const angle = 2 + Math.random()*1.5;
   const duration = 2 + Math.random()*1;
