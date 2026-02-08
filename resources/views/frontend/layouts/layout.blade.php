@@ -145,20 +145,6 @@
         display: block;
         }
 
-        /* Hide Ramadan decor until loader finishes */
-        .ramadan-svg-decor,
-        .ramadan-top-decor {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity .6s ease, visibility .6s ease;
-        }
-
-        /* When active */
-        .ramadan-visible {
-        opacity: 1;
-        visibility: visible;
-        }
-
     </style>
 </head>
 
