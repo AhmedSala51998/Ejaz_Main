@@ -40,6 +40,7 @@
     @include('frontend.layouts.assets._css')
     @yield('styles')
     <link rel="stylesheet" href="{{asset('frontend/css/layout_style.css')}}" />
+    <link rel="stylesheet" href="{{asset('frontend/css/ramadan_layout_style.css')}}" />
 </head>
 
 <body>
