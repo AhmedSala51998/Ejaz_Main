@@ -40,10 +40,247 @@
     @include('frontend.layouts.assets._css')
     @yield('styles')
     <link rel="stylesheet" href="{{asset('frontend/css/layout_style.css')}}" />
+    <style>
+                /* ===== RAMADAN DECOR ===== */
+        .ramadan-svg-decor{
+        position: fixed;
+        top: 85px;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        pointer-events: none;
+        z-index: 100000;
+        }
+
+        /* Lanterns */
+        .lantern{
+        position: absolute;
+        top: 0;
+        width: 85px;
+        transform-origin: top center;
+        animation: swing 4s ease-in-out infinite;
+        filter: drop-shadow(0 10px 22px rgba(244,168,53,.45));
+        }
+
+        .lantern.left{ left: 25px; }
+        .lantern.right{ right: 25px; animation-delay:2s; }
+
+        @keyframes swing{
+        0%,100%{ transform: rotate(3deg); }
+        50%{ transform: rotate(-3deg); }
+        }
+
+        /* Moon */
+        .moon{
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        width: 80px;
+        transform: translateX(-50%);
+        animation: moonFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes moonFloat{
+        0%,100%{ transform: translate(-50%,0); }
+        50%{ transform: translate(-50%,-10px); }
+        }
+
+        /* Stars */
+        .star {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        transform-origin: center;
+        opacity: 0;
+        animation: fall 6s linear infinite, twinkle 1.6s ease-in-out infinite;
+        }
+
+        @keyframes fall {
+        0% {
+            transform: translateY(-60px) scale(0.5);
+            opacity: 0;
+        }
+        15% {
+            opacity: 1;
+        }
+        70% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(180px) scale(0.3);
+            opacity: 0;
+        }
+        }
+
+        @keyframes twinkle {
+        0%, 100% {
+            opacity: 0.4;
+            transform: scale(0.9);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.8);
+        }
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+        .lantern{ width:60px; }
+        .moon{ width:55px; }
+        }
+
+        .ramadan-top-decor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 180px;
+        pointer-events: none;
+        z-index: 10001;
+        }
+
+        .ramadan-top-decor svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        }
+
+        /* Hide Ramadan decor until loader finishes */
+        .ramadan-svg-decor,
+        .ramadan-top-decor {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .6s ease, visibility .6s ease;
+        }
+
+        /* When active */
+        .ramadan-visible {
+        opacity: 1;
+        visibility: visible;
+        }
+
+
+        /* Globe hidden visually but still measurable */
+        #globe-container {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .6s ease;
+        }
+
+        #globe-container.globe-visible {
+        opacity: 1;
+        pointer-events: auto;
+        }
+
+        /* Bubble */
+        #saudi-bubble {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .4s ease;
+        }
+
+        #saudi-bubble.globe-visible {
+        opacity: 1;
+        }
+
+        /* Hide header until loader finishes */
+        .main-header {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        }
+
+        /* Show header after page load */
+        body.page-loaded .main-header {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        }
+
+    </style>
 </head>
 
 <body>
+<!-- RAMADAN BUNTING DECOR -->
+<div class="ramadan-top-decor">
+  <svg viewBox="0 0 1920 180" preserveAspectRatio="none"
+       xmlns="http://www.w3.org/2000/svg">
 
+    <!-- Rope -->
+    <path id="rope" d="M0 80 Q960 150 1920 80"
+          stroke="#f4b400"
+          stroke-width="1"
+          fill="none"/>
+
+    <!-- Flags -->
+    <g id="flags">
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+        <polygon fill="#f7c400"/>
+        <polygon fill="#4fc3f7"/>
+        <polygon fill="#7cb342"/>
+    </g>
+
+    <!-- Stars -->
+    <g fill="#f7c400">
+      <circle cx="350" cy="55" r="4"/>
+      <circle cx="520" cy="45" r="3"/>
+      <circle cx="690" cy="55" r="4"/>
+      <circle cx="860" cy="45" r="3"/>
+      <circle cx="1030" cy="55" r="4"/>
+      <circle cx="1200" cy="45" r="3"/>
+      <circle cx="1370" cy="55" r="4"/>
+    </g>
+
+  </svg>
+</div>
+<!-- RAMADAN DECOR -->
+<div class="ramadan-svg-decor">
+
+  <svg class="lantern left" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
+    <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
+    <path d="M55 35 L105 35 L120 60 H40 Z" fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
+    <path d="M35 60 Q80 35 125 60 V165 Q80 195 35 165 Z"
+          fill="#f4a835" stroke="#b17819" stroke-width="4"/>
+    <path d="M55 75 Q80 60 105 75 V150 Q80 165 55 150 Z"
+          fill="#fff1c1" opacity=".9"/>
+    <path d="M35 80 Q50 70 65 80 V145 Q50 155 35 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M95 80 Q110 70 125 80 V145 Q110 155 95 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M45 165 H115 L100 195 H60 Z"
+          fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
+  </svg>
+
+  <svg class="lantern right" viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
+    <line x1="80" y1="0" x2="80" y2="35" stroke="#9c6a1a" stroke-width="4"/>
+    <path d="M55 35 L105 35 L120 60 H40 Z" fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
+    <path d="M35 60 Q80 35 125 60 V165 Q80 195 35 165 Z"
+          fill="#f4a835" stroke="#b17819" stroke-width="4"/>
+    <path d="M55 75 Q80 60 105 75 V150 Q80 165 55 150 Z"
+          fill="#fff1c1" opacity=".9"/>
+    <path d="M35 80 Q50 70 65 80 V145 Q50 155 35 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M95 80 Q110 70 125 80 V145 Q110 155 95 145 Z"
+          fill="#ffd27d" opacity=".85"/>
+    <path d="M45 165 H115 L100 195 H60 Z"
+          fill="#e0a83a" stroke="#b17819" stroke-width="3"/>
+  </svg>
+
+</div>
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
@@ -59,9 +296,6 @@
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
 <!--((((((((((((((((((( content )))))))))))))))))))-->
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
-<!-- ================ Ramadan Decoration ================= -->
-@include('frontend.layouts.ramadan_decor.ramadan_decoration')
-<!-- ================ /Ramadan Decoration ================= -->
 <content>
 
     @yield('content')
@@ -123,37 +357,6 @@
 </script>
 
 @yield('js')
-<script>
-const rope = document.getElementById('rope');
-const flags = document.querySelectorAll('#flags polygon');
-const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420,1500,1580,1660];
-const baseOffset = 50;
-
-flags.forEach((flag, i) => {
-  const x = positionsX[i];
-  const pathLength = rope.getTotalLength();
-  const point = rope.getPointAtLength((x / 1920) * pathLength);
-  const y = point.y;
-
-  const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
-  flag.setAttribute('points', points);
-
-  const angle = 2 + Math.random()*1.5;
-  const duration = 2 + Math.random()*1;
-  flag.style.transformOrigin = `${x}px ${y}px`;
-  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite alternate`;
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    @keyframes flutter${i} {
-      0% { transform: rotate(${-angle}deg); }
-      50% { transform: rotate(${angle}deg); }
-      100% { transform: rotate(${-angle}deg); }
-    }
-  `;
-  document.head.appendChild(style);
-});
-</script>
 <script>
 
     var cv_loader = ` <div class="linear-background"></div>`;
@@ -415,6 +618,37 @@ flags.forEach((flag, i) => {
 
     </div>
 </div>
+<script>
+const rope = document.getElementById('rope');
+const flags = document.querySelectorAll('#flags polygon');
+const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420,1500,1580,1660];
+const baseOffset = 50;
+
+flags.forEach((flag, i) => {
+  const x = positionsX[i];
+  const pathLength = rope.getTotalLength();
+  const point = rope.getPointAtLength((x / 1920) * pathLength);
+  const y = point.y;
+
+  const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
+  flag.setAttribute('points', points);
+
+  const angle = 2 + Math.random()*1.5;
+  const duration = 2 + Math.random()*1;
+  flag.style.transformOrigin = `${x}px ${y}px`;
+  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite alternate`;
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes flutter${i} {
+      0% { transform: rotate(${-angle}deg); }
+      50% { transform: rotate(${angle}deg); }
+      100% { transform: rotate(${-angle}deg); }
+    }
+  `;
+  document.head.appendChild(style);
+});
+</script>
 <script>
 (function () {
 
