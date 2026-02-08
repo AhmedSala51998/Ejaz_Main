@@ -31,6 +31,17 @@
         <polygon fill="#7cb342"/>
     </g>
 
+    <!-- Stars -->
+    <g fill="#f7c400">
+      <circle cx="350" cy="55" r="4"/>
+      <circle cx="520" cy="45" r="3"/>
+      <circle cx="690" cy="55" r="4"/>
+      <circle cx="860" cy="45" r="3"/>
+      <circle cx="1030" cy="55" r="4"/>
+      <circle cx="1200" cy="45" r="3"/>
+      <circle cx="1370" cy="55" r="4"/>
+    </g>
+
   </svg>
 </div>
 <!-- RAMADAN DECOR -->
