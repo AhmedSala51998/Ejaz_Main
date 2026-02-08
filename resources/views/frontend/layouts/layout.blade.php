@@ -41,7 +41,7 @@
     @yield('styles')
     <link rel="stylesheet" href="{{asset('frontend/css/layout_style.css')}}" />
     <style>
-                /* ===== RAMADAN DECOR ===== */
+      /* ===== RAMADAN DECOR ===== */
         .ramadan-svg-decor{
         position: fixed;
         top: 85px;
