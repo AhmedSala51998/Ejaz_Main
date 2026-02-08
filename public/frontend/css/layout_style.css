@@ -326,3 +326,25 @@
         opacity: 1;
         visibility: visible;
         }
+       /* ===== WRAPPER OUT OF FLOW ===== */
+        .ramadan-bunting-wrapper{
+            position: fixed;
+            top: 85px;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            pointer-events: none;
+            z-index: 99999;
+        }
+
+        /* ===== ROPE ===== */
+        .ramadan-top-decor{
+            position: absolute;
+            inset: 0;
+        }
+
+        .ramadan-top-decor svg{
+            width:100%;
+            height:100%;
+            display:block;
+        }
