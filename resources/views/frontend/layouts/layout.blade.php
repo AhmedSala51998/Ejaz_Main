@@ -124,6 +124,37 @@
 
 @yield('js')
 <script>
+const rope = document.getElementById('rope');
+const flags = document.querySelectorAll('#flags polygon');
+const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420,1500,1580,1660];
+const baseOffset = 50;
+
+flags.forEach((flag, i) => {
+  const x = positionsX[i];
+  const pathLength = rope.getTotalLength();
+  const point = rope.getPointAtLength((x / 1920) * pathLength);
+  const y = point.y;
+
+  const points = `${x-20},${y} ${x+20},${y} ${x},${y+baseOffset}`;
+  flag.setAttribute('points', points);
+
+  const angle = 2 + Math.random()*1.5;
+  const duration = 2 + Math.random()*1;
+  flag.style.transformOrigin = `${x}px ${y}px`;
+  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite alternate`;
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes flutter${i} {
+      0% { transform: rotate(${-angle}deg); }
+      50% { transform: rotate(${angle}deg); }
+      100% { transform: rotate(${-angle}deg); }
+    }
+  `;
+  document.head.appendChild(style);
+});
+</script>
+<script>
 
     var cv_loader = ` <div class="linear-background"></div>`;
 
@@ -384,34 +415,6 @@
 
     </div>
 </div>
-<script>
-const rope = document.getElementById('rope');
-const flags = document.querySelectorAll('#flags polygon');
-const positionsX = [300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420,1500,1580,1660];
-const baseOffset = 50;
-
-flags.forEach((flag, i) => {
-  const x = positionsX[i];
-  const pathLength = rope.getTotalLength();
-  const point = rope.getPointAtLength((x / 1920) * pathLength);
-  const y = point.y;
-
-  const angle = 2 + Math.random()*1.5;
-  const duration = 2 + Math.random()*1;
-  flag.style.transformOrigin = `${x}px ${y}px`;
-  flag.style.animation = `flutter${i} ${duration}s ease-in-out infinite alternate`;
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    @keyframes flutter${i} {
-      0% { transform: rotate(${-angle}deg); }
-      50% { transform: rotate(${angle}deg); }
-      100% { transform: rotate(${-angle}deg); }
-    }
-  `;
-  document.head.appendChild(style);
-});
-</script>
 <script>
 (function () {
 
