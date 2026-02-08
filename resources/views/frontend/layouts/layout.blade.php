@@ -55,9 +55,6 @@
 </div>
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
-<!-- ===== RAMADAN DECOR (SEO SAFE) ===== -->
-@include('frontend.layouts.inc._ramadan-decor')
-<!-- ===== /RAMADAN DECOR ===== -->
 <!-- ================ /Header ================= -->
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
 <!--((((((((((((((((((( content )))))))))))))))))))-->
@@ -384,36 +381,6 @@
 
     </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded",()=>{
-
-  /* FLAGS */
-  const rope=document.getElementById('rope');
-  const flags=document.querySelectorAll('#flags polygon');
-  if(!rope||!flags.length) return;
-
-  const pos=[300,380,460,540,620,700,780,860,940,1020,1100,1180,1260,1340,1420,1500,1580,1660];
-  const len=rope.getTotalLength();
-
-  flags.forEach((f,i)=>{
-    const x=pos[i];
-    const p=rope.getPointAtLength((x/1920)*len);
-    f.setAttribute('points',`${x-20},${p.y} ${x+20},${p.y} ${x},${p.y+50}`);
-  });
-
-  /* STARS */
-  const box=document.querySelector('.stars');
-  for(let i=0;i<40;i++){
-    const s=document.createElementNS("http://www.w3.org/2000/svg","svg");
-    s.classList.add('star');
-    s.style.left=Math.random()*100+'%';
-    s.style.top=Math.random()*30+'px';
-    s.innerHTML=`<polygon points="12,2 15,10 24,10 17,15 19,24 12,19 5,24 7,15 0,10 9,10"
-      fill="#f7c400"/>`;
-    box.appendChild(s);
-  }
-});
-</script>
 <script>
 (function () {
 
