@@ -7,13 +7,25 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                    <canvas id="sphere-canvas"
-                            width="600"
-                            height="600"
-                            style="width:100%; height:100%; display:block; background:transparent;">
-                    </canvas>
-                </div>
+                @php
+                    $isMobile = request()->header('User-Agent') && preg_match(
+                    '/Android|iPhone|iPad|iPod|Mobile/i',
+                    request()->header('User-Agent')
+                    );
+                    @endphp
+
+                    @if(!$isMobile)
+                        {{-- DESKTOP ONLY --}}
+                        <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                            <canvas id="sphere-canvas"
+                                    width="600"
+                                    height="600"
+                                    style="width:100%; height:100%; display:block; background:transparent;">
+                            </canvas>
+                        </div>
+                    @else
+                    @endif
+
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
@@ -57,13 +69,25 @@
         <div class="container-fluid">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                    <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                        <canvas id="sphere-canvas"
-                                width="600"
-                                height="600"
-                                style="width:100%; height:100%; display:block; background:transparent;">
-                        </canvas>
-                    </div>
+                    @php
+                        $isMobile = request()->header('User-Agent') && preg_match(
+                        '/Android|iPhone|iPad|iPod|Mobile/i',
+                        request()->header('User-Agent')
+                        );
+                        @endphp
+
+                        @if(!$isMobile)
+                            {{-- DESKTOP ONLY --}}
+                            <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                                <canvas id="sphere-canvas"
+                                        width="600"
+                                        height="600"
+                                        style="width:100%; height:100%; display:block; background:transparent;">
+                                </canvas>
+                            </div>
+                        @else
+                        @endif
+
                 </div>
                 <div class="col-md-5 order-md-1 p-1">
                     <!-- main slider -->
@@ -116,6 +140,7 @@
         </div>
     </section>
 @endif
+@if(!$isMobile)
 @php
 $countryMap = [
   "الهند" => 356,
@@ -135,17 +160,12 @@ const canvas = document.getElementById('sphere-canvas');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
-function resizeCanvas() {
-  const wrapper = canvas.parentElement;
-  const size = Math.min(wrapper.clientWidth, 600);
-
-  canvas.width  = size;
-  canvas.height = size;
-
-  W = canvas.width;
-  H = canvas.height;
-  R = Math.min(W, H) * 0.48;
-}
+  function resizeCanvas() {
+    const wrapper = canvas.parentElement;
+    const size = Math.min(wrapper.clientWidth, 600);
+    canvas.width  = size;
+    canvas.height = size;
+  }
 
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
@@ -155,15 +175,14 @@ if (typeof topojson === "undefined") {
     return;
 }
 
-let W, H, R;
+const W = canvas.width;
+const H = canvas.height;
+const R = Math.min(W, H) * 0.48;
 
 let angleX = 0, angleY = 0;
 const autoSpeed = 0.0006;
 let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
-
-const isMobile = window.innerWidth < 768;
-const autoSpeed = isMobile ? 0.00025 : 0.0006;
 
 let features = [];
 
@@ -382,3 +401,4 @@ function draw(){
 }
 });
 </script>
+@endif
