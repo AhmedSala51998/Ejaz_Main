@@ -7,25 +7,13 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                @php
-                    $isMobile = request()->header('User-Agent') && preg_match(
-                    '/Android|iPhone|iPad|iPod|Mobile/i',
-                    request()->header('User-Agent')
-                    );
-                    @endphp
-
-                    @if(!$isMobile)
-                        {{-- DESKTOP ONLY --}}
-                        <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                            <canvas id="sphere-canvas"
-                                    width="600"
-                                    height="600"
-                                    style="width:100%; height:100%; display:block; background:transparent;">
-                            </canvas>
-                        </div>
-                    @else
-                    @endif
-
+                <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                    <canvas id="sphere-canvas"
+                            width="600"
+                            height="600"
+                            style="width:100%; height:100%; display:block; background:transparent;">
+                    </canvas>
+                </div>
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
@@ -69,25 +57,13 @@
         <div class="container-fluid">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                    @php
-                        $isMobile = request()->header('User-Agent') && preg_match(
-                        '/Android|iPhone|iPad|iPod|Mobile/i',
-                        request()->header('User-Agent')
-                        );
-                        @endphp
-
-                        @if(!$isMobile)
-                            {{-- DESKTOP ONLY --}}
-                            <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                                <canvas id="sphere-canvas"
-                                        width="600"
-                                        height="600"
-                                        style="width:100%; height:100%; display:block; background:transparent;">
-                                </canvas>
-                            </div>
-                        @else
-                        @endif
-
+                    <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                        <canvas id="sphere-canvas"
+                                width="600"
+                                height="600"
+                                style="width:100%; height:100%; display:block; background:transparent;">
+                        </canvas>
+                    </div>
                 </div>
                 <div class="col-md-5 order-md-1 p-1">
                     <!-- main slider -->
@@ -140,7 +116,6 @@
         </div>
     </section>
 @endif
-@if(!$isMobile)
 @php
 $countryMap = [
   "الهند" => 356,
@@ -401,4 +376,3 @@ function draw(){
 }
 });
 </script>
-@endif
