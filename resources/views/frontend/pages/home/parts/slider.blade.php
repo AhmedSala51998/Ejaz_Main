@@ -135,12 +135,17 @@ const canvas = document.getElementById('sphere-canvas');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
-  function resizeCanvas() {
-    const wrapper = canvas.parentElement;
-    const size = Math.min(wrapper.clientWidth, 600);
-    canvas.width  = size;
-    canvas.height = size;
-  }
+function resizeCanvas() {
+  const wrapper = canvas.parentElement;
+  const size = Math.min(wrapper.clientWidth, 600);
+
+  canvas.width  = size;
+  canvas.height = size;
+
+  W = canvas.width;
+  H = canvas.height;
+  R = Math.min(W, H) * 0.48;
+}
 
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
@@ -150,14 +155,15 @@ if (typeof topojson === "undefined") {
     return;
 }
 
-const W = canvas.width;
-const H = canvas.height;
-const R = Math.min(W, H) * 0.48;
+let W, H, R;
 
 let angleX = 0, angleY = 0;
 const autoSpeed = 0.0006;
 let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
+
+const isMobile = window.innerWidth < 768;
+const autoSpeed = isMobile ? 0.00025 : 0.0006;
 
 let features = [];
 
