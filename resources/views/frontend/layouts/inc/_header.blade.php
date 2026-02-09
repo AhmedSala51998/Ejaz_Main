@@ -549,7 +549,7 @@ body.sticky-header-active {
 <div id="mobileSidebar" class="mobile-sidebar">
     <div class="sidebar-header text-center">
         <a href="{{ route('home') }}" class="logo-link animate-logo">
-            <img src="{{ asset('frontend/img/logo.png') }}" width="85" height="55" loading="eager" fetchpriority="high" decoding="async" class="img-fluid logo-img" alt="شعار">
+            <img src="{{ asset('frontend/img/logo.png') }}" width="75" height="65" loading="eager" fetchpriority="high" decoding="async" class="img-fluid logo-img" alt="شعار">
         </a>
         <button id="closeSidebar" class="close-btn">&times;</button>
     </div>
