@@ -15,7 +15,7 @@
                     <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
                         <div class="mb-3">
 
-                             <img src="{{ get_file($service->image) }}" alt="{{ $service->title }}" class="img-fluid" loading="lazy" width="80" height="60" style="height: 60px;">
+                             <img src="{{ get_file($service->image) }}" alt="{{ $service->title }}" class="img-fluid" loading="lazy" width="60" height="60" style="height: 60px;">
 
 
                         </div>
