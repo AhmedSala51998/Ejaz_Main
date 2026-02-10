@@ -1,16 +1,8 @@
 <link rel="icon" type="image/x-icon" href="{{$settings->tap_logo ? get_file($settings->tap_logo) : asset('frontend/img/fav.svg')}}">
 
 
-<link rel="preload" href="/css/bootstrap.rtl.min.css" as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<link rel="preload" href="/css/style.css" as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<noscript>
-  <link rel="stylesheet" href="/css/bootstrap.rtl.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-</noscript>
+<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
 
 <link rel="preload"
       href="{{asset('frontend/css/all.min.css')}}"
@@ -49,12 +41,6 @@
   <link rel="stylesheet" href="{{asset('frontend/css/introjs-rtl.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}">
 </noscript>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
-      rel="stylesheet">
 
 <style>
 .form-error { color: red; font-weight: normal; font-size: smaller; }
