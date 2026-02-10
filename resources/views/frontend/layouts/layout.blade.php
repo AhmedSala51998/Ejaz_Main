@@ -39,8 +39,8 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
-    <link rel="stylesheet" href="{{asset('frontend/css/layout_style.css')}}" />
-    <link rel="stylesheet" href="{{asset('frontend/css/ramadan_layout_style.css')}}" />
+    <link rel="stylesheet" href="/css/layout_style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/ramadan_layout_style.css" media="print" onload="this.media='all'">
 </head>
 
 <body>
