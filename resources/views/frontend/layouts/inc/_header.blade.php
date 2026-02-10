@@ -487,7 +487,7 @@ body.sticky-header-active {
                 <ul class="navbar-nav">
                     <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
-                        <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}" href="javascript:void(0);" id="toggleCategories">
+                        <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}" href="{{ route('all-workers') }}" id="toggleCategories">
                             خدماتنا
                             <svg class="arrowIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M7 10l5 5 5-5z"/>
