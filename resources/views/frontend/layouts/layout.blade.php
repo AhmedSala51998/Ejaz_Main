@@ -367,20 +367,20 @@
     <div class="floating-button"><i class="fa-solid fa-headset"></i></div>
     <div class="element-container">
 
-        <a  href="tel:{{$settings->callNumber}}" target="_blank">
+        <a  href="tel:{{$settings->callNumber}}" target="_blank" aria-label="اتصل بنا">
           <span class="float-element tooltip-left">
               <i class="fa-solid fa-phone"></i>
           </span>
         </a>
 
          <span class="float-element">
-             <a  href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
+             <a  href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank" aria-label="أرسل رسالة واتساب">
           <i style="color: white" class="fa-brands fa-whatsapp"></i>
                   </a>
          </span>
 
         <span class="float-element">
-            <a href="mailto:{{$settings->email1}}" target="_blank">
+            <a href="mailto:{{$settings->email1}}" target="_blank" aria-label="أرسل بريد إلكتروني">
                 <i style="color: white" class="fa-solid fa-envelope"></i>
             </a>
         </span>

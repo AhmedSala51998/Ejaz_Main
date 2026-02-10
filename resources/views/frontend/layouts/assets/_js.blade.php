@@ -10,6 +10,7 @@
 <script src="{{asset('frontend/js/wow.js')}}" defer></script>
 <script src="{{asset('frontend/js/particles.js')}}" defer></script>
 <script src="{{asset('frontend/js/dropify.min.js')}}" defer></script>
+<script src="{{ asset('frontend/js/swiper-bundle.min.js') }}"></script>
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

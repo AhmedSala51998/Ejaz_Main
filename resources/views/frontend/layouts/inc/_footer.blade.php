@@ -155,19 +155,19 @@
                 </ul>
                 <ul class="social">
                     @if($settings->facebook)
-                        <li><a href="{{$settings->facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="{{$settings->facebook}}" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a></li>
                     @endif
                     @if($settings->whatsapp)
-                        <li><a href="{{$settings->whatsapp}}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                        <li><a href="{{$settings->whatsapp}}" target="_blank" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a></li>
                     @endif
                     @if($settings->twitter)
-                        <li><a href="{{$settings->twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="{{$settings->twitter}}" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a></li>
                     @endif
                     @if($settings->snapchat_ghost)
-                        <li><a href="{{$settings->snapchat_ghost}}" target="_blank"><i class="fab fa-snapchat"></i></a></li>
+                        <li><a href="{{$settings->snapchat_ghost}}" target="_blank" aria-label="سناب شات"><i class="fab fa-snapchat"></i></a></li>
                     @endif
                     @if($settings->instagram)
-                        <li><a href="{{$settings->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="{{$settings->instagram}}" target="_blank" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a></li>
                     @endif
                 </ul>
             </div>
