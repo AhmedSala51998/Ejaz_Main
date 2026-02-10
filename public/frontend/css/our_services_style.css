@@ -39,8 +39,9 @@
         color: var(--gray-dark);
     }
 
-    .service-card h6 {
+    .service-card h2 {
         color: var(--orange-main);
+        font-size: 20px;
     }
 
     .service-card p {
