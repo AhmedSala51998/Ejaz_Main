@@ -19,7 +19,7 @@
 
 
                         </div>
-                        <h6 class="fw-bold mb-2">{{ $service->title }}</h6>
+                        <h2 class="fw-bold mb-2">{{ $service->title }}</h2>
                         <p class="text-muted">{{ $service->desc }}</p>
                     </div>
                 </a>

@@ -3,8 +3,8 @@
     <section class="statistics">
         <div class="container">
             <div class="SectionTitle">
-                <h2 class="title"> {{__('frontend.statistics')}} </h2>
-                <h6 class="hint"> {{$settings->our_statistics_desc}} </h6>
+                <h1 class="title"> {{__('frontend.statistics')}} </h1>
+                <h2 class="hint"> {{$settings->our_statistics_desc}} </h2>
             </div>
             <div class="row statisticsInner">
                 <div class="circleBlur"></div>
@@ -13,8 +13,8 @@
                 <div class="col-12 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
                         <i style="font-size: 44px !important;color:#d97706 !important;margin-left:5px !important" class="fa {{$statistic->icon}}"></i>
-                        <h1 class="odometer" data-count="{{$statistic->number}}">00</h1>
-                        <h6> {{$statistic->title}} </h6>
+                        <h3 class="odometer" data-count="{{$statistic->number}}">00</h3>
+                        <h4> {{$statistic->title}} </h4>
                     </div>
                 </div>
                 @endforeach
