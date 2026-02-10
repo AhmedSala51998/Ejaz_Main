@@ -4,6 +4,10 @@
     الأسئلة الشائعة
 @endsection
 
+@section('meta_description')
+اطلع على الأسئلة الشائعة حول خدمات شركة إيجاز للاستقدام وحل أي استفسار بسرعة وسهولة داخل المملكة العربية السعودية.
+@endsection
+
 @section('styles')
 <style>
 body{

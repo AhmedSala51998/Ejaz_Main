@@ -4,6 +4,10 @@
 {{ $blog->title }}
 @endsection
 
+@section('meta_description')
+{{ $blog->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($blog->content), 160) }}
+@endsection
+
 @section('styles')
 
 @isset($blog)

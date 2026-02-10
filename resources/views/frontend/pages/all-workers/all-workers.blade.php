@@ -11,6 +11,17 @@
     {{ $title }}
 @endsection
 
+@section('meta_description')
+    @php
+        $metaDescription = match (true) {
+            request()->routeIs('transferService') => 'اطلب نقل خدمات العمالة المنزلية بسهولة وسرعة مع شركة إيجاز للاستقدام داخل المملكة العربية السعودية، واختر الخدمة الأنسب لك.',
+            request()->routeIs('services-single') => 'استكشف خدمات العمالة المنزلية الفردية مع شركة إيجاز، واختر أفضل العمالة المؤهلة لتلبية احتياجات منزلك.',
+            default => 'قدّم طلب استقدام العمالة المنزلية مع شركة إيجاز بسهولة وأمان داخل المملكة العربية السعودية، وتمتع بخدمة احترافية وسريعة.',
+        };
+    @endphp
+    {{ $metaDescription }}
+@endsection
+
 @section('styles')
     <style>
 

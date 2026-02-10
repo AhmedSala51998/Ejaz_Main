@@ -35,6 +35,9 @@
         {{$settings->title??"ايجاز"}} - @yield('title')
     </title>
 
+    <!-- Meta Description (SEO) -->
+    <meta name="description" content="@yield('meta_description', 'إيجاز للاستقدام شركة متخصصة في استقدام العمالة المنزلية داخل المملكة العربية السعودية، نوفر كوادر مدرّبة بإجراءات سريعة وخدمة موثوقة في جدة والرياض وينبع.')">
+
     {{--here we will add --}}
     <!-- icon -->
     @include('frontend.layouts.assets._css')

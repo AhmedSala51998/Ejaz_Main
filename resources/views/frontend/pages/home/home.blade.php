@@ -4,6 +4,10 @@
     {{__('frontend.Home')}}
 @endsection
 
+@section('meta_description')
+شركة إيجاز للاستقدام تقدم خدمات استقدام العمالة المنزلية داخل المملكة العربية السعودية بإجراءات سريعة وأسعار تنافسية وخدمة موثوقة عبر منصة مساند.
+@endsection
+
 @section('styles')
 
     <script type="application/ld+json">
