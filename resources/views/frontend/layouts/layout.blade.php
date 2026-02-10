@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="ar">
 
 <head>
     <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
