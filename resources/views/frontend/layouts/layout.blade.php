@@ -2,28 +2,6 @@
 <html lang="ar">
 
 <head>
-    <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
-    <script>
-    let hotjarLoaded = false;
-
-    function loadHotjar() {
-    if (hotjarLoaded) return;
-    hotjarLoaded = true;
-
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:4969317,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    }
-
-    window.addEventListener('scroll', loadHotjar, { once: true });
-    window.addEventListener('touchstart', loadHotjar, { once: true });
-    </script>
-
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
