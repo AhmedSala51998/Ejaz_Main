@@ -50,10 +50,6 @@
 <!-- ================ Ramadan Decoration ================= -->
 @include('frontend.layouts.ramadan_decor.ramadan_decoration')
 <!-- ================ /Ramadan Decoration ================= -->
-<!-- custom cursor  -->
-<div class="customCursor"></div>
-<div class="customCursorInner"></div>
-<!-- end custom cursor  -->
 <!-- loader -->
 <div class="loader">
     <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
@@ -417,34 +413,6 @@ flags.forEach((flag, i) => {
   `;
   document.head.appendChild(style);
 });
-</script>
-<script>
-(function () {
-
-  let zohoLoaded = false;
-
-  function loadZoho() {
-    if (zohoLoaded) return;
-    zohoLoaded = true;
-
-    window.$zoho = window.$zoho || {};
-    window.$zoho.salesiq = window.$zoho.salesiq || {
-      ready: function () {}
-    };
-
-    const s = document.createElement('script');
-    s.id = 'zsiqscript';
-    s.src = 'https://salesiq.zohopublic.sa/widget?wc=51e74ff9928005b76e4f348a33431fe4d7a8432cbe57b7d22bdc2cb68a934a6c';
-    s.defer = true;
-
-    document.body.appendChild(s);
-  }
-
-  window.addEventListener('scroll', loadZoho, { once: true, passive: true });
-  window.addEventListener('touchstart', loadZoho, { once: true, passive: true });
-  window.addEventListener('mousemove', loadZoho, { once: true });
-
-})();
 </script>
 </body>
 </html>
