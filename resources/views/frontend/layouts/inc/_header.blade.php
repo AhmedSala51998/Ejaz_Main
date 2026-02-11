@@ -462,6 +462,20 @@ body.sticky-header-active {
     opacity: 1 !important;
   }
 }
+.dropdownMenu {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .dropdownWrapper:hover .dropdownMenu {
+        display: block;
+    }
+}
+
+.navLink.active {
+    color: #f4a835;
+    border-bottom: 2px solid #f4a835;
+}
 </style>
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
