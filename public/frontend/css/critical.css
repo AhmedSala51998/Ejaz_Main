@@ -1,0 +1,19 @@
+body {
+  margin:0;
+  font-family:'Cairo', 'Tajawal', sans-serif;
+  background:#fff;
+}
+
+header {
+  position:relative;
+  z-index:100;
+}
+
+.navbar {
+  display:flex;
+  align-items:center;
+}
+
+.hero {
+  min-height:60vh;
+}

@@ -76,3 +76,6 @@
         height: 100%;
         display: block;
         }
+        @media (max-width: 991px){
+        .ramadan-top-decor { display:none }
+        }
