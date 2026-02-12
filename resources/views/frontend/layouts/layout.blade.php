@@ -77,28 +77,6 @@
         </div>
     </div>
 
-    <!-- ======= City Modal ======= -->
-    <div id="cityModal" hidden>
-    <div class="city-modal-content">
-        <div class="cards">
-        <div class="card" data-branch="jeddah">
-            <i style="font-size:44px !important" class="fas fa-city"></i>
-            <span>جدة</span>
-        </div>
-
-        <div class="card" data-branch="yanbu">
-            <i style="font-size:44px !important" class="fas fa-water"></i>
-            <span>ينبع</span>
-        </div>
-
-        <div class="card" data-branch="riyadh">
-            <i style="font-size:44px !important" class="fas fa-building"></i>
-            <span>الرياض</span>
-        </div>
-        </div>
-    </div>
-    </div>
-
 
 </content>
 <!--(((((((((((((((((((((((()))))))))))))))))))))))-->
@@ -272,84 +250,6 @@
 
 
     });
-</script>
-<script>
-(() => {
-
-    const modal = document.getElementById('cityModal');
-    if (!modal) return;
-
-    const setCookie = (n,v) =>
-        document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
-
-    const getCookie = n =>
-        document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
-
-    const showModal = () => {
-        modal.hidden = false;
-        document.body.style.pointerEvents = 'none';
-        modal.style.pointerEvents = 'auto';
-
-        requestAnimationFrame(() => {
-            modal.classList.add('active');
-        });
-
-        fixZohoChat();
-    };
-
-    const fixZohoChat = () => {
-        const selectors = [
-            '#zsiq_float',
-            '#zsiq_widget',
-            '.zsiq_flt_rel',
-            '[id^="zsiq_"]'
-        ];
-
-        let tries = 0;
-        const interval = setInterval(() => {
-            tries++;
-            selectors.forEach(sel => {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.style.pointerEvents = 'auto';
-                });
-            });
-
-            if (document.querySelector('#zsiq_float') || tries > 10) {
-                clearInterval(interval);
-            }
-        }, 400);
-    };
-
-    const branch = localStorage.getItem('branch') || getCookie('branch');
-
-    if (!branch) {
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(showModal, { timeout: 1200 });
-        } else {
-            setTimeout(showModal, 300);
-        }
-    }
-
-    modal.addEventListener('click', e => {
-        const card = e.target.closest('.card');
-        if (!card) return;
-
-        const branch = card.dataset.branch;
-
-        modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
-        card.innerHTML = '<div class="loader-circle"></div>';
-
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
-
-        requestIdleCallback(() => {
-            axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-            }).finally(() => location.reload());
-        });
-    });
-
-})();
 </script>
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
