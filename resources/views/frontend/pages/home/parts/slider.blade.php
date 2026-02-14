@@ -245,43 +245,10 @@ function project(lat, lon) {
   return { x: W/2 + x2, y: H/2 + y1, z: z2 };
 }
 
-function drawPolygon(coords) {
-  ctx.beginPath();
-  coords.forEach((c,i)=>{
-    const [lon, lat] = c;
-    const p = project(lat, lon);
-    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
-  });
-  ctx.stroke();
-}
+const bubbleColor = "rgba(255,140,0,0.92)";
+const textColor = "#ffffff";
 
-function drawSphereOutline() {
-  ctx.beginPath();
-  ctx.arc(W/2, H/2, R, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(244,168,53,0.25)';
-  ctx.lineWidth = 0.8;
-  ctx.stroke();
-}
-
-function drawWaterRipple(x, y, z, t) {
-  if (z < 0) return;
-
-  const base = (Math.sin(t * 0.004) + 1) / 2;
-
-  for (let i = 0; i < 3; i++) {
-    const r = 6 + base * 6 + i * 4;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(244,168,53,${0.35 - i * 0.1})`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
-}
-
-const bubbleColor = "rgba(255,140,0,0.88)";
-const bubbleTextColor = "#ffffff";
-
-function drawBubble(x, y, text) {
+function drawBubble(x, y, text, direction) {
 
   ctx.save();
   ctx.translate(x, y);
@@ -291,7 +258,7 @@ function drawBubble(x, y, text) {
   const textWidth = ctx.measureText(text).width;
   const w = textWidth + padding * 2;
   const h = 34;
-  const r = 18;
+  const r = 16;
 
   ctx.beginPath();
   ctx.moveTo(-w/2 + r, -h);
@@ -306,91 +273,70 @@ function drawBubble(x, y, text) {
   ctx.closePath();
 
   ctx.fillStyle = bubbleColor;
-  ctx.shadowColor = "rgba(255,140,0,0.5)";
+  ctx.shadowColor = "rgba(255,140,0,0.6)";
   ctx.shadowBlur = 15;
   ctx.fill();
-
   ctx.shadowBlur = 0;
-  ctx.fillStyle = bubbleTextColor;
+
+  ctx.beginPath();
+  if (direction === "top") {
+    ctx.moveTo(0, 8);
+    ctx.lineTo(-8, 0);
+    ctx.lineTo(8, 0);
+  } else {
+    ctx.moveTo(0, -h - 8);
+    ctx.lineTo(-8, -h);
+    ctx.lineTo(8, -h);
+  }
+  ctx.closePath();
+  ctx.fillStyle = bubbleColor;
+  ctx.fill();
+
+  ctx.fillStyle = textColor;
   ctx.textAlign = "center";
   ctx.fillText(text, 0, -h/2 + 6);
 
   ctx.restore();
 }
 
-canvas.addEventListener('mousedown', e=>{
-  isDragging=true;
-  lastX=e.clientX;
-  lastY=e.clientY;
-});
-window.addEventListener('mouseup', ()=>isDragging=false);
-window.addEventListener('mousemove', e=>{
-  if(!isDragging) return;
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-  angleY += dx*0.005;
-  angleX += dy*0.005;
-  velocityY = dx*0.0004;
-  velocityX = dy*0.0004;
-  lastX=e.clientX;
-  lastY=e.clientY;
-});
-
 function draw(){
+
   if (!dataReady) return;
 
   ctx.clearRect(0,0,W,H);
-  drawSphereOutline();
 
-  ctx.strokeStyle='rgba(244,168,53,0.9)';
-  ctx.lineWidth=0.6;
-
-  features.forEach(f=>{
-    if(f.geometry.type==="Polygon")
-      f.geometry.coordinates.forEach(drawPolygon);
-    else
-      f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
-  });
-
-  const t = performance.now();
+  const placed = [];
 
   Object.values(targetCountries).forEach((c, index) => {
+
     if (!c.lat) return;
 
     const p = project(c.lat, c.lon);
     if (p.z < 0) return;
 
-    drawWaterRipple(p.x, p.y, p.z, t);
-
-    const float = (Math.sin(t * 0.002) + 1) / 2;
-
     const text = `${c.price} - ${c.nameAr}`;
 
-    const sideOffset = 100;
-    const verticalOffset = -35 - float * 10;
+    const baseOffset = 45;
 
-    const direction = index % 2 === 0 ? 1 : -1;
+    let direction = "top";
+    let bubbleY = p.y - baseOffset;
 
-    const bubbleX = p.x + direction * sideOffset;
-    const bubbleY = p.y + verticalOffset;
+    for (let b of placed) {
+      const dx = Math.abs(p.x - b.x);
+      if (dx < 60) {
+        direction = "bottom";
+        bubbleY = p.y + baseOffset + 34;
+        break;
+      }
+    }
 
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-    ctx.lineTo(bubbleX, bubbleY - 15);
-    ctx.strokeStyle = "rgba(255,140,0,0.7)";
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
+    placed.push({x: p.x});
 
-    drawBubble(bubbleX, bubbleY, text);
+    drawBubble(p.x, bubbleY, text, direction);
+
   });
 
-  if(!isDragging){
-    velocityX *= 0.95;
-    velocityY *= 0.95;
-    angleY += autoSpeed + velocityY;
-    angleX += velocityX;
-  }
-
+  angleY += autoSpeed;
   requestAnimationFrame(draw);
 }
 
