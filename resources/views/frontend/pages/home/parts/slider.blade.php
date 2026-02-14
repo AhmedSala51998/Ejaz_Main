@@ -358,54 +358,86 @@ window.addEventListener('mousemove', e=>{
 });
 
 function draw(){
-  if (!dataReady) return;
-  ctx.clearRect(0,0,W,H);
-  drawSphereOutline();
+    // =======================================
+    // SMART DEPTH SORT + COLLISION SYSTEM
+    // =======================================
 
-  ctx.strokeStyle='rgba(244,168,53,0.9)';
-  ctx.lineWidth=0.6;
-  features.forEach(f=>{
-    if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
-    else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
-  });
-
-  const t = performance.now();
+    const visibleCountries = [];
     const drawnBubbles = [];
+    const t = performance.now();
+
     Object.values(targetCountries).forEach(c => {
     if (!c.lat) return;
 
     const p = project(c.lat, c.lon);
-
     if (p.z < 0) return;
 
     const visibility = p.z / R;
-
-    const alpha = Math.max(0, visibility);
-
     if (visibility < 0.35) return;
 
-    drawWaterRipple(p.x, p.y, p.z, performance.now());
-
-    const float = (Math.sin(performance.now() * 0.002) + 1) / 2;
-    const bubbleBaseY = p.y - 20;
-    const bubbleY = bubbleBaseY - float * 14;
-
-    const text = `${c.price} - ${c.nameAr}`;
-
-    const scale = 0.9 + visibility * 0.2;
-
-    drawChatBubble(p.x, bubbleY, text, alpha, scale);
-    drawArrowAttached(p.x, bubbleY, scale, alpha);
+    visibleCountries.push({
+        ...c,
+        x: p.x,
+        y: p.y,
+        z: p.z,
+        visibility
+    });
     });
 
-  if(!isDragging){
-    velocityX *= 0.95;
-    velocityY *= 0.95;
-    angleY += autoSpeed + velocityY;
-    angleX += velocityX;
-  }
+    visibleCountries.sort((a, b) => a.z - b.z);
 
-  requestAnimationFrame(draw);
+    visibleCountries.forEach(c => {
+
+    drawWaterRipple(c.x, c.y, c.z, t);
+
+    const float = (Math.sin(t * 0.002) + 1) / 2;
+
+    let bubbleY = c.y - 30 - float * 14;
+    const text = `${c.price} - ${c.nameAr}`;
+
+    const scale = 0.9 + c.visibility * 0.2;
+    const alpha = c.visibility;
+
+    ctx.font = "bold 14px Arial";
+    const padding = 10;
+    const textWidth = ctx.measureText(text).width;
+    const w = (textWidth + padding * 2) * scale;
+    const h = 28 * scale;
+
+    // ==========================
+    // COLLISION RESOLUTION
+    // ==========================
+
+    let collision = true;
+    let attempts = 0;
+
+    while (collision && attempts < 15) {
+        collision = false;
+
+        for (let b of drawnBubbles) {
+        const overlapX = Math.abs(c.x - b.x) < (w/2 + b.w/2);
+        const overlapY = Math.abs(bubbleY - b.y) < (h + b.h);
+
+        if (overlapX && overlapY) {
+            bubbleY -= 34;
+            collision = true;
+            break;
+        }
+        }
+
+        attempts++;
+    }
+
+    drawnBubbles.push({
+        x: c.x,
+        y: bubbleY,
+        w: w,
+        h: h
+    });
+
+    drawChatBubble(c.x, bubbleY, text, alpha, scale);
+    drawArrowAttached(c.x, bubbleY, scale, alpha);
+    });
 }
 });
 </script>
