@@ -160,15 +160,14 @@ const canvas = document.getElementById('sphere-canvas');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
-  function resizeCanvas() {
-    const wrapper = canvas.parentElement;
-    const size = Math.min(wrapper.clientWidth, 600);
-    canvas.width  = size;
-    canvas.height = size;
-  }
-
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+function resizeCanvas() {
+  const wrapper = canvas.parentElement;
+  const size = Math.min(wrapper.clientWidth, 600);
+  canvas.width  = size;
+  canvas.height = size;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 if (typeof topojson === "undefined") {
     console.error("TopoJSON not loaded");
@@ -185,44 +184,51 @@ let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
 
 let features = [];
-
 const targetCountries = {};
+const messagesPerCountry = {}; // لتخزين رسائل كل دولة
 
 @foreach($countries as $c)
   @if(isset($countryMap[$c->country_name]))
-    targetCountries[{{ $countryMap[$c->country_name] }}] = {
-      price: "{{ number_format($c->price,0) }} ريال",
-      nameAr: "{{ $c->country_name }}"
+    const countryId = {{ $countryMap[$c->country_name] }};
+    if(!targetCountries[countryId]) targetCountries[countryId] = {
+      nameAr: "{{ $c->country_name }}",
+      lat: null,
+      lon: null,
+      messages: []
     };
+    targetCountries[countryId].messages.push({
+      price: "{{ number_format($c->price,0) }} ريال",
+      text: "{{ number_format($c->price,0) }} ريال - {{ $c->country_name }}",
+      angleOffset: Math.random() * Math.PI * 2 // زاوية عشوائية لكل رسالة
+    });
   @endif
 @endforeach
 
 let dataReady = false;
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
-  .then(r => r.json())
-  .then(world => {
+.then(r => r.json())
+.then(world => {
+  features = topojson.feature(world, world.objects.countries).features;
 
-    features = topojson.feature(world, world.objects.countries).features;
+  features.forEach(f => {
+    const id = +f.id;
+    if (!targetCountries[id]) return;
 
-    features.forEach(f => {
-      const id = +f.id;
-      if (!targetCountries[id]) return;
+    let coords;
+    if (f.geometry.type === "Polygon")
+      coords = f.geometry.coordinates[0];
+    else
+      coords = f.geometry.coordinates[0][0];
 
-      let coords;
-      if (f.geometry.type === "Polygon")
-        coords = f.geometry.coordinates[0];
-      else
-        coords = f.geometry.coordinates[0][0];
-
-      const [lat, lon] = getCentroid(coords);
-      targetCountries[id].lat = lat;
-      targetCountries[id].lon = lon;
-    });
-
-    dataReady = true;
-    requestAnimationFrame(draw);
+    const [lat, lon] = getCentroid(coords);
+    targetCountries[id].lat = lat;
+    targetCountries[id].lon = lon;
   });
+
+  dataReady = true;
+  requestAnimationFrame(draw);
+});
 
 function getCentroid(coords) {
   let x = 0, y = 0, count = 0;
@@ -267,9 +273,7 @@ function drawPolygon(coords) {
 
 function drawWaterRipple(x, y, z, t) {
   if (z < 0) return;
-
   const base = (Math.sin(t * 0.004) + 1) / 2;
-
   for (let i = 0; i < 3; i++) {
     const r = 6 + base * 6 + i * 4;
     ctx.beginPath();
@@ -283,26 +287,17 @@ function drawWaterRipple(x, y, z, t) {
 function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   ctx.save();
   ctx.globalAlpha = alpha;
-
   const h = 28;
   const arrowGap = -5;
-
-  ctx.translate(
-    x,
-    y + h * scale / 2 + arrowGap
-  );
-
+  ctx.translate(x, y + h * scale / 2 + arrowGap);
   ctx.scale(scale, scale);
-
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.lineTo(-7, -10);
   ctx.lineTo(7, -10);
   ctx.closePath();
-
   ctx.fillStyle = "rgba(255,140,0,0.92)";
   ctx.fill();
-
   ctx.restore();
 }
 
@@ -357,7 +352,7 @@ window.addEventListener('mousemove', e=>{
   lastX=e.clientX; lastY=e.clientY;
 });
 
-function draw(){
+function draw() {
   if (!dataReady) return;
   ctx.clearRect(0,0,W,H);
   drawSphereOutline();
@@ -370,33 +365,32 @@ function draw(){
   });
 
   const t = performance.now();
-    const drawnBubbles = [];
-    Object.values(targetCountries).forEach(c => {
+
+  Object.values(targetCountries).forEach(c => {
     if (!c.lat) return;
-
     const p = project(c.lat, c.lon);
-
     if (p.z < 0) return;
 
     const visibility = p.z / R;
-
-    const alpha = Math.max(0, visibility);
-
     if (visibility < 0.35) return;
 
-    drawWaterRipple(p.x, p.y, p.z, performance.now());
+    drawWaterRipple(p.x, p.y, p.z, t);
 
-    const float = (Math.sin(performance.now() * 0.002) + 1) / 2;
-    const bubbleBaseY = p.y - 20;
-    const bubbleY = bubbleBaseY - float * 14;
+    const numMessages = c.messages.length;
+    c.messages.forEach((msg, index) => {
+      // زاوية دائرية لكل رسالة
+      const angle = msg.angleOffset + t * 0.001; // دوران بسيط حول المركز
+      const radius = 15 + index * 5; // مسافة من مركز الدولة
+      const msgX = p.x + Math.cos(angle) * radius;
+      const msgY = p.y + Math.sin(angle) * radius;
 
-    const text = `${c.price} - ${c.nameAr}`;
+      const alpha = Math.max(0, visibility);
+      const scale = 0.9 + visibility * 0.2;
 
-    const scale = 0.9 + visibility * 0.2;
-
-    drawChatBubble(p.x, bubbleY, text, alpha, scale);
-    drawArrowAttached(p.x, bubbleY, scale, alpha);
+      drawChatBubble(msgX, msgY, msg.text, alpha, scale);
+      drawArrowAttached(msgX, msgY, scale, alpha);
     });
+  });
 
   if(!isDragging){
     velocityX *= 0.95;
