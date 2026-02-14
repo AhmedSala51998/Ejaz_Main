@@ -300,7 +300,7 @@ function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   ctx.lineTo(7, -10);
   ctx.closePath();
 
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.fillStyle = "rgba(255,140,0,0.92)";
   ctx.fill();
 
   ctx.restore();
@@ -331,9 +331,9 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
   ctx.closePath();
 
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.shadowColor = "rgba(0,0,0,0.45)";
-  ctx.shadowBlur = 8;
+  ctx.fillStyle = "rgba(255,140,0,0.92)";
+  ctx.shadowColor = "rgba(255,140,0,0.6)";
+  ctx.shadowBlur = 15;
   ctx.fill();
 
   ctx.shadowBlur = 0;
