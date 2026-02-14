@@ -375,17 +375,24 @@ function draw(){
     if (!c.lat) return;
 
     const p = project(c.lat, c.lon);
+
     if (p.z < 0) return;
 
-    drawWaterRipple(p.x, p.y, p.z, t);
+    const visibility = p.z / R;
 
-    const float = (Math.sin(t * 0.002) + 1) / 2;
+    const alpha = Math.max(0, visibility);
+
+    if (visibility < 0.35) return;
+
+    drawWaterRipple(p.x, p.y, p.z, performance.now());
+
+    const float = (Math.sin(performance.now() * 0.002) + 1) / 2;
     const bubbleBaseY = p.y - 20;
     const bubbleY = bubbleBaseY - float * 14;
 
     const text = `${c.price} - ${c.nameAr}`;
-    const scale = 0.95 + float * 0.05;
-    const alpha = 0.95;
+
+    const scale = 0.9 + visibility * 0.2;
 
     drawChatBubble(p.x, bubbleY, text, alpha, scale);
     drawArrowAttached(p.x, bubbleY, scale, alpha);
