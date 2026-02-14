@@ -278,37 +278,20 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
-const bubbleColor = "rgba(255,140,0,0.22)";
+const bubbleColor = "rgba(255,140,0,0.88)";
 const bubbleTextColor = "#ffffff";
 
-function drawArrow(x, y, scale) {
-  ctx.save();
-  ctx.translate(x, y + 14 * scale);
-  ctx.scale(scale, scale);
-
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(-7, -10);
-  ctx.lineTo(7, -10);
-  ctx.closePath();
-
-  ctx.fillStyle = bubbleColor;
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawBubble(x, y, text, scale) {
+function drawBubble(x, y, text) {
 
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(scale, scale);
 
   ctx.font = "bold 14px Arial";
-  const padding = 12;
+  const padding = 14;
   const textWidth = ctx.measureText(text).width;
   const w = textWidth + padding * 2;
-  const h = 32;
-  const r = 16;
+  const h = 34;
+  const r = 18;
 
   ctx.beginPath();
   ctx.moveTo(-w/2 + r, -h);
@@ -324,7 +307,7 @@ function drawBubble(x, y, text, scale) {
 
   ctx.fillStyle = bubbleColor;
   ctx.shadowColor = "rgba(255,140,0,0.5)";
-  ctx.shadowBlur = 12;
+  ctx.shadowBlur = 15;
   ctx.fill();
 
   ctx.shadowBlur = 0;
@@ -333,29 +316,6 @@ function drawBubble(x, y, text, scale) {
   ctx.fillText(text, 0, -h/2 + 6);
 
   ctx.restore();
-}
-
-function resolveOverlap(x, y, existing, minDist) {
-  let newY = y;
-  let collision = true;
-
-  while (collision) {
-    collision = false;
-
-    for (let b of existing) {
-      const dx = x - b.x;
-      const dy = newY - b.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-
-      if (dist < minDist) {
-        newY -= minDist * 0.9;
-        collision = true;
-        break;
-      }
-    }
-  }
-
-  return newY;
 }
 
 canvas.addEventListener('mousedown', e=>{
@@ -393,9 +353,8 @@ function draw(){
   });
 
   const t = performance.now();
-  const placed = [];
 
-  Object.values(targetCountries).forEach(c => {
+  Object.values(targetCountries).forEach((c, index) => {
     if (!c.lat) return;
 
     const p = project(c.lat, c.lon);
@@ -404,16 +363,25 @@ function draw(){
     drawWaterRipple(p.x, p.y, p.z, t);
 
     const float = (Math.sin(t * 0.002) + 1) / 2;
-    let bubbleY = p.y - 30 - float * 10;
-
-    bubbleY = resolveOverlap(p.x, bubbleY, placed, 60);
-    placed.push({x: p.x, y: bubbleY});
 
     const text = `${c.price} - ${c.nameAr}`;
-    const scale = 0.95 + float * 0.05;
 
-    drawBubble(p.x, bubbleY, text, scale);
-    drawArrow(p.x, bubbleY, scale);
+    const sideOffset = 100;
+    const verticalOffset = -35 - float * 10;
+
+    const direction = index % 2 === 0 ? 1 : -1;
+
+    const bubbleX = p.x + direction * sideOffset;
+    const bubbleY = p.y + verticalOffset;
+
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(bubbleX, bubbleY - 15);
+    ctx.strokeStyle = "rgba(255,140,0,0.7)";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    drawBubble(bubbleX, bubbleY, text);
   });
 
   if(!isDragging){
