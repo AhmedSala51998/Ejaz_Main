@@ -153,26 +153,28 @@ $countryMap = [
   "بنجلاديش" => 50,
 ];
 @endphp
+
 <script defer src="https://unpkg.com/topojson-client@3"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
 const canvas = document.getElementById('sphere-canvas');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
-  function resizeCanvas() {
-    const wrapper = canvas.parentElement;
-    const size = Math.min(wrapper.clientWidth, 600);
-    canvas.width  = size;
-    canvas.height = size;
-  }
-
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+function resizeCanvas() {
+  const wrapper = canvas.parentElement;
+  const size = Math.min(wrapper.clientWidth, 600);
+  canvas.width  = size;
+  canvas.height = size;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 if (typeof topojson === "undefined") {
-    console.error("TopoJSON not loaded");
-    return;
+  console.error("TopoJSON not loaded");
+  return;
 }
 
 const W = canvas.width;
@@ -185,6 +187,7 @@ let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
 
 let features = [];
+let dataReady = false;
 
 const targetCountries = {};
 
@@ -196,8 +199,6 @@ const targetCountries = {};
     };
   @endif
 @endforeach
-
-let dataReady = false;
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
@@ -280,6 +281,9 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
+const bubbleColor = "rgba(255,140,0,0.20)";
+const bubbleTextColor = "#ff8c00";
+
 function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -287,11 +291,7 @@ function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   const h = 28;
   const arrowGap = -5;
 
-  ctx.translate(
-    x,
-    y + h * scale / 2 + arrowGap
-  );
-
+  ctx.translate(x, y + h * scale / 2 + arrowGap);
   ctx.scale(scale, scale);
 
   ctx.beginPath();
@@ -300,7 +300,7 @@ function drawArrowAttached(x, y, scale = 1, alpha = 1) {
   ctx.lineTo(7, -10);
   ctx.closePath();
 
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
+  ctx.fillStyle = bubbleColor;
   ctx.fill();
 
   ctx.restore();
@@ -313,10 +313,10 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.scale(scale, scale);
 
   ctx.font = "bold 14px Arial";
-  const padding = 10;
+  const padding = 12;
   const textWidth = ctx.measureText(text).width;
   const w = textWidth + padding * 2;
-  const h = 28;
+  const h = 30;
   const r = 14;
 
   ctx.beginPath();
@@ -331,20 +331,24 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
   ctx.closePath();
 
-  ctx.fillStyle = "rgba(0,0,0,0.65)";
-  ctx.shadowColor = "rgba(0,0,0,0.45)";
-  ctx.shadowBlur = 8;
+  ctx.fillStyle = bubbleColor;
+  ctx.shadowColor = "rgba(255,140,0,0.4)";
+  ctx.shadowBlur = 10;
   ctx.fill();
 
   ctx.shadowBlur = 0;
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = bubbleTextColor;
   ctx.textAlign = "center";
-  ctx.fillText(text, 0, -h/2 + 5);
+  ctx.fillText(text, 0, -h/2 + 6);
 
   ctx.restore();
 }
 
-canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
+canvas.addEventListener('mousedown', e=>{
+  isDragging=true;
+  lastX=e.clientX;
+  lastY=e.clientY;
+});
 window.addEventListener('mouseup', ()=>isDragging=false);
 window.addEventListener('mousemove', e=>{
   if(!isDragging) return;
@@ -354,23 +358,30 @@ window.addEventListener('mousemove', e=>{
   angleX += dy*0.005;
   velocityY = dx*0.0004;
   velocityX = dy*0.0004;
-  lastX=e.clientX; lastY=e.clientY;
+  lastX=e.clientX;
+  lastY=e.clientY;
 });
 
 function draw(){
   if (!dataReady) return;
+
   ctx.clearRect(0,0,W,H);
   drawSphereOutline();
 
   ctx.strokeStyle='rgba(244,168,53,0.9)';
   ctx.lineWidth=0.6;
+
   features.forEach(f=>{
-    if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
-    else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
+    if(f.geometry.type==="Polygon")
+      f.geometry.coordinates.forEach(drawPolygon);
+    else if(f.geometry.type==="MultiPolygon")
+      f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
   });
 
   const t = performance.now();
-    Object.values(targetCountries).forEach(c => {
+  const drawnBubbles = [];
+
+  Object.values(targetCountries).forEach(c => {
     if (!c.lat) return;
 
     const p = project(c.lat, c.lon);
@@ -380,15 +391,26 @@ function draw(){
 
     const float = (Math.sin(t * 0.002) + 1) / 2;
     const bubbleBaseY = p.y - 20;
-    const bubbleY = bubbleBaseY - float * 14;
+    let bubbleY = bubbleBaseY - float * 14;
+
+    const minDistance = 55;
+    drawnBubbles.forEach(b => {
+      const dx = p.x - b.x;
+      const dy = bubbleY - b.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < minDistance) {
+        bubbleY -= (minDistance - dist);
+      }
+    });
+
+    drawnBubbles.push({ x: p.x, y: bubbleY });
 
     const text = `${c.price} - ${c.nameAr}`;
     const scale = 0.95 + float * 0.05;
-    const alpha = 0.95;
 
-    drawChatBubble(p.x, bubbleY, text, alpha, scale);
-    drawArrowAttached(p.x, bubbleY, scale, alpha);
-    });
+    drawChatBubble(p.x, bubbleY, text, 0.95, scale);
+    drawArrowAttached(p.x, bubbleY, scale, 0.95);
+  });
 
   if(!isDragging){
     velocityX *= 0.95;
@@ -399,6 +421,7 @@ function draw(){
 
   requestAnimationFrame(draw);
 }
+
 });
 </script>
 @endif
