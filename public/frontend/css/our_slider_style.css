@@ -221,13 +221,3 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-canvas {
-  image-rendering: auto;
-}
-@media (max-width: 768px) {
-  #sphere-wrapper,
-  #sphere-canvas {
-    display: none !important;
-  }
-}
