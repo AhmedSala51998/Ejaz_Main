@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const W = canvas.width;
   const H = canvas.height;
-  const R = Math.min(W, H) * 0.48;
+  const R = Math.min(W,H) * 0.48;
 
   let angleX = 0, angleY = 0;
   const autoSpeed = 0.0006;
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
       targetCountries[{{ $countryMap[$c->country_name] }}] = {
         price: "{{ number_format($c->price,0) }} ريال",
         nameAr: "{{ $c->country_name }}",
-        offsetAngle: Math.random() * Math.PI*2 // زاوية عشوائية للرسالة حول الدولة
+        offsetAngle: Math.random() * Math.PI*2
       };
     @endif
   @endforeach
@@ -202,15 +202,13 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(r => r.json())
     .then(world => {
       features = topojson.feature(world, world.objects.countries).features;
-      features.forEach(f => {
+      features.forEach(f=>{
         const id = +f.id;
-        if (!targetCountries[id]) return;
+        if(!targetCountries[id]) return;
         let coords;
-        if (f.geometry.type === "Polygon")
-          coords = f.geometry.coordinates[0];
-        else
-          coords = f.geometry.coordinates[0][0];
-        const [lat, lon] = getCentroid(coords);
+        if(f.geometry.type==="Polygon") coords=f.geometry.coordinates[0];
+        else coords=f.geometry.coordinates[0][0];
+        const [lat,lon] = getCentroid(coords);
         targetCountries[id].lat = lat;
         targetCountries[id].lon = lon;
       });
@@ -218,71 +216,69 @@ document.addEventListener("DOMContentLoaded", function () {
       requestAnimationFrame(draw);
     });
 
-  function getCentroid(coords) {
-    let x = 0, y = 0, count = 0;
-    coords.forEach(c => { x += c[0]; y += c[1]; count++; });
-    return [y / count, x / count];
+  function getCentroid(coords){
+    let x=0, y=0, count=0;
+    coords.forEach(c=>{x+=c[0]; y+=c[1]; count++;});
+    return [y/count, x/count];
   }
 
-  function project(lat, lon) {
-    const latR = lat * Math.PI / 180;
-    const lonR = lon * Math.PI / 180;
+  function project(lat, lon){
+    const latR = lat*Math.PI/180;
+    const lonR = lon*Math.PI/180;
+    let x = R*Math.cos(latR)*Math.sin(lonR);
+    let y = -R*Math.sin(latR);
+    let z = R*Math.cos(latR)*Math.cos(lonR);
 
-    let x = R * Math.cos(latR) * Math.sin(lonR);
-    let y = -R * Math.sin(latR);
-    let z = R * Math.cos(latR) * Math.cos(lonR);
+    let y1 = y*Math.cos(angleX) - z*Math.sin(angleX);
+    let z1 = y*Math.sin(angleX) + z*Math.cos(angleX);
 
-    let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
-    let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
+    let x2 = x*Math.cos(angleY) + z1*Math.sin(angleY);
+    let z2 = -x*Math.sin(angleY) + z1*Math.cos(angleY);
 
-    let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
-    let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
-
-    return { x: W/2 + x2, y: H/2 + y1, z: z2 };
+    return {x: W/2 + x2, y: H/2 + y1, z: z2};
   }
 
-  function drawSphereOutline() {
+  function drawSphereOutline(){
     ctx.beginPath();
-    ctx.arc(W/2, H/2, R, 0, Math.PI*2);
-    ctx.strokeStyle = 'rgba(244,168,53,0.25)';
-    ctx.lineWidth = 0.8;
+    ctx.arc(W/2,H/2,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(244,168,53,0.25)';
+    ctx.lineWidth=0.8;
     ctx.stroke();
   }
 
-  function drawPolygon(coords) {
+  function drawPolygon(coords){
     ctx.beginPath();
-    coords.forEach((c, i) => {
-      const [lon, lat] = c;
+    coords.forEach((c,i)=>{
+      const [lon, lat]=c;
       const p = project(lat, lon);
-      if(i===0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+      if(i===0) ctx.moveTo(p.x,p.y);
+      else ctx.lineTo(p.x,p.y);
     });
     ctx.stroke();
   }
 
-  function drawWaterRipple(x, y, z, t) {
-    if(z<0) return;
-    const base = (Math.sin(t*0.004)+1)/2;
+  function drawWaterRipple(x, y, t){
     for(let i=0;i<3;i++){
-      const r = 6 + base*6 + i*4;
+      const r = 6 + i*3 + Math.sin(t*0.005 + i)*3;
       ctx.beginPath();
-      ctx.arc(x,y,r,0,Math.PI*2);
-      ctx.strokeStyle = `rgba(244,168,53,${0.35 - i*0.1})`;
+      ctx.arc(x, y, r, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(244,168,53,${0.3 - i*0.08})`;
       ctx.lineWidth = 1;
       ctx.stroke();
     }
   }
 
-  function drawArrowAttached(x, y, scale=1, alpha=1, upward=true) {
+  function drawArrowAttached(x, y, scale=1, alpha=1, upward=true){
     ctx.save();
     ctx.globalAlpha = alpha;
-    const h = 12;
-    ctx.translate(x, y);
-    if(upward) ctx.translate(0, -h); else ctx.translate(0, h);
+    ctx.translate(x,y);
+    if(upward) ctx.translate(0,-12);
+    else ctx.translate(0,12);
     ctx.scale(scale, scale);
     ctx.beginPath();
     if(upward){
       ctx.moveTo(0,0); ctx.lineTo(-7,10); ctx.lineTo(7,10);
-    } else {
+    }else{
       ctx.moveTo(0,0); ctx.lineTo(-7,-10); ctx.lineTo(7,-10);
     }
     ctx.closePath();
@@ -291,24 +287,21 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.restore();
   }
 
-  function drawChatBubble(x, y, text, alpha=1, scale=1) {
+  function drawChatBubble(x, y, text, alpha=1, scale=1){
     ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.translate(x, y);
-    ctx.scale(scale, scale);
-
-    ctx.font = "bold 14px Arial";
-    const padding = 10;
+    ctx.globalAlpha=alpha;
+    ctx.translate(x,y);
+    ctx.scale(scale,scale);
+    const padding=10;
+    ctx.font="bold 14px Arial";
     const textWidth = ctx.measureText(text).width;
     const w = textWidth + padding*2;
-    const h = 28;
-    const r = 14;
+    const h = 28; const r=14;
 
     ctx.beginPath();
-    ctx.moveTo(-w/2 + r, -h);
-    ctx.lineTo(w/2 - r, -h);
-    ctx.quadraticCurveTo(w/2, -h, w/2, -h+r);
-    ctx.lineTo(w/2, -r);
+    ctx.moveTo(-w/2+r,-h); ctx.lineTo(w/2-r,-h);
+    ctx.quadraticCurveTo(w/2,-h,w/2,-h+r);
+    ctx.lineTo(w/2,-r);
     ctx.quadraticCurveTo(w/2,0,w/2-r,0);
     ctx.lineTo(-w/2+r,0);
     ctx.quadraticCurveTo(-w/2,0,-w/2,-r);
@@ -317,15 +310,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.closePath();
 
     ctx.fillStyle = "rgba(255,140,0,0.92)";
-    ctx.shadowColor = "rgba(255,140,0,0.6)";
-    ctx.shadowBlur = 15;
+    ctx.shadowColor="rgba(255,140,0,0.6)";
+    ctx.shadowBlur=15;
     ctx.fill();
 
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = "#fff";
-    ctx.textAlign = "center";
-    ctx.fillText(text, 0, -h/2 + 5);
-
+    ctx.shadowBlur=0;
+    ctx.fillStyle="#fff";
+    ctx.textAlign="center";
+    ctx.fillText(text,0,-h/2+5);
     ctx.restore();
   }
 
@@ -342,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
     lastX = e.clientX; lastY = e.clientY;
   });
 
-  function draw() {
+  function draw(){
     if(!dataReady) return;
     ctx.clearRect(0,0,W,H);
     drawSphereOutline();
@@ -356,28 +348,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const t = performance.now();
 
-    Object.values(targetCountries).forEach(c => {
+    Object.values(targetCountries).forEach(c=>{
       if(!c.lat) return;
+      const p = project(c.lat,c.lon);
+      if(p.z<0) return;
+      const alpha = Math.max(0,p.z/R);
+      if(alpha < 0.35) return;
 
-      const p = project(c.lat, c.lon);
-      if(p.z < 0) return;
-
-      // حساب المسافة الثابتة للرسالة داخل دائرة حول الدولة
-      const radius = 40; // نصف قطر دائرة الحركة
-      const angle = c.offsetAngle + Math.sin(t*0.001 + c.lat)*0.5; // حركة ديناميكية
+      // حركة الرسالة حول الدولة
+      const radius = 40;
+      const angle = c.offsetAngle + Math.sin(t*0.001 + c.lat)*0.5;
       const bubbleX = p.x + radius*Math.cos(angle);
       const bubbleY = p.y + radius*Math.sin(angle);
 
-      const alpha = Math.max(0, p.z/R); // شفافية حسب زاوية
-
-      drawWaterRipple(p.x, p.y, p.z, t);
+      // فقاعات مائية تتحرك مع الرسالة
+      drawWaterRipple(bubbleX, bubbleY, t);
       drawChatBubble(bubbleX, bubbleY, `${c.price} - ${c.nameAr}`, alpha, 1);
       drawArrowAttached(bubbleX, bubbleY, 1, alpha, bubbleY < p.y ? true : false);
     });
 
     if(!isDragging){
-      velocityX *= 0.95;
-      velocityY *= 0.95;
+      velocityX *=0.95; velocityY*=0.95;
       angleY += autoSpeed + velocityY;
       angleX += velocityX;
     }
