@@ -172,10 +172,7 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-if (typeof topojson === "undefined") {
-  console.error("TopoJSON not loaded");
-  return;
-}
+if (typeof topojson === "undefined") return;
 
 const W = canvas.width;
 const H = canvas.height;
@@ -192,38 +189,38 @@ let dataReady = false;
 const targetCountries = {};
 
 @foreach($countries as $c)
-  @if(isset($countryMap[$c->country_name]))
-    targetCountries[{{ $countryMap[$c->country_name] }}] = {
-      price: "{{ number_format($c->price,0) }} ريال",
-      nameAr: "{{ $c->country_name }}"
-    };
-  @endif
+@if(isset($countryMap[$c->country_name]))
+targetCountries[{{ $countryMap[$c->country_name] }}] = {
+  price: "{{ number_format($c->price,0) }} ريال",
+  nameAr: "{{ $c->country_name }}"
+};
+@endif
 @endforeach
 
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
-  .then(r => r.json())
-  .then(world => {
+.then(r => r.json())
+.then(world => {
 
-    features = topojson.feature(world, world.objects.countries).features;
+  features = topojson.feature(world, world.objects.countries).features;
 
-    features.forEach(f => {
-      const id = +f.id;
-      if (!targetCountries[id]) return;
+  features.forEach(f => {
+    const id = +f.id;
+    if (!targetCountries[id]) return;
 
-      let coords;
-      if (f.geometry.type === "Polygon")
-        coords = f.geometry.coordinates[0];
-      else
-        coords = f.geometry.coordinates[0][0];
+    let coords;
+    if (f.geometry.type === "Polygon")
+      coords = f.geometry.coordinates[0];
+    else
+      coords = f.geometry.coordinates[0][0];
 
-      const [lat, lon] = getCentroid(coords);
-      targetCountries[id].lat = lat;
-      targetCountries[id].lon = lon;
-    });
-
-    dataReady = true;
-    requestAnimationFrame(draw);
+    const [lat, lon] = getCentroid(coords);
+    targetCountries[id].lat = lat;
+    targetCountries[id].lon = lon;
   });
+
+  dataReady = true;
+  requestAnimationFrame(draw);
+});
 
 function getCentroid(coords) {
   let x = 0, y = 0, count = 0;
@@ -248,14 +245,6 @@ function project(lat, lon) {
   return { x: W/2 + x2, y: H/2 + y1, z: z2 };
 }
 
-function drawSphereOutline() {
-  ctx.beginPath();
-  ctx.arc(W/2, H/2, R, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(244,168,53,0.25)';
-  ctx.lineWidth = 0.8;
-  ctx.stroke();
-}
-
 function drawPolygon(coords) {
   ctx.beginPath();
   coords.forEach((c,i)=>{
@@ -263,6 +252,14 @@ function drawPolygon(coords) {
     const p = project(lat, lon);
     if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
   });
+  ctx.stroke();
+}
+
+function drawSphereOutline() {
+  ctx.beginPath();
+  ctx.arc(W/2, H/2, R, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(244,168,53,0.25)';
+  ctx.lineWidth = 0.8;
   ctx.stroke();
 }
 
@@ -281,17 +278,12 @@ function drawWaterRipple(x, y, z, t) {
   }
 }
 
-const bubbleColor = "rgba(255,140,0,0.20)";
-const bubbleTextColor = "#ff8c00";
+const bubbleColor = "rgba(255,140,0,0.22)";
+const bubbleTextColor = "#ffffff";
 
-function drawArrowAttached(x, y, scale = 1, alpha = 1) {
+function drawArrow(x, y, scale) {
   ctx.save();
-  ctx.globalAlpha = alpha;
-
-  const h = 28;
-  const arrowGap = -5;
-
-  ctx.translate(x, y + h * scale / 2 + arrowGap);
+  ctx.translate(x, y + 14 * scale);
   ctx.scale(scale, scale);
 
   ctx.beginPath();
@@ -302,13 +294,12 @@ function drawArrowAttached(x, y, scale = 1, alpha = 1) {
 
   ctx.fillStyle = bubbleColor;
   ctx.fill();
-
   ctx.restore();
 }
 
-function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
+function drawBubble(x, y, text, scale) {
+
   ctx.save();
-  ctx.globalAlpha = alpha;
   ctx.translate(x, y);
   ctx.scale(scale, scale);
 
@@ -316,8 +307,8 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   const padding = 12;
   const textWidth = ctx.measureText(text).width;
   const w = textWidth + padding * 2;
-  const h = 30;
-  const r = 14;
+  const h = 32;
+  const r = 16;
 
   ctx.beginPath();
   ctx.moveTo(-w/2 + r, -h);
@@ -332,8 +323,8 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.closePath();
 
   ctx.fillStyle = bubbleColor;
-  ctx.shadowColor = "rgba(255,140,0,0.4)";
-  ctx.shadowBlur = 10;
+  ctx.shadowColor = "rgba(255,140,0,0.5)";
+  ctx.shadowBlur = 12;
   ctx.fill();
 
   ctx.shadowBlur = 0;
@@ -342,6 +333,29 @@ function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
   ctx.fillText(text, 0, -h/2 + 6);
 
   ctx.restore();
+}
+
+function resolveOverlap(x, y, existing, minDist) {
+  let newY = y;
+  let collision = true;
+
+  while (collision) {
+    collision = false;
+
+    for (let b of existing) {
+      const dx = x - b.x;
+      const dy = newY - b.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+
+      if (dist < minDist) {
+        newY -= minDist * 0.9;
+        collision = true;
+        break;
+      }
+    }
+  }
+
+  return newY;
 }
 
 canvas.addEventListener('mousedown', e=>{
@@ -374,12 +388,12 @@ function draw(){
   features.forEach(f=>{
     if(f.geometry.type==="Polygon")
       f.geometry.coordinates.forEach(drawPolygon);
-    else if(f.geometry.type==="MultiPolygon")
+    else
       f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
   });
 
   const t = performance.now();
-  const drawnBubbles = [];
+  const placed = [];
 
   Object.values(targetCountries).forEach(c => {
     if (!c.lat) return;
@@ -390,26 +404,16 @@ function draw(){
     drawWaterRipple(p.x, p.y, p.z, t);
 
     const float = (Math.sin(t * 0.002) + 1) / 2;
-    const bubbleBaseY = p.y - 20;
-    let bubbleY = bubbleBaseY - float * 14;
+    let bubbleY = p.y - 30 - float * 10;
 
-    const minDistance = 55;
-    drawnBubbles.forEach(b => {
-      const dx = p.x - b.x;
-      const dy = bubbleY - b.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < minDistance) {
-        bubbleY -= (minDistance - dist);
-      }
-    });
-
-    drawnBubbles.push({ x: p.x, y: bubbleY });
+    bubbleY = resolveOverlap(p.x, bubbleY, placed, 60);
+    placed.push({x: p.x, y: bubbleY});
 
     const text = `${c.price} - ${c.nameAr}`;
     const scale = 0.95 + float * 0.05;
 
-    drawChatBubble(p.x, bubbleY, text, 0.95, scale);
-    drawArrowAttached(p.x, bubbleY, scale, 0.95);
+    drawBubble(p.x, bubbleY, text, scale);
+    drawArrow(p.x, bubbleY, scale);
   });
 
   if(!isDragging){
