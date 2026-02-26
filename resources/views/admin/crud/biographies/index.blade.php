@@ -401,10 +401,10 @@
 
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
-                {"data": "recruitment_office_id", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "type", orderable: false, searchable: true},
                 {"data": "religion", orderable: false, searchable: true},
+                {"data": "recruitment_office_id", orderable: false, searchable: true},
 
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
