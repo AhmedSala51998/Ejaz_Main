@@ -289,7 +289,7 @@
                             <th>رقم جواز السفر</th>
                             <th>النوع</th>
                             <th>الديانة</th>
-                            <!--<th>الحالة الاجتماعية</th>-->
+                            <th>الوكيل الخارجي</th>
                             <th>التاريخ</th>
                             <th>التحكم</th>
                         </tr>
@@ -401,9 +401,10 @@
 
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
+                {"data": "recruitment_office_id", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "type", orderable: false, searchable: true},
-                {"data": "religion", orderable: false, searchable: true},        // ✅ جديد
+                {"data": "religion", orderable: false, searchable: true},
 
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}

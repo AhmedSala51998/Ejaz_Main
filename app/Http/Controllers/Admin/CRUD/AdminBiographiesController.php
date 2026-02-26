@@ -187,6 +187,9 @@ class AdminBiographiesController extends Controller
                 ->editColumn('nationalitie_id', function ($row) {
                     return $row->nationalitie->title;
                 })
+                ->editColumn('recruitment_office_id', function ($row) {
+                    return $row->recruitment_office->title;
+                })
                 ->addColumn('actions', function ($row) {
                     $edit = '';
                     $delete = '';
