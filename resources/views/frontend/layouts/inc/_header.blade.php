@@ -487,32 +487,19 @@ body.sticky-header-active {
                 <ul class="navbar-nav">
                     <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
-
-                        <button class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}"
-                                id="toggleCategories"
-                                type="button"
-                                aria-expanded="false">
-
+                        <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}" href="javascript:void(0);" id="toggleCategories">
                             خدماتنا
-
-                            <svg class="arrowIcon"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                fill="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="arrowIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M7 10l5 5 5-5z"/>
                             </svg>
-                        </button>
-
-                        <div class="dropdownMenu categoriesList">
+                        </a>
+                        <div class="dropdownMenu categoriesList" id="categoriesMenu">
                             <ul>
                                 <li><a href="{{ route('all-workers') }}">طلب استقدام</a></li>
                                 <li><a href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
                                 <li><a href="{{ route('services-single') }}">خدمات فردية</a></li>
                             </ul>
                         </div>
-
                     </li>
                     <li><a class="navLink {{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs')}}"> من نحن </a></li>
                     <li><a class="navLink {{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries')}}"> دول الاستقدام </a></li>
@@ -711,14 +698,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
-<script>
-const toggleBtn = document.getElementById("toggleCategories");
 
-toggleBtn.addEventListener("click", function () {
-    const wrapper = this.closest(".dropdownWrapper");
-    wrapper.classList.toggle("open");
-
-    const expanded = this.getAttribute("aria-expanded") === "true";
-    this.setAttribute("aria-expanded", !expanded);
-});
-</script>
