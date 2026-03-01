@@ -487,6 +487,7 @@ body.sticky-header-active {
                 <ul class="navbar-nav">
                     <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
+
                         <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}"
                         href="{{ route('all-workers') }}"
                         id="toggleCategories">
