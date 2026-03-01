@@ -11,4 +11,17 @@ Disallow: /profileOrderDetails
 
 Disallow: /admin
 
+Disallow: /frontend/css/
+Disallow: /frontend/js/
+Disallow: /frontend/backEndFiles/
+Disallow: /storage/uploads/
+Disallow: /*.css$
+Disallow: /*.js$
+Disallow: /*.map$
+Disallow: /*.json$
+Disallow: /*.svg$
+Disallow: /*.woff$
+Disallow: /*.woff2$
+Disallow: /*.ttf$
+
 Sitemap: https://isteqdamejaz.com/sitemap.xml
