@@ -488,9 +488,10 @@ body.sticky-header-active {
                     <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
 
-                        <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}"
-                        href="{{ route('all-workers') }}"
-                        id="toggleCategories">
+                        <button class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}"
+                                id="toggleCategories"
+                                type="button"
+                                aria-expanded="false">
 
                             خدماتنا
 
@@ -502,7 +503,7 @@ body.sticky-header-active {
                                 viewBox="0 0 24 24">
                                 <path d="M7 10l5 5 5-5z"/>
                             </svg>
-                        </a>
+                        </button>
 
                         <div class="dropdownMenu categoriesList">
                             <ul>
@@ -710,4 +711,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+<script>
+const toggleBtn = document.getElementById("toggleCategories");
 
+toggleBtn.addEventListener("click", function () {
+    const wrapper = this.closest(".dropdownWrapper");
+    wrapper.classList.toggle("open");
+
+    const expanded = this.getAttribute("aria-expanded") === "true";
+    this.setAttribute("aria-expanded", !expanded);
+});
+</script>
