@@ -34,12 +34,12 @@
             "اتصل بنا"
             ],
             "url": [
-            "{{ url('/') }}",
-            "{{ url('/all-workers') }}",
-            "{{ url('/about') }}",
-            "{{ url('/services') }}",
-            "{{ url('/blog') }}",
-            "{{ url('/contact') }}"
+            "https://isteqdamejaz.com/",
+            "https://isteqdamejaz.com/all-workers",
+            "https://isteqdamejaz.com/about",
+            "https://isteqdamejaz.com/services",
+            "https://isteqdamejaz.com/blog",
+            "https://isteqdamejaz.com/supports/contactUs"
             ]
         }
         },
