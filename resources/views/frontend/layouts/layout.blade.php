@@ -32,7 +32,7 @@
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="z2Gm-stFhrGTfv1vcDS-JOpwMXyfhRk60P0gOVSe92I">
     <title>
-       شركة إيجاز للاستقدام – خدمات استقدام العمالة المنزلية داخل المملكة العربية السعودية
+        {{$settings->title??"ايجاز"}} - @yield('title')
     </title>
 
     <!-- Meta Description (SEO) -->

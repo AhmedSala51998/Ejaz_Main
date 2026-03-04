@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    شركة إيجاز للاستقدام
+    {{__('frontend.Home')}}
 @endsection
 
 @section('meta_description')
@@ -10,7 +10,7 @@
 
 @section('styles')
 
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
     "@context": "https://schema.org",
     "@graph": [
@@ -29,7 +29,7 @@
             "الرئيسية",
             "طلب استقدام",
             "من نحن",
-            "خدمات الاستقدام",
+            "دول الاستقدام",
             "المدونة",
             "اتصل بنا"
             ],
@@ -37,7 +37,7 @@
             "https://isteqdamejaz.com/",
             "https://isteqdamejaz.com/all-workers",
             "https://isteqdamejaz.com/about",
-            "https://isteqdamejaz.com/services",
+            "https://isteqdamejaz.com/countries",
             "https://isteqdamejaz.com/blog",
             "https://isteqdamejaz.com/supports/contactUs"
             ]
