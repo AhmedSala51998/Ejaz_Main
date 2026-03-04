@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    {{__('frontend.Home')}}
+    شركة إيجاز للاستقدام
 @endsection
 
 @section('meta_description')
@@ -16,12 +16,12 @@
     "@graph": [
         {
         "@type": "WebSite",
-        "@id": "{{ url('/') }}#website",
-        "url": "{{ url('/') }}",
-        "name": "{{ config('app.name') }}",
+        "@id": "https://isteqdamejaz.com/#website",
+        "url": "https://isteqdamejaz.com/",
+        "name": "شركة إيجاز للاستقدام",
         "description": "شركة إيجاز للاستقدام – خدمات استقدام العمالة المنزلية داخل المملكة العربية السعودية",
         "publisher": {
-            "@id": "{{ url('/') }}#organization"
+            "@id": "https://isteqdamejaz.com/#organization"
         },
         "hasPart": {
             "@type": "SiteNavigationElement",
@@ -45,12 +45,13 @@
         },
         {
         "@type": "Organization",
-        "@id": "{{ url('/') }}#organization",
-        "name": "{{ config('app.name') }}",
-        "url": "{{ url('/') }}",
+        "@id": "https://isteqdamejaz.com/#organization",
+        "name": "شركة إيجاز للاستقدام",
+        "alternateName": "Ejaz Recruitment Company",
+        "url": "https://isteqdamejaz.com/",
         "logo": {
             "@type": "ImageObject",
-            "url": "{{ asset('frontend/img/logo.png') }}"
+            "url": "https://isteqdamejaz.com/frontend/img/logo.png"
         }
         }
     ]
