@@ -28,6 +28,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://static.hotjar.com" crossorigin>
+
+    <link rel="dns-prefetch" href="//static.hotjar.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+
+    <link rel="preload" href="{{asset('frontend/css/layout_style.css')}}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{{asset('frontend/css/ramadan_layout_style.css')}}" as="style" onload="this.rel='stylesheet'">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="z2Gm-stFhrGTfv1vcDS-JOpwMXyfhRk60P0gOVSe92I">
@@ -42,8 +51,6 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
-    <link rel="stylesheet" href="{{asset('frontend/css/layout_style.css')}}" />
-    <link rel="stylesheet" href="{{asset('frontend/css/ramadan_layout_style.css')}}" />
 </head>
 
 <body>
