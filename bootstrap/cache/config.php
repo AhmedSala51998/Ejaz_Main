@@ -47,7 +47,7 @@
   array (
     'name' => 'EjazRecruitment',
     'env' => 'local',
-    'debug' => true,
+    'debug' => false,
     'url' => '',
     'asset_url' => NULL,
     'timezone' => 'Asia/Riyadh',
