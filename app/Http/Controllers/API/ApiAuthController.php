@@ -115,8 +115,6 @@ class ApiAuthController extends Controller
             'password' => $request->password,
         ];
 
-        return 1;
-
         $token = JWTAuth::attempt($credentials);
         if (!$token) {
             return jsonSuccess(null, 'كلمة المرور غير صحيحة او رقم الجوال غير صحيح', 401);
