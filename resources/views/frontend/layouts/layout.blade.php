@@ -51,6 +51,7 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.css">
 </head>
 
 <body>
@@ -133,6 +134,7 @@
 </script>
 
 @yield('js')
+<script src="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.js"></script>
 <script>
 
     var cv_loader = ` <div class="linear-background"></div>`;
