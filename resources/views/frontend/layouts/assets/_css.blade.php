@@ -42,6 +42,11 @@
   <link rel="stylesheet" href="{{asset('frontend/css/fontawesome.min.css')}}">
 </noscript>
 
+<link rel="preload" href="{{asset('frontend/cute-alert-master/style.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="{{asset('frontend/cute-alert-master/style.css')}}">
+</noscript>
+
 <link rel="preload"
       as="style"
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap"

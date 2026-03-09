@@ -51,7 +51,6 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
-    <link rel="stylesheet" media="all" href="{{asset('frontend')}}/cute-alert-master/style.css"/>
 </head>
 
 <body>
@@ -282,7 +281,6 @@
 
     });
 </script>
-<script src="{{asset('frontend')}}/cute-alert-master/cute-alert.js"></script>
 <script>
 (() => {
 
