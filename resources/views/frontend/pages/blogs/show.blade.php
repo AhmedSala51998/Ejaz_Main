@@ -685,15 +685,6 @@ body{
                         <p class="text-center">لا توجد أسئلة حالياً</p>
                         @endforelse
                     </div>
-
-                    {{-- Pagination --}}
-                    @if ($faqs instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                    <div class="col-12 mt-4">
-                        <div class="d-flex justify-content-center">
-                            {{ $faqs->appends(request()->except('page'))->links('vendor.pagination.custom') }}
-                        </div>
-                    </div>
-                    @endif
                 </div>
             </section>
         </article>
