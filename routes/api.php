@@ -3,23 +3,23 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\ApiAuthController;
-use App\Http\Controllers\Api\ApiPhoneVerificationController;
-use App\Http\Controllers\Api\ApiUserFirebaseTokenController;
-use App\Http\Controllers\Api\ApiContactController;
-use App\Http\Controllers\Api\ApiSettingController;
-use App\Http\Controllers\Api\ApiSliderController;
-use App\Http\Controllers\Api\ApiNationalityController;
-use App\Http\Controllers\Api\ApiSponsorController;
-use App\Http\Controllers\Api\ApiReligionController;
-use App\Http\Controllers\Api\ApiJobTitleController;
-use App\Http\Controllers\Api\ApiJobTypeController;
-use App\Http\Controllers\Api\ApiMaidController;
-use App\Http\Controllers\Api\ApiPackageController;
-use App\Http\Controllers\Api\ApiCustomerController;
-use App\Http\Controllers\Api\ApiOrderController;
-use App\Http\Controllers\Api\ApiNotificationController;
-use App\Http\Controllers\Api\ApiHomeController;
+use App\Http\Controllers\API\ApiAuthController;
+use App\Http\Controllers\API\ApiPhoneVerificationController;
+use App\Http\Controllers\API\ApiUserFirebaseTokenController;
+use App\Http\Controllers\API\ApiContactController;
+use App\Http\Controllers\API\ApiSettingController;
+use App\Http\Controllers\API\ApiSliderController;
+use App\Http\Controllers\API\ApiNationalityController;
+use App\Http\Controllers\API\ApiSponsorController;
+use App\Http\Controllers\API\ApiReligionController;
+use App\Http\Controllers\API\ApiJobTitleController;
+use App\Http\Controllers\API\ApiJobTypeController;
+use App\Http\Controllers\API\ApiMaidController;
+use App\Http\Controllers\API\ApiPackageController;
+use App\Http\Controllers\API\ApiCustomerController;
+use App\Http\Controllers\API\ApiOrderController;
+use App\Http\Controllers\API\ApiNotificationController;
+use App\Http\Controllers\API\ApiHomeController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
