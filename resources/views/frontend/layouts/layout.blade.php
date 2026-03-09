@@ -51,7 +51,6 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.css">
 </head>
 
 <body>
@@ -76,7 +75,8 @@
 <content>
 
     @yield('content')
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.css">
+    <script src="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.js"></script>
     <div class="modal fade cvModal" id="showDetails" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" id="CVHere">
@@ -134,7 +134,6 @@
 </script>
 
 @yield('js')
-<script src="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.js"></script>
 <script>
 
     var cv_loader = ` <div class="linear-background"></div>`;
