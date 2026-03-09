@@ -5,6 +5,7 @@
 @endsection
 
 @section('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-alert/cute-alert.css">
     <style>
         body {
         background-color: #fffefc;
@@ -649,7 +650,7 @@
             }
         }
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/cute-alert/cute-alert.js"></script>
 
 @endsection
 
