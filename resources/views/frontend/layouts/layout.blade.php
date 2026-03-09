@@ -51,6 +51,8 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-alert/cute-alert.css">
+    <script src="https://cdn.jsdelivr.net/npm/cute-alert/cute-alert.js"></script>
 </head>
 
 <body>
