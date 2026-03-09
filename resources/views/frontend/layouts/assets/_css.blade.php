@@ -25,6 +25,7 @@
 <link rel="preload" href="{{asset('frontend/backEndFiles/sweetalert/sweetalert.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/introjs.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/introjs-rtl.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-alert/cute-alert.css">
 
 
 <noscript>
