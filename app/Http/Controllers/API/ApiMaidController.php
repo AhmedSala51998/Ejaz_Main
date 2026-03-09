@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Actions\ingaz\MaidAction as objAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ingaz\MaidRequest;
-use App\Http\Resources\Api\MaidResource as xobjResource;
+use App\Http\Resources\Api\MaidResource as objResource;
 use App\Models\Biography as objModel;
 use App\Models\Biography;
 use Illuminate\Http\Request;
