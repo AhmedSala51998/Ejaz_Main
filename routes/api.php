@@ -3,140 +3,120 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
+use App\Http\Controllers\Api\ApiAuthController;
+use App\Http\Controllers\Api\ApiPhoneVerificationController;
+use App\Http\Controllers\Api\ApiUserFirebaseTokenController;
+use App\Http\Controllers\Api\ApiContactController;
+use App\Http\Controllers\Api\ApiSettingController;
+use App\Http\Controllers\Api\ApiSliderController;
+use App\Http\Controllers\Api\ApiNationalityController;
+use App\Http\Controllers\Api\ApiSponsorController;
+use App\Http\Controllers\Api\ApiReligionController;
+use App\Http\Controllers\Api\ApiJobTitleController;
+use App\Http\Controllers\Api\ApiJobTypeController;
+use App\Http\Controllers\Api\ApiMaidController;
+use App\Http\Controllers\Api\ApiPackageController;
+use App\Http\Controllers\Api\ApiCustomerController;
+use App\Http\Controllers\Api\ApiOrderController;
+use App\Http\Controllers\Api\ApiNotificationController;
+use App\Http\Controllers\Api\ApiHomeController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(
-    [
-        'middleware' => 'lang'
-    ],
-    function () {
-        Route::group(['prefix' => 'auth', 'namespace' => 'Api'], function ($router) {
-            Route::post('/register', 'ApiPhoneVerificationController@store');
-            Route::post('/confirm-code', 'ApiPhoneVerificationController@confirm_code');
-            Route::post('/reset-password', 'ApiPhoneVerificationController@reset_password')->middleware('auth:api');
+Route::group([
+    'middleware' => 'lang'
+], function () {
 
-            // Route::post('/register', 'ApiAuthController@register');
-            Route::post('/login', 'ApiAuthController@login');
-            Route::post('/logout', 'ApiAuthController@logout');
-            Route::post('/refresh', 'ApiAuthController@refresh');
-            Route::post('/update/profile', 'ApiAuthController@update');
-            Route::get('/profile', 'ApiAuthController@me');
-            Route::delete('/delete/profile', 'ApiAuthController@delete');
-            Route::post('/update/password', 'ApiAuthController@update_password');
-            Route::post('/firebase/update', 'ApiUserFirebaseTokenController@store')->middleware('auth:api');
+    Route::group(['prefix' => 'auth'], function () {
 
-            // Route::resource('address', ApiUserAddressController::class)->middleware('auth:api');
-        });
+        Route::post('/register', [ApiPhoneVerificationController::class,'store']);
+        Route::post('/confirm-code', [ApiPhoneVerificationController::class,'confirm_code']);
+        Route::post('/reset-password', [ApiPhoneVerificationController::class,'reset_password'])->middleware('auth:api');
 
-        //  //--------------------------------stores------------------------
-        Route::group(['middleware' => 'auth:api', 'namespace' => 'Api', 'prefix' => 'user'], function ($router) {
-            Route::apiResource('contact-us', ApiContactController::class);
-            Route::apiResource('settings', ApiSettingController::class);
-            Route::apiResource('sliders', ApiSliderController::class);
-            Route::apiResource('nationalities', ApiNationalityController::class);
-            Route::apiResource('sponsors', ApiSponsorController::class);
-            Route::apiResource('religions', ApiReligionController::class);
-            Route::apiResource('jobs', ApiJobTitleController::class);
-            Route::apiResource('job-types', ApiJobTypeController::class);
-            Route::apiResource('maids', ApiMaidController::class);
-            Route::get('search-maids', [App\Http\Controllers\Api\ApiMaidController::class, 'search']);
-            Route::apiResource('packages', ApiPackageController::class);
-            Route::apiResource('customers', ApiCustomerController::class);
-            Route::apiResource('orders', ApiOrderController::class);
-            Route::apiResource('notifications', ApiNotificationController::class);
-            // Route::apiResource('complaints', ApiComplaintController::class);
-            // Route::apiResource('return-requests', ApiReturnRequestController::class);
-        });
-        //--------------------------------------------------------
-    }
-);
-Route::group(['namespace' => 'Api'], function () {
+        Route::post('/login', [ApiAuthController::class,'login']);
+        Route::post('/logout', [ApiAuthController::class,'logout']);
+        Route::post('/refresh', [ApiAuthController::class,'refresh']);
+        Route::post('/update/profile', [ApiAuthController::class,'update']);
+        Route::get('/profile', [ApiAuthController::class,'me']);
+        Route::delete('/delete/profile', [ApiAuthController::class,'delete']);
+        Route::post('/update/password', [ApiAuthController::class,'update_password']);
+        Route::post('/firebase/update', [ApiUserFirebaseTokenController::class,'store'])->middleware('auth:api');
+
+    });
+
+
+    //--------------------------------stores------------------------
+
+    Route::group([
+        'middleware' => 'auth:api',
+        'prefix' => 'user'
+    ], function () {
+
+        Route::apiResource('contact-us', ApiContactController::class);
+        Route::apiResource('settings', ApiSettingController::class);
+        Route::apiResource('sliders', ApiSliderController::class);
+        Route::apiResource('nationalities', ApiNationalityController::class);
+        Route::apiResource('sponsors', ApiSponsorController::class);
+        Route::apiResource('religions', ApiReligionController::class);
+        Route::apiResource('jobs', ApiJobTitleController::class);
+        Route::apiResource('job-types', ApiJobTypeController::class);
+        Route::apiResource('maids', ApiMaidController::class);
+
+        Route::get('search-maids', [ApiMaidController::class,'search']);
+
+        Route::apiResource('packages', ApiPackageController::class);
+        Route::apiResource('customers', ApiCustomerController::class);
+        Route::apiResource('orders', ApiOrderController::class);
+        Route::apiResource('notifications', ApiNotificationController::class);
+
+    });
+
+});
+
+Route::group([], function () {
 
     Route::group(['prefix' => 'users'], function () {
-        Route::post('login', 'ApiAuthController@login'); // users/login
-        Route::post('register/client', 'ApiAuthController@registerClient'); // users/register/client
-        Route::post('register/supplier', 'ApiAuthController@registerSupplier'); // users/register/supplier
-        Route::post('register/contractor', 'ApiAuthController@registerContractor'); // users/register/contractor
-    });
 
-    // Route::group(['prefix' => 'settings'], function () {
-    //     Route::get('cities', 'ApiSettingsController@cities'); // settings/cities
-    //     Route::get('categories', 'ApiSettingsController@categories'); // settings/categories
-    // });
+        Route::post('login', [ApiAuthController::class,'login']);
+        Route::post('register/client', [ApiAuthController::class,'registerClient']);
+        Route::post('register/supplier', [ApiAuthController::class,'registerSupplier']);
+        Route::post('register/contractor', [ApiAuthController::class,'registerContractor']);
+
+    });
 
     Route::group(['prefix' => 'home'], function () {
-        Route::post('workers', 'ApiHomeController@workers'); // home/products
-        Route::get('recruitmentContract', 'ApiHomeController@RecruitmentContractFront'); // home/products
-        Route::get('age-range', 'ApiHomeController@ageRange'); // home/ageRange
+
+        Route::post('workers', [ApiHomeController::class,'workers']);
+        Route::get('recruitmentContract', [ApiHomeController::class,'RecruitmentContractFront']);
+        Route::get('age-range', [ApiHomeController::class,'ageRange']);
+
         Route::get('services', function (Request $request) {
-        return response()->json(['data' =>  ['services' => ['transport','admission','rental'] ], 'msg' => null, 'code' => 200], 200);
+            return response()->json([
+                'data' => ['services' => ['transport','admission','rental']],
+                'msg' => null,
+                'code' => 200
+            ], 200);
         });
-        
 
-        Route::post('transfer_service', 'ApiHomeController@transferService'); // home/products
-        Route::post('send_code', 'ApiHomeController@send_code'); // home/products
-        Route::post('verfiy_phone', 'ApiHomeController@verfiy_phone'); // home/products
+        Route::post('transfer_service', [ApiHomeController::class,'transferService']);
+        Route::post('send_code', [ApiHomeController::class,'send_code']);
+        Route::post('verfiy_phone', [ApiHomeController::class,'verfiy_phone']);
+        Route::post('send_code_phone_exit', [ApiHomeController::class,'send_code_phone_exit']);
+        Route::post('contact_us_action', [ApiHomeController::class,'contact_us_action']);
+        Route::post('verify_code', [ApiHomeController::class,'verify_code']);
+        Route::post('complete_request/{id}', [ApiHomeController::class,'completeTheRecruitmentRequest_2']);
+        Route::post('get_client_orders', [ApiHomeController::class,'getClientOrders']);
+        Route::get('get_request_info', [ApiHomeController::class,'getRequestInfo']);
 
+        Route::get('/', [ApiHomeController::class,'index']);
+        Route::get('sliders', [ApiHomeController::class,'sliders']);
+        Route::get('news', [ApiHomeController::class,'news']);
+        Route::get('categories/{level}', [ApiHomeController::class,'categories']);
+        Route::get('products', [ApiHomeController::class,'products']);
+        Route::get('products/show', [ApiHomeController::class,'oneProduct']);
 
-        Route::post('send_code_phone_exit', 'ApiHomeController@send_code_phone_exit'); // home/products
-        Route::post('contact_us_action', 'ApiHomeController@contact_us_action'); // home/products
-
-
-
-        Route::post('verify_code', 'ApiHomeController@verify_code'); // home/products
-        Route::post('complete_request/{id}', 'ApiHomeController@completeTheRecruitmentRequest_2'); // home/products
-
-
-
-        Route::post('get_client_orders', 'ApiHomeController@getClientOrders'); // home/products
-        Route::get('get_request_info', 'ApiHomeController@getRequestInfo'); // settings/categories
-
-
-        Route::get('/', 'ApiHomeController@index'); // home
-        Route::get('sliders', 'ApiHomeController@sliders'); // home/sliders
-        Route::get('news', 'ApiHomeController@news'); // home/news
-        Route::get('categories/{level}', 'ApiHomeController@categories'); // home/categories/
-        Route::get('products', 'ApiHomeController@products'); // home/products
-        Route::get('products/show', 'ApiHomeController@oneProduct'); // home/products/
     });
-
-
-    // Route::group(['prefix' => 'supplires'], function () {
-    //     Route::get('/', 'ApiSupplireController@index'); // supplires
-    // });
-
-    // Route::group(['prefix' => 'contractors'], function () {
-    //     Route::get('/', 'ApiContractorController@index'); // supplires
-    //     Route::get('/show', 'ApiContractorController@show'); // supplires
-    // });
-
-
-    // //Route::middleware('auth:api')->group(function () {
-
-    //     Route::group(['prefix' => 'users'], function () {
-    //         Route::post('logout', 'ApiAuthController@logout'); // users/logout
-    //     });
-
-
-
-    //});
-
 
 });
