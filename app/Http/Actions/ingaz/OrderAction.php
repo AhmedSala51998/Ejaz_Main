@@ -44,7 +44,7 @@ class OrderAction extends MainAction
                 'biography.images',
                 'biography.skills'
             );
-            return $data;
+            return $data->get();
     }
 
     public function storeOrder($data,$request)
