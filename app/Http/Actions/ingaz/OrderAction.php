@@ -30,7 +30,7 @@ class OrderAction extends MainAction
         } elseif ($status == 'previous') {
             $acceptedStatuses = ['finished','canceled'];
         }
-        $data = $this->model->where('user_id', getGuardedUser()->id)
+        $data = $this->model->where('user_id', auth('api')->id())
             ->whereIn('status', $acceptedStatuses)
             ->with(
                 'admin',
