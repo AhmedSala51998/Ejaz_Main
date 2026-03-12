@@ -186,23 +186,21 @@
       background: var(--orange);
   }
 
-@media (max-width:768px){
+    @media (max-width:768px){
 
-#globe-container{
-    width:95vw;
-    max-width:460px;
-    aspect-ratio:1/1;
-    margin:0 auto;
-    position:relative;
-    left:0;
-    transform:none;
-}
+    #globe-container{
+        width:95vw;
+        max-width:520px;
+        aspect-ratio:1/1;
+        margin:0 auto;
+        position:relative;
+    }
 
-#globe-container canvas{
-    width:100% !important;
-    height:100% !important;
-    display:block;
-}
+    #globe-container canvas{
+        width:100% !important;
+        height:100% !important;
+        display:block;
+    }
 
 }
 
