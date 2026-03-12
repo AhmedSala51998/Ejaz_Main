@@ -360,7 +360,7 @@ const ctx = canvas.getContext('2d');
 
   function resizeCanvas() {
     const wrapper = canvas.parentElement;
-    const size = Math.min(wrapper.clientWidth, 600);
+    const size = wrapper.clientWidth;
     canvas.width  = size;
     canvas.height = size;
   }
