@@ -7,13 +7,25 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                    <canvas id="sphere-canvas"
-                            width="600"
-                            height="600"
-                            style="width:100%; height:100%; display:block; background:transparent;">
-                    </canvas>
-                </div>
+                @php
+                    $isMobile = request()->header('User-Agent') && preg_match(
+                    '/Android|iPhone|iPad|iPod|Mobile/i',
+                    request()->header('User-Agent')
+                    );
+                    @endphp
+
+                    @if(!$isMobile)
+                        {{-- DESKTOP ONLY --}}
+                        <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                            <canvas id="sphere-canvas"
+                                    width="600"
+                                    height="600"
+                                    style="width:100%; height:100%; display:block; background:transparent;">
+                            </canvas>
+                        </div>
+                    @else
+                    @endif
+
             </div>
             <div class="col-md-5 order-md-1 p-1">
                 <!-- main slider -->
@@ -57,13 +69,25 @@
         <div class="container-fluid">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-7 order-md-2" style="box-shadow: none !important;">
-                    <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
-                        <canvas id="sphere-canvas"
-                                width="600"
-                                height="600"
-                                style="width:100%; height:100%; display:block; background:transparent;">
-                        </canvas>
-                    </div>
+                    @php
+                        $isMobile = request()->header('User-Agent') && preg_match(
+                        '/Android|iPhone|iPad|iPod|Mobile/i',
+                        request()->header('User-Agent')
+                        );
+                        @endphp
+
+                        @if(!$isMobile)
+                            {{-- DESKTOP ONLY --}}
+                            <div id="sphere-wrapper" style="width:600px; max-width:100%; aspect-ratio:1/1; margin:auto;">
+                                <canvas id="sphere-canvas"
+                                        width="600"
+                                        height="600"
+                                        style="width:100%; height:100%; display:block; background:transparent;">
+                                </canvas>
+                            </div>
+                        @else
+                        @endif
+
                 </div>
                 <div class="col-md-5 order-md-1 p-1">
                     <!-- main slider -->
@@ -116,6 +140,7 @@
         </div>
     </section>
 @endif
+@if(!$isMobile)
 @php
 $countryMap = [
   "الهند" => 356,
@@ -150,26 +175,12 @@ if (typeof topojson === "undefined") {
     return;
 }
 
-let W, H, R;
-
-function updateSizes(){
-  W = canvas.width;
-  H = canvas.height;
-  R = Math.min(W, H) * 0.48;
-}
-
-resizeCanvas();
-updateSizes();
-
-window.addEventListener('resize', ()=>{
-  resizeCanvas();
-  updateSizes();
-});
+const W = canvas.width;
+const H = canvas.height;
 const R = Math.min(W, H) * 0.48;
 
 let angleX = 0, angleY = 0;
-const isMobile = window.innerWidth < 768;
-const autoSpeed = isMobile ? 0.00015 : 0.0006;
+const autoSpeed = 0.0006;
 let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
 
@@ -209,8 +220,8 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
       targetCountries[id].lon = lon;
     });
 
-        dataReady = true;
-        draw();
+    dataReady = true;
+    requestAnimationFrame(draw);
   });
 
 function getCentroid(coords) {
@@ -346,30 +357,6 @@ window.addEventListener('mousemove', e=>{
   lastX=e.clientX; lastY=e.clientY;
 });
 
-canvas.addEventListener('touchstart', e=>{
-  isDragging = true;
-  lastX = e.touches[0].clientX;
-  lastY = e.touches[0].clientY;
-});
-
-window.addEventListener('touchend', ()=> isDragging=false);
-
-window.addEventListener('touchmove', e=>{
-  if(!isDragging) return;
-
-  const dx = e.touches[0].clientX - lastX;
-  const dy = e.touches[0].clientY - lastY;
-
-  angleY += dx*0.005;
-  angleX += dy*0.005;
-
-  velocityY = dx*0.0004;
-  velocityX = dy*0.0004;
-
-  lastX = e.touches[0].clientX;
-  lastY = e.touches[0].clientY;
-});
-
 function draw(){
   if (!dataReady) return;
   ctx.clearRect(0,0,W,H);
@@ -422,3 +409,4 @@ function draw(){
 }
 });
 </script>
+@endif

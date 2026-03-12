@@ -231,11 +231,3 @@ canvas {
     display: none !important;
   }
 }
-@media (max-width:768px){
-
-#sphere-wrapper{
-width:320px !important;
-margin:auto;
-}
-
-}
