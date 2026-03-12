@@ -189,8 +189,8 @@
     @media (max-width:768px){
 
     #globe-container{
-        width:110vw;
-        max-width:720px;
+        width:95vw;
+        max-width:520px;
         aspect-ratio:1/1;
         margin:0 auto;
         position:relative;
