@@ -189,8 +189,8 @@
 @media (max-width:768px){
 
 #globe-container{
-    width:90vw;
-    max-width:420px;
+    width:95vw;
+    max-width:460px;
     aspect-ratio:1/1;
     margin:0 auto;
     position:relative;
@@ -556,6 +556,30 @@ window.addEventListener('mousemove', e=>{
   velocityY = dx*0.0004;
   velocityX = dy*0.0004;
   lastX=e.clientX; lastY=e.clientY;
+});
+
+canvas.addEventListener('touchstart', e=>{
+  isDragging = true;
+  lastX = e.touches[0].clientX;
+  lastY = e.touches[0].clientY;
+});
+
+window.addEventListener('touchend', ()=> isDragging=false);
+
+window.addEventListener('touchmove', e=>{
+  if(!isDragging) return;
+
+  const dx = e.touches[0].clientX - lastX;
+  const dy = e.touches[0].clientY - lastY;
+
+  angleY += dx*0.005;
+  angleX += dy*0.005;
+
+  velocityY = dx*0.0004;
+  velocityX = dy*0.0004;
+
+  lastX = e.touches[0].clientX;
+  lastY = e.touches[0].clientY;
 });
 
 function draw(){
