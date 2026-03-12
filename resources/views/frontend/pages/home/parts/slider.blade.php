@@ -150,13 +150,26 @@ if (typeof topojson === "undefined") {
     return;
 }
 
-const W = canvas.width;
-const H = canvas.height;
+let W, H, R;
+
+function updateSizes(){
+  W = canvas.width;
+  H = canvas.height;
+  R = Math.min(W, H) * 0.48;
+}
+
+resizeCanvas();
+updateSizes();
+
+window.addEventListener('resize', ()=>{
+  resizeCanvas();
+  updateSizes();
+});
 const R = Math.min(W, H) * 0.48;
 
 let angleX = 0, angleY = 0;
 const isMobile = window.innerWidth < 768;
-const autoSpeed = isMobile ? 0.00025 : 0.0006;
+const autoSpeed = isMobile ? 0.00015 : 0.0006;
 let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
 
@@ -196,8 +209,8 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
       targetCountries[id].lon = lon;
     });
 
-    dataReady = true;
-    requestAnimationFrame(draw);
+        dataReady = true;
+        draw();
   });
 
 function getCentroid(coords) {
@@ -331,6 +344,30 @@ window.addEventListener('mousemove', e=>{
   velocityY = dx*0.0004;
   velocityX = dy*0.0004;
   lastX=e.clientX; lastY=e.clientY;
+});
+
+canvas.addEventListener('touchstart', e=>{
+  isDragging = true;
+  lastX = e.touches[0].clientX;
+  lastY = e.touches[0].clientY;
+});
+
+window.addEventListener('touchend', ()=> isDragging=false);
+
+window.addEventListener('touchmove', e=>{
+  if(!isDragging) return;
+
+  const dx = e.touches[0].clientX - lastX;
+  const dy = e.touches[0].clientY - lastY;
+
+  angleY += dx*0.005;
+  angleX += dy*0.005;
+
+  velocityY = dx*0.0004;
+  velocityX = dy*0.0004;
+
+  lastX = e.touches[0].clientX;
+  lastY = e.touches[0].clientY;
 });
 
 function draw(){
