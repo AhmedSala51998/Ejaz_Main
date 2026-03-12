@@ -225,9 +225,11 @@
 canvas {
   image-rendering: auto;
 }
-@media (max-width: 768px) {
-  #sphere-wrapper,
-  #sphere-canvas {
-    display: none !important;
-  }
+@media (max-width:768px){
+
+#sphere-wrapper{
+width:320px !important;
+margin:auto;
+}
+
 }
