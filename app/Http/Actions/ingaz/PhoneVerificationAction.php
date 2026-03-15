@@ -114,6 +114,38 @@ class PhoneVerificationAction extends MainAction
         }
     }
 
+    public function forgotPassword($request)
+    {
+        $user = User::where('phone',$request->phone)->first();
+
+        if(!$user){
+            return false;
+        }
+
+        $phone = $request->phone;
+
+        if (substr($phone, 0, 2) == '05') {
+            $phone = ltrim($phone, '0');
+        }
+
+        $phone = '966'.$phone;
+
+        $code = $this->sendOTP($phone);
+
+        $this->model->updateOrCreate(
+            ['phone'=>$request->phone],
+            ['code'=>$code]
+        );
+
+        $user->update([
+            'phone_activation_code'=>$code
+        ]);
+
+        return jsonSuccess([
+            'message'=>'تم ارسال كود التحقق'
+        ]);
+    }
+
     protected function generateToken()
     {
         $user = auth()->user();

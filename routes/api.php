@@ -14,6 +14,7 @@ Route::group([
     Route::group(['prefix' => 'auth'], function () {
 
         Route::post('/register', 'API\ApiPhoneVerificationController@store');
+        Route::post('/forgot-password', 'API\ApiPhoneVerificationController@forgot_password'); //New
         Route::post('/confirm-code', 'API\ApiPhoneVerificationController@confirm_code');
         Route::post('/reset-password', 'API\ApiPhoneVerificationController@reset_password')->middleware('auth:api');
 

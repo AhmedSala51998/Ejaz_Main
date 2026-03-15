@@ -6,6 +6,7 @@ use App\Http\Actions\ingaz\PhoneVerificationAction as objAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ingaz\auth\ConfirmCodeRequest;
 use App\Http\Requests\ingaz\auth\RegisterRequest;
+use App\Http\Requests\ingaz\auth\ForgotPasswordRequest;
 use App\Http\Requests\ingaz\auth\ResetPasswordRequest;
 use App\Http\Requests\ingaz\auth\SendCodeRequest;
 use App\Http\Requests\ingaz\PhoneVerificationRequest;
@@ -56,6 +57,21 @@ class ApiPhoneVerificationController extends Controller
                 'data' => $data,
                 'message' => __('api.The code is wrong')
             ], 422);
+        } else {
+            return $data;
+        }
+    }
+
+    public function forgot_password(ForgotPasswordRequest $request, objAction $action)
+    {
+        $data = $action->forgotPassword($request);
+
+        if (!$data) {
+            return response()->json([
+                'code' => 404,
+                'data' => $data,
+                'message' => __('api.phone not found')
+            ], 404);
         } else {
             return $data;
         }
