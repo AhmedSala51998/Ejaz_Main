@@ -132,11 +132,6 @@ class PhoneVerificationAction extends MainAction
 
         $code = $this->sendOTP($phone);
 
-        $this->model->updateOrCreate(
-            ['phone'=>$request->phone],
-            ['phone_code'=>$code]
-        );
-
         $user->update([
             'password_rest_code'=>$code
         ]);
