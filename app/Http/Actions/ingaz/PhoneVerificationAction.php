@@ -134,11 +134,11 @@ class PhoneVerificationAction extends MainAction
 
         $this->model->updateOrCreate(
             ['phone'=>$request->phone],
-            ['code'=>$code]
+            ['phone_code'=>$code]
         );
 
         $user->update([
-            'phone_activation_code'=>$code
+            'password_rest_code'=>$code
         ]);
 
         return jsonSuccess([
