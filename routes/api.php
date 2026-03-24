@@ -31,7 +31,6 @@ Route::group([
 
 
     Route::group([
-        'middleware' => 'auth:api',
         'prefix' => 'user'
     ], function () {
 
@@ -48,6 +47,15 @@ Route::group([
         Route::get('search-maids', 'API\ApiMaidController@search');
 
         Route::apiResource('packages', 'API\ApiPackageController');
+
+    });
+
+
+    Route::group([
+        'middleware' => 'auth:api',
+        'prefix' => 'user'
+    ], function () {
+
         Route::apiResource('customers', 'API\ApiCustomerController');
         Route::apiResource('orders', 'API\ApiOrderController');
         Route::apiResource('notifications', 'API\ApiNotificationController');
