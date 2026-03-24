@@ -185,12 +185,12 @@ class ApiHomeController extends Controller
             'order_date' => now()
         ];
 
-        // $this->sendSMS( auth('api')->user()->phone, 'لقد قمت بطلب استقدام جديد ');
+        $this->sendSMS( auth('api')->user()->phone, 'لقد قمت بطلب استقدام جديد ');
         $msg =   " عزيزى الموظف " . " قام العميل " . auth('api')->user()->name . " رقم جواله " . auth('api')->user()->phone . " \nبحجز السيرة الذاتية الاتية " . $cv->name;
         $admin = Admin::find($request->customerSupport);
 
         if (!empty($admin->phone)) {
-            // $this->sendSMS($admin->phone, $msg);
+            $this->sendSMS($admin->phone, $msg);
         }
         Biography::where('id', $id)->update($order_data);
         $order_data['biography_id'] = $cv->id;
@@ -408,7 +408,7 @@ class ApiHomeController extends Controller
     }
     public function ageRange()
     {
-              $ages = AgeRange::get();  
+              $ages = AgeRange::get();
             return response()->json(['data' =>  ['age_range' => $ages ], 'msg' => null, 'code' => 200], 200);
     }
 }//end class
