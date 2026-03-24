@@ -85,6 +85,14 @@ class PhoneVerificationAction extends MainAction
             // $result =$this->sendSMS($request->phone, $msg);
             $code = $this->sendOTP($phone);
 
+            $this->model->where('phone',$request->phone)
+                ->where('phone_code',$request->phone_code)
+                ->update(['code'=>$code]);
+
+            $user->update([
+                'phone_activation_code' => $code
+            ]);
+
             //dd($result);
             return ["code"=>$code];
         }
