@@ -48,7 +48,7 @@ class UserAction extends MainAction
         if ($request->filled('new_password')) {
             if (Hash::check($request->old_password, $obj->password)) {
                 $obj->update([
-                    'password' => bcrypt($request->new_password)
+                    'password' => $request->new_password
                 ]);
             } else {
                 return false;
