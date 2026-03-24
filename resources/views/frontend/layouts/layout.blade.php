@@ -2,6 +2,15 @@
 <html lang="ar">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DY28DRGGHY"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DY28DRGGHY');
+    </script>
     <!-- Hotjar Tracking Code for https://ejazrecruitment.sa/ -->
     <script>
     let hotjarLoaded = false;
@@ -65,9 +74,6 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB86BHCX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- ================ Ramadan Decoration ================= -->
-@include('frontend.layouts.ramadan_decor.ramadan_decoration')
-<!-- ================ /Ramadan Decoration ================= -->
 <!-- custom cursor  -->
 <div class="customCursor"></div>
 <div class="customCursorInner"></div>
