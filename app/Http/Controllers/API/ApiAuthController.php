@@ -46,7 +46,7 @@ class ApiAuthController extends Controller
         return $this->respondWithToken1($token,$user);
     }
 
-    public function update(UpdateProfileRequest $request, ObjAction $action)
+    /*public function update(UpdateProfileRequest $request, ObjAction $action)
     {
 
         $dataInsert = $request->only($this->postData);
@@ -67,6 +67,23 @@ class ApiAuthController extends Controller
                 'message' => 'كلمة المرور القديمة غير صحيحة',
             ], 422);
         }
+    }*/
+    public function update(UpdateProfileRequest $request, ObjAction $action)
+    {
+        $dataInsert = $request->only(['name','phone','phone_code']);
+
+        $data = $action->updateUser(Auth::user()->id, $dataInsert, $request);
+
+        if($data === false){
+            return response()->json([
+                'code' => 422,
+                'data' => null,
+                'message' => 'كلمة المرور القديمة غير صحيحة',
+            ], 422);
+        }
+
+        $user = User::find(Auth::user()->id);
+        return jsonSuccess(UserResource::make($user));
     }
 
     protected function generateToken()

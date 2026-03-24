@@ -21,7 +21,7 @@ class UserAction extends MainAction
         return $this->store($data);
     }
 
-    public function updateUser($id, $data)
+    /*public function updateUser($id, $data)
     {
         $obj = $this->find($id);
         if (isset($data['password'])) {
@@ -37,6 +37,25 @@ class UserAction extends MainAction
             }
         }
        return $this->find($id)->update( $data);
+    }*/
+
+    public function updateUser($id, $data, $request)
+    {
+        $obj = $this->find($id);
+
+        $obj->update($data);
+
+        if ($request->filled('new_password')) {
+            if (Hash::check($request->old_password, $obj->password)) {
+                $obj->update([
+                    'password' => bcrypt($request->new_password)
+                ]);
+            } else {
+                return false;
+            }
+        }
+
+        return $obj;
     }
 
     public function updatePassword($request) {
