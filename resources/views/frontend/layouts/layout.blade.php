@@ -345,9 +345,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }, 400);
     };
 
-    const branch = localStorage.getItem('branch') || getCookie('branch');
+    const openedBefore = sessionStorage.getItem('opened');
 
-    if (!branch) {
+    if (!openedBefore) {
+        sessionStorage.setItem('opened', 'true');
+
         if ('requestIdleCallback' in window) {
             requestIdleCallback(showModal, { timeout: 1200 });
         } else {
