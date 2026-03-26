@@ -189,7 +189,7 @@
                                 <small class="text-muted">خدمة العملاء</small>
                             </div>
                         </div>
-                        <a href="{{ route('profile.getOrder', $currentOrder->id) }}" target="_blank" class="btn btn-orange btn-sm px-3">
+                        <a href="{{ route('profile.getOrder', $currentOrder->id) }}" class="btn btn-orange btn-sm px-3">
                             تفاصيل الطلب
                         </a>
                     </div>
