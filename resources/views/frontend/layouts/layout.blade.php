@@ -313,8 +313,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const showModal = () => {
         modal.hidden = false;
 
-        document.body.querySelectorAll(':not(#cityModal)').forEach(el => {
-            if (!el.classList.contains('zsiq_float')) {
+        document.body.querySelectorAll('body > *').forEach(el => {
+            if (el !== modal && !el.classList.contains('zsiq_float')) {
                 el.style.pointerEvents = 'none';
             }
         });
