@@ -299,16 +299,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 </script>
 <script>
-    const forceBranchModal = {{ $forceBranchModal ? 'true' : 'false' }};
-    const currentBranch = '{{ session("branch") ?? "" }}';
-</script>
-<script>
 (() => {
     const modal = document.getElementById('cityModal');
     if (!modal) return;
-
-    const setCookie = (n, v) =>
-        document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
 
     const showModal = () => {
         modal.hidden = false;
@@ -327,9 +320,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         requestAnimationFrame(() => modal.classList.add('active'));
     };
 
-    const openedBefore = sessionStorage.getItem('branchModalOpened');
+    const forceModal = {{ $forceBranchModal ? 'true' : 'false' }};
+    const currentBranch = '{{ session("branch") ?? "" }}';
+    const shouldShowModal = forceModal || true;
 
-    if (!openedBefore && !currentBranch) {
+    if (shouldShowModal) {
         requestIdleCallback(showModal, { timeout: 500 });
     }
 
@@ -346,11 +341,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const branch = card.dataset.branch;
         modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
         card.innerHTML = '<div class="loader-circle"></div>';
-
-        sessionStorage.setItem('branchModalOpened', '1');
-        sessionStorage.setItem('branch', branch);
-        localStorage.setItem('branch', branch);
-        setCookie('branch', branch);
 
         axios.post('{{ route("detect.location.ajax") }}', { branch }, {
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
