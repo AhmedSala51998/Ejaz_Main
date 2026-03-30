@@ -318,10 +318,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     };
 
 
-    const openedBefore = false;
+    const openedBefore = sessionStorage.getItem('branchModalOpened');
 
-    if (!openedBefore) {
+    if (!openedBefore && !currentBranch) {
         requestIdleCallback(showModal, { timeout: 500 });
+        sessionStorage.setItem('branchModalOpened', '1');
     }
 
     if (currentBranch) {
