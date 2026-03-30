@@ -323,11 +323,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const forceModal = {{ $forceBranchModal ? 'true' : 'false' }};
     const currentBranch = '{{ session("branch") ?? "" }}';
 
-    const shouldShowModal = forceModal || !currentBranch;
+    // ===============================
+    const openedBefore = sessionStorage.getItem('branchModalOpened');
+
+    const shouldShowModal = forceModal || !openedBefore;
 
     if (shouldShowModal) {
+        sessionStorage.setItem('branchModalOpened', 'true');
         setTimeout(showModal, 100);
     }
+    // ===============================
 
     if (currentBranch) {
         modal.querySelectorAll('.card').forEach(card => {
