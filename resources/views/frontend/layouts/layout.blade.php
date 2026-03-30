@@ -101,9 +101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </div>
-@if(session()->has('branch'))
-    الفرع الحالي: {{ session('branch') }}
-@endif
+
     <!-- ======= City Modal ======= -->
     <div id="cityModal" hidden>
     <div class="city-modal-content">
