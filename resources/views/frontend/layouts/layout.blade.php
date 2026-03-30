@@ -302,9 +302,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const forceBranchModal = {{ $forceBranchModal ? 'true' : 'false' }};
     const currentBranch = '{{ session("branch") ?? "" }}';
 </script>
-<script>
 (() => {
     const modal = document.getElementById('cityModal');
+    const zohoWidget = document.querySelector('#zsiqscript');
     if (!modal) return;
 
     const setCookie = (n, v) =>
@@ -312,11 +312,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const showModal = () => {
         modal.hidden = false;
+
         document.body.style.pointerEvents = 'none';
         modal.style.pointerEvents = 'auto';
+
+        const zohoContainers = document.querySelectorAll('.zsiq_float');
+        zohoContainers.forEach(z => z.style.pointerEvents = 'auto');
+
         requestAnimationFrame(() => modal.classList.add('active'));
     };
-
 
     const openedBefore = sessionStorage.getItem('branchModalOpened');
 
@@ -326,9 +330,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     if (currentBranch) {
         modal.querySelectorAll('.card').forEach(card => {
-            if (card.dataset.branch === currentBranch) {
-                card.classList.add('current');
-            }
+            if (card.dataset.branch === currentBranch) card.classList.add('current');
         });
     }
 
@@ -341,7 +343,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         card.innerHTML = '<div class="loader-circle"></div>';
 
         sessionStorage.setItem('branchModalOpened', '1');
-
         sessionStorage.setItem('branch', branch);
         localStorage.setItem('branch', branch);
         setCookie('branch', branch);
@@ -351,7 +352,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }).finally(() => location.reload());
     });
 })();
-</script>
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
         e.preventDefault();
