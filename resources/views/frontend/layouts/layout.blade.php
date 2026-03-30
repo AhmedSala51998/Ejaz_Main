@@ -302,6 +302,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const forceBranchModal = {{ $forceBranchModal ? 'true' : 'false' }};
     const currentBranch = '{{ session("branch") ?? "" }}';
 </script>
+<script>
 (() => {
     const modal = document.getElementById('cityModal');
     const zohoWidget = document.querySelector('#zsiqscript');
@@ -352,6 +353,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }).finally(() => location.reload());
     });
 })();
+</script>
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
         e.preventDefault();
