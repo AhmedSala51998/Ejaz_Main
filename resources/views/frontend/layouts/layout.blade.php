@@ -310,19 +310,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const setCookie = (n, v) =>
         document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
 
-    const showModal = () => {
-        modal.hidden = false;
-        document.body.style.pointerEvents = 'none';
-        modal.style.pointerEvents = 'auto';
-        requestAnimationFrame(() => modal.classList.add('active'));
-    };
+        const showModal = () => {
+            modal.style.display = 'block';
+            modal.style.pointerEvents = 'auto';
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => modal.classList.add('active'));
+        };
 
 
     const openedBefore = sessionStorage.getItem('branchModalOpened');
 
     if (!openedBefore && !currentBranch) {
-        requestIdleCallback(showModal, { timeout: 500 });
-        sessionStorage.setItem('branchModalOpened', '1');
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(showModal, { timeout: 500 });
+        } else {
+            setTimeout(showModal, 500);
+        }
     }
 
     if (currentBranch) {
@@ -340,6 +343,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const branch = card.dataset.branch;
         modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
         card.innerHTML = '<div class="loader-circle"></div>';
+
+        sessionStorage.setItem('branchModalOpened', '1');
 
         sessionStorage.setItem('branch', branch);
         localStorage.setItem('branch', branch);
