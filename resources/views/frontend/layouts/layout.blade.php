@@ -305,7 +305,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 (() => {
     const modal = document.getElementById('cityModal');
-    const zohoWidget = document.querySelector('#zsiqscript');
     if (!modal) return;
 
     const setCookie = (n, v) =>
@@ -314,10 +313,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const showModal = () => {
         modal.hidden = false;
 
-        document.body.style.pointerEvents = 'none';
+        document.body.querySelectorAll(':not(#cityModal)').forEach(el => {
+            if (!el.classList.contains('zsiq_float')) {
+                el.style.pointerEvents = 'none';
+            }
+        });
+
         modal.style.pointerEvents = 'auto';
 
-        const zohoContainers = document.querySelectorAll('.zsiq_float');
+        const zohoContainers = document.querySelectorAll('.zsiq_float, .zsiq_float *');
         zohoContainers.forEach(z => z.style.pointerEvents = 'auto');
 
         requestAnimationFrame(() => modal.classList.add('active'));
