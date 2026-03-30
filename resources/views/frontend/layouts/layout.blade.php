@@ -321,13 +321,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     };
 
     const forceModal = {{ $forceBranchModal ? 'true' : 'false' }};
+    const currentBranch = '{{ session("branch") ?? "" }}';
 
-    const shouldShowModal = forceModal || true;
+    const shouldShowModal = forceModal || !currentBranch;
+
     if (shouldShowModal) {
         setTimeout(showModal, 100);
     }
 
-    const currentBranch = '{{ session("branch") ?? "" }}';
     if (currentBranch) {
         modal.querySelectorAll('.card').forEach(card => {
             if (card.dataset.branch === currentBranch) card.classList.add('current');
