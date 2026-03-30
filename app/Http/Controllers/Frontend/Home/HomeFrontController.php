@@ -104,18 +104,13 @@ class HomeFrontController extends Controller
             $branch = $closestCity;
         }
 
-        try {
+        session(['branch' => $branch]);
 
-            $minutesUntil2090 = (int)((strtotime('2090-12-31 23:59:59') - time()) / 60);
+        $minutesUntil2090 = (int)((strtotime('2090-12-31 23:59:59') - time()) / 60);
 
-            return response()->json([
-                'closestCity' => $branch
-            ])->cookie('branch', $branch, $minutesUntil2090);
-
-
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        return response()->json([
+            'closestCity' => $branch
+        ])->cookie('branch', $branch, $minutesUntil2090);
     }
 
     /*public function detectCityAjax(Request $request)
@@ -176,7 +171,7 @@ class HomeFrontController extends Controller
 
     public function index(Request $request)
     {
-        $branch = $request->cookie('branch');
+        $branch = session('branch') ?? $request->cookie('branch');
         /*if(!$branch){
             return view('frontend.pages.home.parts.landing');
         }else{*/

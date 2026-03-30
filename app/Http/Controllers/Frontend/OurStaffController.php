@@ -11,7 +11,8 @@ class OurStaffController extends Controller
 {
     public function index(Request $request)
     {
-        $branch = $request->cookie('branch');
+        //$branch = $request->cookie('branch');
+        $branch = session('branch') ?? $request->cookie('branch');
         /*$admins = \App\Models\Admin::where('admin_type','!=',0)->where(function($q) use ($branch) {
                     $q->where('branch', $branch)
                     ->orWhere('branch', 'all_branches');

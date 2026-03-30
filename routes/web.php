@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' , 'branch']
     ], function() {
 
     #cvDesign
@@ -37,6 +37,7 @@ Route::group(
     Route::post('/detect-location', [\App\Http\Controllers\Frontend\Home\HomeFrontController::class,'detectCityAjax'])->name('detect.location.ajax');
 
     Route::get('/',[\App\Http\Controllers\Frontend\Home\HomeFrontController::class,'index'])->name('home');
+
     Route::post('contact-us',[\App\Http\Controllers\Frontend\Home\HomeFrontController::class,'contact_us_action'])->name('front.contact_us_action');
 
     Route::post('/check-phone', function (Illuminate\Http\Request $request) {

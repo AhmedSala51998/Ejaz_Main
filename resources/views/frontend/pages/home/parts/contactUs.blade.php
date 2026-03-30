@@ -1,3 +1,6 @@
+@php
+    $branch = session('branch') ?? request()->cookie('branch');
+@endphp
 <link rel="stylesheet" href="{{asset('frontend/css/contactUs_style.css')}}" />
 <section id="contactUs">
     <div class="container">
@@ -13,11 +16,11 @@
                             </div>
                             <div class="info-text">
                                 <h6>موقعنا</h6>
-                                @if(Cookie::get('branch') == 'yanbu')
+                                @if($branch == 'yanbu')
                                 <p>4198 علي بن أبي طالب، السميـري، 8130، ينبع 46424</p>
-                                @elseif(Cookie::get('branch') == 'jeddah')
+                                @elseif($branch == 'jeddah')
                                 <p>الأمير فيصل، حي الخالدية، جدة 23423</p>
-                                @elseif(Cookie::get('branch') == 'riyadh')
+                                @elseif($branch == 'riyadh')
                                 <p>3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</p>
                                 @else
                                 <p>4198 علي بن أبي طالب، السميـري، 8130، ينبع 46424</p>

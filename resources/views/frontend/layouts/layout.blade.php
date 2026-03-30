@@ -299,62 +299,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 </script>
 <script>
+    const forceBranchModal = {{ $forceBranchModal ? 'true' : 'false' }};
+    const currentBranch = '{{ session("branch") ?? "" }}';
+</script>
+<script>
 (() => {
-
     const modal = document.getElementById('cityModal');
     if (!modal) return;
 
-    const setCookie = (n,v) =>
+    const setCookie = (n, v) =>
         document.cookie = `${n}=${v}; path=/; expires=Fri, 31 Dec 2099 23:59:59 GMT`;
-
-    const getCookie = n =>
-        document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)')?.pop() || null;
 
     const showModal = () => {
         modal.hidden = false;
         document.body.style.pointerEvents = 'none';
         modal.style.pointerEvents = 'auto';
-
-        requestAnimationFrame(() => {
-            modal.classList.add('active');
-        });
-
-        fixZohoChat();
+        requestAnimationFrame(() => modal.classList.add('active'));
     };
 
-    const fixZohoChat = () => {
-        const selectors = [
-            '#zsiq_float',
-            '#zsiq_widget',
-            '.zsiq_flt_rel',
-            '[id^="zsiq_"]'
-        ];
 
-        let tries = 0;
-        const interval = setInterval(() => {
-            tries++;
-            selectors.forEach(sel => {
-                document.querySelectorAll(sel).forEach(el => {
-                    el.style.pointerEvents = 'auto';
-                });
-            });
-
-            if (document.querySelector('#zsiq_float') || tries > 10) {
-                clearInterval(interval);
-            }
-        }, 400);
-    };
-
-    const openedBefore = sessionStorage.getItem('opened');
+    const openedBefore = false;
 
     if (!openedBefore) {
-        sessionStorage.setItem('opened', 'true');
+        requestIdleCallback(showModal, { timeout: 500 });
+    }
 
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(showModal, { timeout: 1200 });
-        } else {
-            setTimeout(showModal, 300);
-        }
+    if (currentBranch) {
+        modal.querySelectorAll('.card').forEach(card => {
+            if (card.dataset.branch === currentBranch) {
+                card.classList.add('current');
+            }
+        });
     }
 
     modal.addEventListener('click', e => {
@@ -362,20 +337,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (!card) return;
 
         const branch = card.dataset.branch;
-
         modal.querySelectorAll('.card').forEach(c => c.style.pointerEvents = 'none');
         card.innerHTML = '<div class="loader-circle"></div>';
 
+        sessionStorage.setItem('branch', branch);
         localStorage.setItem('branch', branch);
         setCookie('branch', branch);
 
-        requestIdleCallback(() => {
-            axios.post('{{ route("detect.location.ajax") }}', { branch }, {
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-            }).finally(() => location.reload());
-        });
+        axios.post('{{ route("detect.location.ajax") }}', { branch }, {
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+        }).finally(() => location.reload());
     });
-
 })();
 </script>
 <script>

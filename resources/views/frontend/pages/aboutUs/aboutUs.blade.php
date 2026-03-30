@@ -1,3 +1,6 @@
+@php
+    $branch = session('branch') ?? request()->cookie('branch');
+@endphp
 @extends('frontend.layouts.layout')
 
 @section('title')
@@ -127,11 +130,11 @@
             </div>
             <div class="col-lg-6 col-12 position-relative">
                 <div class="img">
-                    @if(Cookie::get('branch') == 'yanbu')
+                    @if($branch == 'yanbu')
                         <img src="{{ asset('frontend/img/about_yanbu.jpg') }}" alt="Yanbu">
-                    @elseif(Cookie::get('branch') == 'jeddah')
+                    @elseif($branch == 'jeddah')
                         <img src="{{ asset('frontend/img/about_jeddah.jpg') }}" alt="Jeddah">
-                    @elseif(Cookie::get('branch') == 'riyadh')
+                    @elseif($branch == 'riyadh')
                         <img src="{{ asset('frontend/img/about_riyadh.jpg') }}" alt="Riyadh">
                     @else
                         <img src="{{ asset('frontend/img/about_yanbu.jpg') }}" alt="Default">

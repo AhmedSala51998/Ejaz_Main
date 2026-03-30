@@ -436,7 +436,7 @@ class WorkerFrontController extends Controller
 
     public function show_worker_details(Request $request, $id)
     {
-        $branch = $request->cookie('branch');
+        $branch = session('branch') ?? $request->cookie('branch');
         $cv = Biography::with('recruitment_office','nationalitie','language_title',
             'religion','job','social_type','admin','images','skills')
             ->where('id',$id)
@@ -521,7 +521,7 @@ class WorkerFrontController extends Controller
 
     public function show(Request $request, $id){
 
-        $branch = $request->cookie('branch');
+        $branch = session('branch') ?? $request->cookie('branch');
         $cv = Biography::with('recruitment_office','nationalitie','language_title',
             'religion','job','social_type','admin','images','skills')
             ->where('id',$id)

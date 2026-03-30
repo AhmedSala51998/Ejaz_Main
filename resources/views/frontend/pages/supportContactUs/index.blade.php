@@ -1,3 +1,6 @@
+@php
+    $branch = session('branch') ?? request()->cookie('branch');
+@endphp
 @extends('frontend.layouts.layout')
 
 @section('title')
@@ -709,7 +712,7 @@
                             <ul>
                                 <li class="" data-aos="fade-up">
                                     <span><i style="color: #ff9800 !important;" class="fa-solid fa-map-location"></i></span>
-                                    @if(Cookie::get('branch') == 'yanbu')
+                                    @if($branch == 'yanbu')
                                       <p class="ms-3">
                                             فروعنا :
                                         <a target="_blank" href="https://maps.app.goo.gl/cAvHub78qk2jcy9DA" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a> <br>
@@ -718,7 +721,7 @@
                                           <li><a target="_blank" href="https://maps.app.goo.gl/WEv3MkTyMmLBdeWE9" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a></li>
                                         </ul>
                                       </p>
-                                    @elseif(Cookie::get('branch') == 'jeddah')
+                                    @elseif($branch == 'jeddah')
                                         <p class="ms-3">
                                             فروعنا :
                                         <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الأمير فيصل، حي الخالدية، جدة 23423</a> <br>
@@ -727,7 +730,7 @@
                                           <li><a target="_blank" href="https://maps.app.goo.gl/WEv3MkTyMmLBdeWE9" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a></li>
                                         </ul>
                                        </p>
-                                        @elseif(Cookie::get('branch') == 'riyadh')
+                                        @elseif($branch == 'riyadh')
                                         <p class="ms-3">
                                             فروعنا :
                                         <a target="_blank" href="https://maps.app.goo.gl/WEv3MkTyMmLBdeWE9" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a> <br>
@@ -826,11 +829,11 @@
                     <div class="col-md-6 p-2 " data-aos=" fade-up">
                         <div class="googleMap wow fadeInUp "> {{-- Wrapped iframe in a div for better control --}}
                         <div class="map-responsive">
-                            @if(Cookie::get('branch') == 'yanbu')
+                            @if($branch == 'yanbu')
                               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14568.708601963628!2d38.0609721!3d24.0952649!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15b9072220f00e2f%3A0xc45245d46a507938!2z2LTYsdmD2Kkg2KfZitis2KfYsiDZhNmE2KfYs9iq2YLYr9in2YU!5e0!3m2!1sen!2ssa!4v1711472449580!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            @elseif(Cookie::get('branch') == 'jeddah')
+                            @elseif($branch == 'jeddah')
                               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d399192.549344057!2d39.00448971889578!3d21.63386608525768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x147e5180a6ce7bd%3A0xa97ff9e14a988412!2z2LTYsdmD2Kkg2KfZitis2KfYsiDZhNmE2KfYs9iq2YLYr9in2YU!5e0!3m2!1sen!2ssa!4v1759667574597!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            @elseif(Cookie::get('branch') == 'riyadh')
+                            @elseif($branch == 'riyadh')
                               <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1280.9175596126404!2d46.768513254663944!3d24.76180731424474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDQ1JzQyLjAiTiA0NsKwNDYnMTAuMyJF!5e0!3m2!1sen!2ssa!4v1759666548668!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             @else
                               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14568.708601963628!2d38.0609721!3d24.0952649!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15b9072220f00e2f%3A0xc45245d46a507938!2z2LTYsdmD2Kkg2KfZitis2KfYsiDZhNmE2KfYs9iq2YLYr9in2YU!5e0!3m2!1sen!2ssa!4v1711472449580!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

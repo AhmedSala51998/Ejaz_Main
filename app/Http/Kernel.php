@@ -74,6 +74,7 @@ class Kernel extends HttpKernel
         'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class ,
         'admin' =>Admin::class ,
         'lang' => \App\Http\Middleware\lang::class,
+        'branch' => \App\Http\Middleware\CheckBranch::class,
 
     ];
 }
