@@ -353,21 +353,21 @@ $countryMap = [
 @endphp
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script defer src="https://unpkg.com/topojson-client@3"></script>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 const canvas = document.getElementById('sphere-canvas');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
-function resizeCanvas() {
+  function resizeCanvas() {
     const wrapper = canvas.parentElement;
     const size = Math.min(wrapper.clientWidth, 600);
     canvas.width  = size;
     canvas.height = size;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 
 if (typeof topojson === "undefined") {
     console.error("TopoJSON not loaded");
@@ -376,7 +376,7 @@ if (typeof topojson === "undefined") {
 
 const W = canvas.width;
 const H = canvas.height;
-const R = Math.min(W,H)*0.48;
+const R = Math.min(W, H) * 0.48;
 
 let angleX = 0, angleY = 0;
 const isMobile = window.innerWidth < 768;
@@ -385,6 +385,7 @@ let isDragging = false, lastX = 0, lastY = 0;
 let velocityX = 0, velocityY = 0;
 
 let features = [];
+
 const targetCountries = {};
 let hoverCountry = null;
 
@@ -399,7 +400,7 @@ let hoverCountry = null;
 
 let dataReady = false;
 
-// ترتيب ظهور الدول
+// Animation system
 let countryQueue = [];
 let currentIndex = 0;
 let bubbleStartTime = 0;
@@ -408,234 +409,314 @@ const appearDuration = 600;
 const visibleDuration = 2000;
 const disappearDuration = 600;
 
-// Centroid function
-function getCentroid(coords) {
-    let x=0,y=0,count=0;
-    coords.forEach(c=>{x+=c[0];y+=c[1];count++;});
-    return [y/count, x/count];
-}
-
-// Project lat/lon to 3D sphere
-function project(lat, lon){
-    const latR = lat*Math.PI/180;
-    const lonR = lon*Math.PI/180;
-
-    let x = R*Math.cos(latR)*Math.sin(lonR);
-    let y = -R*Math.sin(latR);
-    let z = R*Math.cos(latR)*Math.cos(lonR);
-
-    let y1 = y*Math.cos(angleX)-z*Math.sin(angleX);
-    let z1 = y*Math.sin(angleX)+z*Math.cos(angleX);
-
-    let x2 = x*Math.cos(angleY)+z1*Math.sin(angleY);
-    let z2 = -x*Math.sin(angleY)+z1*Math.cos(angleY);
-
-    return {x:W/2+x2, y:H/2+y1, z:z2};
-}
-
-// Fetch world map
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
-.then(r=>r.json())
-.then(world=>{
+  .then(r => r.json())
+  .then(world => {
+
     features = topojson.feature(world, world.objects.countries).features;
 
-    features.forEach(f=>{
-        const id = +f.id;
-        if(!targetCountries[id]) return;
+    features.forEach(f => {
+      const id = +f.id;
+      if (!targetCountries[id]) return;
 
-        let coords;
-        if(f.geometry.type==="Polygon") coords=f.geometry.coordinates[0];
-        else coords=f.geometry.coordinates[0][0];
+      let coords;
+      if (f.geometry.type === "Polygon")
+        coords = f.geometry.coordinates[0];
+      else
+        coords = f.geometry.coordinates[0][0];
 
-        const [lat, lon] = getCentroid(coords);
-        targetCountries[id].lat = lat;
-        targetCountries[id].lon = lon;
+      const [lat, lon] = getCentroid(coords);
+      targetCountries[id].lat = lat;
+      targetCountries[id].lon = lon;
     });
 
     dataReady = true;
-
-    // Mouse hover detection
-    canvas.addEventListener("mousemove", e=>{
+    canvas.addEventListener("mousemove", function(e){
         const rect = canvas.getBoundingClientRect();
         const mx = e.clientX - rect.left;
         const my = e.clientY - rect.top;
+
         hoverCountry = null;
-        Object.values(targetCountries).forEach(c=>{
-            if(!c.lat) return;
+
+        Object.values(targetCountries).forEach(c => {
+            if (!c.lat) return;
             const p = project(c.lat, c.lon);
-            if(p.z < 0) return;
-            const dx = mx-p.x;
-            const dy = my-p.y;
-            if(Math.sqrt(dx*dx+dy*dy)<20) hoverCountry=c;
+            if (p.z < 0) return;
+
+            const dx = mx - p.x;
+            const dy = my - p.y;
+
+            if (Math.sqrt(dx*dx + dy*dy) < 20) {
+            hoverCountry = c;
+            }
         });
     });
-
-    // ترتيب ظهور الدول
     countryQueue = [
-        ...Object.values(targetCountries).filter(c => c.nameAr==="الفلبين"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="بنجلاديش"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="الهند"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="سريلانكا"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="اثيوبيا"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="بروندي"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="كينيا"),
-        ...Object.values(targetCountries).filter(c => c.nameAr==="اوغندا")
+    ...Object.values(targetCountries).filter(c => c.nameAr === "الفلبين"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "بنجلاديش"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "الهند"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "سريلانكا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "اثيوبيا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "بروندي"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "كينيا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "اوغندا")
     ];
-
+    // Hover detection
     requestAnimationFrame(draw);
-});
+  });
 
-// Draw functions (sphere, polygons, ripple, bubble, arrow)
-function drawSphereOutline(){
+function getCentroid(coords) {
+  let x = 0, y = 0, count = 0;
+  coords.forEach(c => { x += c[0]; y += c[1]; count++; });
+  return [y / count, x / count];
+}
+
+function project(lat, lon) {
+  const latR = lat * Math.PI / 180;
+  const lonR = lon * Math.PI / 180;
+
+  let x = R * Math.cos(latR) * Math.sin(lonR);
+  let y = -R * Math.sin(latR);
+  let z = R * Math.cos(latR) * Math.cos(lonR);
+
+  let y1 = y * Math.cos(angleX) - z * Math.sin(angleX);
+  let z1 = y * Math.sin(angleX) + z * Math.cos(angleX);
+
+  let x2 = x * Math.cos(angleY) + z1 * Math.sin(angleY);
+  let z2 = -x * Math.sin(angleY) + z1 * Math.cos(angleY);
+
+  return { x: W/2 + x2, y: H/2 + y1, z: z2 };
+}
+
+function drawSphereOutline() {
+  ctx.beginPath();
+  ctx.arc(W/2, H/2, R, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(244,168,53,0.25)';
+  ctx.lineWidth = 0.8;
+  ctx.stroke();
+}
+
+function drawPolygon(coords) {
+  ctx.beginPath();
+  coords.forEach((c,i)=>{
+    const [lon, lat] = c;
+    const p = project(lat, lon);
+    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
+  });
+  ctx.stroke();
+}
+
+function drawWaterRipple(x, y, z, t) {
+  if (z < 0) return;
+
+  const base = (Math.sin(t * 0.004) + 1) / 2;
+
+  for (let i = 0; i < 3; i++) {
+    const r = 6 + base * 6 + i * 4;
     ctx.beginPath();
-    ctx.arc(W/2,H/2,R,0,Math.PI*2);
-    ctx.strokeStyle='rgba(244,168,53,0.25)';
-    ctx.lineWidth=0.8;
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(244,168,53,${0.35 - i * 0.1})`;
+    ctx.lineWidth = 1;
     ctx.stroke();
+  }
 }
 
-function drawPolygon(coords){
-    ctx.beginPath();
-    coords.forEach((c,i)=>{
-        const [lon,lat]=c;
-        const p=project(lat,lon);
-        if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
-    });
-    ctx.stroke();
+function drawArrowAttached(x, y, scale = 1, alpha = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  const h = 28;
+  const arrowGap = -5;
+
+  ctx.translate(
+    x,
+    y + h * scale / 2 + arrowGap
+  );
+
+  ctx.scale(scale, scale);
+
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-7, -10);
+  ctx.lineTo(7, -10);
+  ctx.closePath();
+
+  ctx.fillStyle = "rgba(255,140,0,0.92)";
+  ctx.fill();
+
+  ctx.restore();
 }
 
-function drawWaterRipple(x,y,z,t){
-    if(z<0) return;
-    const base=(Math.sin(t*0.004)+1)/2;
-    for(let i=0;i<3;i++){
-        const r=6+base*6+i*4;
-        ctx.beginPath();
-        ctx.arc(x,y,r,0,Math.PI*2);
-        ctx.strokeStyle=`rgba(244,168,53,${0.35-i*0.1})`;
-        ctx.lineWidth=1;
-        ctx.stroke();
-    }
+function drawChatBubble(x, y, text, alpha = 1, scale = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  ctx.font = "bold 14px Arial";
+  const padding = 10;
+  const textWidth = ctx.measureText(text).width;
+  const w = textWidth + padding * 2;
+  const h = 28;
+  const r = 14;
+
+  ctx.beginPath();
+  ctx.moveTo(-w/2 + r, -h);
+  ctx.lineTo(w/2 - r, -h);
+  ctx.quadraticCurveTo(w/2, -h, w/2, -h + r);
+  ctx.lineTo(w/2, -r);
+  ctx.quadraticCurveTo(w/2, 0, w/2 - r, 0);
+  ctx.lineTo(-w/2 + r, 0);
+  ctx.quadraticCurveTo(-w/2, 0, -w/2, -r);
+  ctx.lineTo(-w/2, -h + r);
+  ctx.quadraticCurveTo(-w/2, -h, -w/2 + r, -h);
+  ctx.closePath();
+
+  ctx.fillStyle = "rgba(255,140,0,0.92)";
+  ctx.shadowColor = "rgba(255,140,0,0.6)";
+  ctx.shadowBlur = 15;
+  ctx.fill();
+
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "#fff";
+  ctx.textAlign = "center";
+  ctx.fillText(text, 0, -h/2 + 5);
+
+  ctx.restore();
 }
 
-function drawArrowAttached(x,y,scale=1,alpha=1){
-    ctx.save();
-    ctx.globalAlpha=alpha;
-    const h=28, arrowGap=-5;
-    ctx.translate(x, y+h*scale/2+arrowGap);
-    ctx.scale(scale,scale);
-    ctx.beginPath();
-    ctx.moveTo(0,0); ctx.lineTo(-7,-10); ctx.lineTo(7,-10); ctx.closePath();
-    ctx.fillStyle="rgba(255,140,0,0.92)";
-    ctx.fill();
-    ctx.restore();
-}
-
-function drawChatBubble(x,y,text,alpha=1,scale=1){
-    ctx.save();
-    ctx.globalAlpha=alpha;
-    ctx.translate(x,y);
-    ctx.scale(scale,scale);
-    ctx.font="bold 14px Arial";
-    const padding=10;
-    const textWidth=ctx.measureText(text).width;
-    const w=textWidth+padding*2;
-    const h=28, r=14;
-    ctx.beginPath();
-    ctx.moveTo(-w/2+r,-h); ctx.lineTo(w/2-r,-h); ctx.quadraticCurveTo(w/2,-h,w/2,-h+r);
-    ctx.lineTo(w/2,r); ctx.quadraticCurveTo(w/2,0,w/2-r,0);
-    ctx.lineTo(-w/2+r,0); ctx.quadraticCurveTo(-w/2,0,-w/2,r);
-    ctx.lineTo(-w/2,-h+r); ctx.quadraticCurveTo(-w/2,-h,-w/2+r,-h);
-    ctx.closePath();
-    ctx.fillStyle="rgba(255,140,0,0.92)";
-    ctx.shadowColor="rgba(255,140,0,0.6)"; ctx.shadowBlur=15; ctx.fill();
-    ctx.shadowBlur=0; ctx.fillStyle="#fff"; ctx.textAlign="center";
-    ctx.fillText(text,0,-h/2+5);
-    ctx.restore();
-}
-
-// Drag & touch events
-canvas.addEventListener('mousedown', e=>{isDragging=true; lastX=e.clientX; lastY=e.clientY;});
+canvas.addEventListener('mousedown', e=>{ isDragging=true; lastX=e.clientX; lastY=e.clientY; });
 window.addEventListener('mouseup', ()=>isDragging=false);
 window.addEventListener('mousemove', e=>{
-    if(!isDragging) return;
-    const dx=e.clientX-lastX, dy=e.clientY-lastY;
-    angleY+=dx*0.005; angleX+=dy*0.005;
-    velocityY=dx*0.0004; velocityX=dy*0.0004;
-    lastX=e.clientX; lastY=e.clientY;
+  if(!isDragging) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  angleY += dx*0.005;
+  angleX += dy*0.005;
+  velocityY = dx*0.0004;
+  velocityX = dy*0.0004;
+  lastX=e.clientX; lastY=e.clientY;
 });
-canvas.addEventListener('touchstart', e=>{isDragging=true; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY;});
-window.addEventListener('touchend', ()=>isDragging=false);
+
+canvas.addEventListener('touchstart', e=>{
+  isDragging = true;
+  lastX = e.touches[0].clientX;
+  lastY = e.touches[0].clientY;
+});
+
+window.addEventListener('touchend', ()=> isDragging=false);
+
 window.addEventListener('touchmove', e=>{
-    if(!isDragging) return;
-    const dx=e.touches[0].clientX-lastX, dy=e.touches[0].clientY-lastY;
-    angleY+=dx*0.005; angleX+=dy*0.005;
-    velocityY=dx*0.0004; velocityX=dy*0.0004;
-    lastX=e.touches[0].clientX; lastY=e.touches[0].clientY;
+  if(!isDragging) return;
+
+  const dx = e.touches[0].clientX - lastX;
+  const dy = e.touches[0].clientY - lastY;
+
+  angleY += dx*0.005;
+  angleX += dy*0.005;
+
+  velocityY = dx*0.0004;
+  velocityX = dy*0.0004;
+
+  lastX = e.touches[0].clientX;
+  lastY = e.touches[0].clientY;
 });
 
-// Draw loop
 function draw(){
-    if(!dataReady) return;
-    ctx.clearRect(0,0,W,H);
-    drawSphereOutline();
+  if (!dataReady) return;
+  ctx.clearRect(0,0,W,H);
+  drawSphereOutline();
 
-    ctx.strokeStyle='rgba(244,168,53,0.9)'; ctx.lineWidth=0.6;
-    features.forEach(f=>{
-        if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
-        else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
-    });
+  ctx.strokeStyle='rgba(244,168,53,0.9)';
+  ctx.lineWidth=0.6;
+  features.forEach(f=>{
+    if(f.geometry.type==="Polygon") f.geometry.coordinates.forEach(drawPolygon);
+    else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
+  });
 
     const now = performance.now();
 
-    // عرض الرسائل فقط عندما الكاميرا متجهة نحو الدولة
-    if(countryQueue.length>0){
-        const c = countryQueue[currentIndex];
-        const p = project(c.lat,c.lon);
-        const dx = p.x - W/2, dy = p.y - H/2;
-        const distanceFromCenter = Math.sqrt(dx*dx+dy*dy);
+    if (countryQueue.length > 0) {
+    const c = countryQueue[currentIndex];
+    const p = project(c.lat, c.lon);
 
-        if(p.z>0 && distanceFromCenter<80){
-            if(bubbleState==="hidden"){bubbleState="appearing"; bubbleStartTime=now;}
-            let progress = now - bubbleStartTime;
-            let alpha=0, scale=0.5;
+    if (p.z > 0) {
 
-            if(bubbleState==="appearing"){
-                let t=progress/appearDuration;
-                if(t>=1){bubbleState="visible"; bubbleStartTime=now;}
-                alpha=t; scale=0.5+t*0.5;
-            }else if(bubbleState==="visible"){
-                alpha=1; scale=1;
-                if(progress>=visibleDuration){bubbleState="disappearing"; bubbleStartTime=now;}
-            }else if(bubbleState==="disappearing"){
-                let t=progress/disappearDuration; alpha=1-t; scale=1-t*0.5;
-                if(t>=1){bubbleState="hidden"; currentIndex++; if(currentIndex>=countryQueue.length) currentIndex=0;}
-            }
+        if (bubbleState === "hidden") {
+        bubbleState = "appearing";
+        bubbleStartTime = now;
+        }
 
-            if(alpha>0){
-                drawWaterRipple(p.x,p.y,p.z,now);
-                const float=(Math.sin(now*0.002)+1)/2;
-                const bubbleY=p.y-30-float*10;
-                const text=`${c.price} - ${c.nameAr}`;
-                drawChatBubble(p.x,bubbleY,text,alpha,scale);
-                drawArrowAttached(p.x,bubbleY,scale,alpha);
+        let progress = (now - bubbleStartTime);
+        let alpha = 0;
+        let scale = 0.5;
+
+        if (bubbleState === "appearing") {
+        let t = progress / appearDuration;
+        if (t >= 1) {
+            bubbleState = "visible";
+            bubbleStartTime = now;
+        }
+        alpha = t;
+        scale = 0.5 + t * 0.5;
+        }
+
+        else if (bubbleState === "visible") {
+        alpha = 1;
+        scale = 1;
+        if (progress >= visibleDuration) {
+            bubbleState = "disappearing";
+            bubbleStartTime = now;
+        }
+        }
+
+        else if (bubbleState === "disappearing") {
+        let t = progress / disappearDuration;
+        alpha = 1 - t;
+        scale = 1 - t * 0.5;
+
+        if (t >= 1) {
+            bubbleState = "hidden";
+            currentIndex++;
+            if (currentIndex >= countryQueue.length) {
+            currentIndex = 0;
             }
         }
+        }
+
+        if (alpha > 0) {
+        drawWaterRipple(p.x, p.y, p.z, now);
+
+        const float = (Math.sin(now * 0.002) + 1) / 2;
+        const bubbleY = p.y - 30 - float * 10;
+
+        const text = `${c.price} - ${c.nameAr}`;
+
+        drawChatBubble(p.x, bubbleY, text, alpha, scale);
+        drawArrowAttached(p.x, bubbleY, scale, alpha);
+        }
+    }
     }
 
-    if(!isDragging){velocityX*=0.95; velocityY*=0.95; angleY+=autoSpeed+velocityY; angleX+=velocityX;}
+  if(!isDragging){
+    velocityX *= 0.95;
+    velocityY *= 0.95;
+    angleY += autoSpeed + velocityY;
+    angleX += velocityX;
+  }
 
-    // Hover overlay
-    if(hoverCountry){
+    // Draw hover overlay
+    if (hoverCountry) {
         const p = project(hoverCountry.lat, hoverCountry.lon);
-        if(p.z>0){
+        if (p.z > 0) {
             ctx.save();
-            ctx.globalAlpha=0.85;
-            drawChatBubble(p.x,p.y,`${hoverCountry.nameAr}\n${hoverCountry.price}`,0.9,0.9);
+            ctx.globalAlpha = 0.85;
+            drawChatBubble(p.x, p.y, `${hoverCountry.nameAr}\n${hoverCountry.price}`, 0.9, 0.9);
             ctx.restore();
         }
     }
 
-    requestAnimationFrame(draw);
+  requestAnimationFrame(draw);
 }
 });
 </script>
