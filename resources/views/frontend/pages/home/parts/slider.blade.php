@@ -640,7 +640,15 @@ function draw(){
     const c = countryQueue[currentIndex];
     const p = project(c.lat, c.lon);
 
-    if (p.z > 0) {
+    const centerX = W / 2;
+    const centerY = H / 2;
+
+    const dx = p.x - centerX;
+    const dy = p.y - centerY;
+
+    const distanceFromCenter = Math.sqrt(dx*dx + dy*dy);
+
+    if (p.z > 0 && distanceFromCenter < 80) {
 
         if (bubbleState === "hidden") {
         bubbleState = "appearing";
