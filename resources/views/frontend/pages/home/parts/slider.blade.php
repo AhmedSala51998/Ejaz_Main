@@ -398,6 +398,15 @@ const targetCountries = {};
 
 let dataReady = false;
 
+// Animation system
+let countryQueue = [];
+let currentIndex = 0;
+let bubbleStartTime = 0;
+let bubbleState = "hidden";
+const appearDuration = 600;
+const visibleDuration = 2000;
+const disappearDuration = 600;
+
 fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
   .then(r => r.json())
   .then(world => {
@@ -420,6 +429,30 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
     });
 
     dataReady = true;
+    countryQueue = Object.values(targetCountries);
+    // Hover detection
+    let hoverCountry = null;
+
+    canvas.addEventListener("mousemove", function(e){
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    hoverCountry = null;
+
+    Object.values(targetCountries).forEach(c => {
+        if (!c.lat) return;
+        const p = project(c.lat, c.lon);
+        if (p.z < 0) return;
+
+        const dx = mx - p.x;
+        const dy = my - p.y;
+
+        if (Math.sqrt(dx*dx + dy*dy) < 20) {
+        hoverCountry = c;
+        }
+    });
+    });
     requestAnimationFrame(draw);
   });
 
@@ -592,34 +625,69 @@ function draw(){
     else if(f.geometry.type==="MultiPolygon") f.geometry.coordinates.forEach(p=>p.forEach(drawPolygon));
   });
 
-  const t = performance.now();
-    const drawnBubbles = [];
-    Object.values(targetCountries).forEach(c => {
-    if (!c.lat) return;
+    const now = performance.now();
 
+    if (countryQueue.length > 0) {
+    const c = countryQueue[currentIndex];
     const p = project(c.lat, c.lon);
 
-    if (p.z < 0) return;
+    if (p.z > 0) {
 
-    const visibility = p.z / R;
+        if (bubbleState === "hidden") {
+        bubbleState = "appearing";
+        bubbleStartTime = now;
+        }
 
-    const alpha = Math.max(0, visibility);
+        let progress = (now - bubbleStartTime);
+        let alpha = 0;
+        let scale = 0.5;
 
-    if (visibility < 0.35) return;
+        if (bubbleState === "appearing") {
+        let t = progress / appearDuration;
+        if (t >= 1) {
+            bubbleState = "visible";
+            bubbleStartTime = now;
+        }
+        alpha = t;
+        scale = 0.5 + t * 0.5;
+        }
 
-    drawWaterRipple(p.x, p.y, p.z, performance.now());
+        else if (bubbleState === "visible") {
+        alpha = 1;
+        scale = 1;
+        if (progress >= visibleDuration) {
+            bubbleState = "disappearing";
+            bubbleStartTime = now;
+        }
+        }
 
-    const float = (Math.sin(performance.now() * 0.002) + 1) / 2;
-    const bubbleBaseY = p.y - 20;
-    const bubbleY = bubbleBaseY - float * 14;
+        else if (bubbleState === "disappearing") {
+        let t = progress / disappearDuration;
+        alpha = 1 - t;
+        scale = 1 - t * 0.5;
 
-    const text = `${c.price} - ${c.nameAr}`;
+        if (t >= 1) {
+            bubbleState = "hidden";
+            currentIndex++;
+            if (currentIndex >= countryQueue.length) {
+            currentIndex = 0;
+            }
+        }
+        }
 
-    const scale = 0.9 + visibility * 0.2;
+        if (alpha > 0) {
+        drawWaterRipple(p.x, p.y, p.z, now);
 
-    drawChatBubble(p.x, bubbleY, text, alpha, scale);
-    drawArrowAttached(p.x, bubbleY, scale, alpha);
-    });
+        const float = (Math.sin(now * 0.002) + 1) / 2;
+        const bubbleY = p.y - 30 - float * 10;
+
+        const text = `${c.price} - ${c.nameAr}`;
+
+        drawChatBubble(p.x, bubbleY, text, alpha, scale);
+        drawArrowAttached(p.x, bubbleY, scale, alpha);
+        }
+    }
+    }
 
   if(!isDragging){
     velocityX *= 0.95;
@@ -629,6 +697,16 @@ function draw(){
   }
 
   requestAnimationFrame(draw);
+  // Draw hover overlay
+    if (hoverCountry) {
+        const p = project(hoverCountry.lat, hoverCountry.lon);
+        if (p.z > 0) {
+            ctx.save();
+            ctx.globalAlpha = 0.85;
+            drawChatBubble(p.x, p.y, `${hoverCountry.nameAr}\n${hoverCountry.price}`, 0.9, 0.9);
+            ctx.restore();
+        }
+    }
 }
 });
 </script>
