@@ -646,7 +646,8 @@ function draw(){
         const dy = p.y - centerY;
         const distanceFromCenter = Math.sqrt(dx*dx + dy*dy);
 
-        if (p.z > 0 && distanceFromCenter < 30) {
+        const threshold = 50;
+        if (p.z > 0 && distanceFromCenter < threshold) {
             if (bubbleState === "hidden") {
                 bubbleState = "appearing";
                 bubbleStartTime = now;
@@ -695,6 +696,10 @@ function draw(){
 
                 drawChatBubble(p.x, bubbleY, text, alpha, scale);
                 drawArrowAttached(p.x, bubbleY, scale, alpha);
+            }
+        } else {
+            if (!isDragging) {
+                angleY += autoSpeed * 5;
             }
         }
     }
