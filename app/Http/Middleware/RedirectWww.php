@@ -9,14 +9,18 @@ class RedirectWww
 {
     public function handle(Request $request, Closure $next)
     {
-        $host = $request->getHost(); // www.isteqdamejaz.com
-        $scheme = $request->getScheme(); // http أو https
+        $host = $request->getHost();
+        $scheme = $request->getScheme();
+        $uri = $request->getRequestUri();
 
         if (str_starts_with($host, 'www.')) {
             $newHost = substr($host, 4);
-            $url = $scheme . '://' . $newHost . $request->getRequestUri();
+            return redirect()->to($scheme . '://' . $newHost . $uri, 301);
+        }
 
-            return redirect()->to($url, 301);
+        if (str_starts_with($uri, '/public')) {
+            $newUrl = str_replace('/public', '', $uri);
+            return redirect()->to($scheme . '://' . $host . $newUrl, 301);
         }
 
         return $next($request);
