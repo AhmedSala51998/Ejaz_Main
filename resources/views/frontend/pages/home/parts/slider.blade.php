@@ -387,6 +387,7 @@ let velocityX = 0, velocityY = 0;
 let features = [];
 
 const targetCountries = {};
+let hoverCountry = null;
 
 @foreach($countries as $c)
   @if(isset($countryMap[$c->country_name]))
@@ -430,30 +431,28 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
     });
 
     dataReady = true;
+    canvas.addEventListener("mousemove", function(e){
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+
+        hoverCountry = null;
+
+        Object.values(targetCountries).forEach(c => {
+            if (!c.lat) return;
+            const p = project(c.lat, c.lon);
+            if (p.z < 0) return;
+
+            const dx = mx - p.x;
+            const dy = my - p.y;
+
+            if (Math.sqrt(dx*dx + dy*dy) < 20) {
+            hoverCountry = c;
+            }
+        });
+    });
     countryQueue = Object.values(targetCountries);
     // Hover detection
-    let hoverCountry = null;
-
-    canvas.addEventListener("mousemove", function(e){
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-
-    hoverCountry = null;
-
-    Object.values(targetCountries).forEach(c => {
-        if (!c.lat) return;
-        const p = project(c.lat, c.lon);
-        if (p.z < 0) return;
-
-        const dx = mx - p.x;
-        const dy = my - p.y;
-
-        if (Math.sqrt(dx*dx + dy*dy) < 20) {
-        hoverCountry = c;
-        }
-    });
-    });
     requestAnimationFrame(draw);
   });
 
@@ -697,8 +696,7 @@ function draw(){
     angleX += velocityX;
   }
 
-  requestAnimationFrame(draw);
-  // Draw hover overlay
+    // Draw hover overlay
     if (hoverCountry) {
         const p = project(hoverCountry.lat, hoverCountry.lon);
         if (p.z > 0) {
@@ -708,6 +706,8 @@ function draw(){
             ctx.restore();
         }
     }
+
+  requestAnimationFrame(draw);
 }
 });
 </script>
