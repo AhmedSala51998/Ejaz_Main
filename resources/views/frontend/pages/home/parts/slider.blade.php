@@ -637,71 +637,65 @@ function draw(){
     const now = performance.now();
 
     if (countryQueue.length > 0) {
-        const c = countryQueue[currentIndex];
-        const p = project(c.lat, c.lon);
+    const c = countryQueue[currentIndex];
+    const p = project(c.lat, c.lon);
 
-        const centerX = W / 2;
-        const centerY = H / 2;
-        const dx = p.x - centerX;
-        const dy = p.y - centerY;
-        const distanceFromCenter = Math.sqrt(dx*dx + dy*dy);
+    if (p.z > 0) {
 
-        const threshold = 50;
-        if (p.z > 0 && distanceFromCenter < threshold) {
-            if (bubbleState === "hidden") {
-                bubbleState = "appearing";
-                bubbleStartTime = now;
-            }
+        if (bubbleState === "hidden") {
+        bubbleState = "appearing";
+        bubbleStartTime = now;
+        }
 
-            let progress = (now - bubbleStartTime);
-            let alpha = 0;
-            let scale = 0.5;
+        let progress = (now - bubbleStartTime);
+        let alpha = 0;
+        let scale = 0.5;
 
-            if (bubbleState === "appearing") {
-                let t = progress / appearDuration;
-                if (t >= 1) {
-                    bubbleState = "visible";
-                    bubbleStartTime = now;
-                }
-                alpha = t;
-                scale = 0.5 + t * 0.5;
-            }
-            else if (bubbleState === "visible") {
-                alpha = 1;
-                scale = 1;
-                if (progress >= visibleDuration) {
-                    bubbleState = "disappearing";
-                    bubbleStartTime = now;
-                }
-            }
-            else if (bubbleState === "disappearing") {
-                let t = progress / disappearDuration;
-                alpha = 1 - t;
-                scale = 1 - t * 0.5;
-                if (t >= 1) {
-                    bubbleState = "hidden";
-                    currentIndex++;
-                    if (currentIndex >= countryQueue.length) {
-                        currentIndex = 0;
-                    }
-                }
-            }
+        if (bubbleState === "appearing") {
+        let t = progress / appearDuration;
+        if (t >= 1) {
+            bubbleState = "visible";
+            bubbleStartTime = now;
+        }
+        alpha = t;
+        scale = 0.5 + t * 0.5;
+        }
 
-            if (alpha > 0) {
-                drawWaterRipple(p.x, p.y, p.z, now);
+        else if (bubbleState === "visible") {
+        alpha = 1;
+        scale = 1;
+        if (progress >= visibleDuration) {
+            bubbleState = "disappearing";
+            bubbleStartTime = now;
+        }
+        }
 
-                const float = (Math.sin(now * 0.002) + 1) / 2;
-                const bubbleY = p.y - 30 - float * 10;
-                const text = `${c.price} - ${c.nameAr}`;
+        else if (bubbleState === "disappearing") {
+        let t = progress / disappearDuration;
+        alpha = 1 - t;
+        scale = 1 - t * 0.5;
 
-                drawChatBubble(p.x, bubbleY, text, alpha, scale);
-                drawArrowAttached(p.x, bubbleY, scale, alpha);
-            }
-        } else {
-            if (!isDragging) {
-                angleY += autoSpeed * 5;
+        if (t >= 1) {
+            bubbleState = "hidden";
+            currentIndex++;
+            if (currentIndex >= countryQueue.length) {
+            currentIndex = 0;
             }
         }
+        }
+
+        if (alpha > 0) {
+        drawWaterRipple(p.x, p.y, p.z, now);
+
+        const float = (Math.sin(now * 0.002) + 1) / 2;
+        const bubbleY = p.y - 30 - float * 10;
+
+        const text = `${c.price} - ${c.nameAr}`;
+
+        drawChatBubble(p.x, bubbleY, text, alpha, scale);
+        drawArrowAttached(p.x, bubbleY, scale, alpha);
+        }
+    }
     }
 
   if(!isDragging){
