@@ -351,6 +351,7 @@ $countryMap = [
   "بنجلاديش" => 50,
 ];
 @endphp
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script defer src="https://unpkg.com/topojson-client@3"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -710,4 +711,3 @@ function draw(){
 }
 });
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
