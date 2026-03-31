@@ -451,7 +451,16 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
             }
         });
     });
-    countryQueue = Object.values(targetCountries);
+    countryQueue = [
+    ...Object.values(targetCountries).filter(c => c.nameAr === "الفلبين"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "بنجلاديش"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "الهند"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "سريلانكا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "اثيوبيا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "بروندي"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "كينيا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "اوغندا")
+    ];
     // Hover detection
     requestAnimationFrame(draw);
   });
