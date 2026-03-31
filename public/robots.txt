@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
+Disallow: /worker/
 Disallow: /register
 Disallow: /login
 Disallow: /forget-password

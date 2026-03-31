@@ -56,6 +56,22 @@
     <!-- Meta Description (SEO) -->
     <meta name="description" content="@yield('meta_description', 'إيجاز للاستقدام شركة متخصصة في استقدام العمالة المنزلية داخل المملكة العربية السعودية، نوفر كوادر مدرّبة بإجراءات سريعة وخدمة موثوقة في جدة والرياض وينبع.')">
 
+
+    @if(
+        request()->is('worker/*') ||
+        request()->is('register') ||
+        request()->is('register/*') ||
+        request()->is('login') ||
+        request()->is('login/*') ||
+        request()->is('forget-password') ||
+        request()->is('forget-email-sent-successfully') ||
+        request()->is('reset-password') ||
+        request()->is('profile') ||
+        request()->is('profileOrderDetails')
+    )
+        <meta name="robots" content="noindex, nofollow">
+    @endif
+
     {{--here we will add --}}
     <!-- icon -->
     @include('frontend.layouts.assets._css')

@@ -244,22 +244,25 @@ margin:auto;
                     <div class="swiper mainSliderContainer">
                         <div class="swiper-wrapper">
                             <!-- swiper-slide -->
-                            @foreach($sliders as $slider)
+                            @foreach($sliders as $index => $slider)
+                                <div class="swiper-slide mainSlideItem">
+                                    <div class="info">
+                                        @if($index == 0)
+                                            <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
+                                        @else
+                                            <h2 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h2>
+                                        @endif
 
-                            <div class="swiper-slide mainSlideItem">
-                                <div class="info">
-                                    <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
-                                    <p class="hint" style="color:#D89835">
-                                        {{$slider->desc}}
-                                    </p>
+                                        <p class="hint" style="color:#D89835">
+                                            {{$slider->desc}}
+                                        </p>
 
-                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
-                                        طلب استقدام
-
-                                        <i class="fa fa-arrow-left ms-2"><span></span></i>
-                                    </a>
+                                        <a href="{{route('frontend.supports.contactUs')}}" class="animatedLinkk">
+                                            تواصل معنا
+                                            <i class="fa fa-arrow-left ms-2"><span></span></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
 
                         </div>
