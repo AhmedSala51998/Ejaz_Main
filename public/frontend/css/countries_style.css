@@ -98,7 +98,7 @@
     border-radius: 0;
 }
 
-.country h4 {
+.country h3 {
     font-size: 1.3rem;
     font-weight: bold;
     color: var(--orange);
@@ -107,7 +107,7 @@
     font-family: cairo !important
 }
 
-.country h5 {
+.country h4 {
     font-size: 1.1rem;
     color: var(--text-main);
     margin-bottom: 10px;
@@ -137,7 +137,7 @@
     background: var(--orange-dark);
 }
 
-.country h4 {
+.country h3 {
     font-size: 1.6rem !important;
     margin-top: 60px !important;
     margin-bottom: 10px;
@@ -146,7 +146,7 @@
     font-family: 'Cairo' !important
 }
 
-.country h5 {
+.country h4 {
     font-size: 1.2rem !important;
     margin-bottom: 5px;
     color: var(--text-main);
@@ -178,7 +178,7 @@
     font-size: 1.2rem;
     margin-top: 10px;
 }
-.country h4 {
+.country h3 {
     font-family: 'Cairo', sans-serif !important;
     font-size: 1.75rem !important;
     font-weight: 800;
@@ -187,7 +187,7 @@
     margin-bottom: 8px;
     letter-spacing: 0.3px;
 }
-.country h5 {
+.country h4 {
     font-family: 'Cairo', sans-serif !important;
     font-size: 1.35rem !important;
     font-weight: 700;

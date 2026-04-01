@@ -2117,7 +2117,7 @@ header.headerAnimate {
         height: 80px;
     }
 }
-.countries .allCountries .country h4 {
+.countries .allCountries .country h3 {
     font-weight: bold;
 }
 .countries .allCountries .country p {
