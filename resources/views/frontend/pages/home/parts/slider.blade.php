@@ -250,7 +250,7 @@ margin:auto;
                                         @if($index == 0)
                                             <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
                                         @else
-                                            <h2 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h2>
+                                            <p class="sliderTitle" style="color:#D89835"> {{$slider->title}} </p>
                                         @endif
 
                                         <p class="hint" style="color:#D89835">

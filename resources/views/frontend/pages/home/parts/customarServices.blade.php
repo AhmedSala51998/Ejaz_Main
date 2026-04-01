@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="text-center mb-5" data-aos="fade-up">
-            <h1 class="section-title">خدمة العملاء</h1>
+            <h3 class="section-title">خدمة العملاء</h3>
             <p class="section-subtitle">لخدمة عملاء متميزة على مدار الساعة</p>
         </div>
 

@@ -3,7 +3,7 @@
     <section class="statistics">
         <div class="container">
             <div class="SectionTitle">
-                <h2 class="title"> {{__('frontend.statistics')}} </h2>
+                <h3 class="title"> {{__('frontend.statistics')}} </h3>
                 <h6 class="hint"> {{$settings->our_statistics_desc}} </h6>
             </div>
             <div class="row statisticsInner">
@@ -13,7 +13,7 @@
                 <div class="col-12 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
                         <i style="font-size: 44px !important;color:#d97706 !important;margin-left:5px !important" class="fa {{$statistic->icon}}"></i>
-                        <h1 class="odometer" data-count="{{$statistic->number}}">00</h1>
+                        <p class="odometer" data-count="{{$statistic->number}}">00</p>
                         <h6> {{$statistic->title}} </h6>
                     </div>
                 </div>

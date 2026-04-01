@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="text-center mb-5" data-aos="fade-up">
-            <h1 class="section-title">خدمات الاستقدام</h1>
+            <h2 class="section-title">خدمات الاستقدام</h2>
             <p class="section-subtitle">تعرف على الخدمات التي نقدمها للمجتمع</p>
         </div>
 
