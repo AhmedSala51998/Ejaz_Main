@@ -4,7 +4,7 @@
         <div class="container">
             <div class="SectionTitle">
                 <h3 class="title"> {{__('frontend.statistics')}} </h3>
-                <h6 class="hint"> {{$settings->our_statistics_desc}} </h6>
+                <h4 class="hint"> {{$settings->our_statistics_desc}} </h4>
             </div>
             <div class="row statisticsInner">
                 <div class="circleBlur"></div>
@@ -14,7 +14,7 @@
                     <div class="specifications wow fadeInUp">
                         <i style="font-size: 44px !important;color:#d97706 !important;margin-left:5px !important" class="fa {{$statistic->icon}}"></i>
                         <p style="padding-left:5px !important;font-weight:bold" class="odometer" data-count="{{$statistic->number}}">00</p>
-                        <h6> {{$statistic->title}} </h6>
+                        <h5> {{$statistic->title}} </h5>
                     </div>
                 </div>
                 @endforeach

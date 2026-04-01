@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     </div>
 
-                    <h4>{{ $country->title }}</h4>
-                    <h5>{{ $country->price }}
+                    <h3>{{ $country->title }}</h3>
+                    <h4>{{ $country->price }}
                         <span class="riyal-logo">
                             <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
                                 <text x="60" y="28"
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </text>
                             </svg>
                         </span>
-                    </h5>
+                    </h4>
                     <p>{{ $country->description }}</p>
                     <a href="{{ route('all-workers', $country->id) }}">
                         اطلب الآن

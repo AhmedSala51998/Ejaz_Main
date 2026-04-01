@@ -5,7 +5,7 @@
 <section id="contactUs">
     <div class="container">
         <div class="contact-container">
-            <h2 class="contact-title">تواصل معنا</h2>
+            <h5 class="contact-title">تواصل معنا</h5>
             <p class="contact-sub">يسعدنا تواصلك معنا من خلال البيانات التالية أو النموذج</p>
             <div class="row mt-5">
                 <div class="col-md-5">

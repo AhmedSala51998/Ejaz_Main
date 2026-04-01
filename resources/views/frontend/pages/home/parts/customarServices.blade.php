@@ -15,7 +15,7 @@
                         <div class="icon-container">
                             <img src="{{ asset('frontend/img/customer-service.png') }}"  loading="lazy" width="48" height="48" alt="خدمة العملاء">
                         </div>
-                        <h5>{{ $admin->name }}</h5>
+                        <h4>{{ $admin->name }}</h4>
                         <p>نخدمكم على مدار <strong>24/7</strong></p>
                         <div class="d-grid gap-2">
                             <a href="https://api.whatsapp.com/send?phone={{ $admin->phone }}" target="_blank" class="btn btn-whatsapp">
