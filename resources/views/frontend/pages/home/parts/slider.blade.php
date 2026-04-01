@@ -248,7 +248,7 @@ margin:auto;
                                 <div class="swiper-slide mainSlideItem">
                                     <div class="info">
                                         @if($index == 0)
-                                            <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
+                                            <p class="sliderTitle" style="color:#D89835"> {{$slider->title}} </p>
                                         @else
                                             <p class="sliderTitle" style="color:#D89835"> {{$slider->title}} </p>
                                         @endif
