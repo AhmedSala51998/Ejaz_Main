@@ -13,7 +13,7 @@
                 <div class="col-12 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
                         <i style="font-size: 44px !important;color:#d97706 !important;margin-left:5px !important" class="fa {{$statistic->icon}}"></i>
-                        <p class="odometer" data-count="{{$statistic->number}}">00</p>
+                        <p style="padding-left:5px !important;font-weight:bold" class="odometer" data-count="{{$statistic->number}}">00</p>
                         <h6> {{$statistic->title}} </h6>
                     </div>
                 </div>
