@@ -3,13 +3,15 @@
 @section('title')
 @php
     $title = match (true) {
+        request()->routeIs('transferService') && isset($countryNameAr) => 'نقل خدمات من ' . $countryNameAr,
         request()->routeIs('transferService') => 'نقل خدمات',
+        request()->routeIs('services-single') && isset($countryNameAr) => 'خدمات فردية من ' . $countryNameAr,
         request()->routeIs('services-single') => 'خدمات فردية',
         isset($countryNameAr) => 'استقدام عمالة من ' . $countryNameAr,
         default => 'طلب استقدام عمالة',
     };
 
-$title = $title . ' - ايجاز';
+    $title .= ' - ايجاز';
 @endphp
 {{ $title }}
 @endsection
@@ -18,38 +20,90 @@ $title = $title . ' - ايجاز';
 @php
     $metaDescription = match (true) {
 
-        request()->routeIs('transferService') =>
-            'نقل خدمات العمالة المنزلية داخل السعودية أصبح أكثر كفاءة وسهولة، مع متابعة دقيقة وإجراءات قانونية معتمدة لضمان إتمام كل عملية بسلاسة وبدون أي عراقيل.',
+        // ================= نقل الخدمات =================
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'اثيوبيا' =>
+            'نقل خدمات العمالة المنزلية من إثيوبيا داخل السعودية يتميز بالكفاءة والالتزام، مع كوادر مدربة لتنفيذ المهام المنزلية بدقة وسرعة الإجراءات.',
 
-        request()->routeIs('services-single') =>
-            'اختر الخدمات المنزلية الفردية المناسبة لاحتياجاتك مع فريق متخصص، يشمل التنظيف، رعاية الأطفال وكبار السن، بجودة عالية ومعايير احترافية دقيقة.',
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'كينيا' =>
+            'نقل خدمات العمالة من كينيا يقدم حلولًا احترافية لجميع الأعمال المنزلية داخل المملكة، مع الالتزام بالمواعيد وجودة التنفيذ.',
 
-        isset($countryNameAr) && $countryNameAr === 'اثيوبيا' =>
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'الفلبين' =>
+            'نقل خدمات العمالة الفلبينية يضمن خبرة عالية في الطهي والتنظيف ورعاية الأطفال، مع سرعة وكفاءة عالية في التنفيذ.',
+
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'بنجلاديش' =>
+            'نقل خدمات العمالة البنجلاديشية داخل السعودية يقدم عمالة دقيقة ومجربة، ملتزمة بالمهام المنزلية مع تسهيل جميع الإجراءات.',
+
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'اوغندا' =>
+            'نقل خدمات العمالة الأوغندية يضمن التزام كامل وجودة عالية في جميع الأعمال المنزلية، مع متابعة دقيقة وسلاسة الإجراءات.',
+
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'سريلانكا' =>
+            'نقل خدمات العمالة السريلانكية يقدم كوادر دقيقة ومنظمة في الطهي والتنظيف، مع إجراءات سهلة لضمان تنفيذ المهام بكفاءة.',
+
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'بروندي' =>
+            'نقل خدمات العمالة من بروندي يوفر أداءً مثاليًا في جميع المهام المنزلية، مع الالتزام بالمواعيد وإجراءات سريعة.',
+
+        request()->routeIs('transferService') && isset($countryNameAr) && $countryNameAr === 'الهند' =>
+            'نقل خدمات السائقين الخاصين من الهند داخل السعودية، رجال محترفون ومدربون على أعلى معايير السلامة والانضباط لتوفير تنقلات شخصية آمنة وفعالة.',
+
+        // ================= الخدمات الفردية =================
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'اثيوبيا' =>
+            'خدمات فردية من إثيوبيا تشمل تنظيف المنازل ورعاية الأطفال وكبار السن، مع كوادر ملتزمة وخبرة عالية لضمان جودة الخدمة.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'كينيا' =>
+            'خدمات فردية من كينيا تقدم أداءً متقنًا لجميع الأعمال المنزلية، مع الالتزام بالمواعيد والدقة لتلبية احتياجات الأسرة بكفاءة.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'الفلبين' =>
+            'خدمات فردية من الفلبين تشمل الطهي والتنظيف ورعاية الأطفال، مع كوادر ماهرة وإجراءات سهلة وسريعة لضمان راحة الأسر.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'بنجلاديش' =>
+            'خدمات فردية من بنجلاديش تقدم أداءً متقنًا لجميع المهام المنزلية، مع عمالة دقيقة ومجربة تلتزم بالمعايير الاحترافية.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'اوغندا' =>
+            'خدمات فردية من أوغندا تقدم عمالة ملتزمة ودقيقة، مع تنظيم المهام اليومية وسرعة الإجراءات لتسهيل حياة الأسرة.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'سريلانكا' =>
+            'خدمات فردية من سريلانكا تشمل التدبير المنزلي والطهي بدقة، مع عمالة منظمة ومحترفة لضمان راحة الأسر.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'بروندي' =>
+            'خدمات فردية من بروندي تقدم أداءً ممتازًا لجميع المهام المنزلية، مع التزام كامل وجودة عالية وسهولة الإجراءات.',
+
+        request()->routeIs('services-single') && isset($countryNameAr) && $countryNameAr === 'الهند' =>
+            'خدمات فردية تشمل السائقين الخاصين من الهند، رجال محترفون ومدربون على قيادة السيارات بكفاءة لضمان التنقل الشخصي.',
+
+        // ================= الاستقدام =================
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'اثيوبيا' =>
             'كوادر إثيوبية مدربة بدقة على جميع المهام المنزلية، تشمل رعاية الأسرة، التدبير المنزلي، وتنظيم الحياة اليومية بكفاءة عالية داخل السعودية، مع سرعة في الإجراءات وسلاسة في التنسيق.',
 
-        isset($countryNameAr) && $countryNameAr === 'كينيا' =>
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'كينيا' =>
             'عمالة منزلية كينية متخصصة في النظافة ورعاية الأطفال، تقدم أداءً منضبطًا ومهنيًا، مع التزام كامل بالمهام اليومية وإجراءات سلسة لتسهيل كل خطوة داخل المملكة.',
 
-        isset($countryNameAr) && $countryNameAr === 'الفلبين' =>
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'الفلبين' =>
             'عاملات منزلية فلبينيات ماهرات في الطهي والأعمال المنزلية، ملتزمات بمعايير الجودة والدقة، مع خطط تنفيذ مرنة وسريعة لضمان رضا الأسر وتحقيق أعلى مستوى للخدمة.',
 
         isset($countryNameAr) && $countryNameAr === 'بنجلاديش' =>
             'عاملات منزلية بنجلاديشيات لديهن خبرة متنوعة تشمل التدبير المنزلي ورعاية الأطفال، ملتزمات بالمواعيد، دقيقات في الأداء، مع إجراءات سلسة لتسهيل جميع متطلبات الأسرة.',
 
-        isset($countryNameAr) && $countryNameAr === 'اوغندا' =>
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'اوغندا' =>
             'كوادر منزلية أوغندية مدربة على مختلف الأعمال اليومية داخل المنزل، تقدم التزامًا كاملًا وجودة عالية في الأداء، مع تسهيل كل خطوة من إجراءات التوظيف داخل المملكة.',
 
-        isset($countryNameAr) && $countryNameAr === 'سريلانكا' =>
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'سريلانكا' =>
             'عاملات منزلية سريلانكيات دقيقة ومنظمة، ماهرات في الطهي والأعمال المنزلية، ملتزمات بأعلى معايير الجودة، مع إجراءات سهلة لضمان تلبية كافة احتياجات الأسرة بكفاءة.',
 
-        isset($countryNameAr) && $countryNameAr === 'بروندي' =>
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'بروندي' =>
             'عاملات منزلية من بروندي تقدم أداءً متقنًا في جميع المهام المنزلية، ملتزمات بالمعايير العملية والدقة في التنفيذ، مع إجراءات ميسرة وسريعة لضمان راحة الأسرة.',
 
-        isset($countryNameAr) && $countryNameAr === 'الهند' =>
+        request()->routeIs('all-workers') && isset($countryNameAr) && $countryNameAr === 'الهند' =>
             'سائقون خاصون من الهند، رجال محترفون ومدربون على قيادة السيارات بأعلى معايير السلامة والانضباط، يقدمون خدمات التنقل الشخصي داخل السعودية بكفاءة واحترافية تامة.',
 
+        // ================= الافتراضي لكل صفحة =================
+        request()->routeIs('transferService') =>
+            'نقل خدمات العمالة المنزلية داخل السعودية يتميز بالكفاءة والالتزام، مع كوادر محترفة وتنفيذ سريع لجميع المهام المنزلية.',
+
+        request()->routeIs('services-single') =>
+            'خدمات فردية منزلية داخل السعودية تشمل التنظيف ورعاية الأطفال وكبار السن، مع كوادر محترفة وإجراءات سهلة لضمان أعلى جودة.',
+
         default =>
-            'شركة إيجاز تقدم حلولاً متكاملة للعمالة المنزلية داخل السعودية، مع كوادر محترفة، إجراءات مرنة، وخيارات متنوعة لتغطية جميع الاحتياجات المنزلية بكفاءة عالية وسرعة في التنفيذ.',
+            'شركة إيجاز تقدم حلولاً متكاملة للعمالة المنزلية داخل السعودية، مع كوادر محترفة، إجراءات مرنة، وخيارات متنوعة لتغطية جميع احتياجات الأسرة بكفاءة وسرعة في التنفيذ.',
     };
 @endphp
 {{ $metaDescription }}
@@ -827,34 +881,42 @@ $title = $title . ' - ايجاز';
 
 @section('content')
 <div class="banner">
-<h1>
-    @if(isset($transfer))
-        طلب نقل خدمات
-    @elseif(isset($rental))
-        خدمات فردية
-    @elseif(isset($countryNameAr))
-        استقدام عمالة من {{ $countryNameAr }}
-    @else
-        استقدام عمالة منزلية
-    @endif
-</h1>
+    <h1>
+        @if(isset($transfer) && isset($countryNameAr))
+            نقل خدمات من {{ $countryNameAr }}
+        @elseif(isset($transfer))
+            طلب نقل خدمات
+        @elseif(isset($rental) && isset($countryNameAr))
+            خدمات فردية من {{ $countryNameAr }}
+        @elseif(isset($rental))
+            خدمات فردية
+        @elseif(isset($countryNameAr))
+            استقدام عمالة من {{ $countryNameAr }}
+        @else
+            طلب استقدام عمالة
+        @endif
+    </h1>
 
-<ul>
-    <li><a href="{{ route('home') }}">الرئيسية</a></li>
-    <li>
-        <a href="#" class="active">
-            @if(isset($transfer))
-                نقل خدمات
-            @elseif(isset($rental))
-                خدمات فردية
-            @elseif(isset($countryNameAr))
-                استقدام عمالة من {{ $countryNameAr }}
-            @else
-                استقدام عمالة منزلية
-            @endif
-        </a>
-    </li>
-</ul>
+    <ul>
+        <li><a href="{{ route('home') }}">الرئيسية</a></li>
+        <li>
+            <a href="#" class="active">
+                @if(isset($transfer) && isset($countryNameAr))
+                    نقل خدمات من {{ $countryNameAr }}
+                @elseif(isset($transfer))
+                    نقل خدمات
+                @elseif(isset($rental) && isset($countryNameAr))
+                    خدمات فردية من {{ $countryNameAr }}
+                @elseif(isset($rental))
+                    خدمات فردية
+                @elseif(isset($countryNameAr))
+                    استقدام عمالة من {{ $countryNameAr }}
+                @else
+                    طلب استقدام عمالة
+                @endif
+            </a>
+        </li>
+    </ul>
 </div>
 
  <div id="mobileFilterSidebar" class="mobile-filter-sidebar d-lg-none">
