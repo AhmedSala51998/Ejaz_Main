@@ -324,7 +324,7 @@
                                     </h5>
                                     <p>{{ $country->description }}</p>
                                     <a href="{{ route('all-workers', $country->country_name_en) }}">
-                                        اطلب الآن
+                                        استقدام من {{ $country->country_name }}
                                         <i class="fa fa-arrow-left ms-2"></i>
                                     </a>
                                 </div>
