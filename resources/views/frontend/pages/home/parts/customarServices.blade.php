@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="text-center mb-5" data-aos="fade-up">
-            <h3 class="section-title">خدمة العملاء</h3>
+            <h2 class="section-title">خدمة العملاء</h2>
             <p class="section-subtitle">لخدمة عملاء متميزة على مدار الساعة</p>
         </div>
 
@@ -15,7 +15,7 @@
                         <div class="icon-container">
                             <img src="{{ asset('frontend/img/customer-service.png') }}"  loading="lazy" width="48" height="48" alt="خدمة العملاء">
                         </div>
-                        <h4>{{ $admin->name }}</h4>
+                        <h3>{{ $admin->name }}</h3>
                         <p>نخدمكم على مدار <strong>24/7</strong></p>
                         <div class="d-grid gap-2">
                             <a href="https://api.whatsapp.com/send?phone={{ $admin->phone }}" target="_blank" class="btn btn-whatsapp">

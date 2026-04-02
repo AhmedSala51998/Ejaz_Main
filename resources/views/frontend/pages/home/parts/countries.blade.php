@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <section class="countries" id="countries">
     <div class="container">
         <div class="sectionTitle" data-aos="fade-up">
-            <h2 class="section-title">دول الاستقدام</h2>
+            <h3 class="section-title">دول الاستقدام</h3>
             <p class="section-subtitle">نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ...</p>
         </div>
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <h4>{{ $country->title }}</h4>
-                    <h4>{{ $country->price }}
+                    <h5>{{ $country->price }}
                         <span class="riyal-logo">
                             <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
                                 <text x="60" y="28"
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </text>
                             </svg>
                         </span>
-                    </h4>
+                    </h5>
                     <p>{{ $country->description }}</p>
                     <a href="{{ route('all-workers', $country->country_name_en) }}">
                         اطلب الآن
