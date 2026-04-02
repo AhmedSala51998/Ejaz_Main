@@ -108,7 +108,7 @@
             <div class="col-lg-2 col-6">
                 <h3>روابط سريعة</h3>
                 <ul>
-                    <li><a href="{{route('all-workers')}}">طلب استقدام</a></li>
+                    <li><a href="{{route('all-workers')}}">طلب استقدام عمالة</a></li>
                     <li><a href="{{trans('transferService')}}">طلب نقل خدمات</a></li>
                     <li><a href="{{route('track_order_view')}}">تتبع طلبك</a></li>
                     @auth
@@ -125,7 +125,7 @@
             <div class="col-lg-2 col-6">
                 <h3>روابط تهمك</h3>
                 <ul>
-                    <li><a href="{{checkRouteIsHome('#popular_service')}}">{{__('frontend.OurServices')}}</a></li>
+                    <li><a href="{{route('blog.index')}}">مدوناتنا</a></li>
                     <li><a href="{{route('frontend.aboutUs')}}">من نحن</a></li>
                     <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
                     <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
