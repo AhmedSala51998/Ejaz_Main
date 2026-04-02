@@ -72,8 +72,17 @@ class TransferServicesFrontController extends Controller
         
 
         // فلترة حسب الجنسية
-        if ($request->nationality) {
+        /*if ($request->nationality) {
             $query->where('nationalitie_id', $request->nationality);
+        }*/
+
+        $countryNameAr = null;
+        if ($request->nationality) {
+            $country = Nationalitie::where('country_name_en', $request->nationality)->first();
+            if ($country) {
+                $query->where('nationalitie_id', $country->id);
+                $countryNameAr = $country->country_name;
+            }
         }
 
         // باقي الفلاتر
@@ -113,7 +122,7 @@ class TransferServicesFrontController extends Controller
         $nationalities = Nationalitie::all();
 
         return view('frontend.pages.all-workers.all-workers', compact(
-            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types'
+            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types' , 'countryNameAr'
         ))->with(['transfer' => 'transfer']);
     }
 

@@ -243,7 +243,7 @@ class WorkerFrontController extends Controller
         ));
     }*/
 
-    public function showAllWorkers(Request $request, $id = null)
+    public function showAllWorkers(Request $request, $name = null)
     {
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
@@ -257,19 +257,21 @@ class WorkerFrontController extends Controller
         $religions = Religion::all();
         $social_types = SocialType::all();
 
-        // فلترة حسب الدولة إن وجدت
-        if ($id) {
-            $country = Nationalitie::find($id);
+        $countryNameAr = null;
+        if ($name) {
+            $country = Nationalitie::where('country_name_en', $name)->first();
             if ($country) {
                 $query->where('nationalitie_id', $country->id);
+                $countryNameAr = $country->country_name;
             }
-        } else {
-            if ($request->nationality) {
-                $query->where('nationalitie_id', $request->nationality);
+        } elseif ($request->nationality) {
+            $country = Nationalitie::where('country_name_en', $request->nationality)->first();
+            if ($country) {
+                $query->where('nationalitie_id', $country->id);
+                $countryNameAr = $country->country_name;
             }
         }
 
-        // باقي الفلاتر
         if ($request->age) {
             $query->FilterByAge($request->age);
         }
@@ -320,7 +322,7 @@ class WorkerFrontController extends Controller
         $nationalities = Nationalitie::orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')->get();
 
         return view('frontend.pages.all-workers.all-workers', compact(
-            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types'
+            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types', 'countryNameAr'
         ));
     }
 

@@ -1,25 +1,34 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    @php
-        $title = match (true) {
-            request()->routeIs('transferService') => 'نقل خدمات',
-            request()->routeIs('services-single') => 'خدمات فردية',
-            default => 'إرسال طلب',
-        };
-    @endphp
-    {{ $title }}
+@php
+    $title = match (true) {
+        request()->routeIs('transferService') => 'نقل خدمات',
+        request()->routeIs('services-single') => 'خدمات فردية',
+        isset($countryNameAr) => 'استقدام عمالة من ' . $countryNameAr,
+        default => 'طلب استقدام عمالة',
+    };
+@endphp
+{{ $title }}
 @endsection
 
 @section('meta_description')
-    @php
-        $metaDescription = match (true) {
-            request()->routeIs('transferService') => 'اطلب نقل خدمات العمالة المنزلية بسهولة وسرعة مع شركة إيجاز للاستقدام داخل المملكة العربية السعودية، واختر الخدمة الأنسب لك.',
-            request()->routeIs('services-single') => 'استكشف خدمات العمالة المنزلية الفردية مع شركة إيجاز، واختر أفضل العمالة المؤهلة لتلبية احتياجات منزلك.',
-            default => 'قدّم طلب استقدام العمالة المنزلية مع شركة إيجاز بسهولة وأمان داخل المملكة العربية السعودية، وتمتع بخدمة احترافية وسريعة.',
-        };
-    @endphp
-    {{ $metaDescription }}
+@php
+    $metaDescription = match (true) {
+        request()->routeIs('transferService') =>
+            'اطلب نقل خدمات العمالة المنزلية بسهولة وسرعة مع شركة إيجاز للاستقدام داخل المملكة العربية السعودية.',
+
+        request()->routeIs('services-single') =>
+            'استكشف خدمات العمالة المنزلية الفردية مع شركة إيجاز واختر أفضل العمالة المؤهلة.',
+
+        isset($countryNameAr) =>
+            'استقدام عمالة منزلية من ' . $countryNameAr . ' مع شركة إيجاز للاستقدام داخل السعودية، نوفر عمالة مدربة وموثوقة بسرعة وإجراءات ميسرة.',
+
+        default =>
+            'قدّم طلب استقدام العمالة المنزلية مع شركة إيجاز بسهولة وأمان داخل المملكة العربية السعودية.',
+    };
+@endphp
+{{ $metaDescription }}
 @endsection
 
 @section('styles')
@@ -794,12 +803,17 @@
 
 @section('content')
 <div class="banner">
-    <h1>
-        @if(isset($transfer)) طلب نقل خدمات
-        @elseif(isset($rental)) خدمات فردية
-        @else طلب استقدام
-        @endif
-    </h1>
+<h1>
+    @if(isset($transfer))
+        طلب نقل خدمات
+    @elseif(isset($rental))
+        خدمات فردية
+    @elseif(isset($countryNameAr))
+        استقدام عمالة من {{ $countryNameAr }}
+    @else
+        طلب استقدام عمالة
+    @endif
+</h1>
     <ul>
         <li><a href="{{route('home')}}">الرئيسية</a></li>
         <li><a href="#" class="active">@if(isset($transfer)) نقل خدمات @elseif(isset($rental)) خدمات فردية @else استقدام @endif</a></li>
@@ -829,7 +843,7 @@
                     <div id="nationalityFilter" class="collapse show">
                         @foreach($nationalities as $key=> $nationalitie)
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="nationality" id="nationality1{{$key+1}}" value="{{$nationalitie->id}}">
+                                <input class="form-check-input" type="radio" name="nationality" id="nationality1{{$key+1}}" value="{{$nationalitie->country_name_en }}">
                                 <label class="form-check-label" for="nationality1{{$key+1}}">{{trans($nationalitie->title)}}</label>
                             </div>
                         @endforeach
@@ -959,8 +973,8 @@
                             <select name="nationality" class="form-select">
                                 <option value="">الكل</option>
                                 @foreach($nationalities as $n)
-                                    <option value="{{ $n->id }}"
-                                        {{ request('nationality') == $n->id ? 'selected' : '' }}>
+                                    <option value="{{ $n->country_name_en }}"
+                                        {{ request('nationality') == $n->country_name_en  ? 'selected' : '' }}>
                                         {{ trans($n->title) }}
                                     </option>
                                 @endforeach
@@ -1215,6 +1229,17 @@
         $(document).on('click', '.searchWorkerBtn', function (e) {
             e.preventDefault();
             new_page = 1;
+            const filters = getFilters();
+            let nationality = filters.nationality;
+
+            if (window.innerWidth <= 768) {
+                if (nationality) {
+                    window.location.href = link_only + '/' + nationality;
+                } else {
+                    window.location.href = link_only;
+                }
+                return;
+            }
             loadWorkers(new_page);
         });
 
@@ -1352,7 +1377,6 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
         select.parentElement.classList.remove('open');
     });
 });
-
 </script>
 
 

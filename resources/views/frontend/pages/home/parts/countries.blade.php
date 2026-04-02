@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </span>
                     </h4>
                     <p>{{ $country->description }}</p>
-                    <a href="{{ route('all-workers', $country->id) }}">
+                    <a href="{{ route('all-workers', $country->country_name_en) }}">
                         اطلب الآن
                         <i class="fa fa-arrow-left ms-2"></i>
                     </a>

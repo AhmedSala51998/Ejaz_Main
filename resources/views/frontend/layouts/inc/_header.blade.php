@@ -495,7 +495,7 @@ body.sticky-header-active {
                         </a>
                         <div class="dropdownMenu categoriesList" id="categoriesMenu">
                             <ul>
-                                <li><a href="{{ route('all-workers') }}">طلب استقدام</a></li>
+                                <li><a href="{{ route('all-workers') }}">طلب استقدام عمالة</a></li>
                                 <li><a href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
                                 <li><a href="{{ route('services-single') }}">خدمات فردية</a></li>
                             </ul>
@@ -555,7 +555,7 @@ body.sticky-header-active {
     </div>
     <ul class="sidebar-nav">
         <li><a class="{{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}">الرئيسية</a></li>
-        <li><a class="{{ Request::routeIs('all-workers') ? 'active' : '' }}" href="{{ route('all-workers') }}">طلب استقدام</a></li>
+        <li><a class="{{ Request::routeIs('all-workers') ? 'active' : '' }}" href="{{ route('all-workers') }}">طلب استقدام  عمالة</a></li>
         <li><a class="{{ Request::routeIs('transferService') ? 'active' : '' }}" href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
         <li><a class="{{ Request::routeIs('services-single') ? 'active' : '' }}" href="{{ route('services-single') }}">خدمات فردية</a></li>
         <li><a class="{{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs')}}">من نحن</a></li>
