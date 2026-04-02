@@ -8,6 +8,8 @@
         isset($countryNameAr) => 'استقدام عمالة من ' . $countryNameAr,
         default => 'طلب استقدام عمالة',
     };
+
+$title = $title . ' - ايجاز';
 @endphp
 {{ $title }}
 @endsection
@@ -833,13 +835,26 @@
     @elseif(isset($countryNameAr))
         استقدام عمالة من {{ $countryNameAr }}
     @else
-        طلب استقدام عمالة
+        استقدام عمالة منزلية
     @endif
 </h1>
-    <ul>
-        <li><a href="{{route('home')}}">الرئيسية</a></li>
-        <li><a href="#" class="active">@if(isset($transfer)) نقل خدمات @elseif(isset($rental)) خدمات فردية @else استقدام @endif</a></li>
-    </ul>
+
+<ul>
+    <li><a href="{{ route('home') }}">الرئيسية</a></li>
+    <li>
+        <a href="#" class="active">
+            @if(isset($transfer))
+                نقل خدمات
+            @elseif(isset($rental))
+                خدمات فردية
+            @elseif(isset($countryNameAr))
+                استقدام عمالة من {{ $countryNameAr }}
+            @else
+                استقدام عمالة منزلية
+            @endif
+        </a>
+    </li>
+</ul>
 </div>
 
  <div id="mobileFilterSidebar" class="mobile-filter-sidebar d-lg-none">
