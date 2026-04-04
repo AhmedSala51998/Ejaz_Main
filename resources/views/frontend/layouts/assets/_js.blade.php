@@ -66,23 +66,6 @@ if (document.querySelector('.swiper')) {
 }
 </script>
 <script>
-let hotjarLoaded = false;
-
-function loadHotjar() {
-    if (hotjarLoaded) return;
-    hotjarLoaded = true;
-
-    const s = document.createElement('script');
-    s.src = 'https://script.hotjar.com/modules.5af39c6….js';
-    s.async = true;
-    document.body.appendChild(s);
-}
-
-['scroll','mousemove','touchstart'].forEach(evt => {
-    window.addEventListener(evt, loadHotjar, { once: true });
-});
-</script>
-<script>
 if (window.innerWidth > 768) {
 
     const scripts = [
