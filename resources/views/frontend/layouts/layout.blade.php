@@ -48,7 +48,6 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
 
     <link rel="preload" href="{{asset('frontend/css/layout_style.css')}}" as="style" onload="this.rel='stylesheet'">
-    <link rel="preload" href="{{asset('frontend/css/ramadan_layout_style.css')}}" as="style" onload="this.rel='stylesheet'">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="z2Gm-stFhrGTfv1vcDS-JOpwMXyfhRk60P0gOVSe92I">
