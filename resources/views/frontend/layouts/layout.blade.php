@@ -94,7 +94,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <content>
 
     @yield('content')
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.css">
+    <script src="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.js"></script>
     <div class="modal fade cvModal" id="showDetails" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" id="CVHere">
