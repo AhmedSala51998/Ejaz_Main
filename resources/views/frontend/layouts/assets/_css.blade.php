@@ -10,6 +10,7 @@
 <link rel="preload" href="{{asset('frontend/css/dropify.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/jquery.fancybox.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/odometer.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{asset('frontend/css/select2.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
 
 
@@ -19,6 +20,7 @@
   <link rel="stylesheet" href="{{asset('frontend/css/dropify.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.fancybox.min.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/odometer.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
 </noscript>
 
 <link rel="preload" href="{{asset('frontend/cute-alert-master/style.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
