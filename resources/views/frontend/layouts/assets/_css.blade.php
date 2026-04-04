@@ -2,6 +2,7 @@
 
 
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
 
 <link rel="preload"
       href="{{asset('frontend/css/all.min.css')}}"
