@@ -232,7 +232,7 @@
   ),
   'cache' => 
   array (
-    'default' => 'array',
+    'default' => 'file',
     'stores' => 
     array (
       'apc' => 
@@ -1238,7 +1238,7 @@
   ),
   'session' => 
   array (
-    'driver' => 'file',
+    'driver' => 'database',
     'lifetime' => 512640,
     'expire_on_close' => false,
     'encrypt' => false,

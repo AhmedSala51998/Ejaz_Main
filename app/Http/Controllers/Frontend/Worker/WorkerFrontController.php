@@ -288,21 +288,17 @@ class WorkerFrontController extends Controller
             $query->where('social_type_id', $request->social);
         }
 
-        // فلتر الخبرة العملية فقط في حالة الاستقدام
         if (!request()->routeIs('transferService') && !request()->routeIs('services-single')) {
             if ($request->type_of_experience !== null) {
                 $query->where('type_of_experience', $request->type_of_experience);
             }
         }
 
-        // ✅ ترتيب بحيث الفلبينيات أولاً
         $query->orderByRaw('CASE WHEN nationalitie_id = 7 THEN 0 ELSE 1 END')
             ->latest();
 
-        // ✅ الباجينيشن
         $cvs = $query->paginate(9);
 
-        // لو الطلب Ajax
         if ($request->ajax()) {
             $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))->render();
 
@@ -314,11 +310,9 @@ class WorkerFrontController extends Controller
             ]);
         }
 
-        // البيانات المطلوبة
         $ages = AgeRange::all();
         $jobs = Job::all();
 
-        // ✅ ترتيب قائمة الدول بحيث الفلبين أولاً
         $nationalities = Nationalitie::orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')->get();
 
         return view('frontend.pages.all-workers.all-workers', compact(
