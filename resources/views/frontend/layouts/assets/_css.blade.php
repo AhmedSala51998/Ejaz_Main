@@ -3,3 +3,13 @@
 
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
+
+
+<link rel="preload" href="{{asset('frontend/css/jquery.fancybox.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<noscript>
+
+  <link rel="stylesheet" href="{{asset('frontend/css/jquery.fancybox.min.css')}}">
+</noscript>
