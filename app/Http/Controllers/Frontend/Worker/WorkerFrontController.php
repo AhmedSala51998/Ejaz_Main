@@ -243,7 +243,8 @@ class WorkerFrontController extends Controller
         ));
     }*/
 
-    public function showAllWorkers(Request $request, $name = null)
+     //Main Code
+    /*public function showAllWorkers(Request $request, $name = null)
     {
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
@@ -318,7 +319,104 @@ class WorkerFrontController extends Controller
         return view('frontend.pages.all-workers.all-workers', compact(
             'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types', 'countryNameAr'
         ));
+    }*/
+
+
+    public function showAllWorkers(Request $request, $name = null)
+    {
+        $query = Biography::where('status', 'new')
+            ->where('order_type', 'normal')
+            ->where('type', 'admission')
+            ->where('is_cv_out', 0)
+            ->where('is_blocked', 0)
+            ->where('is_hide', 0)
+            ->with('recruitment_office', 'nationalitie', 'language_title',
+                'religion', 'job', 'social_type', 'admin', 'images', 'skills');
+
+        // 🚀🔥 تم التعديل: جلب الفلاتر والقوائم من الذاكرة المؤقتة (الكاش) لتخفيف الضغط الرهيب
+        $religions = Cache::rememberForever('religions_all', function() {
+            return Religion::all();
+        });
+
+        $social_types = Cache::rememberForever('social_types_all', function() {
+            return SocialType::all();
+        });
+
+        $ages = Cache::rememberForever('ages_all', function() {
+            return AgeRange::all();
+        });
+
+        $jobs = Cache::rememberForever('jobs_all', function() {
+            return Job::all();
+        });
+
+        $nationalities = Cache::rememberForever('nationalities_all', function() {
+            return Nationalitie::orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')->get();
+        });
+
+        $countryNameAr = null;
+        if ($name) {
+            // 🚀 البحث داخل الكاش المجهز في الذاكرة بدلاً من قاعدة البيانات
+            $country = $nationalities->where('country_name_en', $name)->first();
+            if ($country) {
+                $query->where('nationalitie_id', $country->id);
+                $countryNameAr = $country->country_name;
+            }
+        } elseif ($request->nationality) {
+            // 🚀 البحث داخل الكاش المجهز في الذاكرة
+            $country = $nationalities->where('country_name_en', $request->nationality)->first();
+            if ($country) {
+                $query->where('nationalitie_id', $country->id);
+                $countryNameAr = $country->country_name;
+            }
+        }
+
+        if ($request->age) {
+            $query->FilterByAge($request->age);
+        }
+
+        if ($request->job) {
+            $query->FilterByJob($request->job);
+        }
+
+        if ($request->religion) {
+            $query->where('religion_id', $request->religion);
+        }
+
+        if ($request->social) {
+            $query->where('social_type_id', $request->social);
+        }
+
+        // فلتر الخبرة العملية فقط في حالة الاستقدام
+        if (!request()->routeIs('transferService') && !request()->routeIs('services-single')) {
+            if ($request->type_of_experience !== null) {
+                $query->where('type_of_experience', $request->type_of_experience);
+            }
+        }
+
+        // ✅ الترتيب بحيث الفلبينيات أولاً
+        $query->orderByRaw('CASE WHEN nationalitie_id = 7 THEN 0 ELSE 1 END')->latest();
+
+        // ✅ الباجينيشن (هنا السير الذاتية تبقى حية لضمان الدقة دائمًا!)
+        $cvs = $query->paginate(9);
+
+        // لو الطلب Ajax (لعمل تحميل المزيد دون تحديث الصفحة)
+        if ($request->ajax()) {
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $returnHTML,
+                'current_page' => $cvs->currentPage(),
+                'last_page' => $cvs->lastPage(),
+            ]);
+        }
+
+        return view('frontend.pages.all-workers.all-workers', compact(
+            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types', 'countryNameAr'
+        ));
     }
+
 
     /*public function showAllWorkers(Request $request, $id = null)
     {
