@@ -47,7 +47,6 @@
     <link rel="dns-prefetch" href="//static.hotjar.com">
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
 
-    <link rel="preload" href="{{asset('frontend/css/layout_style.css')}}" as="style" onload="this.rel='stylesheet'">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="z2Gm-stFhrGTfv1vcDS-JOpwMXyfhRk60P0gOVSe92I">
@@ -82,7 +81,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- end custom cursor  -->
 <!-- loader -->
 <div class="loader">
-    <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
+    <img src="{{asset('frontend/img/fav.svg')}}" fetchpriority="high" alt="">
     <div class="spinner"></div>
 </div>
 <!-- ================ Header ================= -->
