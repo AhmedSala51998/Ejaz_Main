@@ -2,14 +2,22 @@
 <script src="{{asset('frontend/js/all.min.js')}}"></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
+<script src="{{asset('frontend/cute-alert-master/cute-alert.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/aos.js')}}" defer></script>
 <script src="{{asset('frontend/js/odometer.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/intro.js')}}" defer></script>
+<script src="{{asset('frontend/js/wow.js')}}" defer></script>
+<script src="{{asset('frontend/js/particles.js')}}" defer></script>
 <script src="{{asset('frontend/js/dropify.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
 <script src="{{asset('frontend/js/app.js')}}" defer></script>
 
+<script src="{{asset('frontend/backEndFiles/validation/jquery.form-validator.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/validation/toastr.min.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/axios.min.js')}}"></script>
+<script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}"></script>
 
 <script>
     // goBack
