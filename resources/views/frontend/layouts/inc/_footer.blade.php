@@ -130,6 +130,7 @@
                     <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
                     <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
                     <li><a href="{{route('frontend.supports.contactUs')}}">{{__('frontend.contactUs')}}</a></li>
+                    <li><a href="{{ route('privacy') }}">سياسة الخصوصية</a></li>
                 </ul>
             </div>
 

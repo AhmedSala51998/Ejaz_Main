@@ -93,6 +93,8 @@ Route::group(
     Route::post('makeCustomRecruitmentRequest',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'makeCustomRecruitmentRequest'])
         ->name('makeCustomRecruitmentRequest');
 
+    Route::get('/privacy', [\App\Http\Controllers\Frontend\PrivacyController::class, 'index'])->name('privacy');
+
 
     Route::get('/sitemap.xml', function () {
 

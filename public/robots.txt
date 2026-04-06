@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
+Disallow: /privacy
 Disallow: /worker/
 Disallow: /register
 Disallow: /login
