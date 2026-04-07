@@ -62,6 +62,8 @@
     <!-- icon -->
     @include('frontend.layouts.assets._css')
     @yield('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.css">
+    <script src="https://cdn.jsdelivr.net/npm/cute-toast@1.0.0/dist/cute-toast.js"></script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
