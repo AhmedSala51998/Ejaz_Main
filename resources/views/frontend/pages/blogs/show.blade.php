@@ -62,6 +62,19 @@
 </script>
 @endif
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const faqButtons = document.querySelectorAll('#faqAccordion .accordion-button');
+    faqButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            faqButtons.forEach(b => {
+                if(b !== btn) b.classList.add('collapsed');
+            });
+        });
+    });
+});
+</script>
+
 <style>
 :root{
     --orange:#D89835;
@@ -716,15 +729,3 @@ body{
     </div>
 </section>
 @endsection
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const faqButtons = document.querySelectorAll('#faqAccordion .accordion-button');
-    faqButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            faqButtons.forEach(b => {
-                if(b !== btn) b.classList.add('collapsed');
-            });
-        });
-    });
-});
-</script>
