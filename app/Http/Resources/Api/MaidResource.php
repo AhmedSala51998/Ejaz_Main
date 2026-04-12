@@ -19,7 +19,7 @@ class MaidResource extends JsonResource
         return [
 			'id' => (int)$this->id,
             'nationality_id' => (int)$this->nationalitie_id,
-            'religion_id' => (int)$this->religion_id, 
+            'religion_id' => (int)$this->religion_id,
             'job_id' => (int)$this->job_id,
             "type" => (string)$this->type,
             'nationality' => NationalityResource::make($this->nationalitie),
@@ -27,7 +27,6 @@ class MaidResource extends JsonResource
             'religion' => $this->religion->title,
 			'social_type' => $this->social_type->title,
 			'age' => (int)$this->age,
-			'experience_years' => (string)$this->experience_years,
 			'cv_file' =>(string)  get_file($this->cv_file),
 			'image' => (string) get_file($this->images->first()),
 			'available' => (boolean)$this->available,
@@ -47,6 +46,8 @@ class MaidResource extends JsonResource
             'cv_name' => $this->cv_name,
             'passport_number' => $this->passport_number,
 			'high_degree' =>$this->high_degree ??'',
+            'experience_years' => (string)$this->experience_year,
+            'experience_country' => (string)$this->experience_country,
             'type_of_experience' => $this->type_of_experience =='with_experience'?__('frontend.with_experience') : __('frontend.new'),
 			'nationalitie_price' => $this->nationalitie->price,// تكلفه الاستقدام
             'reasonService' => $this->reasonService,
