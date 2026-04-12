@@ -67,7 +67,7 @@ class AdminBiographiesController extends Controller
         $social_statuses = SocialType::all();
 
         if ($request->ajax()) {
-            $biographies= Biography::query()->where("order_type","normal")->where("is_blocked", 0)->orderBy("id","DESC");
+            $biographies= Biography::query()->where("order_type","normal")->where("is_blocked", 0)->where("is_hide", 0)->orderBy("id","DESC");
 
 
             if ($request->passport_key != null) {
