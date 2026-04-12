@@ -21,3 +21,4 @@ storage/app/public/*
 /public/storage
 /storage/*.key
 deploy.sh
+/storage/app/firebase/firebase-key.json
