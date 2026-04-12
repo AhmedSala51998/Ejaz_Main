@@ -7,6 +7,7 @@ use App\Http\Actions\ingaz\UserAction as ObjAction;
 use App\Http\Requests\ingaz\auth\LoginRequest;
 use App\Http\Requests\ingaz\auth\PasswordRequest;
 use App\Http\Requests\ingaz\auth\UpdateProfileRequest;
+use App\Http\Requests\ingaz\auth\SaveFcmTokenRequest;
 use App\Http\Resources\Api\UserResource;
 use App\Models\FirebaseToken;
 use App\Models\User;
@@ -212,5 +213,15 @@ class ApiAuthController extends Controller
         $user = auth('api')->user();
         $user->delete();
         return jsonSuccess(null, 'Successfully Deleted');
+    }
+
+    public function saveFcmToken(SaveFcmTokenRequest $request)
+    {
+        $user = auth('api')->user();
+
+        $user->fcm_token = $request->token;
+        $user->save();
+
+        return jsonSuccess(null, 'Token saved successfully');
     }
 }

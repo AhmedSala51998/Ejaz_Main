@@ -26,6 +26,8 @@ Route::group([
         Route::delete('/delete/profile', 'API\ApiAuthController@delete');
         Route::post('/update/password', 'API\ApiAuthController@update_password');
         Route::post('/firebase/update', 'API\ApiUserFirebaseTokenController@store')->middleware('auth:api');
+        Route::post('/save-fcm-token', 'API\ApiAuthController@saveFcmToken')
+        ->middleware('auth:api');
 
     });
 

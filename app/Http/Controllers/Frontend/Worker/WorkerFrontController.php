@@ -16,6 +16,7 @@ use App\Models\Religion;
 use App\Models\Setting;
 use App\Models\SocialType;
 use App\Models\User;
+use App\Models\Notification;
 use App\Services\SMS\MesgatSMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -524,6 +525,24 @@ class WorkerFrontController extends Controller
         $order_data['biography_id'] = $cv->id;
         $order_data['order_code'] = "NK" . $cv->id . time();
         Order::create($order_data);
+
+        $user = auth()->user();
+
+        if ($user && $user->fcm_token) {
+            app(\App\Services\FirebaseService::class)->send(
+                [$user->fcm_token],
+                "إيجاز للاستقدام",
+                "تم تأكيد الحجز بنجاح وتم إنشاء الطلب رقم {$order_data['order_code']} ✅",
+                asset('frontend/img/logo4.png')
+            );
+        }
+
+        Notification::create([
+            'title' => 'استقدام عاملة منزلية',
+            'desc' => "تم تأكيد الحجز بنجاح وتم إنشاء الطلب رقم {$order_data['order_code']}",
+            'user_id' => $user->id,
+            'is_read' => 'unread',
+        ]);
         return response(['order_code' => $order_data['order_code']], 200);
     }//end fun
 

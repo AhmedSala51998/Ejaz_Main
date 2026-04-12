@@ -12,6 +12,7 @@ use App\Models\Job;
 use App\Models\Nationalitie;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Notification;
 use App\Services\SMS\MesgatSMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -196,6 +197,25 @@ class ApiHomeController extends Controller
         $order_data['biography_id'] = $cv->id;
         $order_data['order_code'] = "NK" . $cv->id . time();
         Order::create($order_data);
+
+        $user = auth('api')->user();
+
+        if ($user && $user->fcm_token) {
+            app(\App\Services\FirebaseService::class)->send(
+                [$user->fcm_token],
+                "إيجاز للاستقدام",
+                "تم تأكيد الحجز بنجاح ✅",
+                asset('frontend/img/logo4.png')
+            );
+        }
+
+        Notification::create([
+            'title' => 'استقدام عاملة منزلية',
+            'desc' => "تم تأكيد الحجز بنجاح وتم إنشاء الطلب",
+            'user_id' => $user->id,
+            'is_read' => 'unread',
+        ]);
+
         return response(['success' => true, "msg" => "تم تنفيذ طلبك بنجاح"], 200);
     } //end fun
 
