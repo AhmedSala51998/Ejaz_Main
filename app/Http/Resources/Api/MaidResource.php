@@ -29,7 +29,7 @@ class MaidResource extends JsonResource
 			'age' => (int)$this->age,
 			'cv_file' =>(string)  get_file($this->cv_file),
 			'image' => (string) get_file($this->images->first()),
-			'available' => (boolean)$this->available,
+			'available' => $this->status === 'new' ? true : false,
 			'customer_service_whatsapp' => (string)@$setting->whatsapp,
 			'available_at' => (string)$this->available_at,
 			'is_show' => (boolean)$this->is_show,
