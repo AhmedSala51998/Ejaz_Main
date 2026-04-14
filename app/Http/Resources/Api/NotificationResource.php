@@ -17,7 +17,7 @@ class NotificationResource extends JsonResource
         return [
 			'id' => (int)$this->id,
 			'title' => (string)$this->title,
-			'description' => (string)$this->description,
+			'description' => (string)$this->desc,
 			// 'type' => (string)$this->type,
 			// 'order_id' => (int)$this->order_id,
             // 'order' => OrderResource::make($this->order),

@@ -53,6 +53,9 @@ class MaidAction extends MainAction
             ->when($request->job_id && $request->job_id != null, function ($q) use ($request) {
                 return $q->where('job_id', $request->job_id);
             })
+            ->when($request->type_of_experience !== null, function ($q) use ($request) {
+                return $q->where('type_of_experience', $request->type_of_experience);
+            })
             // ->when($request->job_type_id && $request->job_type_id != null, function ($q) use ($request) {
             //     $q->whereHas('jobTypes', function ($subQ) use ($request) {
             //         if ($request->job_type_id[0] != null && is_array($request->job_type_id)) {
