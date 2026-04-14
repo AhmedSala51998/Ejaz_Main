@@ -524,7 +524,14 @@ class WorkerFrontController extends Controller
         Biography::where('id', $id)->update($order_data);
         $order_data['biography_id'] = $cv->id;
         $order_data['order_code'] = "NK" . $cv->id . time();
-        Order::create($order_data);
+        $order = Order::create($order_data);
+
+        $maidName = $cv->cv_name ?? $cv->name ?? 'العاملة';
+        $orderCode = $order->order_code;
+
+        $message = "تم تأكيد الحجز بنجاح ✅\n";
+        $message .= "👩 العاملة: " . $maidName . "\n";
+        $message .= "🔢 رقم الطلب: " . $orderCode;
 
         $user = auth()->user();
 
@@ -532,14 +539,14 @@ class WorkerFrontController extends Controller
             app(\App\Services\FirebaseService::class)->send(
                 [$user->fcm_token],
                 "إيجاز للاستقدام",
-                "تم تأكيد الحجز بنجاح وتم إنشاء الطلب رقم {$order_data['order_code']} ✅",
+                $message,
                 asset('frontend/img/logo4.png')
             );
         }
 
         Notification::create([
             'title' => 'استقدام عاملة منزلية',
-            'desc' => "تم تأكيد الحجز بنجاح وتم إنشاء الطلب رقم {$order_data['order_code']}",
+            'desc' => $message,
             'user_id' => $user->id,
             'is_read' => 'unread',
         ]);
