@@ -1332,11 +1332,17 @@
             let nationality = filters.nationality;
 
             if (window.innerWidth <= 768) {
-                if (nationality) {
-                    window.location.href = link_only + '/' + nationality;
-                } else {
-                    window.location.href = link_only;
-                }
+                const filters = getFilters();
+
+                let url = link_only + "?page=1" +
+                    "&age=" + filters.age +
+                    "&job=" + filters.job +
+                    "&nationality=" + (filters.nationality || '') +
+                    "&religion=" + filters.religion +
+                    "&social=" + filters.social +
+                    "&type_of_experience=" + filters.type_of_experience;
+
+                window.location.href = url;
                 return;
             }
             loadWorkers(new_page);
