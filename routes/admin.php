@@ -201,12 +201,14 @@ Route::group(['prefix' => 'admin'], function () {
             // -------------------------------------
             Route::resource('biographies', 'AdminBiographiesController');
             Route::get('/biographies-block', 'AdminBiographiesController@biographiesBlock')->name('biographies.blocked');
+            Route::get('/biographies-hidden', 'AdminBiographiesController@biographiesHidden')->name('biographies.hidden');
 
 
             Route::get('/biographies/download/booking/{id}', 'AdminBiographiesController@cvsDownload')->name('biographies_download.view');
             Route::get('biographies/ban/{id}', 'AdminBiographiesController@ban_biographies')->name('biographies.ban');
             Route::get('biographies/unban/{id}', 'AdminBiographiesController@unban_biographies')->name('biographies.unban');
             Route::post('biographies/block-toggle', 'AdminBiographiesController@toggleBlock')->name('biographies.toggleBlock');
+            Route::post('biographies/hide-toggle', 'AdminBiographiesController@toggleHide')->name('biographies.toggleHide');
             Route::delete('biographies/delete/bulk', 'AdminBiographiesController@delete_all')
                 ->name('biographies.delete.bulk');
 

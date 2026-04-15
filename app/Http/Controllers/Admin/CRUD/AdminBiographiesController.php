@@ -547,6 +547,107 @@ class AdminBiographiesController extends Controller
         }
         return view('admin.crud.biographies.biographiesBlock', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date' , 'religions', 'religion_id' , 'social_statuses', 'social_status_id'));
     }
+    public function biographiesHidden(Request $request)
+    {
+        if(!checkPermission(48))
+            return view('admin.permission');
+
+        $admin=  \App\Models\Admin::find(admin()->id());
+        $roles= $admin->roles;
+
+        $passport_key=$request->passport_key;
+        $nationality_id=$request->nationality_id ;
+        $social_type_id=$request->social_type ;
+        $booking_status = $request->booking_status?$request->booking_status:'';
+        $recruitment_office_id = $request->recruitment_office_id;
+
+        $natinalities=Nationalitie::get();
+        $recruitment_office = RecruitmentOffice::get();
+        $social_type = SocialType::get();
+        $type = $request->type;
+        $date = $request->date;
+
+        $religion_id = $request->religion_id;
+        $religions = Religion::all();
+
+        $social_status_id = $request->social_status_id;
+        $social_statuses = SocialType::all();
+
+        if ($request->ajax()) {
+
+            $biographies= Biography::query()
+                ->where("order_type","normal")
+                ->where("is_hide", 1)
+                ->orderBy("id","DESC");
+
+
+            if ($request->passport_key != null) {
+                $biographies = $biographies->where('passport_number', $passport_key);
+            }
+
+            if ($request->social_type != null) {
+                if ($social_type_id == 1) {
+                    $biographies = $biographies->where('type_of_experience', 'new');
+                } else if ($social_type_id == 2) {
+                    $biographies = $biographies->where('type_of_experience','with_experience');
+                }
+            }
+
+            if ($request->nationality_id != null) {
+                $biographies = $biographies->where('nationalitie_id', $nationality_id);
+            }
+
+            if ($request->recruitment_office_id != null) {
+                $biographies = $biographies->where('recruitment_office_id', $recruitment_office_id);
+            }
+
+            if ($request->booking_status != null) {
+                $biographies = $biographies->where('status', $booking_status);
+            }
+
+            if ($request->type != null) {
+                $biographies = $biographies->where('type', $type);
+            }
+
+            if ($date != null) {
+                $biographies = $biographies
+                    ->whereDate('created_at', '>=', date('Y-m-d', strtotime(explode(" - ", $date)[0])))
+                    ->whereDate('created_at', '<=', date('Y-m-d', strtotime(explode(" - ", $date)[1])));
+            }
+
+            if ($request->religion_id != null) {
+                $biographies = $biographies->where('religion_id', $religion_id);
+            }
+
+            if ($request->social_status_id != null) {
+                $biographies = $biographies->where('social_type_id', $social_status_id);
+            }
+
+            return DataTables::of($biographies)
+                ->editColumn('image', function ($row) {
+                    return '<img src="'.get_file($row->cv_file).'" class="rounded" style="height:60px;width:60px;">';
+                })
+                ->editColumn('created_at', function ($row) {
+                    return date('Y/m/d',strtotime($row->created_at));
+                })
+                ->addColumn('actions', function ($row) {
+
+                    return '
+                        <a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-hide" data-status="0">
+                            <i class="fa fa-eye"></i> إظهار
+                        </a>
+                    ';
+                })
+                ->rawColumns(['actions','image'])
+                ->make(true);
+        }
+
+        return view('admin.crud.biographies.biographiesHidden', compact(
+            'natinalities','nationality_id','social_type','social_type_id',
+            'booking_status','recruitment_office','recruitment_office_id',
+            'type','date','religions','religion_id','social_statuses','social_status_id'
+        ));
+    }
     public function cvsDownload($id)
     {
         $cv=Biography::find($id);
@@ -594,6 +695,21 @@ class AdminBiographiesController extends Controller
         ]);
 
         $message = $request->status == 1 ? 'تم حظر العناصر المحددة بنجاح' : 'تم إلغاء الحظر بنجاح';
+
+        return response()->json(['message' => $message], 200);
+    }
+
+    public function toggleHide(Request $request)
+    {
+        $ids = is_array($request->id) ? $request->id : [$request->id];
+
+        Biography::whereIn('id', $ids)->update([
+            'is_hide' => $request->status
+        ]);
+
+        $message = $request->status == 1
+            ? 'تم إخفاء العناصر المحددة بنجاح'
+            : 'تم إظهار العناصر المحددة بنجاح';
 
         return response()->json(['message' => $message], 200);
     }
