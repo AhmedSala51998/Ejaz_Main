@@ -58,6 +58,15 @@
                         </a>
                     </li>
                 @endif
+                @if(checkPermission(48))
+                    <li>
+                        <a href="{{route('biographies.hidden')}}" class="waves-effect">
+                            <i class="bx bx-hide"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">السير الذاتية المخفية</span>
+                        </a>
+                    </li>
+                @endif
                 @if(checkPermission(44))
                     <li>
                         <a href="{{ route('blogs.index') }}" class="waves-effect">
