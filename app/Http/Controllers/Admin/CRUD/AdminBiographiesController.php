@@ -577,10 +577,10 @@ class AdminBiographiesController extends Controller
         if ($request->ajax()) {
 
             $biographies = Biography::query()
-                ->with(['religion', 'nationalitie']) // ✅ مهم
-                ->where("order_type", "normal")
-                ->where("is_hide", 1)
-                ->orderBy("id", "DESC");
+            ->with(['religion', 'nationalitie', 'recruitment_office'])
+            ->where("order_type", "normal")
+            ->where("is_hide", 1)
+            ->orderBy("id", "DESC");
 
             if ($passport_key) {
                 $biographies->where('passport_number', $passport_key);
@@ -646,6 +646,10 @@ class AdminBiographiesController extends Controller
 
                 ->addColumn('nationalitie_id', function ($row) {
                     return $row->nationalitie->title ?? '-';
+                })
+
+                ->addColumn('recruitment_office', function ($row) {
+                    return optional($row->recruitment_office)->title ?? '-';
                 })
 
                 ->addColumn('created_at', function ($row) {

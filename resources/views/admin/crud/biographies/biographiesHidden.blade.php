@@ -278,6 +278,7 @@
                             <th>الجنسية</th>
                             <th>رقم جواز السفر</th>
                             <th>النوع</th>
+                            <th>الوكيل الخارجي</th>
                             <th>الديانة</th>
                             <!--<th>الحالة الاجتماعية</th>-->
                             <th>التاريخ</th>
@@ -361,6 +362,7 @@
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "type", orderable: false, searchable: true},
+                {"data": "recruitment_office", orderable: false, searchable: true},
                 {"data": "religion", orderable: false, searchable: true},        // ✅ جديد
 
                 {"data": "created_at", searchable: false},
