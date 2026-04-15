@@ -559,7 +559,7 @@ class AdminBiographiesController extends Controller
         $passport_key = $request->passport_key;
         $nationality_id = $request->nationality_id;
         $social_type_id = $request->social_type;
-        $booking_status = $request->booking_status ? $request->booking_status : '';
+        $booking_status = $request->booking_status ?: '';
         $recruitment_office_id = $request->recruitment_office_id;
 
         $natinalities = Nationalitie::get();
@@ -577,75 +577,81 @@ class AdminBiographiesController extends Controller
         if ($request->ajax()) {
 
             $biographies = Biography::query()
+                ->with(['religion', 'nationalitie']) // ✅ مهم
                 ->where("order_type", "normal")
                 ->where("is_hide", 1)
                 ->orderBy("id", "DESC");
 
-            if ($request->passport_key != null) {
-                $biographies = $biographies->where('passport_number', $passport_key);
+            if ($passport_key) {
+                $biographies->where('passport_number', $passport_key);
             }
 
-            if ($request->social_type != null) {
+            if ($social_type_id) {
                 if ($social_type_id == 1) {
-                    $biographies = $biographies->where('type_of_experience', 'new');
-                } else if ($social_type_id == 2) {
-                    $biographies = $biographies->where('type_of_experience', 'with_experience');
+                    $biographies->where('type_of_experience', 'new');
+                } elseif ($social_type_id == 2) {
+                    $biographies->where('type_of_experience', 'with_experience');
                 }
             }
 
-            if ($request->nationality_id != null) {
-                $biographies = $biographies->where('nationalitie_id', $nationality_id);
+            if ($nationality_id) {
+                $biographies->where('nationalitie_id', $nationality_id);
             }
 
-            if ($request->recruitment_office_id != null) {
-                $biographies = $biographies->where('recruitment_office_id', $recruitment_office_id);
+            if ($recruitment_office_id) {
+                $biographies->where('recruitment_office_id', $recruitment_office_id);
             }
 
-            if ($request->booking_status != null) {
-                $biographies = $biographies->where('status', $booking_status);
+            if ($booking_status) {
+                $biographies->where('status', $booking_status);
             }
 
-            if ($request->type != null) {
-                $biographies = $biographies->where('type', $type);
+            if ($type) {
+                $biographies->where('type', $type);
             }
 
-            if ($date != null) {
-                $biographies = $biographies
-                    ->whereDate('created_at', '>=', date('Y-m-d', strtotime(explode(" - ", $date)[0])))
-                    ->whereDate('created_at', '<=', date('Y-m-d', strtotime(explode(" - ", $date)[1])));
+            if ($date) {
+                $dates = explode(" - ", $date);
+
+                $biographies->whereDate('created_at', '>=', date('Y-m-d', strtotime($dates[0])))
+                            ->whereDate('created_at', '<=', date('Y-m-d', strtotime($dates[1])));
             }
 
-            if ($request->religion_id != null) {
-                $biographies = $biographies->where('religion_id', $religion_id);
+            if ($religion_id) {
+                $biographies->where('religion_id', $religion_id);
             }
 
-            if ($request->social_status_id != null) {
-                $biographies = $biographies->where('social_type_id', $social_status_id);
+            if ($social_status_id) {
+                $biographies->where('social_type_id', $social_status_id);
             }
 
             return DataTables::of($biographies)
 
-                // ✅ checkbox
                 ->addColumn('delete_all', function ($row) {
                     return '<input type="checkbox" class="delete-all form-check-input" id="' . $row->id . '">';
                 })
 
-                // ✅ الصورة الأساسية
                 ->editColumn('image', function ($row) {
                     return '<img src="' . get_file($row->cv_file) . '" class="rounded" style="height:60px;width:60px;">';
                 })
 
-                // ✅ صورة إضافية
                 ->addColumn('smart_image', function ($row) {
                     return '<img src="' . get_file($row->cv_file) . '" class="rounded" style="height:40px;width:40px;">';
                 })
 
-                // ✅ التاريخ
-                ->editColumn('created_at', function ($row) {
+                // ✅ الحل الأساسي للمشكلة
+                ->addColumn('religion', function ($row) {
+                    return $row->religion->title ?? '-';
+                })
+
+                ->addColumn('nationalitie_id', function ($row) {
+                    return $row->nationalitie->title ?? '-';
+                })
+
+                ->addColumn('created_at', function ($row) {
                     return date('Y/m/d', strtotime($row->created_at));
                 })
 
-                // ✅ زر الإظهار
                 ->addColumn('actions', function ($row) {
                     return '
                         <a href="#" data-id="' . $row->id . '" class="btn btn-success toggle-hide" data-status="0">
@@ -654,7 +660,6 @@ class AdminBiographiesController extends Controller
                     ';
                 })
 
-                // ✅ مهم عشان HTML يشتغل
                 ->rawColumns(['delete_all', 'image', 'smart_image', 'actions'])
 
                 ->make(true);
