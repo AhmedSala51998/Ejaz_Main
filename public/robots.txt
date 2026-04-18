@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 Disallow: /privacy
-Disallow: /worker/
+Disallow: /worker
 Disallow: /register
 Disallow: /login
 Disallow: /forget-password
@@ -10,7 +10,7 @@ Disallow: /forget-email-sent-successfully
 Disallow: /reset-password
 Disallow: /profile
 Disallow: /profileOrderDetails
-Disallow: /order_details/
+Disallow: /order_details
 
 Disallow: /admin
 

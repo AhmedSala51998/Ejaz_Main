@@ -51,6 +51,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="z2Gm-stFhrGTfv1vcDS-JOpwMXyfhRk60P0gOVSe92I">
+    @if(request()->routeIs('frontend.show.worker'))
+        <meta name="robots" content="noindex, nofollow">
+    @endif
     <title>
         {{$settings->title??"ايجاز"}} - @yield('title')
     </title>
