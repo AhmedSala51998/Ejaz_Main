@@ -51,7 +51,7 @@
         "url": "https://isteqdamejaz.com/",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://isteqdamejaz.com/frontend/img/logo.png"
+            "url": "https://isteqdamejaz.com/frontend/img/google-logo.png"
         }
         }
     ]
