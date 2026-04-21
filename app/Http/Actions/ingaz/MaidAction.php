@@ -41,6 +41,8 @@ class MaidAction extends MainAction
         return $this->model->where('status', 'new')
         ->where('order_type', 'normal')
         ->where('is_cv_out',0)
+        ->where('is_blocked',0)
+        ->where('is_hide',0)
        // ->where('type',$type)
         ->with('recruitment_office', 'nationalitie', 'language_title',
             'religion', 'job', 'social_type', 'admin', 'images', 'skills')
