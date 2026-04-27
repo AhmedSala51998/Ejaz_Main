@@ -88,3 +88,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+<style>
+.carousel-inner {
+    overflow: visible;
+}
+.servicesSwiper .swiper-button-next,
+.servicesSwiper .swiper-button-prev,
+.servicesSwiper .swiper-pagination{
+    display:none !important;
+}
+
+.servicesSwiper{
+    overflow: visible !important;
+    padding: 10px 0;
+}
+
+.servicesSwiper .swiper-wrapper{
+    align-items: stretch;
+}
+
+.servicesSwiper .swiper-slide{
+    height: auto;
+}
+</style>
