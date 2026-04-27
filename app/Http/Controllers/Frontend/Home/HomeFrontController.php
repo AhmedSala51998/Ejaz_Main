@@ -10,6 +10,7 @@ use App\Models\Nationalitie;
 use App\Models\OurService;
 use App\Models\Slider;
 use App\Models\Sponsor;
+use App\Models\Blog;
 use App\Models\Statistic;
 use Illuminate\Http\Request;
 
@@ -182,6 +183,7 @@ class HomeFrontController extends Controller
             $sponsors = Sponsor::latest()->take(5)->get();
             $questions = FrequentlyQuestion::take(100)->get();
             $countries=Nationalitie::latest()->get();
+            $latestBlogs = Blog::latest()->get();
             //$admins = \App\Models\Admin::where('admin_type','!=',0)->where('branch','=',$branch)->get();
             /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
                 ->where(function($q) use ($branch) {
@@ -219,7 +221,8 @@ class HomeFrontController extends Controller
                 'questions'=>$questions,
                 'cvs'=>$cvs,
                 'countries'=>$countries,
-                'admins'=>$admins
+                'admins'=>$admins,
+                'latestBlogs'=>$latestBlogs
             ]);
         //}
     }//end fun

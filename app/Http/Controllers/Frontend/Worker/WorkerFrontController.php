@@ -16,6 +16,7 @@ use App\Models\Religion;
 use App\Models\Setting;
 use App\Models\SocialType;
 use App\Models\User;
+use App\Models\Blog;
 use App\Models\Notification;
 use App\Services\SMS\MesgatSMS;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class WorkerFrontController extends Controller
 
     public function track_order_view()
     {
-        return view('frontend.pages.trackOrder.trackOrder');
+        $latestBlogs = Blog::latest()->take(4)->get();
+        return view('frontend.pages.trackOrder.trackOrder' , compact('latestBlogs'));
     }
 
     public function track_order(Request $request)
@@ -413,8 +415,10 @@ class WorkerFrontController extends Controller
             ]);
         }
 
+        $latestBlogs = Blog::latest()->take(4)->get();
+
         return view('frontend.pages.all-workers.all-workers', compact(
-            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types', 'countryNameAr'
+            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types', 'countryNameAr', 'latestBlogs'
         ));
     }
 

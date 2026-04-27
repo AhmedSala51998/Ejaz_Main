@@ -7434,3 +7434,10 @@ input.valid, textarea.valid { border: 1px solid green; }
     top: 43%;
     transform: translateY(-40%);
 }
+
+
+.recruit-hero{
+    position: relative;
+    min-height: 600px;
+    overflow: hidden;
+}

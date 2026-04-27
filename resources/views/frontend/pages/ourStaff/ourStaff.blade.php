@@ -249,7 +249,7 @@
                             </div>
                         @endforeach
                     </div>
-
+                    @include('frontend.pages.ourStaff.latestBlogs')
                 </div>
             </section>
 

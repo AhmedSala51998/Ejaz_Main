@@ -1199,6 +1199,7 @@
                 <div class="workers-list" id="hereWillDisplayAllWorker">
                     @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs])
                 </div>
+                @include('frontend.pages.all-workers.worker.latestBlogs')
             </div>
         </div>
     </div>

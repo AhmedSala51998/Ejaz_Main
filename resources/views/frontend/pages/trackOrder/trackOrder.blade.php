@@ -172,6 +172,7 @@
                 </div>
             </div>
         </div>
+        @include('frontend.pages.trackOrder.latestBlogs')
     </div>
 </section>
 

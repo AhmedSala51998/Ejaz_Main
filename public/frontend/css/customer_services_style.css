@@ -266,3 +266,6 @@ body {
         transform: translateY(-8px) scale(1.02);
     }
 }
+.carousel-inner {
+    overflow: visible;
+}

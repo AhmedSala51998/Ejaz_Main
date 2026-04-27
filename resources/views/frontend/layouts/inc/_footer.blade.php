@@ -90,6 +90,30 @@
             justify-content: center;
         }
     }
+    .store-buttons-footer{
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .store-buttons-footer img{
+        height: 45px;
+        border-radius: 8px;
+        transition: 0.3s;
+        opacity: 0.9;
+    }
+
+    .store-buttons-footer img:hover{
+        transform: translateY(-3px);
+        opacity: 1;
+    }
+
+    @media(max-width:768px){
+        .store-buttons-footer{
+            justify-content: center;
+        }
+    }
 </style>
 
 <footer dir="rtl">
@@ -103,6 +127,15 @@
                     </a>
                 </div>
                 <p>{{$settings->footer_desc}}</p>
+                <div class="store-buttons-footer mt-4">
+                    <a href="https://play.google.com/store/apps/details?id=com.app.ejaz" target="_blank">
+                        <img src="/frontend/img/google-play-android.webp" alt="Google Play">
+                    </a>
+
+                    <a href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722" target="_blank">
+                        <img src="/frontend/img/apple-iphone-ios.webp" alt="App Store">
+                    </a>
+                </div>
             </div>
 
             <div class="col-lg-2 col-6">

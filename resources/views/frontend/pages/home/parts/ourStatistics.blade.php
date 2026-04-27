@@ -2,10 +2,7 @@
 @if (count($statistics) == 4)
     <section class="statistics">
         <div class="container">
-            <div class="SectionTitle">
-                <h3 class="title"> {{__('frontend.statistics')}} </h3>
-                <h4 class="hint"> {{$settings->our_statistics_desc}} </h4>
-            </div>
+
             <div class="row statisticsInner">
                 <div class="circleBlur"></div>
                 <div class="circleBlur2"></div>

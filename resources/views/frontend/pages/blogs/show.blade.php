@@ -639,6 +639,47 @@ body{
         margin-bottom: 20px;
     }
 }
+
+
+.related-blogs{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.related-item{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    text-decoration:none;
+    padding:10px;
+    border-radius:14px;
+    transition:.3s;
+}
+
+.related-item:hover{
+    background:#f9f9f9;
+}
+
+.related-item img{
+    width:80px;
+    height:70px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.related-item p{
+    font-size:.9rem;
+    font-weight:700;
+    color:#222;
+    margin:0;
+    line-height:1.4;
+}
+
+.related-item span{
+    font-size:.75rem;
+    color:#888;
+}
 </style>
 @endsection
 
@@ -717,6 +758,30 @@ body{
                 <h4>تاريخ النشر</h4>
                 <p>{{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}</p>
             </div>
+
+            @if(isset($relatedBlogs) && $relatedBlogs->count())
+                <div class="side-card">
+                    <h4>مقالات ذات صلة</h4>
+
+                    <div class="related-blogs">
+                        @foreach($relatedBlogs as $item)
+                        <a href="{{ route('blog.show', $item->slug) }}" class="related-item">
+
+                            <img src="{{ asset($item->image ?? 'frontend/img/blogs/default.png') }}"
+                                alt="{{ $item->title }}">
+
+                            <div>
+                                <p>{{ \Illuminate\Support\Str::limit($item->title, 55) }}</p>
+                                <span>
+                                    {{ $item->created_at->translatedFormat('d F Y') }}
+                                </span>
+                            </div>
+
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 
             <div class="side-card">
                 <a href="{{ route('blog.index') }}" class="side-btn">

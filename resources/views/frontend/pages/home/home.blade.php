@@ -72,10 +72,10 @@
                 @include('frontend.pages.home.parts.slider')
 {{--        <!-- *** about section -->--}}
 {{--        @include('frontend.pages.home.parts.aboutUs')--}}
-
                 @include('frontend.pages.home.parts.ourService')
         @include('frontend.pages.home.parts.customarServices')
                 @include('frontend.pages.home.parts.countries')
+                @include('frontend.pages.home.parts.appBanner')
 {{--                @include('frontend.pages.home.parts.recruitmentOperations')--}}
 {{--
                 @include('frontend.pages.home.parts.recruitmentSteps')
@@ -83,6 +83,7 @@
                 @include('frontend.pages.home.parts.ourStatistics')
                 @include('frontend.pages.home.parts.contactUs')
                 @include('frontend.pages.home.parts.references')
+                @include('frontend.pages.home.parts.latestBlogs')
 
 
     </content>
