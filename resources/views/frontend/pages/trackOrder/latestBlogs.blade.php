@@ -54,6 +54,16 @@
     background-color: #c8842f;
     color: #fff;
 }
+.blog-home-card a{
+    display:block;
+}
+.blog-home-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    display:block;
+    margin:0;
+}
 </style>
 @if(isset($latestBlogs) && $latestBlogs->count())
 <section class="latest-blogs py-5" style="background:#fff;">

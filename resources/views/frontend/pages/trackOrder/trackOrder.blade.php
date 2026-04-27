@@ -171,8 +171,8 @@
                     <img src="{{asset('frontend')}}/img/register.svg" alt="" class="img-fluid" style="max-height: 350px;">
                 </div>
             </div>
-            @include('frontend.pages.trackOrder.latestBlogs')
         </div>
+        @include('frontend.pages.trackOrder.latestBlogs')
     </div>
 </section>
 
