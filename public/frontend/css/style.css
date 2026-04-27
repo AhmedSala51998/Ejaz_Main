@@ -1484,25 +1484,21 @@ header.headerAnimate {
     margin-top: 10px;
 }
 
-.countries {
-    padding: 100px 0;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+.countries .allCountries{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:70px 24px
 }
-.countries .allCountries {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 70px 24px;
-    padding-top: 100px;
+
+@media(max-width:991px){
+    .countries .allCountries{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
-@media (max-width: 768px) {
-    .countries .allCountries {
-        gap: 60px 12px;
+
+@media(max-width:576px){
+    .countries .allCountries{
+        grid-template-columns:1fr;
     }
 }
 .countries .allCountries .country {
@@ -1941,7 +1937,6 @@ header.headerAnimate {
   }
 }
 .statistics .container {
-  background: linear-gradient(45deg, rgba(220, 176, 101, 0.5647058824), rgba(220, 176, 101, 0.3176470588)), url(../img/statistics.jpg);
   background-size: contain;
   background-position: bottom;
   border-radius: 24px;
@@ -1981,10 +1976,7 @@ header.headerAnimate {
   color: #231F20;
   transition: all 0.3s ease-in-out;
 }
-.statistics .specifications:hover {
-  background-color: #231F20;
-  transform: translateY(-5px);
-}
+
 .statistics .specifications:hover i,
 .statistics .specifications:hover h6,
 .statistics .specifications:hover h1 {

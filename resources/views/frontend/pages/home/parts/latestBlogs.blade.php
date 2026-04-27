@@ -60,9 +60,44 @@
 .carousel-indicators{
     display:none !important;
 }
+.blog-home-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid #eee;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+    transition:.3s ease;
+    height:100%;
+}
+
+.blog-home-card:hover{
+    transform:translateY(-6px);
+    border-color:#D89835;
+    box-shadow:0 20px 40px rgba(216,152,53,.15);
+}
+
+.blogsSwiper .swiper-button-next,
+.blogsSwiper .swiper-button-prev,
+.blogsSwiper .swiper-pagination{
+    display:none !important;
+}
+
+.blogsSwiper{
+    overflow: visible !important;
+    padding: 10px 0;
+}
+
+.blogsSwiper .swiper-wrapper{
+    align-items: stretch;
+}
+
+.blogsSwiper .swiper-slide{
+    height: auto;
+}
 </style>
 
 @if(isset($latestBlogs) && $latestBlogs->count())
+
 <section class="latest-blogs py-5 bg-white">
 <div class="container">
 
@@ -71,69 +106,92 @@
         <p class="section-subtitle">نصائح ومعلومات مهمة قبل الاستقدام في السعودية</p>
     </div>
 
-    <div id="blogsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="swiper blogsSwiper">
+        <div class="swiper-wrapper">
 
-        <div class="carousel-indicators">
-            @php $chunks = $latestBlogs->chunk(4); @endphp
-            @foreach($chunks as $key => $items)
-            <button type="button"
-                    data-bs-target="#blogsCarousel"
-                    data-bs-slide-to="{{ $key }}"
-                    class="{{ $key == 0 ? 'active' : '' }}">
-            </button>
-            @endforeach
-        </div>
+            @foreach($latestBlogs as $blog)
+            <div class="swiper-slide">
 
-        <div class="carousel-inner">
+                <div class="blog-home-card">
 
-            @foreach($chunks as $key => $items)
-            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                <div class="row gy-4">
+                    <a href="{{ route('blog.show', $blog->slug) }}">
+                        <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}">
+                    </a>
 
-                    @foreach($items as $blog)
-                    <div class="col-lg-3 col-md-6">
-                        <div class="blog-home-card">
+                    <div class="p-3">
 
+                        <span class="blog-date">
+                            {{ $blog->created_at->translatedFormat('d F Y') }}
+                        </span>
+
+                        <h3>
                             <a href="{{ route('blog.show', $blog->slug) }}">
-                                <img src="{{ asset($blog->image ?? 'frontend/img/blogs/default.png') }}">
+                                {{ Str::limit($blog->title,60) }}
                             </a>
+                        </h3>
 
-                            <div class="p-3">
-                                <span class="blog-date">
-                                    {{ $blog->created_at->translatedFormat('d F Y') }}
-                                </span>
+                        <p>{{ Str::limit($blog->excerpt,90) }}</p>
 
-                                <h3>
-                                    <a href="{{ route('blog.show', $blog->slug) }}">
-                                        {{ Str::limit($blog->title,60) }}
-                                    </a>
-                                </h3>
+                        <a href="{{ route('blog.show', $blog->slug) }}" class="read-more">
+                            قراءة المقال →
+                        </a>
 
-                                <p>{{ Str::limit($blog->excerpt,90) }}</p>
-
-                                <a href="{{ route('blog.show', $blog->slug) }}" class="read-more">
-                                    قراءة المقال →
-                                </a>
-                            </div>
-
-                        </div>
                     </div>
-                    @endforeach
 
                 </div>
+
             </div>
             @endforeach
 
         </div>
 
-    </div>
+        <!-- arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
 
-    <div class="text-center mt-5">
-        <a href="{{ route('blog.index') }}" class="btn btn-orange px-4 py-2 rounded-pill">
-            عرض كل المقالات
-        </a>
+        <!-- pagination -->
+        <div class="swiper-pagination mt-4"></div>
+
     </div>
 
 </div>
 </section>
+
 @endif
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    new Swiper(".blogsSwiper", {
+        loop: true,
+        grabCursor: true,
+        spaceBetween: 25,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            576: {
+                slidesPerView: 2
+            },
+            992: {
+                slidesPerView: 4
+            }
+        }
+    });
+
+});
+</script>

@@ -39,19 +39,18 @@
 </section>
 
 <script>
-    var swiper = new Swiper(".referencesSlider", {
+var swiper = new Swiper(".referencesSlider", {
     loop: window.innerWidth > 768,
     speed: window.innerWidth > 768 ? 900 : 400,
     spaceBetween: 25,
     slidesPerView: 3,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
+
+    pagination: false,
+
     breakpoints: {
         0: { slidesPerView: 1 },
         576: { slidesPerView: 2 },
         992: { slidesPerView: 3 },
     },
-    });
+});
 </script>

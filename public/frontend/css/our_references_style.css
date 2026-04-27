@@ -183,3 +183,6 @@
     animation: none !important;
   }
 }
+.references .swiper-pagination{
+    display:none !important;
+}

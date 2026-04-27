@@ -1,188 +1,111 @@
-/* ===== Statistics New Modern Design ===== */
-
 .statistics{
-    position:relative;
-    padding:90px 0;
-    background:
-        radial-gradient(circle at top right, rgba(216,152,53,.10), transparent 35%),
-        radial-gradient(circle at bottom left, rgba(13,110,253,.08), transparent 30%),
-        linear-gradient(180deg,#ffffff,#f8fafc);
-    overflow:hidden;
+    padding:40px 0;
 }
 
 .statistics .SectionTitle{
     text-align:center;
-    margin-bottom:55px;
+    margin-bottom:60px;
 }
 
 .statistics .title{
-    font-size:42px;
-    font-weight:800;
+    font-size:40px;
+    font-weight:900;
     color:#111827;
-    margin-bottom:12px;
+    margin-bottom:10px;
+    letter-spacing:-0.5px;
 }
 
 .statistics .hint{
-    font-size:17px;
+    font-size:16px;
     color:#6b7280;
-    max-width:700px;
-    margin:auto;
-    line-height:1.9;
+    max-width:600px;
+    margin:0 auto;
+    line-height:1.7;
 }
 
+/* grid spacing */
 .statisticsInner{
-    position:relative;
-    z-index:2;
-    row-gap:24px;
+    row-gap:25px;
 }
 
-/* Card */
+/* card */
 .statistics .specifications{
-    background:rgba(255,255,255,.82);
-    backdrop-filter:blur(14px);
-    border:1px solid rgba(255,255,255,.65);
-    border-radius:24px;
-    padding:35px 20px;
-    text-align:center;
-    transition:.35s ease;
     position:relative;
-    overflow:hidden;
+    background:#fff;
+    border:1px solid rgba(17,24,39,.06);
+    border-radius:20px;
+    padding:35px 22px;
+    text-align:center;
+    transition:all .35s ease;
     height:100%;
-    box-shadow:0 15px 35px rgba(0,0,0,.05);
+    overflow:hidden;
 }
 
-/* icon */
+/* subtle top highlight line */
+.statistics .specifications::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,#D89835,#f59e0b);
+    opacity:0;
+    transition:.3s ease;
+}
+
+.statistics .specifications:hover::before{
+    opacity:1;
+}
+
+/* icon container */
 .statistics .specifications i{
-    width:78px;
-    height:78px;
-    line-height:78px;
-    border-radius:50%;
-    font-size:32px !important;
+    width:60px;
+    height:60px;
+    line-height:60px;
+    border-radius:14px;
+    font-size:26px !important;
     color:#D89835 !important;
-    background:rgba(216,152,53,.12);
-    margin:0 auto 20px;
+    background:rgba(216,152,53,.08);
     display:block;
+    margin:0 auto 15px;
 }
 
 /* number */
-.statistics .specifications .odometer{
-    display:block;
-    font-size:42px;
-    font-weight:900 !important;
+.statistics .odometer{
+    font-size:38px;
+    font-weight:900;
     color:#111827;
-    margin:0 0 10px;
+    margin:0;
     letter-spacing:1px;
 }
 
-/* title */
-.statistics .specifications h5,
-.statistics .specifications h6{
-    font-size:17px;
-    font-weight:700;
-    color:#4b5563;
-    margin:0;
+/* label */
+.statistics h5,
+.statistics h6{
+    font-size:15px;
+    font-weight:600;
+    color:#6b7280;
+    margin-top:8px;
 }
 
-/* decorative blur */
-.circleBlur,
-.circleBlur2{
-    position:absolute;
-    border-radius:50%;
-    z-index:0;
-}
-
-.circleBlur{
-    width:280px;
-    height:280px;
-    top:-90px;
-    right:-90px;
-    background:rgba(216,152,53,.14);
-    filter:blur(90px);
-}
-
-.circleBlur2{
-    width:220px;
-    height:220px;
-    bottom:-80px;
-    left:-80px;
-    background:rgba(59,130,246,.12);
-    filter:blur(90px);
-}
-
-/* Mobile */
+/* responsive */
 @media(max-width:991px){
-
-    .statistics{
-        padding:70px 0;
-    }
-
     .statistics .title{
         font-size:32px;
     }
 
-    .statistics .hint{
-        font-size:15px;
+    .statistics .odometer{
+        font-size:32px;
+    }
+}
+
+@media(max-width:767px){
+    .statistics{
+        padding:80px 0;
     }
 
     .statistics .specifications{
         padding:28px 18px;
-    }
-
-    .statistics .specifications .odometer{
-        font-size:34px;
-    }
-}
-
-@media(max-width:767px){
-
-    .statistics .col-6,
-    .statistics .col-md-3{
-        flex:0 0 50%;
-        max-width:50%;
-    }
-
-    .statistics .specifications{
-        border-radius:18px;
-        padding:24px 12px;
-    }
-
-    .statistics .specifications i{
-        width:64px;
-        height:64px;
-        line-height:64px;
-        font-size:26px !important;
-    }
-
-    .statistics .specifications .odometer{
-        font-size:28px;
-    }
-
-    .statistics .specifications h5,
-    .statistics .specifications h6{
-        font-size:14px;
-        line-height:1.6;
-    }
-
-    .circleBlur,
-    .circleBlur2{
-        display:none;
-    }
-}
-
-@media(max-width:767px){
-
-    .statisticsInner{
-        justify-content:center;
-    }
-
-    .statistics .col-6,
-    .statistics .col-md-3{
-        flex:0 0 85%;
-        max-width:85%;
-        margin:auto;
-    }
-
-    .statistics .specifications{
-        text-align:center;
     }
 }
