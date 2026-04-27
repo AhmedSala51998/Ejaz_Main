@@ -83,6 +83,7 @@
         .countries {
             background: radial-gradient(circle at center, #fef6ea, #fff);
             padding: 60px 0;
+            margin-top:50px
         }
 
         .sectionTitle {
