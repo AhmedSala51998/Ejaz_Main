@@ -235,7 +235,23 @@
 .country a:hover {
     transform: translateY(-2px);
 }
+.countries .allCountries{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:70px 24px
+}
 
+@media(max-width:991px){
+    .countries .allCountries{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:576px){
+    .countries .allCountries{
+        grid-template-columns:1fr;
+    }
+}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
