@@ -1,4 +1,3 @@
-@section('styles')
 <style>
     footer {
         background: #F8F8F8;
@@ -116,7 +115,7 @@
         }
     }
 </style>
-@endsection
+
 <footer dir="rtl">
     <div class="container">
         <div class="row gy-4">
