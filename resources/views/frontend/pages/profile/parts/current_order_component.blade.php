@@ -1,3 +1,4 @@
+@section('styles')
 <style>
 .card-custom {
     background: rgba(255, 255, 255, 0.95);
@@ -122,7 +123,7 @@
 }
 
 </style>
-
+@endsection
 @foreach($currentOrders as $currentOrder)
     @php
         $createdAt = \Carbon\Carbon::parse($currentOrder->created_at);

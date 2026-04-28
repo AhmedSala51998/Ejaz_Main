@@ -34,7 +34,7 @@
         </div>
     </section>
 </div>
-
+@section('styles')
 <style>
 .app-download-section{
     background:rgba(216,152,53,0.12);
@@ -214,3 +214,4 @@
     }
 }
 </style>
+@endsection

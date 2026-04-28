@@ -56,7 +56,7 @@
 </section>
 
 @endif
-
+@section('js')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -88,6 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+@endsection
+@section('styles')
 <style>
 .carousel-inner {
     overflow: visible;
@@ -111,3 +113,4 @@ document.addEventListener("DOMContentLoaded", function () {
     height: auto;
 }
 </style>
+@endsection

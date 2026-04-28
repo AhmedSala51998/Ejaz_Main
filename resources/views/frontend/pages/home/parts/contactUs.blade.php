@@ -1,6 +1,7 @@
 @php
     $branch = session('branch') ?? request()->cookie('branch');
 @endphp
+@section('styles')
 <style>
     #contactUs {
         background: linear-gradient(to bottom right, #fffdf9, #fff2e6);
@@ -452,6 +453,7 @@
 }
 
 </style>
+@endsection
 <section id="contactUs">
     <div class="container">
         <div class="contact-container">
@@ -541,6 +543,7 @@
     </div>
 </section>
 
+@section('js')
 <script>
     // Validation style toggle
     document.querySelector('.contact-form').addEventListener('submit', function (e) {
@@ -559,3 +562,4 @@
         if (!valid) e.preventDefault();
     });
 </script>
+@endsection

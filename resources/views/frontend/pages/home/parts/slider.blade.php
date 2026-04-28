@@ -1,3 +1,4 @@
+@section('styles')
 <style>
       :root {
     --orange: #D89835;
@@ -222,6 +223,7 @@ margin:auto;
 }
 
 </style>
+@endsection
 @if (count($sliders)>0)
 <section class="mainSection">
 
@@ -354,6 +356,7 @@ $countryMap = [
   "بنجلاديش" => 50,
 ];
 @endphp
+@section('js')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script defer src="https://unpkg.com/topojson-client@3"></script>
 <script>
@@ -723,3 +726,4 @@ function draw(){
 }
 });
 </script>
+@endsection

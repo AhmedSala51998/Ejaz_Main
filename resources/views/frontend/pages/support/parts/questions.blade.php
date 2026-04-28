@@ -24,7 +24,7 @@
         </div>
     </div>
 @endif
-
+@section('styles')
 <style>
 #faqAccordion {
     display: flex;
@@ -260,3 +260,4 @@
 
 }
 </style>
+@endsection

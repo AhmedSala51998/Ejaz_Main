@@ -1,3 +1,4 @@
+@section('styles')
 <style>
 .blog-home-card{
     background:#fff;
@@ -95,7 +96,7 @@
     height: auto;
 }
 </style>
-
+@endsection
 @if(isset($latestBlogs) && $latestBlogs->count())
 
 <section class="latest-blogs py-5 bg-white">
@@ -158,6 +159,7 @@
 </section>
 
 @endif
+@section('js')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -195,3 +197,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+@endsection

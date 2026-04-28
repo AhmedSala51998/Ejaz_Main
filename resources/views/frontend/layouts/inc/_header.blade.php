@@ -1,5 +1,6 @@
 
 {{--==============--}}
+@section('styles')
 <style>
 /* General Body & Typography */
 body {
@@ -463,6 +464,7 @@ body.sticky-header-active {
   }
 }
 </style>
+@endsection
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
@@ -590,6 +592,7 @@ body.sticky-header-active {
 </div>
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
+@section('js')
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -698,4 +701,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
-
+@endsection

@@ -1,3 +1,4 @@
+@section('styles')
 <style>
     /* General Body and Container Styles */
     body {
@@ -604,6 +605,7 @@
 
 
 </style>
+@endsection
 <div class="editProfile">
     <div class="head">
         <h5> <i class="fas fa-user me-2"></i> {{__('frontend.Personal Info')}}</h5>
@@ -762,6 +764,7 @@
 
     </div>
 </div>
+@section('js')
 <script>
     document.getElementById('uploadAvatar').addEventListener('change', function (e) {
         const file = e.target.files[0];
@@ -790,3 +793,4 @@
 
 
 </script>
+@endsection

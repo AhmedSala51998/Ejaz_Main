@@ -145,13 +145,11 @@
         box-shadow: 0 12px 25px rgba(244, 168, 53, 0.3);
     }
 
-    /* ✅ إطار برتقالي عند الاختيار */
     .customerOption input[type="radio"]:checked + label {
         border-color: #f4a835;
         background: #fffaf3;
     }
 
-    /* ✅ علامة صح برتقالية فوق البطاقة */
     .customerOption input[type="radio"]:checked + label::before {
         content: "✔";
         position: absolute;

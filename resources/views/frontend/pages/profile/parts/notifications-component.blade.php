@@ -16,7 +16,7 @@
     @endforeach
 </div>
 
-
+@section('styles')
 <style>
 .notification-wrapper {
     padding: 20px;
@@ -96,3 +96,4 @@
 
 
 </style>
+@endsection

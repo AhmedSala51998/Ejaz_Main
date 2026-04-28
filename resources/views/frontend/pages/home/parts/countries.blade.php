@@ -1,3 +1,4 @@
+@section('styles')
 <style>
 :root {
     --orange: #D89835;
@@ -253,6 +254,8 @@
     }
 }
 </style>
+@endsection
+@section('js')
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const flags = document.querySelectorAll(".flag-wrapper");
@@ -269,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
     flags.forEach(flag => observer.observe(flag));
 });
 </script>
-
+@endsection
 @if (count($countries)>0)
 <section class="countries" id="countries">
     <div class="container">

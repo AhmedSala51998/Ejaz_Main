@@ -1,6 +1,6 @@
 
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" as="style">
-
+@section('styles')
 <style>
 /* ================== CV CARD ================== */
 .cv-card {
@@ -236,7 +236,7 @@
 }
 
 </style>
-
+@endsection
 <div class="cv-card">
 
 

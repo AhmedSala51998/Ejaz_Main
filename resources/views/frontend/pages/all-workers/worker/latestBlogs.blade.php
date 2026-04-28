@@ -1,3 +1,4 @@
+@section('styles')
 <style>
 .blog-home-card{
     background:#fff;
@@ -55,6 +56,7 @@
     color: #fff;
 }
 </style>
+@endsection
 @if(isset($latestBlogs) && $latestBlogs->count())
 <section class="latest-blogs py-5" style="background:#fff;">
     <div class="container">

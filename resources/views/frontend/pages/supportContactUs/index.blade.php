@@ -999,35 +999,33 @@
 </script>
 
 <script>
+if (typeof Swiper !== 'undefined') {
+    new Swiper('.referencesSlider', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 20,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
 
-    if (typeof Swiper !== 'undefined') {
-        new Swiper('.referencesSlider', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
+        pagination: false,
+
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 30,
             },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
             },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 40,
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 50,
-                },
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 50,
             },
-        });
-    }
+        },
+    });
+}
 </script>
 @endsection

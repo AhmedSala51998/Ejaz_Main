@@ -22,6 +22,7 @@
         <img style="width: 500px;height: 500px ; object-fit: contain;" src="{{asset('frontend/img/no-order.png')}}" alt="no data for current orders">
     </div>
 @endif
+@section('styles')
 <style>
     .loadMoreBtn {
         background: transparent;
@@ -39,3 +40,4 @@
         transform: scale(1.03);
     }
 </style>
+@endsection
