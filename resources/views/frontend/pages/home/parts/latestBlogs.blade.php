@@ -159,7 +159,6 @@
 </section>
 
 @endif
-@section('js')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -197,4 +196,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-@endsection

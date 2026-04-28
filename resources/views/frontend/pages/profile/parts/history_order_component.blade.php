@@ -100,7 +100,7 @@
         </div>
 @endforeach
 
-@section('styles')
+
 <style>
     /* Global Styling for Super Professional Design */
     :root {
@@ -503,8 +503,7 @@
         }
     }
 </style>
-@endsection
-@section('js')
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const sliders = document.querySelectorAll('.workerCvSlider-super-pro');
@@ -532,4 +531,3 @@
         });
     });
 </script>
-@endsection

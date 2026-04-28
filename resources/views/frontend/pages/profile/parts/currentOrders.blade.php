@@ -24,7 +24,6 @@
              style="width: 500px; height: 500px; object-fit: contain;">
     </div>
 @endif
-@section('styles')
 <style>
 .newOrderBtn {
     background: #f4a835;
@@ -118,4 +117,3 @@
 }
 
 </style>
-@endsection

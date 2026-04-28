@@ -1,4 +1,3 @@
-@section('styles')
 <style>
 .statistics{
     padding:40px 0;
@@ -113,7 +112,6 @@
 }
 
 </style>
-@endsection
 @if (count($statistics) == 4)
     <section class="statistics">
         <div class="container">
@@ -175,7 +173,6 @@
         </div>
     </section>
 @endif
-@section('js')
 <script>
     if (window.innerWidth > 768) {
         document.querySelectorAll('.odometer').forEach(el => {
@@ -183,6 +180,5 @@
         });
     }
 </script>
-@endsection
 
 

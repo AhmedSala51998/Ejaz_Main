@@ -37,7 +37,7 @@
     </div>
   </div>
 </section>
-@section('js')
+
 <script>
 var swiper = new Swiper(".referencesSlider", {
     loop: window.innerWidth > 768,
@@ -54,4 +54,3 @@ var swiper = new Swiper(".referencesSlider", {
     },
 });
 </script>
-@endsection

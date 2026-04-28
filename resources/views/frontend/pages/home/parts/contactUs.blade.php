@@ -1,7 +1,6 @@
 @php
     $branch = session('branch') ?? request()->cookie('branch');
 @endphp
-@section('styles')
 <style>
     #contactUs {
         background: linear-gradient(to bottom right, #fffdf9, #fff2e6);
@@ -453,7 +452,6 @@
 }
 
 </style>
-@endsection
 <section id="contactUs">
     <div class="container">
         <div class="contact-container">
