@@ -273,45 +273,279 @@ document.addEventListener("DOMContentLoaded", () => {
 @if (count($countries)>0)
 <section class="countries" id="countries">
     <div class="container">
-        <div class="sectionTitle" data-aos="fade-up">
+
+        <div class="sectionTitle text-center mb-5" data-aos="fade-up">
             <h2 class="section-title">دول الاستقدام</h2>
-            <p class="section-subtitle">نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ...</p>
+            <p class="section-subtitle">
+                نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة
+            </p>
         </div>
 
-        <div class="allCountries">
-            @foreach($countries as $country)
-                <div class="country" data-aos="zoom-in">
+        <!-- Swiper -->
+        <div class="swiper countriesSwiper">
+            <div class="swiper-wrapper">
 
-                    <div class="flag-wrapper">
+                @foreach($countries as $country)
+                <div class="swiper-slide">
 
-                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}" loading="lazy" width="120" height="120">
+                    <div class="country" data-aos="zoom-in">
 
+                        <div class="flag-wrapper">
+                            <img src="{{get_file($country->image)}}"
+                                 alt="{{ $country->title }}"
+                                 loading="lazy"
+                                 width="120"
+                                 height="120">
+                        </div>
+
+                        <h3>{{ $country->title }}</h3>
+
+                        <h4>
+                            {{ $country->price }}
+                            <span class="riyal-logo">
+                                <svg viewBox="0 0 120 40">
+                                    <text x="60" y="28"
+                                        text-anchor="middle"
+                                        font-size="26"
+                                        font-weight="800"
+                                        font-family="Cairo"
+                                        fill="#D89835">
+                                        ريال
+                                    </text>
+                                </svg>
+                            </span>
+                        </h4>
+
+                        <p>{{ $country->description }}</p>
+
+                        <a href="{{ route('all-workers', $country->country_name_en) }}">
+                            استقدام من {{ $country->country_name }}
+                            <i class="fa fa-arrow-left ms-2"></i>
+                        </a>
 
                     </div>
 
-                    <h3>{{ $country->title }}</h3>
-                    <h4>{{ $country->price }}
-                        <span class="riyal-logo">
-                            <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
-                                <text x="60" y="28"
-                                    text-anchor="middle"
-                                    font-size="26"
-                                    font-weight="800"
-                                    font-family="Cairo, Tajawal, sans-serif"
-                                    fill="#D89835">
-                                    ريال
-                                </text>
-                            </svg>
-                        </span>
-                    </h4>
-                    <p>{{ $country->description }}</p>
-                    <a href="{{ route('all-workers', $country->country_name_en) }}">
-                        استقدام من {{ $country->country_name }}
-                        <i class="fa fa-arrow-left ms-2"></i>
-                    </a>
                 </div>
-            @endforeach
+                @endforeach
+
+            </div>
         </div>
+
     </div>
 </section>
 @endif
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    new Swiper(".countriesSwiper", {
+        loop: true,
+        grabCursor: true,
+        spaceBetween: 25,
+
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+
+        navigation: false,
+        pagination: false,
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            576: {
+                slidesPerView: 2
+            },
+            992: {
+                slidesPerView: 3
+            }
+        }
+    });
+
+});
+</script>
+
+
+<style>
+:root{
+    --orange:#D89835;
+    --orange-dark:#c8812a;
+    --gray-dark:#5F5F5F;
+    --text-main:#212121;
+}
+
+/* section */
+.countries{
+    background:radial-gradient(circle at center,#fef6ea,#fff);
+    padding:60px 0;
+}
+
+/* titles */
+.section-title{
+    font-size:3rem;
+    color:#2c3e50;
+    font-weight:800;
+    position:relative;
+    padding-bottom:15px;
+}
+
+.section-title::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:80px;
+    height:4px;
+    background:linear-gradient(to right,#D89835,#F2B544);
+    border-radius:2px;
+}
+
+.section-subtitle{
+    color:#7f8c8d;
+    font-size:1.1rem;
+    margin-top:10px;
+}
+
+/* swiper */
+.countriesSwiper{
+    overflow:visible !important;
+    padding:15px 0;
+}
+
+.countriesSwiper .swiper-wrapper{
+    align-items:stretch;
+}
+
+.countriesSwiper .swiper-slide{
+    height:auto;
+}
+
+/* hide arrows + dots */
+.countriesSwiper .swiper-button-next,
+.countriesSwiper .swiper-button-prev,
+.countriesSwiper .swiper-pagination{
+    display:none !important;
+}
+
+/* card */
+.country{
+    position:relative;
+    background:rgba(255,255,255,.96);
+    border-radius:22px;
+    padding:70px 22px 30px;
+    text-align:center;
+    height:100%;
+
+    /* dashed line */
+    border:1px dashed rgba(216, 152, 53, 0.45);
+    /* بروز */
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.08),
+        0 0 0 8px rgba(216,152,53,.06);
+
+    transition:.35s ease;
+}
+
+.country:hover{
+    transform:translateY(-8px);
+    border-color:#c8812a;
+
+    box-shadow:
+        0 18px 38px rgba(216,152,53,.22),
+        0 0 0 10px rgba(216,152,53,.09);
+}
+
+.country:hover{
+    transform:translateY(-6px);
+    box-shadow:0 18px 35px rgba(216,152,53,.25);
+}
+
+/* flag */
+.flag-wrapper{
+    position:absolute;
+    top:0;
+    right:20px;
+    transform:translateY(-50%);
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid var(--orange);
+    background:#fff;
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+.flag-wrapper img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* text */
+.country h3{
+    font-size:1.6rem;
+    font-weight:800;
+    color:var(--orange);
+    margin-top:20px;
+    margin-bottom:10px;
+    font-family:'Cairo',sans-serif;
+}
+
+.country h4{
+    font-size:1.25rem;
+    font-weight:700;
+    margin-bottom:12px;
+    color:#222;
+}
+
+.country p{
+    font-size:.95rem;
+    color:var(--gray-dark);
+    min-height:55px;
+    margin-bottom:18px;
+    line-height:1.8;
+}
+
+/* button */
+.country a{
+    display:inline-block;
+    background:var(--orange);
+    color:#fff;
+    padding:11px 22px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+}
+
+.country a:hover{
+    background:var(--orange-dark);
+    transform:translateY(-2px);
+}
+
+/* riyal */
+.riyal-logo svg{
+    width:58px;
+    height:auto;
+}
+
+/* mobile */
+@media(max-width:576px){
+
+    .section-title{
+        font-size:2rem;
+    }
+
+    .country{
+        padding:65px 18px 25px;
+    }
+
+    .flag-wrapper{
+        width:95px;
+        height:95px;
+    }
+
+}
+</style>
