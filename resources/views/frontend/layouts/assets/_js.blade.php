@@ -2,6 +2,7 @@
 <script src="{{asset('frontend/js/all.min.js')}}"></script>
 <script src="{{asset('frontend/js/bootstrap.min.js')}}" defer></script>
 <script src="{{asset('frontend/js/popper.min.js')}}" defer></script>
+<script src="{{asset('frontend/js/swiper-bundle.min.js')}}" defer></script>
 <script src="{{asset('frontend/cute-alert-master/cute-alert.js')}}" defer></script>
 <script src="{{asset('frontend/js/jquery.appear.js')}}" defer></script>
 <script src="{{asset('frontend/js/select2.min.js')}}" defer></script>
@@ -20,9 +21,6 @@
 <script src="{{asset('frontend/backEndFiles/axios.min.js')}}"></script>
 <script src="{{asset('frontend/backEndFiles/sweetalert/sweetalert.min.js')}}"></script>
 
-
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
     // goBack
@@ -74,14 +72,6 @@ document.addEventListener('click', function(e){
         }
     }
 });
-</script>
-<script>
-if (document.querySelector('.swiper')) {
-    const s = document.createElement('script');
-    s.src = "{{ asset('frontend/js/swiper-bundle.min.js') }}";
-    s.defer = true;
-    document.body.appendChild(s);
-}
 </script>
 <script>
 if (window.innerWidth > 768) {

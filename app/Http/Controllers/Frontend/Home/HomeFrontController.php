@@ -170,64 +170,118 @@ class HomeFrontController extends Controller
         return $R*$c;
     }
 
+    /*public function index(Request $request)
+    {
+        $branch = session('branch') ?? $request->cookie('branch');
+
+        $sliders = Slider::latest()->take(4)->get();
+        $ourServices = OurService::take(5)->get();
+        $statistics = Statistic::latest()->take(4)->get();
+        $sponsors = Sponsor::latest()->take(5)->get();
+        $questions = FrequentlyQuestion::take(100)->get();
+        $countries=Nationalitie::latest()->get();
+        $latestBlogs = Blog::latest()->get();
+
+        $admins = \App\Models\Admin::where('admin_type', '!=', 0)
+        ->where(function($q) use ($branch) {
+            $q->where('branch', $branch)
+            ->orWhere('branch', 'all_branches')
+            ->orWhere(function($q2) use ($branch) {
+                if ($branch === 'riyadh') {
+                    $q2->whereIn('branch', ['r_y', 'j_r']);
+                } elseif ($branch === 'jeddah') {
+                    $q2->whereIn('branch', ['y_j', 'j_r']);
+                } elseif ($branch === 'yanbu') {
+                    $q2->whereIn('branch', ['r_y', 'y_j']);
+                }
+            });
+        })
+        ->get();
+
+        $cvs = Biography::where('status','new')
+            ->where('order_type','normal')
+            ->with('recruitment_office','nationalitie','language_title',
+            'religion','job','social_type','admin','images','skills')
+            ->take(5)->get();
+        return view('frontend.pages.home.home',[
+            'sliders'=>$sliders,
+            'ourServices'=>$ourServices,
+            'statistics'=>$statistics,
+            'sponsors'=>$sponsors,
+            'questions'=>$questions,
+            'cvs'=>$cvs,
+            'countries'=>$countries,
+            'admins'=>$admins,
+            'latestBlogs'=>$latestBlogs
+        ]);
+
+    }*///end fun
+
     public function index(Request $request)
     {
         $branch = session('branch') ?? $request->cookie('branch');
-        /*if(!$branch){
-            return view('frontend.pages.home.parts.landing');
-        }else{*/
 
-            $sliders = Slider::latest()->take(4)->get();
-            $ourServices = OurService::take(5)->get();
-            $statistics = Statistic::latest()->take(4)->get();
-            $sponsors = Sponsor::latest()->take(5)->get();
-            $questions = FrequentlyQuestion::take(100)->get();
-            $countries=Nationalitie::latest()->get();
-            $latestBlogs = Blog::latest()->get();
-            //$admins = \App\Models\Admin::where('admin_type','!=',0)->where('branch','=',$branch)->get();
-            /*$admins = \App\Models\Admin::where('admin_type', '!=', 0)
-                ->where(function($q) use ($branch) {
-                    $q->where('branch', $branch)
-                    ->orWhere('branch', 'all_branches');
-                })
-                ->get();*/
+        $cacheKey = 'home_' . $branch;
+
+        $data = cache()->remember($cacheKey, 3600, function () use ($branch) {
 
             $admins = \App\Models\Admin::where('admin_type', '!=', 0)
-            ->where(function($q) use ($branch) {
-                $q->where('branch', $branch)
-                ->orWhere('branch', 'all_branches')
-                ->orWhere(function($q2) use ($branch) {
-                    if ($branch === 'riyadh') {
-                        $q2->whereIn('branch', ['r_y', 'j_r']);
-                    } elseif ($branch === 'jeddah') {
-                        $q2->whereIn('branch', ['y_j', 'j_r']);
-                    } elseif ($branch === 'yanbu') {
-                        $q2->whereIn('branch', ['r_y', 'y_j']);
-                    }
-                });
-            })
-            ->get();
+                ->where(function ($q) use ($branch) {
+                    $q->where('branch', $branch)
+                        ->orWhere('branch', 'all_branches')
+                        ->orWhere(function ($q2) use ($branch) {
+                            if ($branch === 'riyadh') {
+                                $q2->whereIn('branch', ['r_y', 'j_r']);
+                            } elseif ($branch === 'jeddah') {
+                                $q2->whereIn('branch', ['y_j', 'j_r']);
+                            } elseif ($branch === 'yanbu') {
+                                $q2->whereIn('branch', ['r_y', 'y_j']);
+                            }
+                        });
+                })
+                ->get();
 
-            $cvs = Biography::where('status','new')
-                ->where('order_type','normal')
-                ->with('recruitment_office','nationalitie','language_title',
-                'religion','job','social_type','admin','images','skills')
-                ->take(5)->get();
-            return view('frontend.pages.home.home',[
-                'sliders'=>$sliders,
-                'ourServices'=>$ourServices,
-                'statistics'=>$statistics,
-                'sponsors'=>$sponsors,
-                'questions'=>$questions,
-                'cvs'=>$cvs,
-                'countries'=>$countries,
-                'admins'=>$admins,
-                'latestBlogs'=>$latestBlogs
-            ]);
-        //}
-    }//end fun
+            return [
+                'sliders'      => Slider::latest()->take(4)->get(),
+                'ourServices'  => OurService::take(5)->get(),
+                'statistics'   => Statistic::latest()->take(4)->get(),
+                'sponsors'     => Sponsor::latest()->take(5)->get(),
+                'questions'    => FrequentlyQuestion::take(100)->get(),
+                'countries'    => Nationalitie::latest()->get(),
+                'latestBlogs'  => Blog::latest()->get(),
 
+                'admins' => $admins,
 
+                'cvs' => Biography::where('status', 'new')
+                    ->where('order_type', 'normal')
+                    ->with([
+                        'recruitment_office',
+                        'nationalitie',
+                        'language_title',
+                        'religion',
+                        'job',
+                        'social_type',
+                        'admin',
+                        'images',
+                        'skills'
+                    ])
+                    ->take(5)
+                    ->get()
+            ];
+        });
+
+        return view('frontend.pages.home.home', [
+            'sliders'     => $data['sliders'],
+            'ourServices' => $data['ourServices'],
+            'statistics'  => $data['statistics'],
+            'sponsors'    => $data['sponsors'],
+            'questions'   => $data['questions'],
+            'countries'   => $data['countries'],
+            'latestBlogs' => $data['latestBlogs'],
+            'admins'      => $data['admins'],
+            'cvs'         => $data['cvs'],
+        ]);
+    }
 
     /**
      * @param Request $request

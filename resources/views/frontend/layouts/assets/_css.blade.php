@@ -4,17 +4,6 @@
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.rtl.min.css')}}" />
 <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}" />
 
-<link rel="preload"
-      href="{{asset('frontend/css/all.min.css')}}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<noscript>
-  <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
-</noscript>
-
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 <link rel="preload" href="{{asset('frontend/css/fontawesome.min.css')}}" as="style" onload="this.rel='stylesheet'">
 <link rel="preload" href="{{asset('frontend/css/swiper-bundle.min.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
