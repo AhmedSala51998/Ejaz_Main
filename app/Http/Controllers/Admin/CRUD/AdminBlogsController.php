@@ -88,6 +88,7 @@ class AdminBlogsController extends Controller
     {
         $request->validate([
             'title'         => 'required',
+            'slug'          => 'required|unique:blogs,slug',
             'content'       => 'required',
             'image'         => 'required|image',
             'second_image'  => 'required|image',
@@ -122,7 +123,7 @@ class AdminBlogsController extends Controller
 
         Blog::create([
             'title'         => $request->title,
-            'slug'          => Str::slug($request->title),
+            'slug'          => $request->slug,
             'excerpt'       => $request->excerpt,
             'content'       => $request->content,
             'image'         => $imagePath,
@@ -150,6 +151,7 @@ class AdminBlogsController extends Controller
 
         $request->validate([
             'title'   => 'required',
+            'slug'    => 'required|unique:blogs,slug,' . $blog->id,
             'content' => 'required',
         ]);
 
@@ -194,7 +196,7 @@ class AdminBlogsController extends Controller
 
         $blog->update([
             'title'   => $request->title,
-            'slug'    => Str::slug($request->title),
+            'slug'    => $request->slug,
             'excerpt' => $request->excerpt,
             'content' => $request->content,
             'status'  => $request->status ?? 1,

@@ -35,6 +35,19 @@
 
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">
+                <label>رابط المقال (Slug)</label>
+
+                <input
+                    data-validation="required"
+                    type="text"
+                    class="form-control"
+                    name="slug"
+                    placeholder="مثال: visa-saudi-arabia">
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
                 <label>الحالة</label>
                 <select name="status" class="form-control">
                     <option value="1">نشط</option>
