@@ -327,6 +327,9 @@ class WorkerFrontController extends Controller
 
     public function showAllWorkers(Request $request, $name = null)
     {
+        if ($request->page == 1) {
+            return redirect()->to(url()->current(), 301);
+        }
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
             ->where('type', 'admission')

@@ -172,7 +172,95 @@ Route::group(
             ->unique()
             ->values();
 
-        $routes->push(url('all-workers'));
+        $perPage = 9;
+
+        /*
+        |--------------------------------------------------------------------------
+        | الصفحة الرئيسية للعمال
+        |--------------------------------------------------------------------------
+        */
+
+        $totalWorkers = \App\Models\Biography::where('status', 'new')
+            ->where('order_type', 'normal')
+            ->where('type', 'admission')
+            ->where('is_cv_out', 0)
+            ->where('is_blocked', 0)
+            ->where('is_hide', 0)
+            ->count();
+
+        $totalPages = ceil($totalWorkers / $perPage);
+
+        for ($i = 1; $i <= $totalPages; $i++) {
+
+            if ($i == 1) {
+                $routes->push(url('all-workers'));
+            } else {
+                $routes->push(url("all-workers?page={$i}"));
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | صفحات الجنسيات + الباجينيشن
+        |--------------------------------------------------------------------------
+        */
+
+        $nationalities = \App\Models\Nationalitie::all();
+
+        foreach ($nationalities as $nationality) {
+
+            $workersCount = \App\Models\Biography::where('status', 'new')
+                ->where('order_type', 'normal')
+                ->where('type', 'admission')
+                ->where('is_cv_out', 0)
+                ->where('is_blocked', 0)
+                ->where('is_hide', 0)
+                ->where('nationalitie_id', $nationality->id)
+                ->count();
+
+            $pages = ceil($workersCount / $perPage);
+
+            for ($i = 1; $i <= $pages; $i++) {
+
+                if ($i == 1) {
+
+                    $routes->push(
+                        url('all-workers/' . $nationality->country_name_en)
+                    );
+
+                } else {
+
+                    $routes->push(
+                        url('all-workers/' . $nationality->country_name_en . '?page=' . $i)
+                    );
+                }
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | صفحات البلوج + الباجينيشن
+        |--------------------------------------------------------------------------
+        */
+
+        $blogPerPage = 9;
+
+        $totalBlogs = \App\Models\Blog::where('status', 1)->count();
+
+        $totalBlogPages = ceil($totalBlogs / $blogPerPage);
+
+        for ($i = 1; $i <= $totalBlogPages; $i++) {
+
+            if ($i == 1) {
+
+                $routes->push(url('blog'));
+
+            } else {
+
+                $routes->push(url("blog?page={$i}"));
+            }
+        }
 
         return response()
             ->view('sitemaps.pages', compact('routes'))

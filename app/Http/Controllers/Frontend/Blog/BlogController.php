@@ -10,6 +10,9 @@ class BlogController extends Controller
 {
     public function index()
     {
+        if ($request->page == 1) {
+            return redirect()->to(url()->current(), 301);
+        }
         $blogs = Blog::where('status',1)
             ->latest()
             ->paginate(9);

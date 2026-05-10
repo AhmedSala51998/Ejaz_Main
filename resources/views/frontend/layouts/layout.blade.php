@@ -24,8 +24,21 @@
         <meta name="robots" content="noindex, nofollow">
     @endif
     <title>
-        {{$settings->title??"ايجاز"}} - @yield('title')
+        {{ !empty($settings->title) ? $settings->title : 'ايجاز' }} - @yield('title')
     </title>
+
+
+    @if(request()->has('page') && request('page') > 1)
+
+        <link rel="canonical"
+            href="{{ url()->current() . '?page=' . request('page') }}" />
+
+    @else
+
+        <link rel="canonical"
+            href="{{ url()->current() }}" />
+
+    @endif
 
     <!-- Meta Description (SEO) -->
     <meta name="description" content="@yield('meta_description', 'إيجاز للاستقدام شركة متخصصة في استقدام العمالة المنزلية داخل المملكة العربية السعودية، نوفر كوادر مدرّبة بإجراءات سريعة وخدمة موثوقة في جدة والرياض وينبع.')">
