@@ -252,13 +252,10 @@ Route::group(
 
         for ($i = 1; $i <= $totalBlogPages; $i++) {
 
-            if ($i == 1) {
-
-                $routes->push(url('blog'));
-
-            } else {
+            if ($i != 1) {
 
                 $routes->push(url("blog?page={$i}"));
+
             }
         }
 
