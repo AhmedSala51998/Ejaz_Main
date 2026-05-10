@@ -8,7 +8,7 @@ use App\Models\Blog;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if ($request->page == 1) {
             return redirect()->to(url()->current(), 301);
