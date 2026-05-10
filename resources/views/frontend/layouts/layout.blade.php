@@ -27,6 +27,10 @@
         {{ !empty($settings->title) ? $settings->title : 'ايجاز' }} - @yield('title')
     </title>
 
+    <title>
+        @yield('title') - {{ !empty($settings->title) ? $settings->title : 'ايجاز' }}
+    </title>
+
 
     @if(request()->has('page') && request('page') > 1)
 

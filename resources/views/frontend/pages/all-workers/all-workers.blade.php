@@ -11,7 +11,6 @@
         default => 'طلب استقدام عمالة',
     };
 
-    $title .= ' - ايجاز';
 @endphp
 {{ $title }}
 @endsection
