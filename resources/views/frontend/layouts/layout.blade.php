@@ -23,9 +23,6 @@
     @if(request()->routeIs('frontend.show.worker'))
         <meta name="robots" content="noindex, nofollow">
     @endif
-    <title>
-        {{ !empty($settings->title) ? $settings->title : 'ايجاز' }} - @yield('title')
-    </title>
 
     <title>
         @yield('title') - {{ !empty($settings->title) ? $settings->title : 'ايجاز' }}
