@@ -25,7 +25,11 @@
     @endif
 
     <title>
-        @yield('title') - {{ !empty($settings->title) ? $settings->title : 'ايجاز' }}
+        @if(request()->routeIs('home'))
+            شركة إيجاز للاستقدام | استقدام العمالة المنزلية في السعودية
+        @else
+            @yield('title') - {{ !empty($settings->title) ? $settings->title : 'إيجاز' }}
+        @endif
     </title>
 
 
