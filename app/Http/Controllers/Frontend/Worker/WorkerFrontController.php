@@ -327,6 +327,7 @@ class WorkerFrontController extends Controller
 
     public function showAllWorkers(Request $request, $name = null)
     {
+
         if ($request->page == 1) {
             return redirect()->to(url()->current(), 301);
         }

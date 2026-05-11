@@ -1334,7 +1334,7 @@
             if (window.innerWidth <= 768) {
                 const filters = getFilters();
 
-                let url = link_only + "?page=1" +
+                let url = link_only + "?" +
                     "&age=" + filters.age +
                     "&job=" + filters.job +
                     "&nationality=" + (filters.nationality || '') +
