@@ -25,7 +25,7 @@
     @endif
 
     <title>
-        @yield('title')
+        @yield('title') - {{ !empty($settings->title) ? $settings->title : 'ايجاز' }}
     </title>
 
 

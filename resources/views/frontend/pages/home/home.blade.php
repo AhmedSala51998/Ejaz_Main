@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    {{__('frontend.Home')}}
+    شركة إيجاز للاستقدام
 @endsection
 
 @section('meta_description')
