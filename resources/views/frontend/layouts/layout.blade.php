@@ -28,7 +28,7 @@
         @if(request()->routeIs('home'))
             شركة إيجاز للاستقدام | استقدام العمالة المنزلية في السعودية
         @else
-            @yield('title') - {{ !empty($settings->title) ? $settings->title : 'إيجاز' }}
+            @yield('title') - {{ !empty($settings->title) ? $settings->title : 'شركة إيجاز للاستقدام' }}
         @endif
     </title>
 
