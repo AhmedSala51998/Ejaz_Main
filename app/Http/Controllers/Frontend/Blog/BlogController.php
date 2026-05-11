@@ -20,7 +20,7 @@ class BlogController extends Controller
         return view('frontend.pages.blogs.index', compact('blogs'));
     }
 
-    public function show($slug)
+    /*public function show($slug)
     {
         $blog = Blog::where('slug', $slug)->firstOrFail();
 
@@ -58,6 +58,65 @@ class BlogController extends Controller
         }
 
         $sessionKey = 'blog_viewed_' . $blog->id;
+        if (!session()->has($sessionKey)) {
+            $blog->increment('views');
+            session()->put($sessionKey, true);
+        }
+
+        return view('frontend.pages.blogs.show', compact('blog', 'faqs', 'relatedBlogs'));
+    }*/
+
+    public function show($slug)
+    {
+        $blog = Blog::where('slug', $slug)->first();
+
+        if (!$blog) {
+
+            $blog = Blog::where('old_slug', $slug)->first();
+
+            if ($blog) {
+                return redirect()->route('blog.show', $blog->slug, 301);
+            }
+
+            abort(404);
+        }
+
+        $faqs = $blog->faqs()
+            ->where('status', 1)
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $text = $blog->title . ' ' . $blog->excerpt;
+
+        $words = collect(explode(' ', $text))
+            ->filter(fn($w) => mb_strlen($w) > 3)
+            ->unique()
+            ->take(6);
+
+        $relatedBlogs = Blog::where('status', 1)
+            ->where('id', '!=', $blog->id)
+            ->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    $q->orWhere('title', 'LIKE', "%{$word}%")
+                    ->orWhere('excerpt', 'LIKE', "%{$word}%");
+                }
+            })
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        if ($relatedBlogs->count() < 4) {
+            $more = Blog::where('status', 1)
+                ->where('id', '!=', $blog->id)
+                ->inRandomOrder()
+                ->take(4 - $relatedBlogs->count())
+                ->get();
+
+            $relatedBlogs = $relatedBlogs->merge($more);
+        }
+
+        $sessionKey = 'blog_viewed_' . $blog->id;
+
         if (!session()->has($sessionKey)) {
             $blog->increment('views');
             session()->put($sessionKey, true);
