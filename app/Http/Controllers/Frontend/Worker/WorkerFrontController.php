@@ -56,7 +56,7 @@ class WorkerFrontController extends Controller
             }
         } else {
 
-            return response()->json([], 500);
+            return response()->json([], 401);
 
 //            toastr()->error('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
 //            return back();

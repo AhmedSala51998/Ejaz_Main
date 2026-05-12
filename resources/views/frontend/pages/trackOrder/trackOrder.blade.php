@@ -218,7 +218,7 @@ $(document).on('submit','form#CompleteRegister',function(e) {
         },
         error: function (data) {
 
-            if (data.status === 500) {
+            if (data.status === 401) {
                 cuteToast({ type: "error", message: "يجب تسجيل الدخول لاستخدام هذة الخدمة", timer: 3000 });
             }
             if (data.status === 403) {
