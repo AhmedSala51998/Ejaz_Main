@@ -12,6 +12,10 @@ class SupportFrontController extends Controller
 
     public function supports(Request $request)
     {
+
+        if ($request->page == 1) {
+            return redirect()->to(url()->current(), 301);
+        }
         $questions = FrequentlyQuestion::latest()->paginate(9);
 
         if ($request->ajax()) {
