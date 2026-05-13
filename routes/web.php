@@ -259,6 +259,21 @@ Route::group(
             }
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | صفحات الأسئلة الشائعة + الباجينيشن
+        |--------------------------------------------------------------------------
+        */
+
+        $faqPerPage = 9; // نفس paginate اللي في الكنترولر
+
+        $totalFaqs = \App\Models\FrequentlyQuestion::count(); // لو عندك status
+        $totalFaqPages = ceil($totalFaqs / $faqPerPage);
+
+        for ($i = 2; $i <= $totalFaqPages; $i++) {
+            $routes->push(url("frequently-questions?page={$i}"));
+        }
+
         return response()
             ->view('sitemaps.pages', compact('routes'))
             ->header('Content-Type', 'application/xml');
