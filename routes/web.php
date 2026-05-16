@@ -284,7 +284,7 @@ Route::group(
         $perFile = 1000;
 
         $blogs = \App\Models\Blog::where('status', 1)
-            ->select('slug', 'updated_at')
+            ->select('slug', 'created_at')
             ->orderBy('id')
             ->skip(($page - 1) * $perFile)
             ->take($perFile)

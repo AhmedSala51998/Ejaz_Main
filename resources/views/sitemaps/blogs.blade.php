@@ -4,7 +4,7 @@
 @foreach($blogs as $blog)
     <url>
         <loc>{{ route('blog.show', $blog->slug) }}</loc>
-        <lastmod>{{ $blog->updated_at->toAtomString() }}</lastmod>
+        <lastmod>{{ $blog->created_at->toAtomString() }}</lastmod>
         <priority>0.7</priority>
     </url>
 @endforeach
