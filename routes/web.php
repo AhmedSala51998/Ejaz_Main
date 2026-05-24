@@ -48,6 +48,24 @@ Route::group(
         return response()->json(['exists' => false]);
     });
 
+    Route::get('{branch}/worker/{id}', function ($branch, $id) {
+
+        if (in_array($branch, ['riyadh', 'jeddah', 'yanbu'])) {
+            return redirect()->route('frontend.show.worker', ['id' => $id], 301);
+        }
+
+        abort(404);
+    });
+
+    Route::get('{branch}/register/{id}', function ($branch, $id) {
+
+        if (in_array($branch, ['riyadh', 'jeddah', 'yanbu'])) {
+            return redirect()->route('register', ['id' => $id], 301);
+        }
+
+        abort(404);
+    });
+
 
     Route::get('register/{id?}',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'register_view'])->name('register');
     Route::post('checkPhoneToSendOtp',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'check_phone_to_send_otp'])->name('checkPhoneToSendOtp');
