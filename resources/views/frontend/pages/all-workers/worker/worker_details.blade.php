@@ -290,7 +290,7 @@
     <h1>طلب استقدام</h1>
     <ul>
         <li><a href="{{route('home')}}">{{__('frontend.Home')}} </a></li>
-        <li><a href="#!" class="active">اختر أحد مندوبي خدمة العملاء</a></li>
+        <li><a href="{{route('frontend.show.ourStaff')}}" class="active">اختر أحد مندوبي خدمة العملاء</a></li>
     </ul>
 </div>
 <!-- ================  / banner ================= -->

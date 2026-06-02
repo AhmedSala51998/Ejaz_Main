@@ -198,7 +198,7 @@
     <h1>تمت العملية بنجاح</h1>
     <ul aria-label="روابط التنقل الرئيسية">
         <li><a href="{{ route('home') }}" aria-label="العودة للرئيسية">الرئيسية</a></li>
-        <li><a href="#!" class="active" aria-current="page">نسيت كلمة المرور</a></li>
+        <li><a href="{{ route('auth.forget_password_view') }}" class="active" aria-current="page">نسيت كلمة المرور</a></li>
     </ul>
 </div>
 

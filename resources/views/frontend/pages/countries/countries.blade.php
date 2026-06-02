@@ -289,7 +289,7 @@
             <h1> دول الاستقدام </h1>
             <ul>
                 <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-                <li> <a href="#!" class="active"> دول الاستقدام </a> </li>
+                <li> <a href="{{route('frontend.show.countries')}}" class="active"> دول الاستقدام </a> </li>
             </ul>
         </div>
         <!-- ================  / banner ================= -->

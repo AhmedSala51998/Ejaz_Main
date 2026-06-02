@@ -512,7 +512,7 @@ body {
     <h1>مدونة الاستقدام</h1>
     <ul>
         <li><a href="{{ route('home') }}">الرئيسية</a></li>
-        <li><a class="active">المدونة</a></li>
+        <li><a href="{{route('blog.index')}}" class="active">المدونة</a></li>
     </ul>
 </div>
 

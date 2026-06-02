@@ -210,7 +210,7 @@
             <h1>     خدمة العملاء</h1>
             <ul>
                 <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-                <li> <a href="#!" class="active">   خدمة العملاء</a> </li>
+                <li> <a href="{{route('frontend.show.ourStaff')}}" class="active">   خدمة العملاء</a> </li>
             </ul>
         </div>
         <!-- ================  / banner ================= -->

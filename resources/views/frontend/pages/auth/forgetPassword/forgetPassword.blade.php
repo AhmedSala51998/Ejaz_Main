@@ -404,7 +404,7 @@
             <h1>{{__('frontend.Forget Password Page')}}</h1>
             <ul>
                 <li><a href="{{route('home')}}">{{__('frontend.Home')}}</a></li>
-                <li><a href="#!" class="active">{{__('frontend.Forget Password Page')}}</a></li>
+                <li><a href="{{ route('auth.forget_password_view') }}" class="active">{{__('frontend.Forget Password Page')}}</a></li>
             </ul>
         </div>
 

@@ -1,3 +1,6 @@
+@php
+    $branch = session('branch') ?? request()->cookie('branch');
+@endphp
 <style>
     footer {
         background: #F8F8F8;
@@ -170,11 +173,11 @@
             <div class="col-lg-4">
                 <h3>مزيد من الدعم</h3>
                 <ul class="connect">
-                    @if(Cookie::get('branch') == 'yanbu')
+                    @if($branch == 'yanbu')
                       <li><i style="color:#d97706 !important" class="fa-solid fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
-                    @elseif(Cookie::get('branch') == 'jeddah')
+                    @elseif($branch == 'jeddah')
                       <li><i style="color:#d97706 !important" class="fa-solid fa-location-dot"></i> الأمير فيصل، حي الخالدية، جدة 23423</li>
-                    @elseif(Cookie::get('branch') == 'riyadh')
+                    @elseif($branch == 'riyadh')
                         <li><i style="color:#d97706 !important" class="fa-solid fa-location-dot"></i> 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</li>
                     @else
                         <li><i style="color:#d97706 !important" class="fa-solid fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>

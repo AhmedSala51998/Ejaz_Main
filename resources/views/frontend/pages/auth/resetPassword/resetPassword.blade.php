@@ -402,7 +402,7 @@
         <h1>{{__('frontend.resetPassword')}}</h1>
         <ul>
             <li><a href="{{route('home')}}">{{__('frontend.Home')}}</a></li>
-            <li><a href="#" class="active">{{__('frontend.resetPassword')}}</a></li>
+            <li><a href="{{ route('auth.reset_password_view') }}" class="active">{{__('frontend.resetPassword')}}</a></li>
         </ul>
     </div>
 

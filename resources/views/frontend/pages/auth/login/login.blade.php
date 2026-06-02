@@ -427,7 +427,7 @@
             <h1>  {{__('frontend.Login Page')}} </h1>
             <ul>
                 <li><a href="{{route('home')}}">{{__('frontend.Home')}} </a></li>
-                <li><a href="#!" class="active">  {{__('frontend.Login Page')}} </a></li>
+                <li><a href="{{ route('auth.login') }}" class="active">  {{__('frontend.Login Page')}} </a></li>
             </ul>
         </div>
         <!-- ================  / banner ================= -->

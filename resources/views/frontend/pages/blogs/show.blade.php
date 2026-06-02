@@ -689,7 +689,7 @@ body{
     <ul>
         <li><a href="{{ route('home') }}">الرئيسية</a></li>
         <li><a href="{{ route('blog.index') }}">المدونة</a></li>
-        <li><a class="active">{{ $blog->title }}</a></li>
+        <li><a href="{{ route('blog.show', $blog->slug) }}" class="active">{{ $blog->title }}</a></li>
     </ul>
 </div>
 
@@ -702,7 +702,6 @@ body{
 
         <div class="hero-content">
             <span class="hero-tag">الاستقدام</span>
-            <h1>{{ $blog->title }}</h1>
             <div class="hero-meta">
                 {{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}
             </div>

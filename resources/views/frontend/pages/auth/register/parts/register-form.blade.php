@@ -4,7 +4,7 @@
         <h1>{{ __('frontend.create account') }}</h1>
         <ul>
             <li><a href="{{ route('home') }}">{{ __('frontend.Home') }}</a></li>
-            <li><a href="#!" class="active">{{ __('frontend.create account') }}</a></li>
+            <li><a href="{{ route('register') }}" class="active">{{ __('frontend.create account') }}</a></li>
         </ul>
     </div>
     <!-- ================  / banner ================= -->

@@ -512,7 +512,7 @@ body {
     <h1>سياسة الخصوصية</h1>
     <ul>
         <li><a href="{{ route('home') }}">الرئيسية</a></li>
-        <li><a class="active">سياسة الخصوصية</a></li>
+        <li><a href="{{ route('privacy') }}" class="active">سياسة الخصوصية</a></li>
     </ul>
 </div>
 

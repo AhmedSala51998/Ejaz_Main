@@ -1411,7 +1411,7 @@ body[dir="rtl"] .info-label {
         <h1> حسابي الشخصي </h1>
         <ul>
             <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-            <li> <a href="#!" class="active"> تفاصيل الحجز </a> </li>
+            <li> <a class="active"> تفاصيل الحجز </a> </li>
         </ul>
     </div>
     <section class="profile" style="margin-top:20px">
@@ -1451,7 +1451,7 @@ body[dir="rtl"] .info-label {
                                     <a href="{{route('auth.profile')}}"> طلبات الاستقدام </a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="active"> تفاصيل الطلب </a>
+                                    <a href="{{route('auth.profile')}}" class="active"> تفاصيل الطلب </a>
                                 </li>
                             </ul>
                         </div>

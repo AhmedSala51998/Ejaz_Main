@@ -357,7 +357,7 @@
         <h1> حسابي الشخصي </h1>
         <ul>
             <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-            <li> <a href="#!" class="active"> حسابي الشخصي </a> </li>
+            <li> <a href="{{route('auth.profile')}}" class="active"> حسابي الشخصي </a> </li>
         </ul>
     </div>
     <section class="profile profile-v2">

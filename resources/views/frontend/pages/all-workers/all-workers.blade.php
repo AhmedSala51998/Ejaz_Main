@@ -899,7 +899,7 @@
     <ul>
         <li><a href="{{ route('home') }}">الرئيسية</a></li>
         <li>
-            <a href="#" class="active">
+            <a href="{{ route('all-workers') }}" class="active">
                 @if(isset($transfer) && isset($countryNameAr))
                     نقل خدمات من {{ $countryNameAr }}
                 @elseif(isset($transfer))

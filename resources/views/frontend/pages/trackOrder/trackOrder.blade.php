@@ -137,7 +137,7 @@
             <h1> تتبع طلبك</h1>
             <ul>
                 <li> <a href="{{route('home')}}">{{__('frontend.Home')}} </a> </li>
-                <li> <a href="#!" class="active"> تتبع الطلب </a> </li>
+                <li> <a href="{{route('track_order_view')}}" class="active"> تتبع الطلب </a> </li>
             </ul>
         </div>
 

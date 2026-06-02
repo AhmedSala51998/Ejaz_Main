@@ -199,7 +199,7 @@ body{
             <h1> الأسئلة الشائعة </h1>
             <ul>
                 <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-                <li> <a href="#!" class="active">  الأسئلة الشائعة  </a> </li>
+                <li> <a href="{{route('frontend.frequently-questions')}}" class="active">  الأسئلة الشائعة  </a> </li>
             </ul>
         </div>
         <!-- ================  / banner ================= -->

@@ -665,7 +665,7 @@
             <h1> تواصل معنا </h1>
             <ul>
                 <li> <a href="{{route('home')}}">الرئيسية </a> </li>
-                <li> <a href="#!" class="active"> تواصل معنا </a> </li>
+                <li> <a href="{{route('frontend.supports.contactUs')}}" class="active"> تواصل معنا </a> </li>
             </ul>
         </div>
         <section class="mapEarth">

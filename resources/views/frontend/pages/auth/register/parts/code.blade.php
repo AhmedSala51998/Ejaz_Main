@@ -487,7 +487,7 @@
     <h1>{{ __('frontend.create account') }}</h1>
     <ul>
         <li><a href="{{ route('home') }}">{{ __('frontend.Home') }}</a></li>
-        <li><a href="#!" class="active">كود التفعيل</a></li>
+        <li><a href="{{ route('register') }}" class="active">كود التفعيل</a></li>
     </ul>
 </div>
 <!-- ================  / banner ================= -->

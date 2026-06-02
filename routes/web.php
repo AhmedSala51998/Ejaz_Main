@@ -77,6 +77,18 @@ Route::group(
     Route::post('loginAction',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_action'])
         ->name('auth.login_action');
 
+    Route::redirect(
+        '/blog/aldol-almsmoh-alastkdam-mnha-fy-alsaaody',
+        '/blog/aldol-almsmoh-alastkdam-mnha-fy-alsaaodyh',
+        301
+    );
+
+    Route::redirect(
+        '/blog/ma-ho-alastkdam-fy-almmlk-alaarby-alsaaody',
+        '/blog/ma-ho-alastkdam-fy-almmlk-alaarby-alsaaody-onthamh-algdyd',
+        301
+    );
+
     Route::get('/blog', [\App\Http\Controllers\Frontend\Blog\BlogController::class,'index'])->name('blog.index');
     Route::get('/blog/{slug}', [\App\Http\Controllers\Frontend\Blog\BlogController::class,'show'])->name('blog.show');
 
