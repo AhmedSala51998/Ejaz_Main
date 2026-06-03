@@ -180,6 +180,13 @@ Route::group(
                     return false;
                 }
 
+                if (
+                    isset($route->getAction()['controller']) &&
+                    str_contains($route->getAction()['controller'], 'RedirectController')
+                ) {
+                    return false;
+                }
+
                 $uri = $route->uri();
 
                 if (str_contains($uri, '{')) {
