@@ -51,6 +51,22 @@
             </div>
         </div>
 
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="country_name_en">
+                    اسم الدولة بالإنجليزي
+                </label>
+
+                <input
+                    data-validation="required"
+                    type="text"
+                    class="form-control"
+                    id="country_name_en"
+                    name="country_name_en"
+                    placeholder="Country Name">
+            </div>
+        </div>
+
 
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">

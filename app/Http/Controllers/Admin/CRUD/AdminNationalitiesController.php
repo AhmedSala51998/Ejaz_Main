@@ -38,6 +38,9 @@ class AdminNationalitiesController extends Controller
                /* ->editColumn('desc', function ($row) {
                     return $row->desc;
                 })*/
+                ->editColumn('country_name_en', function ($row) {
+                    return $row->country_name_en;
+                })
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d',strtotime($row->created_at));
                 })
@@ -99,6 +102,7 @@ class AdminNationalitiesController extends Controller
             'image'=>'required|file|image',
              'desc'=>'required',
              'country_name'=>'required',
+             'country_name_en'=>'required',
            'price'=>'required',
            'price_service'=>'required',
            /* 'desc'=>'required|array',
@@ -112,6 +116,7 @@ class AdminNationalitiesController extends Controller
         $data['title'] = $name;
         $data['price'] = $request->price;
         $data['price_service'] = $request->price_service;
+        $data['country_name_en'] = $request->country_name_en;
 
         $data ['image'] = $this->uploadFiles('countries',$request->file('image'),null );
 
@@ -169,6 +174,7 @@ class AdminNationalitiesController extends Controller
             'image'=>'nullable|file|image',
             'desc'=>'required',
             'country_name'=>'required',
+            'country_name_en'=>'required',
             'price'=>'required',
             'price_service'=>'required',
            /* 'desc'=>'required|array',
@@ -190,6 +196,7 @@ class AdminNationalitiesController extends Controller
           /*  $data['desc'] = $desc;*/
             $data['price'] = $request->price;
             $data['price_service'] = $request->price_service;
+            $data['country_name_en'] = $request->country_name_en;
             $slider->update($data);
             //Cache::forget('countries');
             return response()->json(1,200);

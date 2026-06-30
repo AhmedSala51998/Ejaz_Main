@@ -74,6 +74,7 @@
                                     </a>
                                 </th>
                                 <th>اسم الدولة</th>
+                                <th>اسم الدولة بالإنجليزي</th>
                                 <th> علم الدولة</th>
                                 <th> سعر الاستقدام</th>
                                 <th> سعر نقل الخدمات</th>
@@ -165,6 +166,11 @@
                 },
                 {
                     "data": "country_name",
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    "data": "country_name_en",
                     orderable: false,
                     searchable: false
                 },
