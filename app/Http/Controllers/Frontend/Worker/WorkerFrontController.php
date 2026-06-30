@@ -357,9 +357,13 @@ class WorkerFrontController extends Controller
             return Job::all();
         });
 
-        $nationalities = Cache::rememberForever('nationalities_all', function() {
+        /*$nationalities = Cache::rememberForever('nationalities_all', function() {
             return Nationalitie::orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')->get();
-        });
+        });*/
+
+        $nationalities = Nationalitie::orderByRaw(
+            'CASE WHEN id = 7 THEN 0 ELSE 1 END'
+        )->get();
 
         $countryNameAr = null;
         if ($name) {
