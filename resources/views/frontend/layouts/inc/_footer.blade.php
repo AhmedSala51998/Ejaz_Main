@@ -118,46 +118,132 @@
         }
     }
 
+    /* =========================================
+    FOOTER FINANCING
+    ========================================= */
 
-    .installment-logos {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-top: 18px;
-        flex-wrap: wrap;
-        }
+    .footer-financing {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    }
 
-        .installment-logo {
-        width: 120px;
-        height: 65px;
-        background: #fff;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 14px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
+    .financing-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 13px;
+    }
 
-        .installment-logo img {
-        max-width: 100%;
-        max-height: 42px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        }
+    .financing-title::before {
+    content: "";
+    width: 3px;
+    height: 17px;
+    background: #d89835;
+    border-radius: 10px;
+    }
 
-        @media (max-width: 767px) {
-        .installment-logos {
-        justify-content: flex-start;
-        }
+    .financing-title span {
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    }
 
-        .installment-logo {
-            width: 110px;
-            height: 60px;
-        }
+    .financing-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    }
 
-        }
+    .financing-card {
+    width: 105px;
+    height: 52px;
+    padding: 8px 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+    }
+
+    .financing-card img {
+    display: block;
+    max-width: 100%;
+    max-height: 34px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    }
+
+    .financing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+    border-color: rgba(216, 152, 53, 0.45);
+    }
+
+    /* =========================================
+    TABLET
+    ========================================= */
+
+    @media (max-width: 991.98px) {
+
+    .footer-financing {
+        margin-top: 22px;
+    }
+
+    .financing-card {
+        width: 100px;
+        height: 50px;
+    }
+
+    }
+
+    /* =========================================
+    MOBILE
+    ========================================= */
+
+    @media (max-width: 575.98px) {
+
+    .footer-financing {
+        margin-top: 20px;
+        padding-top: 16px;
+    }
+
+    .financing-title {
+        margin-bottom: 12px;
+    }
+
+    .financing-title span {
+        font-size: 12px;
+    }
+
+    .financing-logos {
+        gap: 9px;
+    }
+
+    .financing-card {
+        width: 96px;
+        height: 48px;
+        padding: 7px 11px;
+        border-radius: 9px;
+    }
+
+    .financing-card img {
+        max-height: 31px;
+    }
+
+    }
+
 
 </style>
 
@@ -249,25 +335,8 @@
                         <li><a target="_blank" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a></li>
                     @endif
                 </ul>
-            </div>
 
-            <div class="col-lg-4">
-                <h3>خيارات التقسيط</h3>
-
-                <div class="installment-logos">
-                    <div class="installment-logo">
-                        <img src="{{ asset('frontend/img/tamara.png') }}"
-                            alt="تمارا"
-                            loading="lazy">
-                    </div>
-
-                    <div class="installment-logo">
-                        <img src="{{ asset('frontend/img/emkan.png') }}"
-                            alt="إمكان"
-                            loading="lazy">
-                    </div>
-                </div>
-
+                {{-- Financing --}} <div class="footer-financing"> <div class="financing-title"> <span>خيارات دفع مرنة</span> </div> <div class="financing-logos"> <div class="financing-card"> <img src="{{asset('frontend/img/tamara.webp')}}" alt="تمارا" loading="lazy" decoding="async"> </div> <div class="financing-card"> <img src="{{asset('frontend/img/emkan.webp')}}" alt="إمكان" loading="lazy" decoding="async"> </div> </div> </div>
             </div>
 
             <div class="col-12">
