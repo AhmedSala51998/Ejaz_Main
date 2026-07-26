@@ -245,57 +245,542 @@
     }
 
 
+
+
+
+/* =========================================
+   EJAZ APP DOWNLOAD
+========================================= */
+
+.footer-app-download {
+    margin-top: 28px;
+    width: 100%;
+}
+
+.footer-app-content {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 16px;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 14px;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.footer-app-content:hover {
+    background: rgba(255, 255, 255, 0.065);
+    border-color: rgba(216, 152, 53, 0.35);
+    transform: translateY(-2px);
+}
+
+
+/* TEXT */
+
+.footer-app-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.footer-app-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #d89835;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.footer-app-text h4 {
+    margin: 0 0 5px;
+
+    color: #000;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.footer-app-text p {
+    margin: 0;
+
+    color: #000;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+}
+
+
+/* STORE BUTTONS */
+
+.footer-app-stores {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 10px;
+}
+
+.footer-app-stores a {
+    display: block;
+
+    line-height: 0;
+}
+
+.footer-app-stores img {
+    display: block;
+
+    width: auto;
+    height: 27px;
+
+    object-fit: contain;
+}
+
+
+/* QR */
+
+.footer-app-qr {
+    flex: 0 0 auto;
+
+    width: 78px;
+    height: 78px;
+
+    padding: 5px;
+
+    background: #fff;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-app-qr img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 991.98px) {
+
+    .footer-app-content {
+        padding: 14px;
+    }
+
+    .footer-app-qr {
+        width: 74px;
+        height: 74px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 575.98px) {
+
+    .footer-app-download {
+        margin-top: 22px;
+    }
+
+    .footer-app-content {
+        gap: 12px;
+
+        padding: 12px;
+
+        border-radius: 12px;
+    }
+
+    .footer-app-text h4 {
+        font-size: 14px;
+    }
+
+    .footer-app-text p {
+        font-size: 9px;
+    }
+
+    .footer-app-stores {
+        gap: 5px;
+        margin-top: 9px;
+    }
+
+    .footer-app-stores img {
+        height: 24px;
+    }
+
+    .footer-app-qr {
+        width: 68px;
+        height: 68px;
+        padding: 4px;
+    }
+
+}
+
+
+
+
+
+/* =========================================
+   EJAZ APP INTRO
+========================================= */
+
+.footer-app-intro {
+    margin-top: 22px;
+}
+
+.footer-app-intro .footer-app-label {
+    display: inline-block;
+
+    margin-bottom: 5px;
+
+    color: #d89835;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+.footer-app-intro h4 {
+    margin: 0 0 6px;
+
+    color: #000;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+.footer-app-intro p {
+    margin: 0;
+
+    max-width: 340px;
+
+    color: #000;
+
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+
+/* Store Buttons */
+
+.store-buttons-footer {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.store-buttons-footer a {
+    display: block;
+    line-height: 0;
+}
+
+.store-buttons-footer img {
+    display: block;
+
+    width: auto;
+    height: 38px;
+
+    object-fit: contain;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.store-buttons-footer a:hover img {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 575.98px) {
+
+    .footer-app-intro {
+        margin-top: 18px;
+    }
+
+    .footer-app-intro .footer-app-label {
+        font-size: 11px;
+    }
+
+    .footer-app-intro h4 {
+        font-size: 15px;
+    }
+
+    .footer-app-intro p {
+        font-size: 10px;
+        line-height: 1.7;
+    }
+
+    .store-buttons-footer {
+        gap: 7px;
+    }
+
+    .store-buttons-footer img {
+        height: 34px;
+    }
+
+}
+
+
+.footer-app-qr {
+    flex: 0 0 auto;
+
+    width: 130px;
+    height: 130px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.footer-app-qr img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
 </style>
 
 <footer dir="rtl">
     <div class="container">
-        <div class="row gy-4">
+        <div class="row gy-4 align-items-start">
             <div class="col-lg-4">
                 <div class="footer-logo">
                     <a href="{{route('home')}}">
-                        <!--<img src="{{asset('frontend/img/ramadan_logo.png')}}" alt="logo">-->
-                        <img src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="logo">
+                        <img
+                            src="{{$settings->footer_logo ? get_file($settings->footer_logo) : asset('frontend/img/logo.svg')}}"
+                            alt="شعار شركة إيجاز للاستقدام">
                     </a>
                 </div>
+
                 <p>{{$settings->footer_desc}}</p>
-                <div class="store-buttons-footer mt-4">
-                    <a href="https://play.google.com/store/apps/details?id=com.app.ejaz" target="_blank">
-                        <img src="/frontend/img/google-play-android.webp" alt="Google Play">
+
+                {{-- تطبيق إيجاز --}}
+                <div class="footer-app-intro">
+
+                    <span class="footer-app-label">
+                        تطبيق إيجاز
+                    </span>
+
+                    <h4>
+                        حمّل تطبيق إيجاز
+                    </h4>
+
+                    <p>
+                        أنجز طلبات الاستقدام وتابع طلبك بسهولة من جوالك
+                    </p>
+
+                </div>
+
+                {{-- Store Buttons --}}
+                <div class="store-buttons-footer mt-3">
+
+                    <a
+                        href="https://play.google.com/store/apps/details?id=com.app.ejaz"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="تحميل تطبيق إيجاز من Google Play">
+
+                        <img
+                            src="/frontend/img/google-play-android.webp"
+                            alt="Google Play"
+                            loading="lazy"
+                            decoding="async">
                     </a>
 
-                    <a href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722" target="_blank">
-                        <img src="/frontend/img/apple-iphone-ios.webp" alt="App Store">
+                    <a
+                        href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="تحميل تطبيق إيجاز من App Store">
+
+                        <img
+                            src="/frontend/img/apple-iphone-ios.webp"
+                            alt="App Store"
+                            loading="lazy"
+                            decoding="async">
                     </a>
+
                 </div>
             </div>
 
-            <div class="col-lg-2 col-6">
-                <h3>روابط سريعة</h3>
-                <ul>
-                    <li><a href="{{route('all-workers')}}">طلب استقدام عمالة</a></li>
-                    <li><a href="{{trans('transferService')}}">طلب نقل خدمات</a></li>
-                    <li><a href="{{route('track_order_view')}}">تتبع طلبك</a></li>
-                    @auth
-                        <li><a href="{{route('auth.profile')}}">{{__('frontend.profile')}}</a></li>
-                        <li><a href="{{route('auth.profile')}}">طلبات الاستقدام</a></li>
-                    @endauth
-                    @guest
-                        <li><a href="{{route('auth.login')}}">{{__('frontend.Login')}}</a></li>
-                    @endguest
-                    <li><a href="{{route('frontend.frequently-questions')}}">الأسئلة الشائعة</a></li>
-                </ul>
-            </div>
+            <div class="col-lg-4 col-md-6 col-12">
 
-            <div class="col-lg-2 col-6">
-                <h3>روابط تهمك</h3>
-                <ul>
-                    <li><a href="{{route('blog.index')}}">مدوناتنا</a></li>
-                    <li><a href="{{route('frontend.aboutUs')}}">من نحن</a></li>
-                    <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
-                    <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
-                    <li><a href="{{route('frontend.supports.contactUs')}}">{{__('frontend.contactUs')}}</a></li>
-                    <li><a href="{{ route('privacy') }}">سياسة الخصوصية</a></li>
-                </ul>
+                <div class="row">
+
+                    {{-- روابط سريعة --}}
+                    <div class="col-6">
+                        <h3>روابط سريعة</h3>
+
+                        <ul>
+                            <li><a href="{{route('all-workers')}}">طلب استقدام عمالة</a></li>
+                            <li><a href="{{trans('transferService')}}">طلب نقل خدمات</a></li>
+                            <li><a href="{{route('track_order_view')}}">تتبع طلبك</a></li>
+
+                            @auth
+                                <li>
+                                    <a href="{{route('auth.profile')}}">
+                                        {{__('frontend.profile')}}
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{route('auth.profile')}}">
+                                        طلبات الاستقدام
+                                    </a>
+                                </li>
+                            @endauth
+
+                            @guest
+                                <li>
+                                    <a href="{{route('auth.login')}}">
+                                        {{__('frontend.Login')}}
+                                    </a>
+                                </li>
+                            @endguest
+
+                            <li>
+                                <a href="{{route('frontend.frequently-questions')}}">
+                                    الأسئلة الشائعة
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    {{-- روابط تهمك --}}
+                    <div class="col-6">
+                        <h3>روابط تهمك</h3>
+
+                        <ul>
+                            <li><a href="{{route('blog.index')}}">مدوناتنا</a></li>
+                            <li><a href="{{route('frontend.aboutUs')}}">من نحن</a></li>
+                            <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
+                            <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
+
+                            <li>
+                                <a href="{{route('frontend.supports.contactUs')}}">
+                                    {{__('frontend.contactUs')}}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{route('privacy')}}">
+                                    سياسة الخصوصية
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    {{-- التطبيق تحت الاثنين --}}
+                    <div class="col-12">
+
+                        <div class="footer-app-download">
+
+                            <div class="footer-app-content">
+
+                                <div class="footer-app-text">
+
+                                    <span class="footer-app-label">
+                                        تطبيق إيجاز
+                                    </span>
+
+                                    <h4>
+                                        حمّل تطبيق إيجاز
+                                    </h4>
+
+                                    <p>
+                                        امسح رمز QR لتحميل التطبيق والاستفادة من خدمات إيجاز بسهولة
+                                    </p>
+
+                                    <div class="footer-app-stores">
+
+                                        <a href="https://play.google.com/store/apps/details?id=com.app.ejaz"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+
+                                            <img
+                                                src="{{asset('frontend/img/google-play-android.webp')}}"
+                                                alt="Google Play"
+                                                loading="lazy"
+                                                decoding="async">
+
+                                        </a>
+
+                                        <a href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+
+                                            <img
+                                                src="{{asset('frontend/img/apple-iphone-ios.webp')}}"
+                                                alt="App Store"
+                                                loading="lazy"
+                                                decoding="async">
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="footer-app-qr">
+
+                                    <img
+                                        src="{{asset('frontend/img/ejaz-app-qr.png')}}"
+                                        alt="QR Code لتحميل تطبيق إيجاز"
+                                        loading="lazy"
+                                        decoding="async">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
             <div class="col-lg-4">

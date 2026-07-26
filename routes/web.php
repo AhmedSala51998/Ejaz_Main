@@ -334,6 +334,28 @@ Route::group(
             ->header('Content-Type', 'application/xml');
     });
 
+    Route::get('/app', function () {
+
+        $userAgent = request()->userAgent();
+
+        // iPhone / iPad
+        if (preg_match('/iPhone|iPad|iPod/i', $userAgent)) {
+            return redirect()->away(
+                'https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722'
+            );
+        }
+
+        // Android
+        if (preg_match('/Android/i', $userAgent)) {
+            return redirect()->away(
+                'https://play.google.com/store/apps/details?id=com.app.ejaz'
+            );
+        }
+
+        // Computer
+        return redirect()->route('home');
+    });
+
     //profile
     Route::get('profile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'profile_view'])->name('auth.profile');
 
