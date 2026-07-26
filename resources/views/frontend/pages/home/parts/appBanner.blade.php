@@ -67,7 +67,7 @@
                             <div class="app-qr-image">
 
                                 <img
-                                    src="{{asset('frontend/img/ejaz-app-qr.png')}}"
+                                    src="{{asset('frontend/img/ejaz-app-qr_full.png')}}"
                                     alt="رمز QR لتحميل تطبيق إيجاز"
                                     loading="lazy"
                                     decoding="async">
@@ -264,119 +264,6 @@
 
     margin-top: 32px;
 }
-
-
-/* =========================================================
-   QR CARD
-========================================================= */
-
-.app-qr-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 9px 13px;
-
-    min-height: 112px;
-
-    background: rgba(255, 255, 255, 0.92);
-
-    border: 1px solid rgba(216, 152, 53, 0.18);
-
-    border-radius: 17px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.07);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-}
-
-
-.app-qr-card:hover {
-
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.10);
-}
-
-
-/* QR image container */
-
-.app-qr-image {
-
-    width: 92px;
-    height: 92px;
-
-    flex: 0 0 92px;
-
-    padding: 5px;
-
-    background: #fff;
-
-    border-radius: 10px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-.app-qr-image img {
-
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: contain;
-}
-
-
-/* QR text */
-
-.app-qr-info {
-
-    display: flex;
-
-    flex-direction: column;
-
-    text-align: right;
-
-    min-width: 100px;
-}
-
-
-.app-qr-info strong {
-
-    color: #222;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    line-height: 1.6;
-}
-
-
-.app-qr-info span {
-
-    color: #777;
-
-    font-size: 10px;
-
-    line-height: 1.6;
-
-    margin-top: 2px;
-}
-
 
 /* =========================================================
    STORE BUTTONS
@@ -1196,5 +1083,230 @@
     .app-qr-heading p {
         font-size: 10px;
     }
+}
+
+
+
+@media (max-width: 991.98px) {
+
+    /* =========================================
+       PHONES - MOBILE
+    ========================================= */
+
+    .phones-wrapper {
+        position: relative;
+
+        width: 100%;
+
+        /* نزود المساحة المخصصة للصور */
+        min-height: 390px;
+
+        margin-bottom: 45px;
+
+        display: flex;
+        justify-content: center;
+
+        z-index: 2;
+    }
+
+    .phone-img {
+        max-width: 165px;
+
+        border-radius: 25px;
+    }
+
+    .main-phone {
+        position: absolute;
+
+        left: 50%;
+        top: 0;
+
+        transform: translateX(-75%);
+    }
+
+    .second-phone {
+        position: absolute;
+
+        left: 50%;
+        top: 40px;
+
+        transform: translateX(5%);
+    }
+
+
+    /* =========================================
+       CONTENT - MOBILE
+    ========================================= */
+
+    .download-content {
+
+        position: relative;
+
+        z-index: 3;
+
+        text-align: center;
+
+        /* مسافة أمان إضافية */
+        padding-top: 15px;
+
+        padding-bottom: 20px;
+    }
+
+
+    .app-download-label {
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        margin-bottom: 12px;
+    }
+
+
+    .download-content h2 {
+
+        margin-top: 0;
+
+        margin-bottom: 18px;
+
+        font-size: 30px;
+
+        line-height: 1.45;
+    }
+
+
+    .download-content p {
+
+        max-width: 600px;
+
+        margin: 0 auto;
+
+        font-size: 14px;
+
+        line-height: 2;
+
+    }
+
+
+    /* =========================================
+       QR + STORES
+    ========================================= */
+
+    .app-download-actions {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        width: 100%;
+
+        gap: 28px;
+
+        margin-top: 35px;
+    }
+
+
+    .app-qr-card {
+
+        width: 100%;
+
+        max-width: 330px;
+
+        min-height: 350px;
+
+        margin-top: 0;
+    }
+
+}
+
+@media (max-width: 575.98px) {
+
+    .phones-wrapper {
+
+        min-height: 340px;
+
+        margin-bottom: 50px;
+    }
+
+
+    .phone-img {
+
+        max-width: 145px;
+
+        border-radius: 22px;
+    }
+
+
+    .main-phone {
+
+        top: 0;
+
+        transform: translateX(-72%);
+    }
+
+
+    .second-phone {
+
+        top: 35px;
+
+        transform: translateX(0);
+    }
+
+
+    .download-content {
+
+        padding-top: 10px;
+
+        padding-left: 8px;
+
+        padding-right: 8px;
+    }
+
+
+    .app-download-label {
+
+        margin-bottom: 10px;
+    }
+
+
+    .download-content h2 {
+
+        font-size: 24px;
+
+        line-height: 1.5;
+
+        margin-bottom: 16px;
+    }
+
+
+    .download-content p {
+
+        font-size: 13px;
+
+        line-height: 2;
+
+        margin-bottom: 0;
+    }
+
+
+    .app-download-actions {
+
+        margin-top: 30px;
+
+        gap: 25px;
+    }
+
+
+    .app-qr-card {
+
+        max-width: 100%;
+
+        min-height: 330px;
+    }
+
 }
 </style>
