@@ -51,25 +51,26 @@
                         {{-- QR --}}
                         <div class="app-qr-card">
 
+                            <div class="app-qr-heading">
+                                <span>تحميل سريع</span>
+
+                                <h3>
+                                    امسح الكود
+                                </h3>
+
+                                <p>
+                                    وجّه كاميرا جوالك إلى رمز QR
+                                    لتحميل تطبيق إيجاز مباشرة
+                                </p>
+                            </div>
+
                             <div class="app-qr-image">
 
                                 <img
-                                    src="{{asset('frontend/img/ejaz-app-qr_full.png')}}"
+                                    src="{{asset('frontend/img/ejaz-app-qr.png')}}"
                                     alt="رمز QR لتحميل تطبيق إيجاز"
                                     loading="lazy"
                                     decoding="async">
-
-                            </div>
-
-                            <div class="app-qr-info">
-
-                                <strong>
-                                    امسح رمز QR
-                                </strong>
-
-                                <span>
-                                    لتحميل تطبيق إيجاز
-                                </span>
 
                             </div>
 
@@ -662,6 +663,7 @@
         text-align: center;
 
         padding: 10px 0 15px;
+        margin-top: 20px !important
     }
 
 
@@ -917,5 +919,282 @@
         font-size: 13px;
     }
 
+}
+
+
+
+/* =========================================
+   PREMIUM LARGE QR CARD
+========================================= */
+
+.app-qr-card {
+    position: relative;
+
+    width: 300px;
+    min-height: 300px;
+
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,.96);
+
+    border: 1px solid rgba(216,152,53,.20);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.10);
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.app-qr-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 25px 55px rgba(0,0,0,.14);
+}
+
+
+/* لمسة ذهبية */
+
+.app-qr-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    top: -75px;
+    right: -75px;
+
+    background: rgba(216,152,53,.12);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   QR HEADING
+========================================= */
+
+.app-qr-heading {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    text-align: center;
+
+    margin-bottom: 12px;
+}
+
+.app-qr-heading span {
+    display: block;
+
+    color: #d89835;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    margin-bottom: 2px;
+}
+
+.app-qr-heading h3 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.app-qr-heading p {
+    margin: 4px auto 0;
+
+    max-width: 230px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   LARGE QR
+========================================= */
+
+.app-qr-image {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 220px;
+    height: 220px;
+
+    padding: 8px;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
+}
+
+.app-qr-image img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.app-download-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 30px;
+
+    margin-top: 35px;
+}
+
+
+@media (max-width: 991.98px) {
+
+    .app-download-actions {
+        flex-direction: column;
+
+        align-items: center;
+
+        width: 100%;
+
+        gap: 25px;
+
+        margin-top: 30px;
+    }
+
+
+    .app-qr-card {
+
+        width: 100%;
+
+        max-width: 330px;
+
+        min-height: 350px;
+
+        padding: 20px 15px;
+
+        border-radius: 24px;
+    }
+
+
+    .app-qr-heading {
+        margin-bottom: 15px;
+    }
+
+
+    .app-qr-heading h3 {
+        font-size: 21px;
+    }
+
+
+    .app-qr-heading p {
+        font-size: 11px;
+
+        max-width: 250px;
+    }
+
+
+    .app-qr-image {
+
+        width: 245px;
+        height: 245px;
+
+        padding: 8px;
+
+        border-radius: 17px;
+    }
+
+
+    .store-buttons {
+
+        width: 100%;
+
+        max-width: 330px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 10px;
+    }
+
+
+    .store-btn {
+
+        width: 100%;
+
+        max-width: 330px;
+
+        height: 58px;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .app-qr-card {
+
+        max-width: 100%;
+
+        min-height: 330px;
+
+        padding: 18px 10px;
+    }
+
+
+    .app-qr-image {
+
+        width: 225px;
+        height: 225px;
+    }
+
+
+    .app-qr-heading h3 {
+        font-size: 20px;
+    }
+
+
+    .app-qr-heading p {
+        font-size: 10px;
+    }
 }
 </style>
