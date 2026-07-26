@@ -39,6 +39,15 @@ class AppServiceProvider extends ServiceProvider
         /*view()->share('settings', Cache::rememberForever('settings', function () {
             return Setting::first();
         }));*/
-        view()->share('settings', Setting::first());
+        $settings = Setting::first();
+
+        dd([
+            'database' => config('database.connections.mysql.database'),
+            'host' => config('database.connections.mysql.host'),
+            'settings_id' => $settings?->id,
+            'footer_desc' => $settings?->footer_desc,
+        ]);
+
+        view()->share('settings', $settings);
     }
 }
