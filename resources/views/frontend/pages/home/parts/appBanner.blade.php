@@ -17,7 +17,7 @@
                         قدّم طلبك خلال دقائق وتابع خطواتك أولاً بأول بكل سهولة وراحة.
                     </p>
 
-                    <div class="store-buttons">
+                    <!--<div class="store-buttons">
                         <a href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722" class="store-btn">
                             <span>App Store</span>
                             <img src="https://cdn-icons-png.flaticon.com/512/888/888841.png">
@@ -27,6 +27,73 @@
                             <span>Google Play</span>
                             <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png">
                         </a>
+                    </div>-->
+                    <div class="download-actions">
+
+                        <div class="store-buttons">
+
+                            <a href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722"
+                            class="store-btn"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                                <span>App Store</span>
+
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/888/888841.png"
+                                    alt="App Store"
+                                    loading="lazy"
+                                    decoding="async">
+
+                            </a>
+
+                            <a href="https://play.google.com/store/apps/details?id=com.app.ejaz"
+                            class="store-btn"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                                <span>Google Play</span>
+
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/888/888857.png"
+                                    alt="Google Play"
+                                    loading="lazy"
+                                    decoding="async">
+
+                            </a>
+
+                        </div>
+
+
+                        {{-- QR Code --}}
+                        <div class="app-qr-download">
+
+                            <div class="app-qr-text">
+
+                                <span>أو</span>
+
+                                <strong>
+                                    امسح رمز QR
+                                </strong>
+
+                                <small>
+                                    لتحميل تطبيق إيجاز
+                                </small>
+
+                            </div>
+
+                            <div class="app-qr-image">
+
+                                <img
+                                    src="{{asset('frontend/img/ejaz-app-qr_full.png')}}"
+                                    alt="QR Code لتحميل تطبيق إيجاز"
+                                    loading="lazy"
+                                    decoding="async">
+
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -212,5 +279,169 @@
     .download-content{
         text-align: right;
     }
+}
+
+
+
+/* =========================================
+   APP DOWNLOAD ACTIONS
+========================================= */
+
+.download-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 28px;
+    margin-top: 45px;
+}
+
+
+/* =========================================
+   STORE BUTTONS
+========================================= */
+
+.store-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin: 0;
+}
+
+.store-btn {
+    background: #fff;
+    border-radius: 12px;
+
+    padding: 10px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    text-decoration: none;
+
+    width: 210px;
+    height: 58px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.store-btn:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 30px rgba(0,0,0,.12);
+}
+
+.store-btn img {
+    width: 28px;
+    height: 28px;
+
+    object-fit: contain;
+}
+
+.store-btn span {
+    flex: 1;
+
+    color: #333;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   QR DOWNLOAD
+========================================= */
+
+.app-qr-download {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 8px 12px;
+
+    background: rgba(255,255,255,.55);
+
+    border: 1px solid rgba(216,152,53,.18);
+
+    border-radius: 16px;
+}
+
+.app-qr-text {
+    display: flex;
+    flex-direction: column;
+
+    text-align: right;
+
+    min-width: 105px;
+}
+
+.app-qr-text span {
+    color: #d89835;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 2px;
+}
+
+.app-qr-text strong {
+    color: #222;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    line-height: 1.5;
+}
+
+.app-qr-text small {
+    color: #666;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   QR IMAGE
+========================================= */
+
+.app-qr-image {
+    width: 105px;
+    height: 105px;
+
+    flex: 0 0 105px;
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.app-qr-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
 }
 </style>

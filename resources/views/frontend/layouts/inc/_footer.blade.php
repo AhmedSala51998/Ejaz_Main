@@ -271,6 +271,7 @@
     background: rgba(255, 255, 255, 0.045);
 
     border: 1px solid rgba(255, 255, 255, 0.10);
+    border-color: rgba(216, 152, 53, 0.35);
 
     border-radius: 14px;
 
@@ -593,7 +594,6 @@
 
                 <p>{{$settings->footer_desc}}</p>
 
-                {{-- تطبيق إيجاز --}}
                 <div class="footer-app-intro">
 
                     <span class="footer-app-label">
@@ -610,7 +610,6 @@
 
                 </div>
 
-                {{-- Store Buttons --}}
                 <div class="store-buttons-footer mt-3">
 
                     <a
@@ -646,7 +645,6 @@
 
                 <div class="row">
 
-                    {{-- روابط سريعة --}}
                     <div class="col-6">
                         <h3>روابط سريعة</h3>
 
@@ -686,7 +684,6 @@
                     </div>
 
 
-                    {{-- روابط تهمك --}}
                     <div class="col-6">
                         <h3>روابط تهمك</h3>
 
@@ -710,8 +707,6 @@
                         </ul>
                     </div>
 
-
-                    {{-- التطبيق تحت الاثنين --}}
                     <div class="col-12">
 
                         <div class="footer-app-download">
@@ -821,7 +816,7 @@
                     @endif
                 </ul>
 
-                {{-- Financing --}} <div class="footer-financing"> <div class="financing-title"> <span>خيارات دفع مرنة</span> </div> <div class="financing-logos"> <div class="financing-card"> <img src="{{asset('frontend/img/tamara.png')}}" alt="تمارا" loading="lazy" decoding="async"> </div> <div class="financing-card"> <img src="{{asset('frontend/img/emkan.png')}}" alt="إمكان" loading="lazy" decoding="async"> </div> </div> </div>
+                <div class="footer-financing"> <div class="financing-title"> <span>خيارات دفع مرنة</span> </div> <div class="financing-logos"> <div class="financing-card"> <img src="{{asset('frontend/img/tamara.png')}}" alt="تمارا" loading="lazy" decoding="async"> </div> <div class="financing-card"> <img src="{{asset('frontend/img/emkan.png')}}" alt="إمكان" loading="lazy" decoding="async"> </div> </div> </div>
             </div>
 
             <div class="col-12">
