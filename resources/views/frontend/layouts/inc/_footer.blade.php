@@ -336,7 +336,7 @@
                     @endif
                 </ul>
 
-                {{-- Financing --}} <div class="footer-financing"> <div class="financing-title"> <span>خيارات دفع مرنة</span> </div> <div class="financing-logos"> <div class="financing-card"> <img src="{{asset('frontend/img/tamara.webp')}}" alt="تمارا" loading="lazy" decoding="async"> </div> <div class="financing-card"> <img src="{{asset('frontend/img/emkan.webp')}}" alt="إمكان" loading="lazy" decoding="async"> </div> </div> </div>
+                {{-- Financing --}} <div class="footer-financing"> <div class="financing-title"> <span>خيارات دفع مرنة</span> </div> <div class="financing-logos"> <div class="financing-card"> <img src="{{asset('frontend/img/tamara.png')}}" alt="تمارا" loading="lazy" decoding="async"> </div> <div class="financing-card"> <img src="{{asset('frontend/img/emkan.png')}}" alt="إمكان" loading="lazy" decoding="async"> </div> </div> </div>
             </div>
 
             <div class="col-12">
