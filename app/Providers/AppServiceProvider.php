@@ -36,18 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
         Passport::routes();
-        /*view()->share('settings', Cache::rememberForever('settings', function () {
+        view()->share('settings', Cache::rememberForever('settings', function () {
             return Setting::first();
-        }));*/
-        $settings = Setting::first();
-
-        dd([
-            'database' => config('database.connections.mysql.database'),
-            'host' => config('database.connections.mysql.host'),
-            'settings_id' => $settings?->id,
-            'footer_desc' => $settings?->footer_desc,
-        ]);
-
-        view()->share('settings', $settings);
+        }));
     }
 }
