@@ -117,6 +117,48 @@
             justify-content: center;
         }
     }
+
+
+    .installment-logos {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+        }
+
+        .installment-logo {
+        width: 120px;
+        height: 65px;
+        background: #fff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .installment-logo img {
+        max-width: 100%;
+        max-height: 42px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        }
+
+        @media (max-width: 767px) {
+        .installment-logos {
+        justify-content: flex-start;
+        }
+
+        .installment-logo {
+            width: 110px;
+            height: 60px;
+        }
+
+        }
+
 </style>
 
 <footer dir="rtl">
@@ -207,6 +249,25 @@
                         <li><a target="_blank" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a></li>
                     @endif
                 </ul>
+            </div>
+
+            <div class="col-lg-4">
+                <h3>خيارات التقسيط</h3>
+
+                <div class="installment-logos">
+                    <div class="installment-logo">
+                        <img src="{{ asset('frontend/img/tamara.png') }}"
+                            alt="تمارا"
+                            loading="lazy">
+                    </div>
+
+                    <div class="installment-logo">
+                        <img src="{{ asset('frontend/img/emkan.png') }}"
+                            alt="إمكان"
+                            loading="lazy">
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-12">
