@@ -36,8 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
         Passport::routes();
-        view()->share('settings', Cache::rememberForever('settings', function () {
+        /*view()->share('settings', Cache::rememberForever('settings', function () {
             return Setting::first();
-        }));
+        }));*/
+        view()->share('settings', Setting::first());
     }
 }
