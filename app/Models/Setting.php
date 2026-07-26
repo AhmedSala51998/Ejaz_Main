@@ -14,7 +14,7 @@ class Setting extends Model
     protected $table ='settings';
 
     public $translatable = [
-        'title','footer_desc','our_service_desc',
+        'title','our_service_desc',
                             'our_family_title1','our_family_desc1',
                             'our_family_title2','our_family_desc2',
                             'our_statistics_desc','recruitment_step_desc',
