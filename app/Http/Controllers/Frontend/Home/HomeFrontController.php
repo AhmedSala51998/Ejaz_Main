@@ -247,7 +247,6 @@ class HomeFrontController extends Controller
                 'statistics'   => Statistic::latest()->take(4)->get(),
                 'sponsors'     => Sponsor::latest()->take(5)->get(),
                 'questions'    => FrequentlyQuestion::take(100)->get(),
-                'countries'    => Nationalitie::latest()->get(),
                 'latestBlogs'  => Blog::latest()->get(),
 
                 'admins' => $admins,
@@ -269,6 +268,8 @@ class HomeFrontController extends Controller
                     ->get()
             ];
         });
+
+        $data['countries'] = Nationalitie::latest()->get();
 
         return view('frontend.pages.home.home', [
             'sliders'     => $data['sliders'],
