@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Models\Nationalitie;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Cache;
 
 
 class AdminNationalitiesController extends Controller
