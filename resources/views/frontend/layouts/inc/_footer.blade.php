@@ -761,7 +761,7 @@
                                 <div class="footer-app-qr">
 
                                     <img
-                                        src="{{asset('frontend/img/qr-code.png')}}"
+                                        src="{{asset('frontend/img/qr-code_app.png')}}"
                                         alt="QR Code لتحميل تطبيق إيجاز"
                                         loading="lazy"
                                         decoding="async">

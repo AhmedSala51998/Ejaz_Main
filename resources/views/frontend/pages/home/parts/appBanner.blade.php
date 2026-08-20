@@ -67,7 +67,7 @@
                             <div class="app-qr-image">
 
                                 <img
-                                    src="{{asset('frontend/img/qr-code.png')}}"
+                                    src="{{asset('frontend/img/qr-code_app.png')}}"
                                     alt="رمز QR لتحميل تطبيق إيجاز"
                                     loading="lazy"
                                     decoding="async">
