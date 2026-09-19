@@ -4,79 +4,161 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Order;
-use App\Models\Biography;
 use App\Jobs\SendSMSJob;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 class CancelOrders extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'cancel:orders';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Cancel orders which have exceeded 48 hours without confirmation';
+    protected $description = 'Cancel orders which have exceeded the allowed time';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
+        // Lock لمدة 5 دقائق لمنع تشغيل الأمر أكثر من مرة في نفس الوقت
         $lock = $this->laravel->cache->lock('cancel_orders_lock', 300);
+
         if (!$lock->get()) {
             return 0;
         }
 
         try {
-            $count = Order::where('status', 'under_work')
-                ->where('created_at', '<=', now()->subHours(48))
-                ->count();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Philippines = 7
+            | Philippines orders expire after 6 hours
+            | Other nationalities expire after 48 hours
+            |--------------------------------------------------------------------------
+            */
+
+            $philippinesNationalityId = 7;
+
+            /*
+            |--------------------------------------------------------------------------
+            | Get orders that should be cancelled
+            |--------------------------------------------------------------------------
+            */
+
+            $query = Order::where('status', 'under_work')
+                ->where(function ($query) use ($philippinesNationalityId) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Philippines
+                    | Cancel after 6 hours
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $query->where(function ($q) use ($philippinesNationalityId) {
+
+                        $q->whereHas('biography', function ($bio) use ($philippinesNationalityId) {
+                            $bio->where('nationalitie_id', $philippinesNationalityId);
+                        })
+                        ->where('created_at', '<=', now()->subHours(6));
+
+                    })
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Other nationalities
+                    | Cancel after 48 hours
+                    |--------------------------------------------------------------------------
+                    */
+
+                    ->orWhere(function ($q) use ($philippinesNationalityId) {
+
+                        $q->whereHas('biography', function ($bio) use ($philippinesNationalityId) {
+                            $bio->where('nationalitie_id', '!=', $philippinesNationalityId);
+                        })
+                        ->where('created_at', '<=', now()->subHours(48));
+
+                    });
+
+                })
+                ->with([
+                    'user:id,phone',
+                    'biography:id,cv_name,nationalitie_id'
+                ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Count orders
+            |--------------------------------------------------------------------------
+            */
+
+            $count = $query->count();
 
             if ($count === 0) {
                 return 0;
             }
 
-            Order::where('status', 'under_work')
-                ->where('created_at', '<=', now()->subHours(48))
-                ->with(['user:id,phone','biography:id,cv_name'])
-                ->chunkById(50, function ($orders) {
-                    foreach ($orders as $order) {
-                        DB::transaction(function() use ($order) {
-                            $order->update(['status' => 'canceled']);
+            /*
+            |--------------------------------------------------------------------------
+            | Process orders in chunks
+            |--------------------------------------------------------------------------
+            */
 
-                            if ($order->biography) {
-                                $order->biography->update([
-                                    'status' => 'new',
-                                    'admin_id' => null,
-                                    'user_id' => null
-                                ]);
-                            }
+            $query->chunkById(50, function ($orders) {
 
-                            $clientPhone = $order->user->phone ?? null;
-                            $workerName = $order->biography->cv_name ?? 'العاملة';
+                foreach ($orders as $order) {
 
-                            if ($clientPhone) {
-                                $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
+                    DB::transaction(function () use ($order) {
 
-                                SendSMSJob::dispatch($clientPhone, $msg);
-                            }
-                        });
-                    }
-                });
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Cancel Order
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $order->update([
+                            'status' => 'canceled'
+                        ]);
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Reset Biography
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if ($order->biography) {
+
+                            $order->biography->update([
+                                'status'   => 'new',
+                                'admin_id' => null,
+                                'user_id'  => null,
+                            ]);
+                        }
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Send SMS to Customer
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $clientPhone = $order->user->phone ?? null;
+
+                        $workerName = $order->biography->cv_name ?? 'العاملة';
+
+                        if ($clientPhone) {
+
+                            $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
+
+                            SendSMSJob::dispatch($clientPhone, $msg);
+                        }
+
+                    });
+                }
+            });
 
         } catch (\Exception $e) {
+
             Log::error("CancelOrders failed: " . $e->getMessage());
+
         } finally {
+
+            // Release lock
             $lock->release();
         }
 
