@@ -56,7 +56,7 @@ class CancelOrders extends Command
                         $q->whereHas('biography', function ($bio) use ($philippinesNationalityId) {
                             $bio->where('nationalitie_id', $philippinesNationalityId);
                         })
-                        ->where('created_at', '<=', now()->subHours(6));
+                        ->where('created_at', '<=', now()->subHours(24));
 
                     })
 
