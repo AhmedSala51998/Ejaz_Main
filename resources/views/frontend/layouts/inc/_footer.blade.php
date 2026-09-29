@@ -741,7 +741,7 @@
 
                                         </a>
 
-                                        <a href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722"
+                                        <a href="https://apps.apple.com/app/id6761459722"
                                         target="_blank"
                                         rel="noopener noreferrer">
 

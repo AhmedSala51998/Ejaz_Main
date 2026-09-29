@@ -341,7 +341,7 @@ Route::group(
         // iPhone / iPad
         if (preg_match('/iPhone|iPad|iPod/i', $userAgent)) {
             return redirect()->away(
-                'https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722'
+                'https://apps.apple.com/app/id6761459722'
             );
         }
 
@@ -355,6 +355,7 @@ Route::group(
         // Computer
         return redirect()->route('home');
     });
+
 
     //profile
     Route::get('profile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'profile_view'])->name('auth.profile');

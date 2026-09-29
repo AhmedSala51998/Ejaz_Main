@@ -81,7 +81,7 @@
                         <div class="store-buttons">
 
                             <a
-                                href="https://apps.apple.com/eg/app/ejaz-%D8%A7%D9%8A%D8%AC%D8%A7%D8%B2/id6761459722"
+                                href="https://apps.apple.com/app/id6761459722"
                                 class="store-btn"
                                 target="_blank"
                                 rel="noopener noreferrer">
