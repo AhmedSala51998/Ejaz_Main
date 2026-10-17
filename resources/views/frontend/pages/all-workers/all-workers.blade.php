@@ -1287,6 +1287,21 @@
             "&type_of_experience=" + filters.type_of_experience;
     }
 
+    function handleCountryError(xhr) {
+        const response = xhr.responseJSON;
+
+        if (
+            response &&
+            response.show_country_error === true &&
+            response.redirect_url
+        ) {
+            window.location.assign(response.redirect_url);
+            return true;
+        }
+
+        return false;
+    }
+
     function loadWorkers(page = 1) {
         $.ajax({
             url: buildUrl(page),
@@ -1310,8 +1325,22 @@
                     }
                 }, 500);
             },
-            error: function () {
-                $('.searchWorkerBtn').attr('disabled', false).html(`تأكيد`);
+            error: function (xhr) {
+                if (handleCountryError(xhr)) {
+                    return;
+                }
+
+                $('.searchWorkerBtn')
+                    .prop('disabled', false)
+                    .text('تأكيد');
+
+                $('#hereWillDisplayAllWorker').html(
+                    '<div class="alert alert-warning text-center">' +
+                    'تعذر تحميل العمالة. يرجى المحاولة مرة أخرى.' +
+                    '</div>'
+                );
+
+                $('#load_more_button').remove();
             }
         });
     }
@@ -1373,8 +1402,19 @@
                         }
                     }, 300);
                 },
-                error: function () {
-                    alert('حدث خطأ أثناء تحميل المزيد.');
+                error: function (xhr) {
+                    if (handleCountryError(xhr)) {
+                        return;
+                    }
+
+                    $('.loader_html').remove();
+
+                    new_page = Math.max(1, page - 1);
+
+                    $('#load_more_button')
+                        .text(@json(__('frontend.load more')));
+
+                    alert('حدث خطأ أثناء تحميل المزيد. يرجى المحاولة مرة أخرى.');
                 }
             });
         }

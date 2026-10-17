@@ -385,28 +385,47 @@ class WorkerFrontController extends Controller
         }*/
 
         $countryNameAr = null;
+        $selectedCountry = $name ?: $request->input('nationality');
 
-        if ($name) {
-            $country = $nationalities
-                ->where('country_name_en', $name)
-                ->first();
+        if ($selectedCountry) {
+            $country = Nationalitie::where(
+                'country_name_en',
+                $selectedCountry
+            )->first();
 
-            abort_unless($country, 404);
+            $isHidden = $country && (int) $country->is_visible !== 1;
+
+            if (!$country || $isHidden) {
+                $status = $country ? 503 : 404;
+
+                if ($request->ajax()) {
+                    $parameters = $request->query();
+
+                    unset($parameters['page'], $parameters['_']);
+
+                    $parameters['nationality'] = $selectedCountry;
+
+                    $redirectUrl = $request->url()
+                        . '?'
+                        . http_build_query($parameters);
+
+                    return response()->json([
+                        'success' => false,
+                        'show_country_error' => true,
+                        'redirect_url' => $redirectUrl,
+                    ], $status)->header('Cache-Control', 'no-store');
+                }
+
+                return response()
+                    ->view('frontend.pages.errors.404', [
+                        'countryTemporarilyUnavailable' => (bool) $isHidden,
+                        'countryNameAr' => $country ? $country->country_name : null,
+                    ], $status)
+                    ->header('Cache-Control', 'no-store');
+            }
 
             $query->where('nationalitie_id', $country->id);
             $countryNameAr = $country->country_name;
-
-        } elseif ($request->filled('nationality')) {
-            $country = $nationalities
-                ->where('country_name_en', $request->nationality)
-                ->first();
-
-            if ($country) {
-                $query->where('nationalitie_id', $country->id);
-                $countryNameAr = $country->country_name;
-            } else {
-                $query->whereRaw('1 = 0');
-            }
         }
 
         if ($request->age) {
