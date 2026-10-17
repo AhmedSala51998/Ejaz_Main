@@ -1695,4 +1695,33 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
     });
 </script>
 
+<script>
+    (function () {
+        const resetUrl =
+            @if (request()->routeIs('transferService'))
+                @json(route('transferService'))
+            @elseif (request()->routeIs('services-single'))
+                @json(route('services-single'))
+            @else
+                @json(url('/all-workers'))
+            @endif
+        ;
+
+        document.addEventListener('click', function (event) {
+            const button = event.target.closest(
+                '#desktopReset, .resetFilterBtn'
+            );
+
+            if (!button) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            window.location.assign(resetUrl);
+        }, true);
+    })();
+</script>
+
 @endsection
