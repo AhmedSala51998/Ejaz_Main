@@ -1523,6 +1523,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
     });
 });
 </script>
+@if (!request()->routeIs('transferService', 'services-single'))
 <script>
     (function () {
         const targetUrl = @json(url('/all-workers/private-driver-philippines'));
