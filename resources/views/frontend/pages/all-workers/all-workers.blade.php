@@ -1642,6 +1642,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
         }, true);
     })();
 </script>
+@endif
 <script>
     $(function () {
         const sidebarForm = document.getElementById('filterForm');
