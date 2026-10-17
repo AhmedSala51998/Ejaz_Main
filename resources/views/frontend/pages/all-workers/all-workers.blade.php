@@ -1525,10 +1525,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
 </script>
 <script>
     (function () {
-        const targetUrl = @json(
-            url('/all-workers/private-driver-philippines')
-            . '?nationality=private-driver-philippines'
-        );
+        const targetUrl = @json(url('/all-workers/private-driver-philippines'));
 
         let redirecting = false;
 
@@ -1628,8 +1625,20 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
             window.location.assign(targetUrl);
         }
 
-        document.addEventListener('change', handleSelection, true);
         document.addEventListener('submit', handleSelection, true);
+
+        document.addEventListener('click', function (event) {
+            const button = event.target.closest(
+                '#filterForm .searchWorkerBtn, ' +
+                '#desktopFilterForm button[type="submit"]'
+            );
+
+            if (!button) {
+                return;
+            }
+
+            handleSelection(event);
+        }, true);
     })();
 </script>
 
