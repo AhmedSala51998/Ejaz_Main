@@ -18,7 +18,8 @@ class ApiNationalityController extends Controller
      */
     public function index(Request $request)
     {
-       $nationality = objModel::get();
+       //$nationality = objModel::get();
+       $nationality = objModel::where('is_visible', 1)->get();
        $nationalities = objResource::collection($nationality);
        return jsonSuccess($nationalities,__('api.All items'));
     }
