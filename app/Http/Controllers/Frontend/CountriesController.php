@@ -11,7 +11,10 @@ class CountriesController extends Controller
 {
     public function index()
     {
-        $countries=Nationalitie::latest()->get();
+        //$countries=Nationalitie::latest()->get();
+        $countries = Nationalitie::where('is_visible', 1)
+        ->latest()
+        ->get();
         return view('frontend.pages.countries.countries',['countries'=>$countries]);
     }//end fun
 

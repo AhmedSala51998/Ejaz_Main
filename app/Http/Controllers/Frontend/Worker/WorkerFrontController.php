@@ -361,24 +361,51 @@ class WorkerFrontController extends Controller
             return Nationalitie::orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')->get();
         });*/
 
-        $nationalities = Nationalitie::orderByRaw(
+        /*$nationalities = Nationalitie::orderByRaw(
             'CASE WHEN id = 7 THEN 0 ELSE 1 END'
-        )->get();
+        )->get();*/
 
-        $countryNameAr = null;
+        $nationalities = Nationalitie::where('is_visible', 1)
+        ->orderByRaw('CASE WHEN id = 7 THEN 0 ELSE 1 END')
+        ->get();
+
+        /*$countryNameAr = null;
         if ($name) {
-            // 🚀 البحث داخل الكاش المجهز في الذاكرة بدلاً من قاعدة البيانات
             $country = $nationalities->where('country_name_en', $name)->first();
             if ($country) {
                 $query->where('nationalitie_id', $country->id);
                 $countryNameAr = $country->country_name;
             }
         } elseif ($request->nationality) {
-            // 🚀 البحث داخل الكاش المجهز في الذاكرة
             $country = $nationalities->where('country_name_en', $request->nationality)->first();
             if ($country) {
                 $query->where('nationalitie_id', $country->id);
                 $countryNameAr = $country->country_name;
+            }
+        }*/
+
+        $countryNameAr = null;
+
+        if ($name) {
+            $country = $nationalities
+                ->where('country_name_en', $name)
+                ->first();
+
+            abort_unless($country, 404);
+
+            $query->where('nationalitie_id', $country->id);
+            $countryNameAr = $country->country_name;
+
+        } elseif ($request->filled('nationality')) {
+            $country = $nationalities
+                ->where('country_name_en', $request->nationality)
+                ->first();
+
+            if ($country) {
+                $query->where('nationalitie_id', $country->id);
+                $countryNameAr = $country->country_name;
+            } else {
+                $query->whereRaw('1 = 0');
             }
         }
 
@@ -603,7 +630,8 @@ class WorkerFrontController extends Controller
 
     public function custom_worker_request_view()
     {
-        $nationalities = Nationalitie::get();
+        //$nationalities = Nationalitie::get();
+        $nationalities = Nationalitie::where('is_visible', 1)->get();
         $jobs = Job::get();
         $ages = AgeRange::get();
         $social_types = SocialType::get();

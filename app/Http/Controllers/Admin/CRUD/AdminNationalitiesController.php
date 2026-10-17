@@ -56,14 +56,48 @@ class AdminNationalitiesController extends Controller
                     return "<input type='checkbox' class=' delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
                 })
                 ->addColumn('actions', function ($row) {
-                    $edit = '';
-                    $delete = '';
-                    if (!checkPermission(12))
-                        $edit = 'hidden';
-                    if (!checkPermission(13))
-                        $delete = 'hidden';
-                    return "<button ".$edit."   class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></button>
-                   <button ".$delete. " class='btn btn-danger  delete' id='" . $row->id . "'><i class='fa fa-trash'></i> </button>";
+                    $buttons = '';
+                    $id = (int) $row->id;
+
+                    if (checkPermission(12)) {
+                        $buttons .= "
+                            <button type='button'
+                                    class='btn btn-info editButton'
+                                    id='{$id}'>
+                                <i class='fa fa-edit'></i>
+                            </button>
+                        ";
+
+                        $isVisible = (int) $row->is_visible === 1;
+                        $nextValue = $isVisible ? 0 : 1;
+                        $label = $isVisible ? 'إخفاء' : 'إظهار';
+                        $class = $isVisible ? 'btn-warning' : 'btn-success';
+                        $icon = $isVisible ? 'fa-eye-slash' : 'fa-eye';
+
+                        $url = e(route('nationalities.visibility', $id));
+
+                        $buttons .= "
+                            <button type='button'
+                                    class='btn {$class} visibilityButton'
+                                    data-url='{$url}'
+                                    data-visible='{$nextValue}'>
+                                <i class='fa {$icon}'></i>
+                                {$label}
+                            </button>
+                        ";
+                    }
+
+                    if (checkPermission(13)) {
+                        $buttons .= "
+                            <button type='button'
+                                    class='btn btn-danger delete'
+                                    id='{$id}'>
+                                <i class='fa fa-trash'></i>
+                            </button>
+                        ";
+                    }
+
+                    return $buttons;
                 })
                 ->rawColumns(['actions',/* 'desc',*/ 'delete_all','title','image'])->make(true);
         }
@@ -208,6 +242,29 @@ class AdminNationalitiesController extends Controller
         }
     }
 
+
+    public function updateVisibility(Request $request, $id)
+    {
+        abort_unless(checkPermission(12), 403);
+
+        $data = $request->validate([
+            'is_visible' => 'required|boolean',
+        ]);
+
+        $nationality = Nationalitie::findOrFail($id);
+        $nationality->is_visible = (int) $data['is_visible'];
+        $nationality->save();
+
+        Cache::forget('nationalities_all');
+
+        return response()->json([
+            'success' => true,
+            'message' => $nationality->is_visible
+                ? 'تم إظهار الدولة بنجاح'
+                : 'تم إخفاء الدولة بنجاح',
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -239,7 +296,7 @@ class AdminNationalitiesController extends Controller
     {
         Nationalitie::destroy($request->id);
         //Cache::forget('countries');
-        ache::forget('nationalities_all');
+        Cache::forget('nationalities_all');
         return response()->json(1,200);
 
     }

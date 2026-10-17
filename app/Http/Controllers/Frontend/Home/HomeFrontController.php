@@ -269,7 +269,10 @@ class HomeFrontController extends Controller
             ];
         });
 
-        $data['countries'] = Nationalitie::latest()->get();
+        //$data['countries'] = Nationalitie::latest()->get();
+        $data['countries'] = Nationalitie::where('is_visible', 1)
+            ->latest()
+            ->get();
 
         return view('frontend.pages.home.home', [
             'sliders'     => $data['sliders'],

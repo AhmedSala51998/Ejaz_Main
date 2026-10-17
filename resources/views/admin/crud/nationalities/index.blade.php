@@ -233,6 +233,46 @@
             ],
         });
 
+
+        $(document).on('click', '.visibilityButton', function () {
+            const button = $(this);
+
+            if (button.prop('disabled')) {
+                return;
+            }
+
+            button.prop('disabled', true);
+
+            $.ajax({
+                url: button.attr('data-url'),
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    is_visible: button.attr('data-visible')
+                },
+                success: function (response) {
+                    cuteToast({
+                        type: 'success',
+                        message: response.message,
+                        timer: 3000
+                    });
+
+                    datatable_selector.ajax.reload(null, false);
+                },
+                error: function () {
+                    cuteToast({
+                        type: 'error',
+                        message: 'تعذر تغيير حالة ظهور الدولة',
+                        timer: 3000
+                    });
+                },
+                complete: function () {
+                    button.prop('disabled', false);
+                }
+            });
+        });
+
+
         /*======================================================*/
         /*======================================================*/
         /*====================Add New Row=======================*/
