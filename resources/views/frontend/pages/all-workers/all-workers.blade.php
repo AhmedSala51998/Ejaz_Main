@@ -1641,6 +1641,56 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
         }, true);
     })();
 </script>
+<script>
+    $(function () {
+        const sidebarForm = document.getElementById('filterForm');
 
+        if (!sidebarForm) {
+            return;
+        }
+
+        const selectedFilters = {
+            nationality: @json(
+                request()->route('name') ?: request()->input('nationality', '')
+            ),
+            job: @json(request()->input('job', '')),
+            age: @json(request()->input('age', '')),
+            religion: @json(request()->input('religion', '')),
+            social: @json(request()->input('social', '')),
+            type_of_experience: @json(
+                request()->input('type_of_experience', '')
+            )
+        };
+
+        const pathParts = window.location.pathname
+            .split('/')
+            .filter(Boolean);
+
+        if (
+            pathParts.length === 2 &&
+            pathParts[0] === 'all-workers'
+        ) {
+            selectedFilters.nationality = decodeURIComponent(pathParts[1]);
+        }
+
+        Object.entries(selectedFilters).forEach(function ([name, value]) {
+            const selectedValue = String(value ?? '');
+
+            sidebarForm.querySelectorAll(
+                'input[type="radio"][name="' + name + '"]'
+            ).forEach(function (radio) {
+                radio.checked = radio.value.trim() === selectedValue.trim();
+            });
+        });
+
+        const hasSelectedFilters = Object.values(selectedFilters).some(
+            value => value !== null && String(value) !== ''
+        );
+
+        $(sidebarForm)
+            .find('.resetFilterBtn')
+            .toggle(hasSelectedFilters);
+    });
+</script>
 
 @endsection
