@@ -43,6 +43,9 @@ class MaidAction extends MainAction
         ->where('is_cv_out',0)
         ->where('is_blocked',0)
         ->where('is_hide',0)
+        ->whereHas('nationalitie', function ($query) {
+            $query->where('is_visible', 1);
+        })
        // ->where('type',$type)
         ->with('recruitment_office', 'nationalitie', 'language_title',
             'religion', 'job', 'social_type', 'admin', 'images', 'skills')
@@ -101,6 +104,8 @@ class MaidAction extends MainAction
                         $subQ->whereTranslationLike('title', '%' . $keyword . '%');
                     })
                     ->orWhere('religions_translations.title', 'LIKE', '%' . $keyword . '%');
+            })->whereHas('nationalitie', function ($query) {
+                $query->where('is_visible', 1);
             })->distinct();
         return $results;
     }

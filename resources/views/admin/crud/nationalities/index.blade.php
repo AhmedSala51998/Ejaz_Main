@@ -234,41 +234,74 @@
         });
 
 
-        $(document).on('click', '.visibilityButton', function () {
+        $(document).on('click', '.visibilityButton', function (event) {
+            event.preventDefault();
+
             const button = $(this);
 
             if (button.prop('disabled')) {
                 return;
             }
 
+            const nextValue = button.attr('data-visible');
+            const willShow = nextValue === '1';
+
             button.prop('disabled', true);
 
-            $.ajax({
-                url: button.attr('data-url'),
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    is_visible: button.attr('data-visible')
-                },
-                success: function (response) {
-                    cuteToast({
-                        type: 'success',
-                        message: response.message,
-                        timer: 3000
-                    });
+            Swal.fire({
+                title: willShow
+                    ? 'هل تريد إظهار الدولة؟'
+                    : 'هل تريد إخفاء الدولة؟',
 
-                    datatable_selector.ajax.reload(null, false);
-                },
-                error: function () {
-                    cuteToast({
-                        type: 'error',
-                        message: 'تعذر تغيير حالة ظهور الدولة',
-                        timer: 3000
-                    });
-                },
-                complete: function () {
+                text: willShow
+                    ? 'ستظهر الدولة ضمن قوائم الدول المتاحة للعملاء.'
+                    : 'ستختفي الدولة من قوائم العملاء، ويمكنك إظهارها مرة أخرى.',
+
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f4a835',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'موافق',
+                cancelButtonText: 'إلغاء'
+            }).then(function (result) {
+                const confirmed =
+                    result.isConfirmed === true ||
+                    result.value === true;
+
+                if (!confirmed) {
                     button.prop('disabled', false);
+                    return;
                 }
+
+                $.ajax({
+                    url: button.attr('data-url'),
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        is_visible: nextValue
+                    },
+                    success: function (response) {
+                        cuteToast({
+                            type: 'success',
+                            message: response.message,
+                            timer: 3000
+                        });
+
+                        datatable_selector.ajax.reload(null, false);
+                    },
+                    error: function () {
+                        cuteToast({
+                            type: 'error',
+                            message: 'تعذر تغيير حالة ظهور الدولة',
+                            timer: 3000
+                        });
+                    },
+                    complete: function () {
+                        button.prop('disabled', false);
+                    }
+                });
+            }).catch(function () {
+                button.prop('disabled', false);
             });
         });
 

@@ -63,6 +63,9 @@ class ApiMaidController extends Controller
     public function show($id)
     {
         $cv = Biography::with('recruitment_office', 'nationalitie', 'language_title', 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
+            ->whereHas('nationalitie', function ($query) {
+                $query->where('is_visible', 1);
+            })
             ->where('id', $id)
             ->first();
         if ($cv) {

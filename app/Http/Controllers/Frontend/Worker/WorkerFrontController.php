@@ -337,6 +337,9 @@ class WorkerFrontController extends Controller
             ->where('is_cv_out', 0)
             ->where('is_blocked', 0)
             ->where('is_hide', 0)
+            ->whereHas('nationalitie', function ($query) {
+                $query->where('is_visible', 1);
+            })
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills');
 

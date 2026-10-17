@@ -55,7 +55,7 @@ class TransferServicesFrontController extends Controller
             'transfer'=>'transfer',
         ]);
     }*/
-    
+
     public function transferService(Request $request)
     {
 
@@ -64,25 +64,73 @@ class TransferServicesFrontController extends Controller
             ->where('type', 'transport')
             ->where('is_blocked', 0)
             ->where('is_hide', 0)
+            ->whereHas('nationalitie', function ($query) {
+                $query->where('is_visible', 1);
+            })
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills');
 
         $religions = Religion::all();
         $social_types = SocialType::all();
-        
+
 
         // فلترة حسب الجنسية
         /*if ($request->nationality) {
             $query->where('nationalitie_id', $request->nationality);
         }*/
 
-        $countryNameAr = null;
+        /*$countryNameAr = null;
         if ($request->nationality) {
             $country = Nationalitie::where('country_name_en', $request->nationality)->first();
             if ($country) {
                 $query->where('nationalitie_id', $country->id);
                 $countryNameAr = $country->country_name;
             }
+        }*/
+
+        $countryNameAr = null;
+
+        if ($request->filled('nationality')) {
+            $selectedCountry = $request->input('nationality');
+
+            $country = Nationalitie::where(
+                'country_name_en',
+                $selectedCountry
+            )->first();
+
+            $isHidden = $country && (int) $country->is_visible !== 1;
+
+            if (!$country || $isHidden) {
+                $status = $country ? 503 : 404;
+
+                if ($request->ajax()) {
+                    $parameters = $request->query();
+
+                    unset($parameters['page'], $parameters['_']);
+
+                    $parameters['nationality'] = $selectedCountry;
+
+                    $redirectUrl = $request->url()
+                        . '?'
+                        . http_build_query($parameters);
+
+                    return response()->json([
+                        'success' => false,
+                        'show_country_error' => true,
+                        'redirect_url' => $redirectUrl,
+                    ], $status)->header('Cache-Control', 'no-store');
+                }
+
+                return response()
+                    ->view('frontend.pages.errors.404', [
+                        'countryTemporarilyUnavailable' => (bool) $isHidden,
+                        'countryNameAr' => $country ? $country->country_name : null,
+                    ], $status)
+                    ->header('Cache-Control', 'no-store');
+            }
+
+            $query->where('nationalitie_id', $country->id);
+            $countryNameAr = $country->country_name;
         }
 
         // باقي الفلاتر
@@ -119,7 +167,8 @@ class TransferServicesFrontController extends Controller
 
         $ages = AgeRange::all();
         $jobs = Job::all();
-        $nationalities = Nationalitie::all();
+        //$nationalities = Nationalitie::all();
+        $nationalities = Nationalitie::where('is_visible', 1)->get();
 
         return view('frontend.pages.all-workers.all-workers', compact(
             'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types' , 'countryNameAr'
