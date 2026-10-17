@@ -591,7 +591,6 @@ class WorkerFrontController extends Controller
                     }
                 });
             })
-            ->take(20)
             ->get();
         $returnHTML = view("frontend.pages.all-workers.worker.worker_details")
             ->with(['cv'=>$cv,'admins'=>$admins])
