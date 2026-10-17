@@ -1523,7 +1523,115 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
     });
 });
 </script>
+<script>
+    (function () {
+        const targetUrl = @json(
+            url('/all-workers/private-driver-philippines')
+            . '?nationality=private-driver-philippines'
+        );
 
+        let redirecting = false;
+
+        function normalizeText(value) {
+            return String(value || '')
+                .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+                .replace(/[أإآ]/g, 'ا')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .toLowerCase();
+        }
+
+        function getSelectedField(form, name) {
+            const select = form.querySelector(
+                'select[name="' + name + '"]'
+            );
+
+            if (select) {
+                const option = select.options[select.selectedIndex];
+
+                return {
+                    value: select.value,
+                    text: option ? option.textContent : ''
+                };
+            }
+
+            const radio = form.querySelector(
+                'input[name="' + name + '"]:checked'
+            );
+
+            if (!radio) {
+                return {
+                    value: '',
+                    text: ''
+                };
+            }
+
+            const label = radio.labels && radio.labels[0];
+
+            return {
+                value: radio.value,
+                text: label ? label.textContent : ''
+            };
+        }
+
+        function shouldRedirect(form) {
+            const nationality = getSelectedField(form, 'nationality');
+            const job = getSelectedField(form, 'job');
+
+            const countryValue = normalizeText(nationality.value);
+            const countryText = normalizeText(nationality.text);
+            const jobText = normalizeText(job.text);
+
+            const isPhilippines =
+                countryValue === 'philippines' ||
+                countryText === 'الفلبين' ||
+                countryText === 'فلبينية' ||
+                countryText === 'الفلبينية';
+
+            const isPrivateDriver =
+                jobText === 'سائق خاص' ||
+                jobText === 'private driver';
+
+            return isPhilippines && isPrivateDriver;
+        }
+
+        function handleSelection(event) {
+            const form = event.target.closest(
+                '#desktopFilterForm, #filterForm'
+            );
+
+            if (!form) {
+                return;
+            }
+
+            if (
+                event.type === 'change' &&
+                !event.target.matches(
+                    '[name="nationality"], [name="job"]'
+                )
+            ) {
+                return;
+            }
+
+            if (!shouldRedirect(form)) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            if (redirecting) {
+                return;
+            }
+
+            redirecting = true;
+            window.location.assign(targetUrl);
+        }
+
+        document.addEventListener('change', handleSelection, true);
+        document.addEventListener('submit', handleSelection, true);
+    })();
+</script>
 
 
 @endsection
