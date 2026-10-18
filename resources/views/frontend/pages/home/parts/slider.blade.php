@@ -352,6 +352,7 @@ $countryMap = [
   "اوغندا" => 800,
   "كينيا" => 404,
   "بنجلاديش" => 50,
+  "الصومال" => 706,
 ];
 @endphp
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -462,7 +463,8 @@ fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
     ...Object.values(targetCountries).filter(c => c.nameAr === "اثيوبيا"),
     ...Object.values(targetCountries).filter(c => c.nameAr === "بروندي"),
     ...Object.values(targetCountries).filter(c => c.nameAr === "كينيا"),
-    ...Object.values(targetCountries).filter(c => c.nameAr === "اوغندا")
+    ...Object.values(targetCountries).filter(c => c.nameAr === "اوغندا"),
+    ...Object.values(targetCountries).filter(c => c.nameAr === "الصومال")
     ];
     // Hover detection
     requestAnimationFrame(draw);
