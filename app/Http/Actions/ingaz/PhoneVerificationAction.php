@@ -174,7 +174,7 @@ class PhoneVerificationAction extends MainAction
 
 
         $code = rand(1111,9999);
-        $msg= "رمز التحقق : ". $code ."  للدخول الي منصة ejazrecruitment.sa ";
+        $msg= "رمز التحقق : ". $code ."  للدخول الي منصة ايجاز للاستقدام ";
 
         $this->sendSMS($phone,$msg);
 

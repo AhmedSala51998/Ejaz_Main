@@ -186,8 +186,10 @@ class ApiHomeController extends Controller
             'order_date' => now()
         ];
 
-        $this->sendSMS( auth('api')->user()->phone, 'لقد قمت بطلب استقدام جديد ');
-        $msg =   " عزيزى الموظف " . " قام العميل " . auth('api')->user()->name . " رقم جواله " . auth('api')->user()->phone . " \nبحجز السيرة الذاتية الاتية " . $cv->name;
+        //$this->sendSMS( auth('api')->user()->phone, 'لقد قمت بطلب استقدام جديد ');
+        $this->sendSMS( auth('api')->user()->phone, 'لقد قمت بطلب استقدام جديد بنجاح، شكراً لاستخدامك منصة إيجاز للاستقدام ');
+        //$msg =   " عزيزى الموظف " . " قام العميل " . auth('api')->user()->name . " رقم جواله " . auth('api')->user()->phone . " \nبحجز السيرة الذاتية الاتية " . $cv->name;
+        $msg = "عزيزي الموظف، قام العميل " . auth('api')->user()->name . " بحجز سيرة ذاتية عبر منصة إيجاز للاستقدام، يرجى متابعة الطلب.";
         $admin = Admin::find($request->customerSupport);
 
         if (!empty($admin->phone)) {
